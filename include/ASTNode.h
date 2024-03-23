@@ -111,13 +111,16 @@ namespace AST
 #pragma endregion
     class Statement
     {
-        // 一共可以只有4中语句类型
+        // 一共可以只有4中语句类型，特定类型对特定的类进行赋值
         // 赋值语句、循环语句、条件语句、函数/过程 调用
         // 1.可以将while repeat for全部合并为while语句
         // 2.条件语句有if和switch（case）
     public:
         pair<Token::TokenType, int> statementType; // 形式参数标识符和行号
-
+        WhileStatement *whileStatement;
+        IfStatement *ifStatement;
+        AssignStatement *assignStatement;
+        SubProgramCall *subProgramCall;
         Statement();
         ~Statement();
     };
@@ -153,18 +156,19 @@ namespace AST
         VariantReference();
         ~VariantReference();
     };
-    class SubProgramCall : public Statement
+    class SubProgramCall
     {
     public:
         pair<string, int> subProgramId; // 函数标识符和行号
         vector<Expression *> paraList;
         Token::TokenType returnType;
+        int isStatement; // 如果是在语句中不用管返回值，在为1，不在为0
         // TODO:进行参数类型比较和返回值类型比较
 
         SubProgramCall();
         ~SubProgramCall();
     };
-    class WhileStatement : public Statement
+    class WhileStatement
     {
         // 这里富含了 while repeat for 都写在While里
     public:
@@ -174,7 +178,7 @@ namespace AST
         WhileStatement();
         ~WhileStatement();
     };
-    class IfStatement : public Statement
+    class IfStatement
     {
     public:
         Expression *condition;
@@ -185,7 +189,7 @@ namespace AST
         ~IfStatement();
     };
 
-    class AssignStatement : public Statement
+    class AssignStatement
     {
     public:
         pair<string, VariantReference *> leftVal; // 左值
