@@ -97,6 +97,18 @@ namespace Token
         MULOP,    // “*”、“/"'、"div”、"mod”和“and”
         ASSIGNOP, // “:—”
 
+        DOT,                      // .
+        RANGE_DOT,                //..
+        COMMA,                    // ,
+        EQUAL,                    // =
+        LEFT_PARENTHESES,         //(
+        RIGHT_PARENTHESES,        // )
+        LEFT_MEDIUM_PARENTHESES,  // [
+        RIGHT_MEDIUM_PARENTHESES, // ]
+        SEMICOLON,                // ;
+        ADD,                      // +
+        MINUS,                    //-
+
         ID,        // ID
         INT_NUM,   // 整数
         FLOAT_NUM, // 浮点数
