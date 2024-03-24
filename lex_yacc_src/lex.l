@@ -1,7 +1,7 @@
 %{
 #include "main.h"
 #include "yacc.tab.h"
-
+#include "TokenTypeEnum.h"
 
 
 
@@ -34,17 +34,21 @@ extern "C"
 
 
 line \n.*
-letter [a-z]
+
 digit [0-9]
 blank_chars [ \f\r\t\v]+
-identifier {letter}({letter}|{digit})*
-_integer {digit}+
-floater {digit}+\.{digit}+
-_type (integer|real|boolean|char)
-relop (>=|>|<=|<>|<)
-addop (\+|or)
+
+id {letter}({letter}|{digit})*
+int_num {digit}+
+float_num {digit}+\.{digit}+
+letter [a-z]
+
+relop (>=|>|<=|<>|<|=)
+addop (\+|or|\-)
 mulop (\*|\/|div|mod|and)
-delimiter (\(|\)|\[|\]|:|,|;|\.)
+
+
+
 
 
 
@@ -59,254 +63,385 @@ delimiter (\(|\)|\[|\]|:|,|;|\.)
     }
 
 "program" {
-    yylval=new ParseNode;
+    yylval=new ParseNode();
     yylval->val=yytext;
-    yylval->token="PROGRAM";
+    yylval->token=Token::PROGRAM;
     yylval->lineNumber = yylineno - 1;
-    //cout << "keyword: " << yylval->val << endl;
     return PROGRAM;
 }
 
 "const" {
-    yylval=new ParseNode;
+    yylval=new ParseNode();
     yylval->val=yytext;
-    yylval->token="CONST";
+    yylval->token=Token::CONST;
     yylval->lineNumber = yylineno - 1;
     return CONST;
 }
 
-"var" {
-    yylval=new ParseNode("", "", yylineno);
+"type" {
+    yylval=new ParseNode();
     yylval->val=yytext;
-    yylval->token="VAR";
+    yylval->token=Token::TYPE;
+    yylval->lineNumber = yylineno - 1;
+    return TYPE;
+
+}
+
+"record" {
+    yylval=new ParseNode();
+    yylval->val=yytext;
+    yylval->token=Token::RECORD;
+    yylval->lineNumber = yylineno - 1;
+    return RECORD;
+
+}
+
+"end" {
+    yylval=new ParseNode();
+    yylval->val=yytext;
+    yylval->token=Token::END;
+    yylval->lineNumber = yylineno - 1;
+    return END;
+
+}
+
+"ARRAY" {
+    yylval=new ParseNode();
+    yylval->val=yytext;
+    yylval->token=Token::ARRAY;
+    yylval->lineNumber = yylineno - 1;
+    return ARRAY;
+
+}
+
+"of" {
+    yylval=new ParseNode();
+    yylval->val=yytext;
+    yylval->token=Token::OF;
+    yylval->lineNumber = yylineno - 1;
+    return OF;
+
+}
+
+"integer" {
+    yylval=new ParseNode();
+    yylval->val=yytext;
+    yylval->token=Token::INTEGER;
+    yylval->lineNumber = yylineno - 1;
+    return INTEGER;
+
+}
+
+"REAL" {
+    yylval=new ParseNode();
+    yylval->val=yytext;
+    yylval->token=Token::REAL;
+    yylval->lineNumber = yylineno - 1;
+    return REAL;
+
+}
+
+"bollean" {
+    yylval=new ParseNode();
+    yylval->val=yytext;
+    yylval->token=Token::BOLLEAN;
+    yylval->lineNumber = yylineno - 1;
+    return BOLLEAN;
+
+}
+
+"char" {
+    yylval=new ParseNode();
+    yylval->val=yytext;
+    yylval->token=Token::CHAR;
+    yylval->lineNumber = yylineno - 1;
+    return CHAR;
+
+}
+
+"var" {
+    yylval=new ParseNode();
+    yylval->val=yytext;
+    yylval->token=Token::VAR;
     yylval->lineNumber = yylineno - 1;
     return VAR;
 
 }
 
-"array" {
-    yylval=new ParseNode("", "", yylineno);
+"function" {
+    yylval=new ParseNode();
     yylval->val=yytext;
-    yylval->token="ARRAY";
+    yylval->token=Token::FUNCTION;
     yylval->lineNumber = yylineno - 1;
-    return ARRAY;
-}
+    return FUNCTION;
 
-"of" {
-    yylval=new ParseNode("", "", yylineno);
-    yylval->val=yytext;
-    yylval->token="OF";
-    yylval->lineNumber = yylineno - 1;
-    return OF;
 }
 
 "procedure" {
-    yylval=new ParseNode("", "", yylineno);
+    yylval=new ParseNode();
     yylval->val=yytext;
-    yylval->token="PROCEDURE";
+    yylval->token=Token::PROCEDURE;
     yylval->lineNumber = yylineno - 1;
     return PROCEDURE;
-}
 
-"function" {
-    yylval=new ParseNode("", "", yylineno);
-    yylval->val=yytext;
-    yylval->token="FUNCTION";
-    yylval->lineNumber = yylineno - 1;
-    return FUNCTION;
 }
-
 "begin" {
-    yylval=new ParseNode("", "", yylineno);
+    yylval=new ParseNode();
     yylval->val=yytext;
-    yylval->token="BEGIN";
+    yylval->token=Token::BEGIN;
     yylval->lineNumber = yylineno - 1;
     return BEGIN;
 }
 
-"end" {
-    yylval=new ParseNode("", "", yylineno);
-    yylval->val=yytext;
-    yylval->token="END";
-    yylval->lineNumber = yylineno - 1;
-    return END;
-}
-
 "if" {
-    yylval=new ParseNode("", "", yylineno);
+    yylval=new ParseNode();
     yylval->val=yytext;
-    yylval->token="IF";
+    yylval->token=Token::IF;
     yylval->lineNumber = yylineno - 1;
     return IF;
+
 }
 
 "then" {
-    yylval=new ParseNode("", "", yylineno);
+    yylval=new ParseNode();
     yylval->val=yytext;
-    yylval->token="THEN";
+    yylval->token=Token::THEN;
     yylval->lineNumber = yylineno - 1;
     return THEN;
-}
 
-"for" {
-    yylval=new ParseNode("", "", yylineno);
-    yylval->val=yytext;
-    yylval->token="FOR";
-    yylval->lineNumber = yylineno - 1;
-    return FOR;
-}
-
-"to" {
-    yylval=new ParseNode("", "", yylineno);
-    yylval->val=yytext;
-    yylval->token="TO";
-    yylval->lineNumber = yylineno - 1;
-    return TO;
-}
-
-"do" {
-    yylval=new ParseNode("", "", yylineno);
-    yylval->val=yytext;
-    yylval->token="DO";
-    yylval->lineNumber = yylineno - 1;
-    return DO;
 }
 
 "else" {
-    yylval=new ParseNode("", "", yylineno);
+    yylval=new ParseNode();
     yylval->val=yytext;
-    yylval->token="ELSE";
+    yylval->token=Token::ELSE;
     yylval->lineNumber = yylineno - 1;
     return ELSE;
+
 }
 
-"repeat" {
-    yylval=new ParseNode("", "", yylineno);
+"case" {
+    yylval=new ParseNode();
     yylval->val=yytext;
-    yylval->token="REPEAT";
+    yylval->token=Token::CASE;
     yylval->lineNumber = yylineno - 1;
-    return REPEAT;
-}
+    return CASE;
 
-"until" {
-    yylval=new ParseNode("", "", yylineno);
-    yylval->val=yytext;
-    yylval->token="UNTIL";
-    yylval->lineNumber = yylineno - 1;
-    return UNTIL;
 }
 
 "while" {
-    yylval=new ParseNode("", "", yylineno);
+    yylval=new ParseNode();
     yylval->val=yytext;
-    yylval->token="WHILE";
+    yylval->token=Token::WHILE;
     yylval->lineNumber = yylineno - 1;
     return WHILE;
+
 }
 
-{_type} {
-    yylval=new ParseNode("", "", yylineno);
+"do" {
+    yylval=new ParseNode();
     yylval->val=yytext;
-    yylval->token = "TYPE";
+    yylval->token=Token::DO;
     yylval->lineNumber = yylineno - 1;
-    return TYPE;
+    return DO;
+
 }
+
+"repeat" {
+    yylval=new ParseNode();
+    yylval->val=yytext;
+    yylval->token=Token::REPEAT;
+    yylval->lineNumber = yylineno - 1;
+    return REPEAT;
+
+}
+
+"until" {
+    yylval=new ParseNode();
+    yylval->val=yytext;
+    yylval->token=Token::UNTIL;
+    yylval->lineNumber = yylineno - 1;
+    return UNTIL;
+
+}
+
+"for" {
+    yylval=new ParseNode();
+    yylval->val=yytext;
+    yylval->token=Token::FOR;
+    yylval->lineNumber = yylineno - 1;
+    return FOR;
+
+}
+
+"to" {
+    yylval=new ParseNode();
+    yylval->val=yytext;
+    yylval->token=Token::TO;
+    yylval->lineNumber = yylineno - 1;
+    return TO;
+
+}
+
+"downto" {
+    yylval=new ParseNode();
+    yylval->val=yytext;
+    yylval->token=Token::DOWNTO;
+    yylval->lineNumber = yylineno - 1;
+    return DOWNTO;
+
+}
+
 
 "not" {
-    yylval=new ParseNode("", "", yylineno);
+    yylval=new ParseNode();
 	yylval->val=yytext;
-	yylval->token="NOT";
+	yylval->token=Token::NOT;
     yylval->lineNumber = yylineno - 1;
     return NOT;
-}
-
-{relop} {
-    yylval=new ParseNode("", "", yylineno);
-	yylval->val=yytext;
-	yylval->token="RELOP";
-    yylval->lineNumber = yylineno - 1;
-    return RELOP;
-}
-
-{addop} {
-    yylval=new ParseNode("", "", yylineno);
-	yylval->val=yytext;
-	yylval->token="ADDOP";
-    yylval->lineNumber = yylineno - 1;
-    return ADDOP;
-}
-
-{mulop} {
-    yylval=new ParseNode("", "", yylineno);
-	yylval->val=yytext;
-	yylval->token="MULOP";
-    yylval->lineNumber = yylineno - 1;
-    return MULOP;
-}
-
-"-" {
-    yylval=new ParseNode("", "", yylineno);
-	yylval->val=yytext;
-	yylval->token = yytext;
-    yylval->lineNumber = yylineno - 1;
-    return yytext[0];
-}
-
-"=" {
-    yylval=new ParseNode("", "", yylineno);
-	yylval->val=yytext;
-	yylval->token = yytext;
-    yylval->lineNumber = yylineno - 1;
-    return yytext[0];
-}
-
-{identifier} {
-    yylval=new ParseNode("", "", yylineno);
-	yylval->val=yytext;
-	yylval->token = "IDENTIFIER";
-    yylval->lineNumber = yylineno - 1;
-    return IDENTIFIER;
-}
-
-{floater} {
-    yylval=new ParseNode("", "", yylineno);
-    yylval->val=yytext;
-    yylval->token="UFNUM";
-    yylval->lineNumber = yylineno - 1;
-    return UFNUM;
-}
-
-{_integer} {
-    yylval=new ParseNode("", "", yylineno);
-	yylval->val=yytext;
-	yylval->token="UINUM";
-    yylval->lineNumber = yylineno - 1;
-    return UINUM;
-}
-
-":=" {
-    yylval=new ParseNode("", "", yylineno);
-    yylval->val=yytext;
-    yylval->token="ASSIGNOP";
-    yylval->lineNumber = yylineno - 1;
-    return ASSIGNOP;
 }
 
 "\.\." {
     yylval=new ParseNode();
 	yylval->val=yytext;
-	yylval->token="RANGEDOT";
+	yylval->token=Token::RANGE_DOT;
     yylval->lineNumber = yylineno - 1;
-    return RANGEDOT;
+    return RANGE_DOT;
 }
 
-{delimiter} {
-    yylval=new ParseNode;
-    yylval->val = yytext;
-    yylval->token = yytext;
+"\." {
+    yylval=new ParseNode();
+	yylval->val=yytext;
+	yylval->token=Token::DOT;
     yylval->lineNumber = yylineno - 1;
-    return yytext[0];
+    return DOT;
 }
+
+"," {
+    yylval=new ParseNode();
+	yylval->val=yytext;
+	yylval->token=Token::COMMA;
+    yylval->lineNumber = yylineno - 1;
+    return COMMA;
+}
+
+"\(" {
+    yylval=new ParseNode();
+	yylval->val=yytext;
+	yylval->token=Token::LEFT_PARENTHESES;
+    yylval->lineNumber = yylineno - 1;
+    return LEFT_PARENTHESES;
+}
+
+"\)" {
+    yylval=new ParseNode();
+	yylval->val=yytext;
+	yylval->token=Token::RIGHT_PARENTHESES;
+    yylval->lineNumber = yylineno - 1;
+    return RIGHT_PARENTHESES;
+}
+
+"\[" {
+    yylval=new ParseNode();
+	yylval->val=yytext;
+	yylval->token=Token::LEFT_MEDIUM_PARENTHESES;
+    yylval->lineNumber = yylineno - 1;
+    return LEFT_MEDIUM_PARENTHESES;
+}
+
+"\]" {
+    yylval=new ParseNode();
+	yylval->val=yytext;
+	yylval->token=Token::RIGHT_MEDIUM_PARENTHESES;
+    yylval->lineNumber = yylineno - 1;
+    return RIGHT_MEDIUM_PARENTHESES;
+}
+
+";" {
+    yylval=new ParseNode();
+	yylval->val=yytext;
+	yylval->token=Token::SEMICOLON;
+    yylval->lineNumber = yylineno - 1;
+    return SEMICOLON;
+}
+
+":=" {
+    yylval=new ParseNode();
+	yylval->val=yytext;
+	yylval->token=Token::ASSIGNOP;
+    yylval->lineNumber = yylineno - 1;
+    return ASSIGNOP;
+}
+
+":" {
+    yylval=new ParseNode();
+	yylval->val=yytext;
+	yylval->token=Token::COLON;
+    yylval->lineNumber = yylineno - 1;
+    return COLON;
+}
+
+{relop} {
+    yylval=new ParseNode();
+	yylval->val=yytext;
+	yylval->token=Token::RELOP;
+    yylval->lineNumber = yylineno - 1;
+    return RELOP;
+}
+
+{addop} {
+    yylval=new ParseNode();
+	yylval->val=yytext;
+	yylval->token=Token::ADDOP;
+    yylval->lineNumber = yylineno - 1;
+    return ADDOP;
+}
+
+{mulop} {
+    yylval=new ParseNode();
+	yylval->val=yytext;
+	yylval->token=Token::MULOP;
+    yylval->lineNumber = yylineno - 1;
+    return MULOP;
+}
+
+
+
+
+
+{id} {
+    yylval=new ParseNode();
+	yylval->val=yytext;
+	yylval->token = Token::ID;
+    yylval->lineNumber = yylineno - 1;
+    return ID;
+}
+
+{int_num} {
+    yylval=new ParseNode();
+	yylval->val=yytext;
+	yylval->token=Token::INT_NUM;
+    yylval->lineNumber = yylineno - 1;
+    return INT_NUM;
+}
+
+{float_num} {
+    yylval=new ParseNode();
+    yylval->val=yytext;
+    yylval->token=Token::FLOAT_NUM;
+    yylval->lineNumber = yylineno - 1;
+    return FLOAT_NUM;
+}
+
+{letter} {
+    yylval=new ParseNode();
+    yylval->val=yytext;
+    yylval->token=Token::LETTER;
+    yylval->lineNumber = yylineno - 1;
+    return LETTER;
+}
+
+
 
 "'" {//进入字符常量识别
     BEGIN CH;

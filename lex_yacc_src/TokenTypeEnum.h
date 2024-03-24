@@ -87,27 +87,31 @@ namespace Token
         DOWNTO,
 
         NOT,
-        AND,
-        OR,
-        DIV,
-        MOD,
-
-        RELOP,    // “=”、“<>”、“<”、“<=”、“>”、“>=”
-        ADDOP,    // “十”、“一”和“or”
-        MULOP,    // “*”、“/"'、"div”、"mod”和“and”
-        ASSIGNOP, // “:—”
+        //AND,
+        //OR,
+        //DIV,
+        //MOD,
 
         DOT,                      // .
         RANGE_DOT,                //..
         COMMA,                    // ,
-        EQUAL,                    // =
+        //EQUAL,                    // =    
         LEFT_PARENTHESES,         //(
         RIGHT_PARENTHESES,        // )
         LEFT_MEDIUM_PARENTHESES,  // [
         RIGHT_MEDIUM_PARENTHESES, // ]
         SEMICOLON,                // ;
-        ADD,                      // +
-        MINUS,                    //-
+        ASSIGNOP,                  // :—
+        COLON,                      //:
+        //ADD,                      // +
+        //MINUS,                    //-
+
+        RELOP,    // “=”、“<>”、“<”、“<=”、“>”、“>=”
+        ADDOP,    // “十”、“一”和“or”
+        MULOP,    // “*”、“/"'、"div”、"mod”和“and”
+
+
+
 
         ID,        // ID
         INT_NUM,   // 整数
