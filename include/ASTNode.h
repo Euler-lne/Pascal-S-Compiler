@@ -11,6 +11,7 @@
 #ifndef ASTNODE_H
 #define ASTNODE_H
 #include "TokenTypeEnum.h"
+#include "main.h"
 #include <map>
 #include <string>
 #include <vector>
@@ -25,7 +26,7 @@ namespace AST
         ProgramHead *programHead;
         ProgramBody *programBody;
 
-        Program();
+        Program(ParseNode *);
         ~Program();
     };
     class ProgramHead
@@ -38,7 +39,9 @@ namespace AST
     class ProgramBody
     {
     public:
+        // FIXME:不能只进入不退出
         ProgramBody *parent; // 上一个作用域，如果为null则代表为全局变量
+        string suffix;       // 每一层添加的后缀，注意 转换为C代码的时候名字后缀需要加上suffix
         Declaration *declaration;
         vector<Statement *> statementList;
         ProgramBody();
@@ -49,15 +52,11 @@ namespace AST
     { // 这个类作为广义上的符号表
     public:
         // FIXME:每一层需要为其变量添加一个_后缀，第i层加i个_,匹配的时候需去除后缀进行匹配
-        map<string, ConstDeclare *> constList;
-        map<string, TypeDeclare *> typeList;
+        map<string, ConstDeclare *> constList; // 真实名字 和 其值
         map<string, VarDeclare *> varList;
         map<string, SubProgram *> subProgramList;
         Declaration();
         ~Declaration();
-
-    private:
-        string suffix; // 每一层添加的后缀
     };
     class ConstDeclare
     {
@@ -68,23 +67,16 @@ namespace AST
         ConstDeclare();
         ~ConstDeclare();
     };
-    class TypeDeclare
-    { // 自己定义的类型和已有的类型进行绑定，可以将这个类作为符号表
-    public:
-        string id;
-        int lineNum;           // 自己定义的类型名字，及其行号
-        Token::TokenType type; // 该类型对应的基本类型 ARRAY RECORD INTEGER REAL ……
-        vector<int> dimension; // 长度代表维数，其中的值代表对应维数的长度
-        map<string, VarDeclare *> recordList;
-        TypeDeclare();
-        ~TypeDeclare();
-    };
     class VarDeclare
     {
     public:
         string id;
         int lineNum;
         Token::TokenType type;
+        // FIXME:要记录当前变量的类型
+
+        vector<int> dimension; // 长度代表维数，其中的值代表对应维数的长度
+        map<string, VarDeclare *> recordList;
         VarDeclare();
         ~VarDeclare();
     };
@@ -147,7 +139,6 @@ namespace AST
     class VariantReference
     { // 变量
     public:
-        string id;   // 需要去符号表中查找
         int lineNum; // 行号
         Token::TokenType type;
         vector<Expression *> expressionList; // 各维的变量显示
@@ -155,6 +146,11 @@ namespace AST
 
         VariantReference();
         ~VariantReference();
+        string GetCId() { id + suffix; };
+
+    private:
+        string id;     // 需要去符号表中查找
+        string suffix; // 每一层添加的后缀
     };
     class SubProgramCall
     {
@@ -192,8 +188,8 @@ namespace AST
     class AssignStatement
     {
     public:
-        pair<string, VariantReference *> leftVal; // 左值
-        Expression *rightVal;                     // 右值
+        VariantReference *leftVal; // 左值
+        Expression *rightVal;      // 右值
 
         AssignStatement();
         ~AssignStatement();
