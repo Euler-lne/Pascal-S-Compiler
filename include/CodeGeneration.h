@@ -10,8 +10,16 @@
  */
 
 #pragma once;
+#include <iostream>
+#include <string>
+#include "TokenTypeEnum.h"
 
 namespace C_GEN
 {
-
+    class C_Generater
+    {
+        C_Generater();
+        C_Generater(std::string _filePath, Token::GenerationType _generationType = Token::GenerationType::C);
+        ~C_Generater();
+    };
 } // namespace C_GEN
