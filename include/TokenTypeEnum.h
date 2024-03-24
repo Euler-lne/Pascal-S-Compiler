@@ -95,7 +95,7 @@ namespace Token
         RELOP,    // “=”、“<>”、“<”、“<=”、“>”、“>=”
         ADDOP,    // “十”、“一”和“or”
         MULOP,    // “*”、“/"'、"div”、"mod”和“and”
-        ASSIGNOP, // “:—”
+        ASSIGNOP, // “:=”
 
         DOT,                      // .
         RANGE_DOT,                //..
@@ -112,7 +112,7 @@ namespace Token
         ID,        // ID
         INT_NUM,   // 整数
         FLOAT_NUM, // 浮点数
-        LETTER,    // 字符串
+        LETTER,    // 字符
 
         // 一下类型供构建抽象语法树以及之后的步骤使用
         NULL, // 添加一个返回值类型，代表这个为一个记录类型
