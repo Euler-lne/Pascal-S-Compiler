@@ -10,3 +10,14 @@
  */
 
 #include "../include/CodeGeneration.h"
+
+namespace C_GEN
+{
+    C_Generater::C_Generater()
+    {
+        this->outPutPath = "";
+        this->generationType = Token::GenerationType::C;
+    }
+
+    C_Generater::~C_Generater(){};
+};
