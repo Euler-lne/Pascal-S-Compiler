@@ -34,7 +34,7 @@ namespace AST
         pair<string, int> programId;        // PASCAL程序名称标识符及行号
         vector<pair<string, int>> paraList; // PASCAL程序参数列表及行号
     public:
-        ProgramHead();
+        ProgramHead(ParseNode *);
         ~ProgramHead();
 
         string GetProgramId() { return programId.first; };
@@ -44,10 +44,10 @@ namespace AST
     public:
         // FIXME:不能只进入不退出
         ProgramBody *parent; // 上一个作用域，如果为null则代表为全局变量
-        string suffix;       // 每一层添加的后缀，注意 转换为C代码的时候名字后缀需要加上suffix
+        string prefix;       // 每一层添加的前缀
         Declaration *declaration;
         vector<Statement *> statementList;
-        ProgramBody();
+        ProgramBody(string, ParseNode *);
         ~ProgramBody();
     };
 #pragma region 定义
@@ -58,13 +58,13 @@ namespace AST
         map<string, ConstDeclare *> constList; // 真实名字 和 其值
         map<string, VarDeclare *> varList;
         map<string, SubProgram *> subProgramList;
-        Declaration();
+        Declaration(ParseNode *);
         ~Declaration();
     };
     class ConstDeclare
     {
     public:
-        string id;
+        string constId;
         int lineNum;
         Token::TokenType type; // INT_NUM FLOAT_NUM LETTER
         ConstDeclare();
@@ -73,7 +73,7 @@ namespace AST
     class VarDeclare
     {
     public:
-        string id;
+        string varId;
         int lineNum;
         Token::TokenType type;
         // FIXME:要记录当前变量的类型
@@ -86,12 +86,12 @@ namespace AST
     class SubProgram
     {
     public:
-        string id;
+        string subProgramId;
         int lineNum;                                   // 函数/过程行号
         vector<FormalParameter *> formalParameterList; // 参数列表
         pair<Token::TokenType, int> returnType;        // 返回值类型为基本类型，行号，没有代表为过程，已经声明了一个NULL的TokenType
         ProgramBody *programBody;
-        SubProgram();
+        SubProgram(ParseNode *);
         ~SubProgram();
     };
     class FormalParameter
@@ -116,7 +116,7 @@ namespace AST
         IfStatement *ifStatement;
         AssignStatement *assignStatement;
         SubProgramCall *subProgramCall;
-        Statement();
+        Statement(ParseNode *);
         ~Statement();
     };
     class Expression
@@ -149,10 +149,9 @@ namespace AST
 
         VariantReference();
         ~VariantReference();
-        string GetCId() { id + suffix; };
 
     private:
-        string id;     // 需要去符号表中查找
+        string vartId; // 需要去符号表中查找
         string suffix; // 每一层添加的后缀
     };
     class SubProgramCall
