@@ -463,7 +463,7 @@ mulop (\*|\/|div|mod|and)
         // 如果字符常量缺失，则返回空字符常量
         yylval = new ParseNode;
         yylval->val="\0";
-        yylval->token="CHAR";
+        yylval->token=Token::CHAR;
         yylval->lineNumber=yylineno - 1;
         return CHAR;
     }
@@ -471,7 +471,7 @@ mulop (\*|\/|div|mod|and)
         // 如果字符常量长度为1，则返回字符常量
         yylval = new ParseNode;
         yylval->val=charRec[0];
-        yylval->token="CHAR";
+        yylval->token=Token::CHAR;
         yylval->lineNumber=yylineno - 1;
         return CHAR;
     }
@@ -479,7 +479,7 @@ mulop (\*|\/|div|mod|and)
         // 如果字符常量长度不为0或1，则返回字符常量
         yylval = new ParseNode;
         yylval->val=charRec[0];
-        yylval->token="CHAR";
+        yylval->token=Token::CHAR;
         yylval->lineNumber=yylineno - 1;
         return CHAR;
     }
@@ -493,7 +493,7 @@ mulop (\*|\/|div|mod|and)
             yylval->val="\0";
         else
             yylval->str=charRec[0];
-        yylval->token="CHAR";
+        yylval->token=Token::CHAR;
         yylval->lineNumber=yylineno - 1;
         return CHAR;
     }
