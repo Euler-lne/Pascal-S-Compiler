@@ -12,12 +12,12 @@
 #include <cassert>
 namespace AST
 {
-    //program->program_head program_body .
+    // program->program_head program_body .
     Program::Program(ParseNode *program_)
     {
-        //ParseNode *program_head_; // TODO:为其赋值
+        // ParseNode *program_head_; // TODO:为其赋值
         programHead = new ProgramHead(program_->children[0]);
-        //ParseNode *program_body_; // TODO:为其赋值
+        // ParseNode *program_body_; // TODO:为其赋值
         string name = programHead->GetProgramId();
         programBody = new ProgramBody(name, program_->children[1]);
     }
@@ -26,20 +26,23 @@ namespace AST
         delete programHead;
         delete programBody;
     }
-    //program_head->program id 
-    ProgramHead::ProgramHead(ParseNode *program_head_) {
-    // 第1个子结点应该是PROGRAM
-    assert(program_head_->children[0]->token == Token::PROGRAM);
-    // 第2个子结点是程序名称
-    programId = make_pair(program_head_->children[1]->val, program_head_->children[1]->lineNumber);
+    // program_head->program id
+    ProgramHead::ProgramHead(ParseNode *program_head_)
+    {
+        // 第1个子结点应该是PROGRAM
+        assert(program_head_->children[0]->token == Token::PROGRAM);
+        // 第2个子结点是程序名称
+        programId = make_pair(program_head_->children[1]->val, program_head_->children[1]->lineNumber);
 
-    // 从第3个子结点开始是参数列表
-    for (int i = 3; i < program_head_->children.size(); i++) {
-        if (program_head_->children[i]->token == Token::ID) {
-            paraList.emplace_back(program_head_->children[i]->val, program_head_->children[i]->lineNumber);
+        // 从第3个子结点开始是参数列表
+        for (int i = 3; i < program_head_->children.size(); i++)
+        {
+            if (program_head_->children[i]->token == Token::ID)
+            {
+                paraList.emplace_back(program_head_->children[i]->val, program_head_->children[i]->lineNumber);
+            }
         }
     }
-}
     ProgramHead::~ProgramHead()
     {
     }
