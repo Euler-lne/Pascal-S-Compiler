@@ -18,6 +18,21 @@
 using namespace std;
 namespace AST
 {
+    class Program;
+    class ProgramHead;
+    class ProgramBody;
+    class Declaration;
+    class ConstDeclare;
+    class VarDeclare;
+    class SubProgram;
+    class FormalParameter;
+    class Statement;
+    class Expression;
+    class VariantReference;
+    class SubProgramCall;
+    class WhileStatement;
+    class IfStatement;
+    class AssignStatement;
     ProgramBody *curProgramBody = NULL; // 这个变量只是作为一个中间变量，记录当前的ProgramBody
     // 这个变量只有在进行构建AST的时候有用，其他时候用不了，注意一定要等parent赋值完毕之后才可以更改这个值
     class Program // 程序
