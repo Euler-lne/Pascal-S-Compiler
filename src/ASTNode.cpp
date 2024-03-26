@@ -47,6 +47,7 @@ namespace AST
         }
     }
     ProgramHead::~ProgramHead() {}
+    // program_body->declaration declaration declaration compound_statement_
     ProgramBody::ProgramBody(string name, ParseNode *program_body_)
     {
         // 对于分析数的ProgramBody 0，1，2都是Declaration；3代表compound_statement_
@@ -58,16 +59,22 @@ namespace AST
         ParseNode *compound_statement_ = program_body_->children[3];
         // ParseNode *statement_;          // 为其赋值，单个语句
         // TODO:这里需要遍历 compound_statement_
-        // FIXME：注意为孩子长度为0的情况，对应推出空，为空不构建
+        // 遍历 compound_statement_ 的子节点,生成对应的语句对象并加入到 statementList 中
         // 注意其语法树结构，该结构的最后一个child为end关键字
+        for (int i = 0; i < compound_statement_->children.size() - 1; i++) {
+            if(compound_statement_->children[i]->children.size()>0){
+                statementList.emplace_back(new Statement(compound_statement_->children[i]));
+            }
+        }
+        // FIXME：注意为孩子长度为0的情况，对应推出空，为空不构建
+        
         curProgramBody = parent;
     }
     ProgramBody::~ProgramBody()
     {
         delete parent;
         delete declaration;
-        for (int i = 0; i < statementList.size(); i++)
-        {
+        for (int i = 0; i < statementList.size(); i++) {
             delete statementList[i];
         }
     }
@@ -80,11 +87,28 @@ namespace AST
         ParseNode *subprogram_declaration_ = program_body_->children[2];
         // TODO: 赋值完毕后分别遍历，得到对应单个语句，注意构建的是单个语句
         // FIXME:注意为孩子长度为0的情况，对应推出空，为空不构建
+        //遍历常量声明部分
+        for(ParseNode *const_decl : const_declaration_->children){
+            if(const_decl->children.size()>0){
+                this->constList.emplace(const_decl->val, new ConstDeclare(const_decl));
+            }
+        }
+        //遍历变量声明部分
+        for(ParseNode *var_decl : var_declaration_->children){
+            if(var_decl->children.size()>0){
+                this->varList.emplace(var_decl->val, new VarDeclare(var_decl));
+            }
+        }
+        //遍历过程声明部分
+        for(ParseNode *subprogram_decl : subprogram_declaration_->children){
+            if(subprogram_decl->children.size()>0){
+                this->subProgramList.emplace(subprogram_decl->val, new SubProgram(subprogram_decl));
+            }
+        }
     }
     Declaration::~Declaration()
     {
-        for (auto iter = constList.begin(); iter != constList.end(); iter++)
-        {
+        for (auto iter = constList.begin(); iter != constList.end(); iter++) {
             delete iter->second;
         }
     }
@@ -108,6 +132,12 @@ namespace AST
         lineNum = var_declaration_->lineNumber;
         type = var_declaration_->token;
         // TODO:对type的类型进行判断，生成不同的类型，例如ARRAY
+        //判断是数组还是普通变量
+        if (type == Token::ARRAY) {
+            //解析array的维度
+            ParseNode *array_dimension_ = var_declaration_->children[0];
+            
+        }
     }
 
     VarDeclare::~VarDeclare()
