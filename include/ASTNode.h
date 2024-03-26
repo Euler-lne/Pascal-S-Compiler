@@ -10,11 +10,12 @@
  */
 #ifndef ASTNODE_H
 #define ASTNODE_H
-#include "TokenTypeEnum.h"
-#include "main.h"
 #include <map>
 #include <string>
 #include <vector>
+
+#include "TokenTypeEnum.h"
+#include "main.h"
 using namespace std;
 namespace AST
 {
@@ -33,7 +34,9 @@ namespace AST
     class WhileStatement;
     class IfStatement;
     class AssignStatement;
-    ProgramBody *curProgramBody = NULL; // 这个变量只是作为一个中间变量，记录当前的ProgramBody
+    class CaseStatement;
+    ProgramBody *curProgramBody = NULL;
+    // 这个变量只是作为一个中间变量，记录当前的ProgramBody
     // 这个变量只有在进行构建AST的时候有用，其他时候用不了，注意一定要等parent赋值完毕之后才可以更改这个值
     class Program // 程序
     {
@@ -46,9 +49,9 @@ namespace AST
     };
     class ProgramHead
     {
+    public:
         pair<string, int> programId;        // PASCAL程序名称标识符及行号
         vector<pair<string, int>> paraList; // PASCAL程序参数列表及行号
-    public:
         ProgramHead(ParseNode *);
         ~ProgramHead();
 
@@ -66,6 +69,7 @@ namespace AST
         ~ProgramBody();
     };
 #pragma region 定义
+
     class Declaration
     { // 这个类作为广义上的符号表
     public:
@@ -82,7 +86,7 @@ namespace AST
         string constId;
         int lineNum;
         Token::TokenType type; // INT_NUM FLOAT_NUM LETTER
-        ConstDeclare();
+        ConstDeclare(ParseNode *);
         ~ConstDeclare();
     };
     class VarDeclare
@@ -95,7 +99,7 @@ namespace AST
 
         vector<int> dimension; // 长度代表维数，其中的值代表对应维数的长度
         map<string, VarDeclare *> recordList;
-        VarDeclare();
+        VarDeclare(ParseNode *);
         ~VarDeclare();
     };
     class SubProgram
@@ -104,7 +108,7 @@ namespace AST
         string subProgramId;
         int lineNum;                                   // 函数/过程行号
         vector<FormalParameter *> formalParameterList; // 参数列表
-        pair<Token::TokenType, int> returnType;        // 返回值类型为基本类型，行号，没有代表为过程，已经声明了一个NULL的TokenType
+        Token::TokenType returnType;                   // 返回值类型为基本类型，行号，没有代表为过程，已经声明了一个NULL的TokenType
         ProgramBody *programBody;
         SubProgram(ParseNode *);
         ~SubProgram();
@@ -115,7 +119,7 @@ namespace AST
         pair<string, int> paraId; // 形式参数标识符和行号
         Token::TokenType type;    // 形式参数类型，形式参数一定是基本类型
         int flag;                 // flag=0表示传值调用，flag=1表示引用调用
-        FormalParameter();
+        FormalParameter(ParseNode *);
         ~FormalParameter();
     };
 #pragma endregion
@@ -126,11 +130,12 @@ namespace AST
         // 1.可以将while repeat for全部合并为while语句
         // 2.条件语句有if和switch（case）
     public:
-        pair<Token::TokenType, int> statementType; // 形式参数标识符和行号
+        Token::TokenType statementType; // 形式参数标识符和行号
         WhileStatement *whileStatement;
         IfStatement *ifStatement;
         AssignStatement *assignStatement;
         SubProgramCall *subProgramCall;
+        CaseStatement *caseStatement;
         Statement(ParseNode *);
         ~Statement();
     };
@@ -151,18 +156,18 @@ namespace AST
         Token::TokenType operationType; // 表达式的类型
         Expression *operand1, *operand2;
 
-        Expression();
+        Expression(ParseNode *);
         ~Expression();
     };
     class VariantReference
-    { // 变量
+    { // ID
     public:
         int lineNum; // 行号
         Token::TokenType type;
         vector<Expression *> expressionList; // 各维的变量显示
         string item;                         // 若为结构体这里为结构体，可能要使用的变量
 
-        VariantReference();
+        VariantReference(ParseNode *);
         ~VariantReference();
 
     private:
@@ -178,17 +183,18 @@ namespace AST
         int isStatement; // 如果是在语句中不用管返回值，在为1，不在为0
         // TODO:进行参数类型比较和返回值类型比较
 
-        SubProgramCall();
+        SubProgramCall(ParseNode *);
         ~SubProgramCall();
     };
     class WhileStatement
     {
         // 这里富含了 while repeat for 都写在While里
     public:
+        AssignStatement *initAssign; // 如果为null就不用执行
         Expression *condition;
         vector<Statement *> statementList;
 
-        WhileStatement();
+        WhileStatement(ParseNode *);
         ~WhileStatement();
     };
     class IfStatement
@@ -198,18 +204,26 @@ namespace AST
         vector<Statement *> thenStatementList;
         vector<Statement *> elseStatementList;
 
-        IfStatement();
+        IfStatement(ParseNode *);
         ~IfStatement();
     };
-
     class AssignStatement
     {
     public:
         VariantReference *leftVal; // 左值
         Expression *rightVal;      // 右值
 
-        AssignStatement();
+        AssignStatement(ParseNode *);
         ~AssignStatement();
+    };
+    class CaseStatement
+    {
+    public:
+        Expression *condition;
+        // TODO:完善case语句
+
+        CaseStatement(ParseNode *);
+        ~CaseStatement();
     };
 } // namespace AST
 
