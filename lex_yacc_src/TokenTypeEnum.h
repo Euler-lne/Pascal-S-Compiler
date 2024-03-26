@@ -61,7 +61,6 @@ namespace Token
         // 关键字&符号
         PROGRAM,
         CONST,
-        TYPE,
         RECORD,
         END,
         ARRAY,

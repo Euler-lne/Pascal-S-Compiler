@@ -78,14 +78,6 @@ mulop (\*|\/|div|mod|and)
     return CONST;
 }
 
-"type" {
-    yylval=new ParseNode();
-    yylval->val=yytext;
-    yylval->token=Token::TYPE;
-    yylval->lineNumber = yylineno - 1;
-    return TYPE;
-
-}
 
 "record" {
     yylval=new ParseNode();
