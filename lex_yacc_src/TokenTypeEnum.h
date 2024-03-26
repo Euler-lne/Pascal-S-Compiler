@@ -86,31 +86,28 @@ namespace Token
         DOWNTO,
 
         NOT,
-        //AND,
-        //OR,
-        //DIV,
-        //MOD,
+        // AND,
+        // OR,
+        // DIV,
+        // MOD,
 
-        DOT,                      // .
-        RANGE_DOT,                //..
-        COMMA,                    // ,
-        //EQUAL,                    // =    
+        DOT,       // .
+        RANGE_DOT, //..
+        COMMA,     // ,
+        // EQUAL,                    // =
         LEFT_PARENTHESES,         //(
         RIGHT_PARENTHESES,        // )
         LEFT_MEDIUM_PARENTHESES,  // [
         RIGHT_MEDIUM_PARENTHESES, // ]
         SEMICOLON,                // ;
-        ASSIGNOP,                  // :—
-        COLON,                      //:
-        //ADD,                      // +
-        //MINUS,                    //-
+        ASSIGNOP,                 // :—
+        COLON,                    //:
+        // ADD,                      // +
+        // MINUS,                    //-
 
-        RELOP,    // “=”、“<>”、“<”、“<=”、“>”、“>=”
-        ADDOP,    // “十”、“一”和“or”
-        MULOP,    // “*”、“/"'、"div”、"mod”和“and”
-
-
-
+        RELOP, // “=”、“<>”、“<”、“<=”、“>”、“>=”
+        ADDOP, // “十”、“一”和“or”
+        MULOP, // “*”、“/"'、"div”、"mod”和“and”
 
         ID,        // ID
         INT_NUM,   // 整数
@@ -118,7 +115,7 @@ namespace Token
         LETTER,    // 字符串
 
         // 一下类型供构建抽象语法树以及之后的步骤使用
-        NULL, // 添加一个返回值类型，代表这个为一个记录类型
+        NULL_, // 添加一个返回值类型，代表这个为一个记录类型
     };
 } // namespace token
 
