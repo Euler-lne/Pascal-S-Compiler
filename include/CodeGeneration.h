@@ -17,12 +17,12 @@
 
 namespace C_GEN
 {
-    class C_Generater
+    class C_Generater   //code generation mode
     {
     private:
-        std::string outPutPath;
-        Token::GenerationType generationType;
-        AST::Program *ast;
+        std::string outPutPath;                 //output file path
+        Token::GenerationType generationType;   //target code type
+        AST::Program *ast;                      //AST tree
 
     public:
         C_Generater();
@@ -33,6 +33,7 @@ namespace C_GEN
         void SetGenType(Token::GenerationType _generationType) { generationType = _generationType; };
         void SetAST(AST::Program *pAST) { ast = pAST; };
 
+        //generate code
         void run();
 
     private:
