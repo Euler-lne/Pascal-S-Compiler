@@ -17,6 +17,7 @@ namespace AST
     // program->program_head program_body .
     Program::Program(ParseNode *program_)
     {
+        curProgramBody = NULL;
         programHead = new ProgramHead(program_->children[0]);
         string name = programHead->GetProgramId();
         programBody = new ProgramBody(name, program_->children[1]);
@@ -36,8 +37,10 @@ namespace AST
                               program_head_->children[1]->lineNumber);
 
         // 从第3个子结点开始是参数列表
-        for (int i = 3; i < program_head_->children.size(); i++) {
-            if (program_head_->children[i]->token == Token::ID) {
+        for (int i = 3; i < program_head_->children.size(); i++)
+        {
+            if (program_head_->children[i]->token == Token::ID)
+            {
                 paraList.emplace_back(program_head_->children[i]->val,
                                       program_head_->children[i]->lineNumber);
             }
@@ -63,7 +66,8 @@ namespace AST
     {
         delete parent;
         delete declaration;
-        for (int i = 0; i < statementList.size(); i++) {
+        for (int i = 0; i < statementList.size(); i++)
+        {
             delete statementList[i];
         }
     }
@@ -79,7 +83,8 @@ namespace AST
     }
     Declaration::~Declaration()
     {
-        for (auto iter = constList.begin(); iter != constList.end(); iter++) {
+        for (auto iter = constList.begin(); iter != constList.end(); iter++)
+        {
             delete iter->second;
         }
     }
@@ -123,10 +128,13 @@ namespace AST
         ParseNode *formal_parameter_ = subprogram_head_->children[2];
         // TODO:传入参数列表，需要遍历
         // FIXME:注意为孩子长度为0的情况，对应推出空，为空不构建
-        if (type == Token::FUNCTION) {
+        if (type == Token::FUNCTION)
+        {
             ParseNode *type_ = subprogram_head_->children[4];
             returnType = ParseTree::GetVarTypeFromTypeNode(type_);
-        } else {
+        }
+        else
+        {
             returnType = Token::NULL_;
         }
         ParseNode *program_body_ = subprogram_declaration_->children[1];
@@ -141,10 +149,13 @@ namespace AST
     {
         // 这里的参数列表为单个参数列表，引用传参/值传参
         ParseNode *node = parameter_list_->children[0]; // 只有一个，但是有两中选择
-        if (node->token == Token::VAR_PARAMETER_) {     // 引用传递
+        if (node->token == Token::VAR_PARAMETER_)
+        { // 引用传递
             flag = 1;
             node = node->children[1];
-        } else {
+        }
+        else
+        {
             flag = 0;
         }
         // 至此，node指向了 value_parameter_
@@ -168,7 +179,8 @@ namespace AST
         subProgramCall = NULL;
         caseStatement = NULL;
         ParseNode *node = statement_->children[0];
-        switch (node->token) {
+        switch (node->token)
+        {
         case Token::VARIABLE_:
             statementType = Token::VARIABLE_;
             assignStatement = new AssignStatement(node);
@@ -201,7 +213,8 @@ namespace AST
 
     Statement::~Statement()
     {
-        switch (statementType) {
+        switch (statementType)
+        {
         case Token::VARIABLE_:
             delete assignStatement;
             break;
