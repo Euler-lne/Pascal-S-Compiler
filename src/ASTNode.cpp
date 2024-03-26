@@ -37,12 +37,13 @@ namespace AST
                               program_head_->children[1]->lineNumber);
 
         // 从第3个子结点开始是参数列表
-        for (int i = 3; i < program_head_->children.size(); i++) {
-            if (program_head_->children[i]->token == Token::ID) {
-                paraList.emplace_back(program_head_->children[i]->val,
-                                      program_head_->children[i]->lineNumber);
-            }
-        }
+        // FIXME:错误
+        // for (int i = 3; i < program_head_->children.size(); i++) {
+        //     if (program_head_->children[i]->token == Token::ID) {
+        //         paraList.emplace_back(program_head_->children[i]->val,
+        //                               program_head_->children[i]->lineNumber);
+        //     }
+        // }
     }
     ProgramHead::~ProgramHead() {}
     // program_body->declaration declaration declaration compound_statement_
@@ -59,13 +60,14 @@ namespace AST
         // TODO:这里需要遍历 compound_statement_
         // 遍历 compound_statement_ 的子节点,生成对应的语句对象并加入到 statementList 中
         // 注意其语法树结构，该结构的最后一个child为end关键字
-        for (int i = 0; i < compound_statement_->children.size() - 1; i++) {
-            if(compound_statement_->children[i]->children.size()>0){
-                statementList.emplace_back(new Statement(compound_statement_->children[i]));
-            }
-        }
+        // FIXME: 错误，使用栈，因为语句有先后顺序，通过长度来判断是否循环终止，如果statement没有孩子，不用创建
+        // for (int i = 0; i < compound_statement_->children.size() - 1; i++) {
+        //     if (compound_statement_->children[i]->children.size() > 0) {
+        //         statementList.emplace_back(new Statement(compound_statement_->children[i]));
+        //     }
+        // }
         // FIXME：注意为孩子长度为0的情况，对应推出空，为空不构建
-        
+
         curProgramBody = parent;
     }
     ProgramBody::~ProgramBody()
@@ -85,24 +87,27 @@ namespace AST
         ParseNode *subprogram_declaration_ = program_body_->children[2];
         // TODO: 赋值完毕后分别遍历，得到对应单个语句，注意构建的是单个语句
         // FIXME:注意为孩子长度为0的情况，对应推出空，为空不构建
-        //遍历常量声明部分
-        for(ParseNode *const_decl : const_declaration_->children){
-            if(const_decl->children.size()>0){
-                this->constList.emplace(const_decl->val, new ConstDeclare(const_decl));
-            }
-        }
-        //遍历变量声明部分
-        for(ParseNode *var_decl : var_declaration_->children){
-            if(var_decl->children.size()>0){
-                this->varList.emplace(var_decl->val, new VarDeclare(var_decl));
-            }
-        }
-        //遍历过程声明部分
-        for(ParseNode *subprogram_decl : subprogram_declaration_->children){
-            if(subprogram_decl->children.size()>0){
-                this->subProgramList.emplace(subprogram_decl->val, new SubProgram(subprogram_decl));
-            }
-        }
+        // 遍历常量声明部分
+        // for (ParseNode *const_decl : const_declaration_->children) {
+        //     if (const_decl->children.size() > 0) {
+        //         this->constList.emplace(const_decl->val, new ConstDeclare(const_decl));
+        //     }
+        // }
+
+        // 遍历变量声明部分
+        // TODO：两次嵌套：找到一个var_declaration；从identifier_list中找到 id；
+        // for (ParseNode *var_decl : var_declaration_->children) {
+        //     if (var_decl->children.size() > 0) {
+        //         this->varList.emplace(var_decl->val, new VarDeclare(var_decl));
+        //     }
+        // }
+
+        // 遍历过程声明部分
+        // for (ParseNode *subprogram_decl : subprogram_declaration_->children) {
+        //     if (subprogram_decl->children.size() > 0) {
+        //         this->subProgramList.emplace(subprogram_decl->val, new SubProgram(subprogram_decl));
+        //     }
+        // }
     }
     Declaration::~Declaration()
     {
@@ -113,10 +118,6 @@ namespace AST
 
     ConstDeclare::ConstDeclare(ParseNode *const_declaration_)
     {
-        // 这里可以将其写在.h里面，得到的是单个语句
-        constId = const_declaration_->val;
-        lineNum = const_declaration_->lineNumber;
-        type = const_declaration_->token;
     }
 
     ConstDeclare::~ConstDeclare()
@@ -125,16 +126,16 @@ namespace AST
 
     VarDeclare::VarDeclare(ParseNode *var_declaration_)
     {
+        // TODO:修改构造函数，传入类型信息
         // 得到的是单个语句
         varId = var_declaration_->val;
         lineNum = var_declaration_->lineNumber;
-        type = var_declaration_->token;
+        type = var_declaration_->token; // FIXME:错误
         // TODO:对type的类型进行判断，生成不同的类型，例如ARRAY
-        //判断是数组还是普通变量
+        // 判断是数组还是普通变量
         if (type == Token::ARRAY) {
-            //解析array的维度
+            // 解析array的维度
             ParseNode *array_dimension_ = var_declaration_->children[0];
-            
         }
     }
 
@@ -157,8 +158,8 @@ namespace AST
         // TODO:传入参数列表，需要遍历
         // FIXME:注意为孩子长度为0的情况，对应推出空，为空不构建
         if (type == Token::FUNCTION) {
-            ParseNode *type_ = subprogram_head_->children[4];
-            returnType = ParseTree::GetVarTypeFromTypeNode(type_);
+            ParseNode *standard_type_ = subprogram_head_->children[4];
+            returnType = standard_type_->children[0]->token;
         } else {
             returnType = Token::NULL_;
         }
