@@ -148,19 +148,21 @@ namespace AST
     }
     SubProgram::SubProgram(ParseNode *subprogram_declaration_)
     {
-        /**
-         * @brief 当前函数/过程的名字，
-         * 当前定义函数的行号，参数列表，
-         * 返回值类型，主体部分
-         * 单个语句，所以其children只有两个值，head 和 body
-         */
         ParseNode *subprogram_head_ = subprogram_declaration_->children[0];
         Token::TokenType type = subprogram_head_->children[0]->token; // 判断是函数/过程
         subProgramId = subprogram_head_->children[1]->val;            // 得到函数名字
         lineNum = subprogram_head_->children[0]->lineNumber;
         ParseNode *formal_parameter_ = subprogram_head_->children[2];
-        // TODO:传入参数列表，需要遍历
-        // FIXME:注意为孩子长度为0的情况，对应推出空，为空不构建
+        if (formal_parameter_->children.size() != 0) {
+            ParseNode *parameter_lists_ = formal_parameter_->children[1];
+            Stack parameterListStack(parameter_lists_, 0, 2, 1, 0, Token::PARAMETER_LIST_);
+            ParseNode *parameter_list_ = parameterListStack.Pop();
+            while (parameter_list_) {
+                FormalParameter *formalParameter = new FormalParameter(parameter_list_);
+                formalParameterList.emplace_back(formalParameter);
+                parameter_list_ = parameterListStack.Pop();
+            }
+        }
         if (type == Token::FUNCTION) {
             ParseNode *standard_type_ = subprogram_head_->children[4];
             returnType = standard_type_->children[0]->token;
@@ -187,7 +189,14 @@ namespace AST
         }
         // 至此，node指向了 value_parameter_
         ParseNode *identifier_list_ = node->children[0]; // 位于0号位置
-        // TODO:遍历identifier_list_，得到id，插入paraId中
+
+        Stack idStack(identifier_list_, 0, 2, 1, 0, Token::ID);
+        ParseNode *idNode = idStack.Pop();
+        while (idNode != NULL) {
+            paraIdList.emplace_back(idNode->val, idNode->lineNumber);
+            idNode = idStack.Pop();
+        }
+
         ParseNode *standard_type_ = node->children[2]; // 位于2号位置
         type = standard_type_->children[0]->token;
     }
@@ -198,7 +207,6 @@ namespace AST
 
     Statement::Statement(ParseNode *statement_)
     {
-        // TODO:判断当前的类型生成相应的语句
         // 注意这里可能推出了空，为空的时候不在构建Statment
         whileStatement = NULL;
         ifStatement = NULL;
@@ -206,24 +214,30 @@ namespace AST
         subProgramCall = NULL;
         caseStatement = NULL;
         ParseNode *node = statement_->children[0];
+        statementType = node->token;
         switch (node->token) {
         case Token::VARIABLE_:
-            statementType = Token::VARIABLE_;
             assignStatement = new AssignStatement(node);
             break;
         case Token::CALL_PROCEDURE_STATEMENT_:
-            statementType = Token::CALL_PROCEDURE_STATEMENT_;
             subProgramCall = new SubProgramCall(node);
             break;
-        case Token::COMPOUND_STATEMENT_:
-            // TODO:这里要遍历COMPOUND_STATEMENT_，类似于拆包
+        case Token::COMPOUND_STATEMENT_: {
+            ParseNode *compound_statement_ = statement_->children[0];
+            ParseNode *statement_list_ = compound_statement_->children[1];
+            Stack statementStack(statement_list_, 0, 2, 1, 0, Token::STATEMENT_, 1);
+            ParseNode *statement_ = statementStack.Pop();
+            while (statement_ != NULL) {
+                Statement *curStatement = new Statement(statement_);
+                statementList.emplace_back(curStatement);
+                statement_ = statementStack.Pop();
+            }
             break;
+        }
         case Token::IF:
-            statementType = Token::IF;
             ifStatement = new IfStatement(node);
             break;
         case Token::CASE:
-            statementType = Token::CASE;
             caseStatement = new CaseStatement(node);
             break;
         case Token::WHILE:
@@ -254,6 +268,11 @@ namespace AST
             break;
         case Token::WHILE:
             delete whileStatement;
+            break;
+        case Token::COMPOUND_STATEMENT_:
+            for (int i = 0; i < statementList.size(); i++) {
+                delete statementList[i];
+            }
             break;
         default:
             break;

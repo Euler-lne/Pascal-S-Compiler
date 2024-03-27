@@ -60,7 +60,6 @@ namespace AST
     class ProgramBody
     {
     public:
-        // FIXME:不能只进入不退出
         ProgramBody *parent; // 上一个作用域，如果为null则代表为全局变量
         string prefix;       // 每一层添加的前缀
         Declaration *declaration;
@@ -116,9 +115,9 @@ namespace AST
     class FormalParameter
     {
     public:
-        pair<string, int> paraId; // 形式参数标识符和行号
-        Token::TokenType type;    // 形式参数类型，形式参数一定是基本类型
-        int flag;                 // flag=0表示传值调用，flag=1表示引用调用
+        vector<pair<string, int>> paraIdList; // 形式参数标识符和行号
+        Token::TokenType type;                // 形式参数类型，形式参数一定是基本类型
+        int flag;                             // flag=0表示传值调用，flag=1表示引用调用
         FormalParameter(ParseNode *);
         ~FormalParameter();
     };
@@ -136,6 +135,7 @@ namespace AST
         AssignStatement *assignStatement;
         SubProgramCall *subProgramCall;
         CaseStatement *caseStatement;
+        vector<Statement *> statementList;
         Statement(ParseNode *);
         ~Statement();
     };
