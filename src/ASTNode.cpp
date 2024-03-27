@@ -12,6 +12,7 @@
 #include "ToolOfParseTree.h"
 #include <cassert>
 #include <iostream>
+using namespace ParseTree;
 namespace AST
 {
     // program->program_head program_body .
@@ -37,13 +38,13 @@ namespace AST
                               program_head_->children[1]->lineNumber);
 
         // 从第3个子结点开始是参数列表
-        // FIXME:错误
-        // for (int i = 3; i < program_head_->children.size(); i++) {
-        //     if (program_head_->children[i]->token == Token::ID) {
-        //         paraList.emplace_back(program_head_->children[i]->val,
-        //                               program_head_->children[i]->lineNumber);
-        //     }
-        // }
+        ParseNode *identifier_list_;
+        Stack idSatck(identifier_list_, 0, 2, 1, 0, Token::ID);
+        ParseNode *idNode = idSatck.Pop();
+        while (idNode != NULL) {
+            paraList.emplace_back(idNode->val, idNode->lineNumber);
+            idNode = idSatck.Pop();
+        }
     }
     ProgramHead::~ProgramHead() {}
     // program_body->declaration declaration declaration compound_statement_
@@ -55,18 +56,15 @@ namespace AST
         curProgramBody = this;
 
         declaration = new Declaration(program_body_);
-        ParseNode *compound_statement_ = program_body_->children[3];
-        // ParseNode *statement_;          // 为其赋值，单个语句
-        // TODO:这里需要遍历 compound_statement_
-        // 遍历 compound_statement_ 的子节点,生成对应的语句对象并加入到 statementList 中
-        // 注意其语法树结构，该结构的最后一个child为end关键字
-        // FIXME: 错误，使用栈，因为语句有先后顺序，通过长度来判断是否循环终止，如果statement没有孩子，不用创建
-        // for (int i = 0; i < compound_statement_->children.size() - 1; i++) {
-        //     if (compound_statement_->children[i]->children.size() > 0) {
-        //         statementList.emplace_back(new Statement(compound_statement_->children[i]));
-        //     }
-        // }
-        // FIXME：注意为孩子长度为0的情况，对应推出空，为空不构建
+        ParseNode *compound_statement_ = program_body_->children[3];   // 得到符合语句
+        ParseNode *statement_list_ = compound_statement_->children[1]; // 得到语句列表
+        Stack statementStack(statement_list_, 0, 2, 1, 0, Token::STATEMENT_, 1);
+        ParseNode *statement_ = statementStack.Pop();
+        while (statement_ != NULL) {
+            Statement *curStatement = new Statement(statement_);
+            statementList.emplace_back(curStatement);
+            statement_ = statementStack.Pop();
+        }
 
         curProgramBody = parent;
     }
@@ -82,32 +80,22 @@ namespace AST
     Declaration::Declaration(ParseNode *program_body_)
     {
         // 只可以使用children的前三个，首先获得头，然后分别遍历
-        ParseNode *const_declaration_ = program_body_->children[0];
-        ParseNode *var_declaration_ = program_body_->children[1];
-        ParseNode *subprogram_declaration_ = program_body_->children[2];
+        ParseNode *const_declarations_ = program_body_->children[0];
+        ParseNode *var_declarations_ = program_body_->children[1];
+        ParseNode *subprogram_declarations_ = program_body_->children[2];
         // TODO: 赋值完毕后分别遍历，得到对应单个语句，注意构建的是单个语句
         // FIXME:注意为孩子长度为0的情况，对应推出空，为空不构建
         // 遍历常量声明部分
-        // for (ParseNode *const_decl : const_declaration_->children) {
-        //     if (const_decl->children.size() > 0) {
-        //         this->constList.emplace(const_decl->val, new ConstDeclare(const_decl));
-        //     }
-        // }
+        if (const_declarations_->children.size() != 0) {
+        }
 
         // 遍历变量声明部分
         // TODO：两次嵌套：找到一个var_declaration；从identifier_list中找到 id；
-        // for (ParseNode *var_decl : var_declaration_->children) {
-        //     if (var_decl->children.size() > 0) {
-        //         this->varList.emplace(var_decl->val, new VarDeclare(var_decl));
-        //     }
-        // }
+        if (var_declarations_->children.size() != 0) {
+        }
 
         // 遍历过程声明部分
-        // for (ParseNode *subprogram_decl : subprogram_declaration_->children) {
-        //     if (subprogram_decl->children.size() > 0) {
-        //         this->subProgramList.emplace(subprogram_decl->val, new SubProgram(subprogram_decl));
-        //     }
-        // }
+        Stack subprogramDeclarationStack(subprogram_declarations_, 0, 1, 0, -1, Token::SUBPROGRAM_DECLARATION_, 1);
     }
     Declaration::~Declaration()
     {
