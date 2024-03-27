@@ -35,15 +35,17 @@ namespace AST
     class IfStatement;
     class AssignStatement;
     class CaseStatement;
-    extern ProgramBody *curProgramBody;
-    // 这个变量只是作为一个中间变量，记录当前的ProgramBody
-    // 这个变量只有在进行构建AST的时候有用，其他时候用不了，注意一定要等parent赋值完毕之后才可以更改这个值
     class Program // 程序
     {
     public:
         ProgramHead *programHead;
         ProgramBody *programBody;
 
+        Program()
+        {
+            programHead = nullptr;
+            programBody = nullptr;
+        };
         Program(ParseNode *);
         ~Program();
     };
@@ -52,6 +54,7 @@ namespace AST
     public:
         pair<string, int> programId;        // PASCAL程序名称标识符及行号
         vector<pair<string, int>> paraList; // PASCAL程序参数列表及行号
+
         ProgramHead(ParseNode *);
         ~ProgramHead();
 
@@ -72,7 +75,6 @@ namespace AST
     class Declaration
     { // 这个类作为广义上的符号表
     public:
-        // FIXME:每一层需要为其变量添加一个_后缀，第i层加i个_,匹配的时候需去除后缀进行匹配
         map<string, ConstDeclare *> constList;        // 真实名字 和 其值
         map<string, pair<int, VarDeclare *>> varList; // 注意其孩子
         map<string, SubProgram *> subProgramList;

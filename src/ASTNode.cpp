@@ -15,6 +15,7 @@
 using namespace ParseTree;
 namespace AST
 {
+    ProgramBody *curProgramBody = nullptr;
     void ReadVarDeclarations(ParseNode *var_declarations_, map<string, pair<int, VarDeclare *>> &varList);
     void ReadConstDeclarations(ParseNode *const_declarations_, map<string, ConstDeclare *> &constList);
     void ReadSubProgramDeclarations(ParseNode *subprogram_declarations_, map<string, SubProgram *> &subProgramList);
@@ -22,15 +23,16 @@ namespace AST
     // program->program_head program_body .
     Program::Program(ParseNode *program_)
     {
-        curProgramBody = NULL;
         programHead = new ProgramHead(program_->children[0]);
         string name = programHead->GetProgramId();
         programBody = new ProgramBody(name, program_->children[1]);
     }
     Program::~Program()
     {
-        delete programHead;
-        delete programBody;
+        if (programHead != nullptr)
+            delete programHead;
+        if (programBody != nullptr)
+            delete programBody;
     }
     // program_head->program id
     ProgramHead::ProgramHead(ParseNode *program_head_)
@@ -45,7 +47,7 @@ namespace AST
         ParseNode *identifier_list_ = program_head_->children[3];
         Stack idStack(identifier_list_, 0, 2, 1, 0, Token::ID);
         ParseNode *idNode = idStack.Pop();
-        while (idNode != NULL) {
+        while (idNode != nullptr) {
             paraList.emplace_back(idNode->val, idNode->lineNumber);
             idNode = idStack.Pop();
         }
@@ -64,7 +66,7 @@ namespace AST
         ParseNode *statement_list_ = compound_statement_->children[1]; // 得到语句列表
         Stack statementStack(statement_list_, 0, 2, 1, 0, Token::STATEMENT_, 1);
         ParseNode *statement_ = statementStack.Pop();
-        while (statement_ != NULL) {
+        while (statement_ != nullptr) {
             Statement *curStatement = new Statement(statement_);
             statementList.emplace_back(curStatement);
             statement_ = statementStack.Pop();
@@ -101,9 +103,9 @@ namespace AST
             delete iter->second;
         }
         for (auto iter = varList.begin(); iter != varList.end(); iter++) {
-            if (iter->second.second != NULL) {
+            if (iter->second.second != nullptr) {
                 delete iter->second.second;
-                iter->second.second = NULL;
+                iter->second.second = nullptr;
             }
         }
         for (auto iter = subProgramList.begin(); iter != subProgramList.end(); iter++) {
@@ -130,7 +132,7 @@ namespace AST
             ParseNode *periods_ = type_->children[2];
             Stack periodStack(periods_, 0, 2, 1, 0, Token::PERIOD_);
             ParseNode *period_ = periodStack.Pop();
-            while (period_ != NULL) {
+            while (period_ != nullptr) {
                 ParseNode *start_const_ = period_->children[0];
                 ParseNode *end_const_ = period_->children[2];
                 // FIXME:常量检测，判断是否为数字，不清楚是否可以为负数，起始值是否可用大于结束值
@@ -192,7 +194,7 @@ namespace AST
 
         Stack idStack(identifier_list_, 0, 2, 1, 0, Token::ID);
         ParseNode *idNode = idStack.Pop();
-        while (idNode != NULL) {
+        while (idNode != nullptr) {
             paraIdList.emplace_back(idNode->val, idNode->lineNumber);
             idNode = idStack.Pop();
         }
@@ -208,11 +210,11 @@ namespace AST
     Statement::Statement(ParseNode *statement_)
     {
         // 注意这里可能推出了空，为空的时候不在构建Statment
-        whileStatement = NULL;
-        ifStatement = NULL;
-        assignStatement = NULL;
-        subProgramCall = NULL;
-        caseStatement = NULL;
+        whileStatement = nullptr;
+        ifStatement = nullptr;
+        assignStatement = nullptr;
+        subProgramCall = nullptr;
+        caseStatement = nullptr;
         ParseNode *node = statement_->children[0];
         statementType = node->token;
         switch (node->token) {
@@ -227,7 +229,7 @@ namespace AST
             ParseNode *statement_list_ = compound_statement_->children[1];
             Stack statementStack(statement_list_, 0, 2, 1, 0, Token::STATEMENT_, 1);
             ParseNode *statement_ = statementStack.Pop();
-            while (statement_ != NULL) {
+            while (statement_ != nullptr) {
                 Statement *curStatement = new Statement(statement_);
                 statementList.emplace_back(curStatement);
                 statement_ = statementStack.Pop();
@@ -328,8 +330,13 @@ namespace AST
     AssignStatement::~AssignStatement()
     {
     }
+    CaseStatement::CaseStatement(ParseNode *)
+    {
+    }
+    CaseStatement::~CaseStatement() {}
 #pragma region 遍历声明相关节点树
-    void ReadVarDeclarations(ParseNode *var_declarations_, map<string, pair<int, VarDeclare *>> &varList)
+    void
+    ReadVarDeclarations(ParseNode *var_declarations_, map<string, pair<int, VarDeclare *>> &varList)
     {
         if (var_declarations_->children.size() != 0) {
             ParseNode *var_declaration_ = var_declarations_->children[1];
@@ -337,11 +344,11 @@ namespace AST
             Stack identifierListStack(var_declaration_, 0, 2, 3, 0, Token::IDENTIFIER_LIST_);
             ParseNode *type_ = typeStack.Pop();
             ParseNode *identifier_list_ = identifierListStack.Pop();
-            while (type_ != NULL) {
+            while (type_ != nullptr) {
                 VarDeclare *varDeclare = new VarDeclare(type_);
                 Stack idStack(identifier_list_, 0, 2, 1, 0, Token::ID);
                 ParseNode *idNode = idStack.Pop();
-                while (idNode != NULL) {
+                while (idNode != nullptr) {
                     if (varList.find(idNode->val) != varList.end()) {
                         // 之前有声明过这个变量，这里要报错
                         // FIXME：报错变量重定义
@@ -363,7 +370,7 @@ namespace AST
             Stack constVariableStack(const_declaration_, 0, 4, 3, 2, Token::CONST_VARIABLE_);
             ParseNode *idNode = idStack.Pop();
             ParseNode *const_variable = constVariableStack.Pop();
-            while (idNode != NULL) {
+            while (idNode != nullptr) {
                 if (constList.find(idNode->val) != constList.end()) {
                     // 之前有声明过这个变量，这里要报错
                     // FIXME：报错常量重定义
@@ -381,7 +388,7 @@ namespace AST
             Stack subprogramDeclarationStack(subprogram_declarations_, 0, 1, 0, -1, Token::SUBPROGRAM_DECLARATION_);
             ParseNode *subprogram_declaration_ = subprogramDeclarationStack.Pop();
             ParseNode *subprogram_head = subprogram_declaration_->children[0];
-            while (subprogram_declaration_ != NULL) {
+            while (subprogram_declaration_ != nullptr) {
                 string name = subprogram_head->children[1]->val;
                 if (subProgramList.find(name) != subProgramList.end()) {
                     // 之前有声明过这个变量，这里要报错

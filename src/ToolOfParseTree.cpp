@@ -17,7 +17,7 @@ namespace ParseTree
     ParseNode *Stack::Pop()
     {
         if (stack.size() == 0)
-            return NULL;
+            return nullptr;
         ParseNode *node = stack[stack.size() - 1];
         stack.pop_back();
         return node;
@@ -30,7 +30,7 @@ namespace ParseTree
     /// @param endPosition 推出最后一个节点的位置，为-1代表推出空，也就是endSize为0
     /// @param expectType 目前想要的节点的类型
     /// @param isEmpty 是否需要考虑长度为空的情况 默认不用判断为0
-    Stack::Stack(ParseNode *_rootNode, int nextPosition, int valPosition, int endSize, int endPosition, Token::TokenType expectType, int isEmpty = 0)
+    Stack::Stack(ParseNode *_rootNode, int nextPosition, int valPosition, int endSize, int endPosition, Token::TokenType expectType, int isEmpty)
     {
         curNode = _rootNode;
         if (curNode->children.size() == 0)

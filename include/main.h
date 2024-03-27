@@ -1,3 +1,5 @@
+#ifndef MAIN_H
+#define MAIN_H
 #include "TokenTypeEnum.h"
 #include <fstream>
 #include <iostream>
@@ -20,3 +22,4 @@ public:
 };
 
 #define YYSTYPE ParseNode *
+#endif
