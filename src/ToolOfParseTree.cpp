@@ -35,7 +35,7 @@ namespace ParseTree
         curNode = _rootNode;
         if (curNode->children.size() == 0)
             return; // 遍历节点本生没有孩子，退出
-        ParseNode *pushNode = curNode->children[valPosition];
+        ParseNode *pushNode;
         while (curNode->children.size() != endSize) {
             pushNode = curNode->children[valPosition];
             // 传入一个空值的原因是，有时候需要对非终结符号进行拓展，中介符号和非终结符号不一样

@@ -74,14 +74,14 @@ namespace AST
     { // 这个类作为广义上的符号表
     public:
         // FIXME:每一层需要为其变量添加一个_后缀，第i层加i个_,匹配的时候需去除后缀进行匹配
-        map<string, ConstDeclare *> constList; // 真实名字 和 其值
-        map<string, VarDeclare *> varList;
+        map<string, ConstDeclare *> constList;        // 真实名字 和 其值
+        map<string, pair<int, VarDeclare *>> varList; // 注意其孩子
         map<string, SubProgram *> subProgramList;
         Declaration(ParseNode *);
         ~Declaration();
     };
     class ConstDeclare
-    {
+    { // 输入的节点为 const_variable
     public:
         string constId;
         int lineNum;
@@ -90,20 +90,20 @@ namespace AST
         ~ConstDeclare();
     };
     class VarDeclare
-    {
+    { // 传入type_，这里没有记录当前的ID，要看ID请到 Declaration 中
+      // 这里只保存了这个变量对应的类型
     public:
-        string varId;
-        int lineNum;
         Token::TokenType type;
-        // FIXME:要记录当前变量的类型
-
-        vector<int> dimension; // 长度代表维数，其中的值代表对应维数的长度
-        map<string, VarDeclare *> recordList;
+        int isArray; // 这个变量用于判断是否为数组，因为为数组的话，导致type也为标准类型，不可区分
+        // 1 为数组，0非数组
+        // array [1..25] 定义了一个长度为25的数组
+        vector<pair<int, int>> dimension; // vector长度代表维数，第一个值为起始下标，第二个值为长度
+        map<string, pair<int, VarDeclare *>> recordList;
         VarDeclare(ParseNode *);
         ~VarDeclare();
     };
     class SubProgram
-    {
+    { // 传入 subprogram_declaration_
     public:
         string subProgramId;
         int lineNum;                                   // 函数/过程行号
