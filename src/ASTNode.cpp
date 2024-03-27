@@ -95,7 +95,8 @@ namespace AST
         }
 
         // 遍历过程声明部分
-        Stack subprogramDeclarationStack(subprogram_declarations_, 0, 1, 0, -1, Token::SUBPROGRAM_DECLARATION_, 1);
+        Stack subprogramDeclarationStack(subprogram_declarations_, 0, 1, 0, -1, Token::SUBPROGRAM_DECLARATION_);
+        // TODO:完善遍历
     }
     Declaration::~Declaration()
     {
