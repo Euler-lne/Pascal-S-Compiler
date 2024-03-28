@@ -86,6 +86,8 @@ namespace AST
     class ConstDeclare
     { // 输入的节点为 const_variable
     public:
+        void SetUsed() { isUsed = 1; }
+        int IsUsed() { return isUsed; }
         Token::TokenType GetConstDeclareType() { return type; }
         ConstDeclare(ParseNode *);
         ~ConstDeclare();
@@ -93,7 +95,8 @@ namespace AST
     private:
         string constVal; // 得到的num都是无符号的数
         int lineNum;
-        Token::TokenType type; // INT_NUM FLOAT_NUM LETTER
+        Token::TokenType type; // INTEGER REAL CHAR
+        int isUsed;            // 这个变量是否被使用
     };
     class VarDeclare
     { // 传入type_，这里没有记录当前的ID，要看ID请到 Declaration 中
@@ -126,16 +129,17 @@ namespace AST
     { // 传入 subprogram_declaration_
     public:
         ProgramBody *programBody;
+        vector<FormalParameter *> formalParameterList; // 参数列表
         Token::TokenType GetReturnType() { return returnType; }
         void SetUsed() { isUsed = 1; }
         int IsUsed() { return isUsed; } // TODO:用于代码生成时候的优化
+        int GetParameterNums() { return formalParameterList.size(); }
         SubProgram(ParseNode *);
         ~SubProgram();
 
     private:
         string subProgramId;
-        int lineNum;                                   // 函数/过程行号
-        vector<FormalParameter *> formalParameterList; // 参数列表
+        int lineNum; // 函数/过程行号
         Token::TokenType returnType;
         // 返回值类型为基本类型，行号，没有代表为过程，已经声明了一个NULL的TokenType
         int isUsed; // 是否被调用了，如果被调用了就为1，没有为0；
@@ -170,63 +174,75 @@ namespace AST
     class Expression
     {
     public:
-        Token::TokenType type;              // 表达式的类型
-        int lineNum;                        // 行号
-        VariantReference *variantReference; // 变量或常量或数组 或者记录
-
-        int intNum;      // 整数
-        float realNum;   // 浮点数
-        string strOfNum; // 初始的字符串
-        char charVal;    // 常量字符
-
-        SubProgramCall *subProgramCall;
-        string opration;                // 具体操作符
-        Token::TokenType operationType; // 表达式的类型
+        // 代码生成需要考虑两个操作数，到到达最底层才可用使用相应的值
+        // 若只有一个操作数 那么这两个操作数 都可能为空，若后者为空代表 -(-1)这种情况
+        // 一定只有两个操作数同为nullptr，方可使用 value, variantReference, subProgarmCall
+        // 若没有到达两个操作数同为nullptr，不保证上述变量可用
+        // 至于用谁通过函数GetValueType
+        // TODO：待完善
+        string opration; // 具体操作符
         Expression *operand1, *operand2;
-
+        string value;                       // 当前表达式的值，如果有的话
+        VariantReference *variantReference; // 变量或常量或数组 或者记录
+        SubProgramCall *subProgramCall;
+        /// @brief 1.value 2.variantReference 3.subProgramCall
+        int GetValueType() { return valueType; }
+        Token::TokenType GetValueToken() { return type; }
         Expression(ParseNode *);
         ~Expression();
+
+    private:
+        Token::TokenType type; // 表达式的类型
+        // 如果两个操作数的值均为空则代表已经到达最底部，可用使用该值
+        int lineNum;                    // 行号
+        Token::TokenType operationType; // 表达式的类型
+        int valueType;                  // 0.未赋值 1.value 2.vari 3.subProgramCall
     };
     class VariantReference
-    { // ID
+    { // ID，不含Function
     public:
-        int lineNum; // 行号
-        int isLeft;  // 是否为左值，左值不可以为函数
-        Token::TokenType type;
-        // 当前变量的类型，这个类型如果为ARRAY需要将 全部的[]读入然后再记录标准类型
+        Token::TokenType idType; // 这个id对应的类型，借助这个变量判断如何展开变量
+        // INTEGER BOOLEAN REAL CHAR ARRAY RECORD
         vector<string> recordPart; // 第一个为record的id
         int isArrayAtRecordEnd;    // record的最后一位是否为数组
         vector<Expression *> arrayPart;
         // 如果为数组或者记录 记录接下来的内容（a[1]; a.b）
         // 就是记录[1] 和 b 写入的时候判断类型是否合法
-        string GetIDToCodeGenerator() { prefix + id; }
+        string GetIDToCodeGenerator() { return prefix + id; } // TODO:如果是记录的话需要遍历
+        Token::TokenType GetFinalType() { return finalType; }
         VariantReference(ParseNode *, int);
+        VariantReference(ParseNode *idNode);
         ~VariantReference();
 
     private:
+        Token::TokenType finalType; // 最终这个值是一个标准类型，不能从该值判断除是否为Array和record
+        // INTEGER BOOLEAN REAL CHAR
         string prefix; // 对应的前缀
         string id;     // id值
+        int lineNum;   // 行号
+        int isLeft;    // 是否为左值，左值不可以为函数，1代表为左值，0则不是
     };
     class SubProgramCall
     {
     public:
         pair<string, int> subProgramId; // 函数标识符和行号
         vector<Expression *> paraList;
-        Token::TokenType returnType;
-        int isStatement; // 如果是在语句中不用管返回值，在为1，不在为0
-        // TODO:进行参数类型比较和返回值类型比较
-
+        Token::TokenType GetReturnType() { return returnType; }
         SubProgramCall(ParseNode *);
         ~SubProgramCall();
+
+    private:
+        Token::TokenType returnType; // 一定是标准类型
     };
     class WhileStatement
     {
         // 这里富含了 while repeat for 都写在While里
     public:
         AssignStatement *initAssign; // 如果为null就不用执行
-        Expression *condition;
+        Expression *condition;       // 如果为 for 的话这个是结束的expression
         vector<Statement *> statementList;
-
+        Token::TokenType whileType;
+        int isDownto; // -1,0,1 ; -1 非for，0 不是downto，1是downto
         WhileStatement(ParseNode *);
         ~WhileStatement();
     };
@@ -234,8 +250,8 @@ namespace AST
     {
     public:
         Expression *condition;
-        vector<Statement *> thenStatementList;
-        vector<Statement *> elseStatementList;
+        Statement *thenStatement;
+        Statement *elseStatement;
 
         IfStatement(ParseNode *);
         ~IfStatement();
@@ -247,6 +263,7 @@ namespace AST
         Expression *rightVal;      // 右值
 
         AssignStatement(ParseNode *);
+        AssignStatement(ParseNode *idNode, Expression expression_);
         ~AssignStatement();
     };
     class CaseStatement

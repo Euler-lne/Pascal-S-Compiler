@@ -2,8 +2,7 @@
 #define TOKENTYPEENUM_H
 namespace Token
 {
-    enum TokenType
-    {
+    enum TokenType {
         PROGRAM_,
         // 头部
         PROGRAM_HEAD_,
@@ -119,8 +118,7 @@ namespace Token
         NULL_, // 添加一个返回值类型，代表这个为一个记录类型
     };
 
-    enum GenerationType
-    {
+    enum GenerationType {
         C,
         JAVA,
         PYTHON
