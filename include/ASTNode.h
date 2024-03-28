@@ -78,6 +78,8 @@ namespace AST
         map<string, ConstDeclare *> constList;        // 真实名字 和 其值
         map<string, pair<int, VarDeclare *>> varList; // 注意其孩子
         map<string, SubProgram *> subProgramList;
+        map<string, Token::TokenType> declarationList; // 用于快速检查是否重定义
+        // 这里的Token::TokenType取值为 VAR CONST FUNCTION（包括过程）
         Declaration(ParseNode *);
         ~Declaration();
     };
@@ -98,6 +100,7 @@ namespace AST
         int isArray; // 这个变量用于判断是否为数组，因为为数组的话，导致type也为标准类型，不可区分
         // 1 为数组，0非数组
         // array [1..25] 定义了一个长度为25的数组
+        // 规定数组下标必须为整数或者一个整数类型的const，且起始下标要小于结束下标
         vector<pair<int, int>> dimension; // vector长度代表维数，第一个值为起始下标，第二个值为长度
         map<string, pair<int, VarDeclare *>> recordList;
         VarDeclare(ParseNode *);

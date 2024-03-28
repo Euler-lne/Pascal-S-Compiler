@@ -19,7 +19,8 @@ namespace AST
     void ReadVarDeclarations(ParseNode *var_declarations_, map<string, pair<int, VarDeclare *>> &varList);
     void ReadConstDeclarations(ParseNode *const_declarations_, map<string, ConstDeclare *> &constList);
     void ReadSubProgramDeclarations(ParseNode *subprogram_declarations_, map<string, SubProgram *> &subProgramList);
-
+    int CheckConstValType(ParseNode *const_variable_, Token::TokenType _type);
+    Token::TokenType GetConstType(ParseNode *const_variable_);
     // program->program_head program_body .
     Program::Program(ParseNode *program_)
     {
@@ -115,6 +116,8 @@ namespace AST
 
     ConstDeclare::ConstDeclare(ParseNode *const_variable_)
     {
+        // TODO:常量检测读取常量
+        type = GetConstType(const_variable_);
     }
 
     ConstDeclare::~ConstDeclare()
@@ -349,12 +352,14 @@ namespace AST
                 Stack idStack(identifier_list_, 0, 2, 1, 0, Token::ID);
                 ParseNode *idNode = idStack.Pop();
                 while (idNode != nullptr) {
-                    if (varList.find(idNode->val) != varList.end()) {
+                    map<string, Token::TokenType> list = curProgramBody->declaration->declarationList;
+                    if (list.find(idNode->val) != list.end()) {
                         // 之前有声明过这个变量，这里要报错
                         // FIXME：报错变量重定义
                     }
                     pair<int, VarDeclare *> temp = pair<int, VarDeclare *>(idNode->lineNumber, varDeclare);
                     varList.insert(pair<string, pair<int, VarDeclare *>>(idNode->val, temp));
+                    curProgramBody->declaration->declarationList.insert(pair<string, Token::TokenType>(idNode->val, Token::VAR));
                     idNode = idStack.Pop();
                 }
                 type_ = typeStack.Pop();
@@ -371,12 +376,14 @@ namespace AST
             ParseNode *idNode = idStack.Pop();
             ParseNode *const_variable = constVariableStack.Pop();
             while (idNode != nullptr) {
-                if (constList.find(idNode->val) != constList.end()) {
+                map<string, Token::TokenType> list = curProgramBody->declaration->declarationList;
+                if (list.find(idNode->val) != list.end()) {
                     // 之前有声明过这个变量，这里要报错
                     // FIXME：报错常量重定义
                 }
                 ConstDeclare *constDeclare = new ConstDeclare(const_variable);
                 constList.insert(pair<string, ConstDeclare *>(idNode->val, constDeclare));
+                curProgramBody->declaration->declarationList.insert(pair<string, Token::TokenType>(idNode->val, Token::CONST));
                 idNode = idStack.Pop();
                 const_variable = constVariableStack.Pop();
             }
@@ -390,15 +397,60 @@ namespace AST
             ParseNode *subprogram_head = subprogram_declaration_->children[0];
             while (subprogram_declaration_ != nullptr) {
                 string name = subprogram_head->children[1]->val;
-                if (subProgramList.find(name) != subProgramList.end()) {
+                map<string, Token::TokenType> list = curProgramBody->declaration->declarationList;
+                if (list.find(name) != list.end()) {
                     // 之前有声明过这个变量，这里要报错
                     // FIXME：报错函数重定义
                 }
                 SubProgram *subProgram = new SubProgram(subprogram_declaration_);
                 subProgramList.insert(pair<string, SubProgram *>(name, subProgram));
+                curProgramBody->declaration->declarationList.insert(pair<string, Token::TokenType>(name, Token::FUNCTION));
                 subprogram_declaration_ = subprogramDeclarationStack.Pop();
             }
         }
     }
 #pragma endregion
+    /// @brief 判断当前的const的类型是否和传入的一样
+    /// @param const_variable_ const节点
+    /// @param _type 传入的类型
+    /// @return 匹配返回1，否则为0
+    int CheckConstValType(ParseNode *const_variable_, Token::TokenType _type)
+    {
+        return _type == GetConstType(const_variable_) ? 1 : 0;
+    }
+    /// @brief 获取当前const的节点的类型
+    /// @param const_variable_  const节点对应的值
+    /// @return 返回 INT_NUM FLOAT_NUM LETTER 这些Token
+    Token::TokenType GetConstType(ParseNode *const_variable_)
+    {
+        // 注意如果为嵌套的定义则需要进入到 curProgramBody中寻找。
+        ParseNode *item = nullptr;
+        if (const_variable_->children.size() == 2) {
+            // 跳过 + - 符号
+            item = const_variable_->children[1];
+        } else if (const_variable_->children.size() == 1) {
+            item = const_variable_->children[0];
+        }
+        // FIXME:这里由于letter不确定，所以之后需要考虑
+        if (item != nullptr) {
+            if (item->token != Token::ID) {
+                return item->token;
+            } else {
+                // 此时不为 为ID，这个ID必须是之前定义过的，且必须是常量
+                string idName = item->val;
+                ProgramBody *cur = curProgramBody;
+                while (cur != nullptr) {
+                    map<string, ConstDeclare *> constList = cur->declaration->constList;
+                    if (constList.find(idName) != constList.end()) {
+                        // 找到了这个值
+                        ConstDeclare *constId = constList.find(idName)->second;
+                        return constId->type;
+                    }
+                    cur = cur->parent;
+                }
+                // FIXME:没有找到就要报错，因为const variable必须是一个const类型的鼻梁
+            }
+        }
+        return Token::LETTER;
+    }
 } // namespace AST
