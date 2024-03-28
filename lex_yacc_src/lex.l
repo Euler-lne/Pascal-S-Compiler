@@ -414,7 +414,7 @@ mulop (\*|\/|div|mod|and)
 	yylval->val=yytext;
 	yylval->token=Token::INT_NUM;
     yylval->lineNumber = yylineno - 1;
-    return INT_NUM;
+    return NUM;
 }
 
 {float_num} {
@@ -422,7 +422,7 @@ mulop (\*|\/|div|mod|and)
     yylval->val=yytext;
     yylval->token=Token::FLOAT_NUM;
     yylval->lineNumber = yylineno - 1;
-    return FLOAT_NUM;
+    return NUM;
 }
 
 {letter} {
