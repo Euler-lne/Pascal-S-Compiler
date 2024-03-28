@@ -11,6 +11,7 @@ namespace ParseTree
     {
     public:
         ParseNode *Pop();
+        int GetStackLen() { return stack.size(); }
         Stack(ParseNode *_rootNode, int nextPosition, int valPosition, int endSize, int endPosition, Token::TokenType expectType, int isEmpty = 0);
         ~Stack();
 
