@@ -24,27 +24,21 @@ namespace C_GEN
 
     void C_Generater::run()
     {
-        if (ast == nullptr)
-        {
+        if (ast == nullptr) {
             std::cout << "ERROR::No AST For Generater" << std::endl;
             return;
         }
 
-        if (this->generationType == Token::GenerationType::C)
-        {
+        if (this->generationType == Token::GenerationType::C) {
             C_Generate();
-        }
-        else if (this->generationType == Token::GenerationType::JAVA)
-        {
+        } else if (this->generationType == Token::GenerationType::JAVA) {
             JAVA_Generate();
-        }
-        else if (this->generationType == Token::GenerationType::PYTHON)
-        {
+        } else if (this->generationType == Token::GenerationType::PYTHON) {
             PY_Generate();
         }
     }
 
     void C_Generater::C_Generate()
     {
-        }
+    }
 };
