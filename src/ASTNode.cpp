@@ -19,6 +19,7 @@ namespace AST
     void ReadVarDeclarations(ParseNode *var_declarations_, map<string, pair<int, VarDeclare *>> &varList);
     void ReadConstDeclarations(ParseNode *const_declarations_, map<string, ConstDeclare *> &constList);
     void ReadSubProgramDeclarations(ParseNode *subprogram_declarations_, map<string, SubProgram *> &subProgramList);
+    Token::TokenType GetConstType(ParseNode *const_variable_, string &value);
 
     // program->program_head program_body .
     Program::Program(ParseNode *program_)
@@ -115,15 +116,28 @@ namespace AST
 
     ConstDeclare::ConstDeclare(ParseNode *const_variable_)
     {
+        type = GetConstTypeFromParseTree(const_variable_, constVal);
+        lineNum = const_variable_->children[0]->lineNumber; // 都是终极符号，可以直接得到
     }
-
     ConstDeclare::~ConstDeclare()
     {
+    }
+    /// @brief 获取记录类型中的某个值的类型定义
+    /// @param name
+    /// @return 返回一个新的变量定义，这个定义属于记录
+    VarDeclare *VarDeclare::GetRecordTypeOfName(string name)
+    {
+        if (recordList.find(name) == recordList.end()) {
+            return nullptr;
+        }
+        return recordList.find(name)->second.second;
     }
 
     VarDeclare::VarDeclare(ParseNode *type_)
     {
         type = GetVarTypeFromTypeNode(type_);
+        isAssignment = 0;
+        isUsed = 0;
         isArray = 0;
         if (type == Token::ARRAY) {
             // 解析array
@@ -135,8 +149,22 @@ namespace AST
             while (period_ != nullptr) {
                 ParseNode *start_const_ = period_->children[0];
                 ParseNode *end_const_ = period_->children[2];
-                // FIXME:常量检测，判断是否为数字，不清楚是否可以为负数，起始值是否可用大于结束值
-                // TODO:这个函数应该和ConstDeclare中的一样
+                string start_value, end_value;
+                Token::TokenType start_type, end_type;
+                start_type = GetConstType(start_const_, start_value);
+                end_type = GetConstType(end_const_, end_value);
+                if (start_type != Token::INT_NUM || end_type != Token::INT_NUM) {
+                    // FIXME:报错，必须是整数类型的常量
+                } else {
+                    // 将字符串转换为数字，然后保存；
+                    int start = stoi(start_value);
+                    int end = stoi(end_value);
+                    if (start <= end) {
+                        dimension.emplace_back(pair<int, int>(start, end - start + 1));
+                    } else {
+                        // FIXME:起始下标一定要小于等于结束下标
+                    }
+                }
             }
         } else if (type == Token::RECORD) {
             // 解析 record
@@ -144,13 +172,14 @@ namespace AST
             ReadVarDeclarations(var_declarations_, recordList);
         }
     }
-
     VarDeclare::~VarDeclare()
     {
     }
+
     SubProgram::SubProgram(ParseNode *subprogram_declaration_)
     {
         ParseNode *subprogram_head_ = subprogram_declaration_->children[0];
+        isUsed = 0;
         Token::TokenType type = subprogram_head_->children[0]->token; // 判断是函数/过程
         subProgramId = subprogram_head_->children[1]->val;            // 得到函数名字
         lineNum = subprogram_head_->children[0]->lineNumber;
@@ -174,7 +203,6 @@ namespace AST
         ParseNode *program_body_ = subprogram_declaration_->children[1];
         programBody = new ProgramBody(subProgramId, program_body_);
     }
-
     SubProgram::~SubProgram()
     {
     }
@@ -202,7 +230,6 @@ namespace AST
         ParseNode *standard_type_ = node->children[2]; // 位于2号位置
         type = standard_type_->children[0]->token;
     }
-
     FormalParameter::~FormalParameter()
     {
     }
@@ -252,7 +279,6 @@ namespace AST
             break;
         }
     }
-
     Statement::~Statement()
     {
         switch (statementType) {
@@ -284,16 +310,138 @@ namespace AST
     Expression::Expression(ParseNode *expression_)
     {
     }
-
     Expression::~Expression()
     {
     }
 
-    VariantReference::VariantReference(ParseNode *variable_)
+    VariantReference::VariantReference(ParseNode *variable_, int _isLeft)
     {
-        // 这里识别的是ID
+        isLeft = _isLeft;
+        lineNum = variable_->children[0]->lineNumber;
+        string idName = variable_->children[0]->val;
+        ProgramBody *cur = curProgramBody;
+        while (cur != nullptr) {
+            // 寻找idName，判断其类型，最开始的id
+            map<string, Token::TokenType> list = cur->declaration->declarationList;
+            if (list.find(idName) != list.end()) {
+                // 找到了这个值
+                type = list.find(idName)->second;
+                switch (type) {
+                case Token::VAR:
+                    VarDeclare *varDeclare = cur->declaration->varList.find(idName)->second.second;
+                    type = varDeclare->GetVarDeclareType();
+                    if (varDeclare->IsArray())
+                        type = Token::ARRAY;
+                    break;
+                case Token::CONST:
+                    if (isLeft) {
+                        // FIXME:报错，左值不可以是常量
+                        //
+                    } else {
+                        ConstDeclare *constDeclare = cur->declaration->constList.find(idName)->second;
+                        type = constDeclare->GetConstDeclareType();
+                    }
+                    break;
+                case Token::FUNCTION:
+                    if (isLeft) {
+                        // FIXME:报错，左值不可以是函数
+                    } else {
+                        SubProgram *subProgram = cur->declaration->subProgramList.find(idName)->second;
+                        type = subProgram->GetReturnType();
+                    }
+                    break;
+                default:
+                    // TODO:这里是不可能得到的情况，是否处理
+                    // 原因只要id在主表里面就一定在三个分表中的任意一个中
+                    break;
+                }
+                break;
+            }
+            cur = cur->parent;
+        }
+        if (cur == nullptr) {
+            // FIXME:报错 使用了没有声明的变量
+        } else {
+            ParseNode *id_varparts_ = variable_->children[1];
+            Stack idVarpartsStack(id_varparts_, 0, 1, 0, -1, Token::ID_VARPART_);
+            ParseNode *id_varpart_ = idVarpartsStack.Pop();
+            if (type == Token::RECORD || type == Token::ARRAY) {
+                if (id_varpart_ == nullptr) {
+                    // FIXME:报错，不可以直接对记录 或者 数组赋值
+                }
+            } else {
+                if (id_varpart_ != nullptr) {
+                    // FIXME:报错，只有记录和函数才可能有id_varpart
+                }
+            }
+            if (type == Token::RECORD) {
+                VarDeclare *varDeclare = cur->declaration->varList.find(idName)->second.second;
+                while (id_varpart_ != nullptr) {
+                    switch (type) {
+                    case Token::RECORD:
+                        if (id_varpart_->children[0]->token != Token::DOT) {
+                            // FIXME:报错
+                        } else {
+                            idName = id_varpart_->children[1]->val;
+                            varDeclare = varDeclare->GetRecordTypeOfName(idName);
+                            type = varDeclare->GetVarDeclareType();
+                            if (varDeclare->IsArray())
+                                type = Token::ARRAY;
+                        }
+                        break;
+                    case Token::ARRAY:
+                        if (id_varpart_->children[0]->token != Token::LEFT_MEDIUM_PARENTHESES) {
+                            // FIXME:报错
+                        } else {
+                            ParseNode *expression_list_ = id_varpart_->children[1];
+                            Stack expressionListStack(expression_list_, 0, 2, 1, 0, Token::EXPRESSION_);
+                            if (expressionListStack.GetStackLen() != varDeclare->GetArrayDimension()) {
+                                // FIXME: expression的数目和数组维度不匹配
+                            } else {
+                                ParseNode *expression_ = expressionListStack.Pop();
+                                while (expression_ != nullptr) {
+                                    Expression *expression = new Expression(expression_);
+                                    arrayPart.emplace_back(expression);
+                                }
+                                type = varDeclare->GetVarDeclareType();
+                            }
+                        }
+                        break;
+                    case Token::INTEGER:
+                    case Token::BOLLEAN:
+                    case Token::REAL:
+                    case Token::CHAR:
+                        // FIXME：报错，接下来的变量不能有id_varpart
+                        break;
+                    case Token::NULL_:
+                        // FIXME:报错，没有在记录中找到这个id名字
+                        break;
+                    default:
+                        break;
+                    }
+                    id_varpart_ = idVarpartsStack.Pop();
+                }
+            } else if (type == Token::ARRAY) {
+                VarDeclare *varDeclare = cur->declaration->varList.find(idName)->second.second;
+                if (id_varpart_->children[0]->token != Token::LEFT_MEDIUM_PARENTHESES) {
+                    // FIXME:报错，已经是数组类型了不饿能是其他
+                } else {
+                    ParseNode *expression_list_ = id_varpart_->children[1];
+                    Stack expressionListStack(expression_list_, 0, 2, 1, 0, Token::EXPRESSION_);
+                    if (expressionListStack.GetStackLen() != varDeclare->GetArrayDimension()) {
+                        // FIXME: expression的数目和数组维度不匹配
+                    } else {
+                        ParseNode *expression_ = expressionListStack.Pop();
+                        while (expression_ != nullptr) {
+                            Expression *expression = new Expression(expression_);
+                            arrayPart.emplace_back(expression);
+                        }
+                        type = varDeclare->GetVarDeclareType();
+                    }
+                }
+            }
+        }
     }
-
     VariantReference::~VariantReference()
     {
     }
@@ -301,7 +449,6 @@ namespace AST
     SubProgramCall::SubProgramCall(ParseNode *call_subprogram_statement_)
     {
     }
-
     SubProgramCall::~SubProgramCall()
     {
     }
@@ -310,7 +457,6 @@ namespace AST
     {
         // TODO:注意这里将三个循环语句合并了
     }
-
     WhileStatement::~WhileStatement()
     {
     }
@@ -318,7 +464,6 @@ namespace AST
     IfStatement::IfStatement(ParseNode *if_statement_)
     {
     }
-
     IfStatement::~IfStatement()
     {
     }
@@ -326,10 +471,10 @@ namespace AST
     AssignStatement::AssignStatement(ParseNode *assign_statement_)
     {
     }
-
     AssignStatement::~AssignStatement()
     {
     }
+
     CaseStatement::CaseStatement(ParseNode *)
     {
     }
@@ -349,12 +494,14 @@ namespace AST
                 Stack idStack(identifier_list_, 0, 2, 1, 0, Token::ID);
                 ParseNode *idNode = idStack.Pop();
                 while (idNode != nullptr) {
-                    if (varList.find(idNode->val) != varList.end()) {
+                    map<string, Token::TokenType> list = curProgramBody->declaration->declarationList;
+                    if (list.find(idNode->val) != list.end()) {
                         // 之前有声明过这个变量，这里要报错
                         // FIXME：报错变量重定义
                     }
                     pair<int, VarDeclare *> temp = pair<int, VarDeclare *>(idNode->lineNumber, varDeclare);
                     varList.insert(pair<string, pair<int, VarDeclare *>>(idNode->val, temp));
+                    curProgramBody->declaration->declarationList.insert(pair<string, Token::TokenType>(idNode->val, Token::VAR));
                     idNode = idStack.Pop();
                 }
                 type_ = typeStack.Pop();
@@ -371,12 +518,14 @@ namespace AST
             ParseNode *idNode = idStack.Pop();
             ParseNode *const_variable = constVariableStack.Pop();
             while (idNode != nullptr) {
-                if (constList.find(idNode->val) != constList.end()) {
+                map<string, Token::TokenType> list = curProgramBody->declaration->declarationList;
+                if (list.find(idNode->val) != list.end()) {
                     // 之前有声明过这个变量，这里要报错
                     // FIXME：报错常量重定义
                 }
                 ConstDeclare *constDeclare = new ConstDeclare(const_variable);
                 constList.insert(pair<string, ConstDeclare *>(idNode->val, constDeclare));
+                curProgramBody->declaration->declarationList.insert(pair<string, Token::TokenType>(idNode->val, Token::CONST));
                 idNode = idStack.Pop();
                 const_variable = constVariableStack.Pop();
             }
@@ -390,15 +539,58 @@ namespace AST
             ParseNode *subprogram_head = subprogram_declaration_->children[0];
             while (subprogram_declaration_ != nullptr) {
                 string name = subprogram_head->children[1]->val;
-                if (subProgramList.find(name) != subProgramList.end()) {
+                map<string, Token::TokenType> list = curProgramBody->declaration->declarationList;
+                if (list.find(name) != list.end()) {
                     // 之前有声明过这个变量，这里要报错
                     // FIXME：报错函数重定义
                 }
                 SubProgram *subProgram = new SubProgram(subprogram_declaration_);
                 subProgramList.insert(pair<string, SubProgram *>(name, subProgram));
+                curProgramBody->declaration->declarationList.insert(pair<string, Token::TokenType>(name, Token::FUNCTION));
                 subprogram_declaration_ = subprogramDeclarationStack.Pop();
             }
         }
     }
 #pragma endregion
+
+    /// @brief 获取当前const的节点的类型
+    /// @param const_variable_  const节点对应的值
+    /// @param value 当前的const对应的值，字符串类型
+    /// @return 返回 INT_NUM FLOAT_NUM LETTER 这些Token
+    Token::TokenType GetConstTypeFromParseTree(ParseNode *const_variable_, string &value)
+    {
+        // 注意如果为嵌套的定义则需要进入到 curProgramBody中寻找。
+        ParseNode *item = nullptr;
+        value = "";
+        if (const_variable_->children.size() == 2) {
+            // 跳过 + - 符号
+            value += const_variable_->children[0]->val; // + - 符号
+            item = const_variable_->children[1];
+        } else if (const_variable_->children.size() == 1) {
+            item = const_variable_->children[0];
+        }
+        if (item != nullptr) {
+            if (item->token != Token::ID) {
+                value += item->val;
+                return item->token;
+            } else {
+                // 此时不为 为ID，这个ID必须是之前定义过的，且必须是常量
+                string idName = item->val;
+                ProgramBody *cur = curProgramBody;
+                while (cur != nullptr) {
+                    map<string, ConstDeclare *> constList = cur->declaration->constList;
+                    if (constList.find(idName) != constList.end()) {
+                        // 找到了这个值
+                        ConstDeclare *constId = constList.find(idName)->second;
+                        value += item->val;
+                        return constId->GetConstDeclareType();
+                    }
+                    cur = cur->parent;
+                }
+                // FIXME:没有找到就要报错，因为const variable必须是一个const类型的鼻梁
+            }
+        }
+        // TODO:出现错误，item理论上不可能为nullptr
+    }
+
 } // namespace AST

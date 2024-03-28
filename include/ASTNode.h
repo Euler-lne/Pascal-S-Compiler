@@ -78,41 +78,67 @@ namespace AST
         map<string, ConstDeclare *> constList;        // 真实名字 和 其值
         map<string, pair<int, VarDeclare *>> varList; // 注意其孩子
         map<string, SubProgram *> subProgramList;
+        map<string, Token::TokenType> declarationList; // 用于快速检查是否重定义
+        // 这里的Token::TokenType取值为 VAR CONST FUNCTION（包括过程）
         Declaration(ParseNode *);
         ~Declaration();
     };
     class ConstDeclare
     { // 输入的节点为 const_variable
     public:
-        string constId;
-        int lineNum;
-        Token::TokenType type; // INT_NUM FLOAT_NUM LETTER
+        Token::TokenType GetConstDeclareType() { return type; }
         ConstDeclare(ParseNode *);
         ~ConstDeclare();
+
+    private:
+        string constVal; // 得到的num都是无符号的数
+        int lineNum;
+        Token::TokenType type; // INT_NUM FLOAT_NUM LETTER
     };
     class VarDeclare
     { // 传入type_，这里没有记录当前的ID，要看ID请到 Declaration 中
       // 这里只保存了这个变量对应的类型
     public:
-        Token::TokenType type;
-        int isArray; // 这个变量用于判断是否为数组，因为为数组的话，导致type也为标准类型，不可区分
-        // 1 为数组，0非数组
-        // array [1..25] 定义了一个长度为25的数组
-        vector<pair<int, int>> dimension; // vector长度代表维数，第一个值为起始下标，第二个值为长度
-        map<string, pair<int, VarDeclare *>> recordList;
+        Token::TokenType GetVarDeclareType() { return type; }
+        int GetArrayDimension() { return dimension.size(); }
+        VarDeclare *GetRecordTypeOfName(string name);
+        void SetAssignment() { isAssignment = 1; }
+        int IsArray() { return isArray; }
+        int IsAssignment() { return isAssignment; }
+        void SetUsed() { isUsed = 1; }
+        int IsUsed() { return isUsed; }
         VarDeclare(ParseNode *);
         ~VarDeclare();
+
+    private:
+        Token::TokenType type; // 没有ARRAY 类型，如果为array已经变成了标准类型
+        int isArray;           // 这个变量用于判断是否为数组，因为为数组的话，导致type也为标准类型，不可区分
+        // 1 为数组，0非数组
+        // array [1..25] 定义了一个长度为25的数组
+        // 规定数组下标必须为整数或者一个整数类型的const，且起始下标要小于结束下标
+        vector<pair<int, int>> dimension;
+        // vector长度代表维数，第一个值为起始下标，第二个值为长度
+        map<string, pair<int, VarDeclare *>> recordList;
+        int isAssignment; // 如果赋值了就为1，没有就为0，用于报错
+        int isUsed;       // 这个变量是否被使用
     };
     class SubProgram
     { // 传入 subprogram_declaration_
     public:
+        ProgramBody *programBody;
+        Token::TokenType GetReturnType() { return returnType; }
+        void SetUsed() { isUsed = 1; }
+        int IsUsed() { return isUsed; } // TODO:用于代码生成时候的优化
+        SubProgram(ParseNode *);
+        ~SubProgram();
+
+    private:
         string subProgramId;
         int lineNum;                                   // 函数/过程行号
         vector<FormalParameter *> formalParameterList; // 参数列表
-        Token::TokenType returnType;                   // 返回值类型为基本类型，行号，没有代表为过程，已经声明了一个NULL的TokenType
-        ProgramBody *programBody;
-        SubProgram(ParseNode *);
-        ~SubProgram();
+        Token::TokenType returnType;
+        // 返回值类型为基本类型，行号，没有代表为过程，已经声明了一个NULL的TokenType
+        int isUsed; // 是否被调用了，如果被调用了就为1，没有为0；
     };
     class FormalParameter
     {
@@ -165,16 +191,21 @@ namespace AST
     { // ID
     public:
         int lineNum; // 行号
+        int isLeft;  // 是否为左值，左值不可以为函数
         Token::TokenType type;
-        vector<Expression *> expressionList; // 各维的变量显示
-        string item;                         // 若为结构体这里为结构体，可能要使用的变量
-
-        VariantReference(ParseNode *);
+        // 当前变量的类型，这个类型如果为ARRAY需要将 全部的[]读入然后再记录标准类型
+        vector<string> recordPart; // 第一个为record的id
+        int isArrayAtRecordEnd;    // record的最后一位是否为数组
+        vector<Expression *> arrayPart;
+        // 如果为数组或者记录 记录接下来的内容（a[1]; a.b）
+        // 就是记录[1] 和 b 写入的时候判断类型是否合法
+        string GetIDToCodeGenerator() { prefix + id; }
+        VariantReference(ParseNode *, int);
         ~VariantReference();
 
     private:
-        string vartId; // 需要去符号表中查找
-        string suffix; // 每一层添加的后缀
+        string prefix; // 对应的前缀
+        string id;     // id值
     };
     class SubProgramCall
     {
