@@ -69,7 +69,7 @@ namespace C_GEN
         std::string ProcProgramHead(AST::ProgramHead *programHead);
         std::string ProcProgramBody(AST::ProgramBody *programBody);
         std::string ProcProgramBody(AST::ProgramBody *programBody, std::string programBodyId){};
-        void ProcDeclaration(AST::Declaration *declaration);
+        void ProcDeclaration(AST::Declaration *declaration, std::string prefix);
         void ProcConstDeclare(AST::Declaration *declaration);
     };
 } // namespace C_G
