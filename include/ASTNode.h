@@ -29,12 +29,14 @@ namespace AST
     class FormalParameter;
     class Statement;
     class Expression;
+    class Branch;
     class VariantReference;
     class SubProgramCall;
     class WhileStatement;
     class IfStatement;
     class AssignStatement;
     class CaseStatement;
+
     class Program // 程序
     {
     public:
@@ -49,8 +51,8 @@ namespace AST
         Program(ParseNode *);
         ~Program();
 
-        ProgramHead * GetProgramHead(){return programHead;};
-        ProgramBody *GetProgramBody(){return programBody;};
+        ProgramHead *GetProgramHead() { return programHead; };
+        ProgramBody *GetProgramBody() { return programBody; };
     };
     class ProgramHead
     {
@@ -75,8 +77,8 @@ namespace AST
         ProgramBody(string, ParseNode *);
         ~ProgramBody();
 
-        string GetPrefix(){return prefix;};
-        Declaration* GetDeclaration(){return declaration;};
+        string GetPrefix() { return prefix; };
+        Declaration *GetDeclaration() { return declaration; };
     };
 #pragma region 定义
 
@@ -87,9 +89,10 @@ namespace AST
         map<string, pair<int, VarDeclare *>> varList; // 注意其孩子
         map<string, SubProgram *> subProgramList;
         map<string, Token::TokenType> declarationList; // 用于快速检查是否重定义
+        vector<string> declarationQueue;               // 用于记录变量顺序，因为map会改变插入顺序
         // 这里的Token::TokenType取值为 VAR CONST FUNCTION（包括过程）
-        
-        map<string, ConstDeclare *>& GetConstList(){return constList;};
+
+        map<string, ConstDeclare *> &GetConstList() { return constList; };
         Declaration(){};
         Declaration(ParseNode *);
         ~Declaration();
@@ -99,7 +102,7 @@ namespace AST
     public:
         void SetUsed() { isUsed = 1; }
         int IsUsed() { return isUsed; }
-        Token::TokenType& GetConstDeclareType() { return type; }
+        Token::TokenType &GetConstDeclareType() { return type; }
         ConstDeclare(){};
         ConstDeclare(ParseNode *);
         ~ConstDeclare();
@@ -279,11 +282,22 @@ namespace AST
         AssignStatement(ParseNode *idNode, Expression expression_);
         ~AssignStatement();
     };
+
+    class Branch
+    {
+    public:
+        vector<ConstDeclare *> constList;
+        Statement *statement;
+        Branch(ParseNode *);
+        ~Branch();
+    };
+
     class CaseStatement
     {
     public:
         Expression *condition;
         // TODO:完善case语句
+        vector<Branch *> branchList;
 
         CaseStatement(ParseNode *);
         ~CaseStatement();

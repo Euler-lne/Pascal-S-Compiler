@@ -59,12 +59,12 @@ namespace C_GEN
     //main
     std::string C_Code::ProcProgramBody(AST::ProgramBody *programBody)
     {
-        ProcDeclaration(programBody->GetDeclaration());
+        ProcDeclaration(programBody->GetDeclaration(), programBody->GetPrefix());
         targetCode << string("int main()\n{\n");
         return targetCode.str();
     }
 
-    void C_Code::ProcDeclaration(AST::Declaration *declaration)
+    void C_Code::ProcDeclaration(AST::Declaration *declaration, std::string prefix)
     {
         for(auto it : declaration->GetConstList())
         {
