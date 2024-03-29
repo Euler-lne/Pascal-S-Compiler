@@ -25,38 +25,43 @@ namespace C_GEN
 
     void C_Generater::run()
     {
-        if (ast == nullptr) {
+        if (ast == nullptr)
+        {
             std::cout << "ERROR::No AST For Generater" << std::endl;
-            //return;
+            // return;
         }
 
-        if (this->generationType == Token::GenerationType::C) {
+        if (this->generationType == Token::GenerationType::C)
+        {
             pTargetCodeGen = new C_Code();
-        } else if (this->generationType == Token::GenerationType::JAVA) {
+        }
+        else if (this->generationType == Token::GenerationType::JAVA)
+        {
             JAVA_Generate();
-        } else if (this->generationType == Token::GenerationType::PYTHON) {
+        }
+        else if (this->generationType == Token::GenerationType::PYTHON)
+        {
             PY_Generate();
         }
-        
+
         targetCodeStream = pTargetCodeGen->GenerateTargetCode(outPutPath, ast);
 
-        std::cout << targetCodeStream <<std::endl;
-        
+        std::cout << targetCodeStream << std::endl;
     }
 
     std::string C_Code::GenerateTargetCode(std::string &outPutPath, AST::Program *ast)
     {
         outPutPath = ProcProgramHead(ast->GetProgramHead());
-
+        targetCode << "#define bool int\n#define true 1\n#define false 0\n ";
         return ProcProgramBody(ast->GetProgramBody());
     }
 
-    std::string C_Code::ProcProgramHead (AST::ProgramHead *programHead)
+    std::string C_Code::ProcProgramHead(AST::ProgramHead *programHead)
     {
         return programHead->GetProgramId();
     }
 
-    //main
+    // main
     std::string C_Code::ProcProgramBody(AST::ProgramBody *programBody)
     {
         ProcDeclaration(programBody->GetDeclaration(), programBody->GetPrefix());
@@ -66,21 +71,76 @@ namespace C_GEN
 
     void C_Code::ProcDeclaration(AST::Declaration *declaration, std::string prefix)
     {
-        for(auto it : declaration->GetConstList())
+        ProcConstDeclare(declaration, prefix);
+        ProcVarDeclare(declaration->GetVarList(), prefix);
+    }
+
+    void C_Code::ProcVarDeclare(std::map<string, pair<int, AST::VarDeclare *>> &varList, const std::string &prefix)
+    {
+        for (auto it : varList)
         {
-            targetCode<<string("const ");
-            switch (it.second->GetConstDeclareType())
+            switch (it.second.second->GetVarDeclareType())
             {
             case Token::TokenType::INTEGER:
             case Token::TokenType::REAL:
-                targetCode<<string("int ");
+                targetCode << "int " << prefix << it.first;
+                if (it.second.second->IsArray())
+                {
+                    ProcArray(it.second.second->GetDimension());
+                }
                 break;
-            
+
             case Token::TokenType::CHAR:
-                targetCode<<string("char ");
+                targetCode << "char " << prefix << it.first;
+                if (it.second.second->IsArray())
+                {
+                    ProcArray(it.second.second->GetDimension());
+                }
+                break;
+            case Token::TokenType::BOLLEAN:
+                targetCode << "bool " << prefix << it.first;
+                if (it.second.second->IsArray())
+                {
+                    ProcArray(it.second.second->GetDimension());
+                }
+                break;
+            case Token::TokenType::RECORD:
+                targetCode << "struct " << prefix << it.first << "\n{";
+                ProcVarDeclare(it.second.second->GetRecordList(), prefix);
+                targetCode << "}";
                 break;
             }
-            targetCode<< it.first<<"\n";
+            targetCode << ";\n";
+        }
+    }
+
+    void C_Code::ProcConstDeclare(AST::Declaration *declaration, const std::string &prefix)
+    {
+        auto &declarationList = declaration->GetConstList();
+        for (auto it : declaration->GetDeclarationQueue())
+        {
+            targetCode << string("const ");
+
+            switch (declarationList[it]->GetConstDeclareType())
+            {
+            case Token::TokenType::INTEGER:
+            case Token::TokenType::REAL:
+                targetCode << string("int ");
+                break;
+
+            case Token::TokenType::CHAR:
+                targetCode << string("char ");
+                break;
+            }
+            targetCode << prefix << it << " = " << declarationList[it]->GetConstVal() << ";\n";
+        }
+    }
+
+    void C_Code::ProcArray(vector<pair<int, int>> dimension)
+    {
+        for (auto it : dimension)
+        {
+            targetCode << "[" << it.first + it.second << "]";
         }
     }
 };

@@ -92,7 +92,9 @@ namespace AST
         vector<string> declarationQueue;               // 用于记录变量顺序，因为map会改变插入顺序
         // 这里的Token::TokenType取值为 VAR CONST FUNCTION（包括过程）
 
+        vector<string> GetDeclarationQueue() { return declarationQueue; };
         map<string, ConstDeclare *> &GetConstList() { return constList; };
+        auto &GetVarList() { return varList; };
         Declaration(){};
         Declaration(ParseNode *);
         ~Declaration();
@@ -103,6 +105,7 @@ namespace AST
         void SetUsed() { isUsed = 1; }
         int IsUsed() { return isUsed; }
         Token::TokenType &GetConstDeclareType() { return type; }
+        string &GetConstVal() { return constVal; };
         ConstDeclare(){};
         ConstDeclare(ParseNode *);
         ~ConstDeclare();
@@ -119,6 +122,8 @@ namespace AST
     public:
         Token::TokenType GetVarDeclareType() { return type; }
         int GetArrayDimension() { return dimension.size(); }
+        auto &GetDimension() { return dimension; };
+        auto &GetRecordList() { return recordList; };
         VarDeclare *GetRecordTypeOfName(string name);
         void SetAssignment() { isAssignment = 1; }
         int IsArray() { return isArray; }
