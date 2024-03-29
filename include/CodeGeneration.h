@@ -12,21 +12,28 @@
 #pragma once
 #include <iostream>
 #include <string>
+#include <sstream>
 #include "TokenTypeEnum.h"
 #include "ASTNode.h"
 
 namespace C_GEN
 {
+    class C_Generater;
+    class TargetCode;
+
+
     class C_Generater   //code generation mode
     {
     private:
         std::string outPutPath;                 //output file path
         Token::GenerationType generationType;   //target code type
         AST::Program *ast;                      //AST tree
+        std::string targetCodeStream;           //target code stream
+        TargetCode *pTargetCodeGen;
 
     public:
         C_Generater();
-        C_Generater(AST::Program *pAST, std::string _filePath, Token::GenerationType _generationType = Token::GenerationType::C) : ast(pAST), outPutPath(_filePath), generationType(_generationType){};
+        C_Generater(AST::Program *pAST, std::string _filePath, Token::GenerationType _generationType = Token::GenerationType::C) : ast(pAST), outPutPath(_filePath), generationType(_generationType){targetCodeStream.clear();};
         ~C_Generater();
 
         void SetPath(std::string _filePath) { outPutPath = _filePath; };
@@ -37,8 +44,28 @@ namespace C_GEN
         void run();
 
     private:
-        void C_Generate();
         void PY_Generate(){};
         void JAVA_Generate(){};
+    };
+
+    class TargetCode
+    {
+    private:
+        std::stringstream targetCode;
+    public:
+        TargetCode(){targetCode.clear();};
+        virtual std::string GenerateTargetCode(std::string &outPutPath, AST::Program *ast) = 0;
+    
+    private:
+
+    };
+
+    class C_Code : public TargetCode
+    {
+    public:
+        std::string GenerateTargetCode(std::string &outPutPath, AST::Program *ast);
+    
+    private:
+        std::string ProcProgramHead(AST::ProgramHead *programHead);
     };
 } // namespace C_G

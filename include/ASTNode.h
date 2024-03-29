@@ -48,6 +48,9 @@ namespace AST
         };
         Program(ParseNode *);
         ~Program();
+
+        ProgramHead * GetProgramHead(){return programHead;};
+        ProgramBody *GetProgramBody(){return programBody;};
     };
     class ProgramHead
     {

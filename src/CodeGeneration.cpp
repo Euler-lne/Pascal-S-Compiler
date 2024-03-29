@@ -15,6 +15,7 @@ namespace C_GEN
 {
     C_Generater::C_Generater()
     {
+        this->targetCodeStream.clear();
         this->ast = nullptr;
         this->outPutPath = "";
         this->generationType = Token::GenerationType::C;
@@ -26,19 +27,32 @@ namespace C_GEN
     {
         if (ast == nullptr) {
             std::cout << "ERROR::No AST For Generater" << std::endl;
-            return;
+            //return;
         }
 
         if (this->generationType == Token::GenerationType::C) {
-            C_Generate();
+            pTargetCodeGen = new C_Code();
         } else if (this->generationType == Token::GenerationType::JAVA) {
             JAVA_Generate();
         } else if (this->generationType == Token::GenerationType::PYTHON) {
             PY_Generate();
         }
+        
+        targetCodeStream = pTargetCodeGen->GenerateTargetCode(outPutPath, ast);
+
+        std::cout << targetCodeStream <<std::endl;
+        
     }
 
-    void C_Generater::C_Generate()
+    std::string C_Code::GenerateTargetCode(std::string &outPutPath, AST::Program *ast)
     {
+        std::cout << outPutPath;
+        outPutPath = ProcProgramHead(ast->GetProgramHead());
+        return "outPutPath";
+    }
+
+    std::string C_Code::ProcProgramHead (AST::ProgramHead *programHead)
+    {
+        return programHead->GetProgramId();
     }
 };
