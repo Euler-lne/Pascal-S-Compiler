@@ -177,10 +177,11 @@ namespace AST
     {
     }
 
-    SubProgram::SubProgram(ParseNode *subprogram_declaration_)
+    SubProgram::SubProgram(ParseNode *subprogram_declaration_, int _num)
     {
         ParseNode *subprogram_head_ = subprogram_declaration_->children[0];
         isUsed = 0;
+        number = _num;
         Token::TokenType type = subprogram_head_->children[0]->token; // 判断是函数/过程
         subProgramId = subprogram_head_->children[1]->val;            // 得到函数名字
         lineNum = subprogram_head_->children[0]->lineNumber;
@@ -202,7 +203,8 @@ namespace AST
             returnType = Token::NULL_;
         }
         ParseNode *program_body_ = subprogram_declaration_->children[1];
-        programBody = new ProgramBody(subProgramId, program_body_);
+
+        programBody = new ProgramBody(subProgramId + to_string(number), program_body_);
     }
     SubProgram::~SubProgram()
     {
@@ -245,14 +247,11 @@ namespace AST
         caseStatement = nullptr;
         ParseNode *node = statement_->children[0];
         statementType = node->token;
-        switch (node->token) {
-        case Token::VARIABLE_:
+        if (node->token == Token::VARIABLE_) {
             assignStatement = new AssignStatement(statement_);
-            break;
-        case Token::CALL_PROCEDURE_STATEMENT_:
+        } else if (node->token == Token::CALL_PROCEDURE_STATEMENT_) {
             subProgramCall = new SubProgramCall(statement_);
-            break;
-        case Token::COMPOUND_STATEMENT_: {
+        } else if (node->token == Token::COMPOUND_STATEMENT_) {
             ParseNode *compound_statement_ = statement_->children[0];
             ParseNode *statement_list_ = compound_statement_->children[1];
             Stack statementStack(statement_list_, 0, 2, 1, 0, Token::STATEMENT_, 1);
@@ -262,22 +261,13 @@ namespace AST
                 statementList.emplace_back(curStatement);
                 statement_ = statementStack.Pop();
             }
-            break;
-        }
-        case Token::IF:
+        } else if (node->token == Token::IF) {
             ifStatement = new IfStatement(statement_);
-            break;
-        case Token::CASE:
+        } else if (node->token == Token::CASE) {
             caseStatement = new CaseStatement(statement_);
-            break;
-        case Token::WHILE:
-        case Token::REPEAT:
-        case Token::FOR:
+        } else {
             statementType = Token::WHILE;
             whileStatement = new WhileStatement(statement_);
-            break;
-        default:
-            break;
         }
     }
     Statement::~Statement()
@@ -534,8 +524,7 @@ namespace AST
         if (finalType == Token::RECORD) {
             VarDeclare *varDeclare = cur->declaration->varList.find(idName)->second.second;
             while (id_varpart_ != nullptr) {
-                switch (finalType) {
-                case Token::RECORD:
+                if (finalType == Token::RECORD) {
                     if (id_varpart_->children[0]->token != Token::DOT) {
                         // FIXME:报错
                     } else {
@@ -548,8 +537,7 @@ namespace AST
                             isArrayAtRecordEnd = 1;
                         }
                     }
-                    break;
-                case Token::ARRAY:
+                } else if (finalType == Token::ARRAY) {
                     if (id_varpart_->children[0]->token != Token::LEFT_MEDIUM_PARENTHESES) {
                         // FIXME:报错
                     } else {
@@ -569,18 +557,13 @@ namespace AST
                             finalType = varDeclare->GetVarDeclareType(); // 返回的是标准类型
                         }
                     }
-                    break;
-                case Token::INTEGER:
-                case Token::BOLLEAN:
-                case Token::REAL:
-                case Token::CHAR:
+                } else if (finalType == Token::INTEGER ||
+                           finalType == Token::BOLLEAN ||
+                           finalType == Token::REAL ||
+                           finalType == Token::CHAR) {
                     // FIXME：报错，接下来的变量不能有id_varpart
-                    break;
-                case Token::NULL_:
+                } else if (finalType == Token::NULL_) {
                     // FIXME:报错，没有在记录中找到这个id名字
-                    break;
-                default:
-                    break;
                 }
                 id_varpart_ = idVarpartsStack.Pop();
             }
@@ -770,6 +753,12 @@ namespace AST
     {
         leftVal = new VariantReference(assign_statement_->children[0], 1);
         rightVal = new Expression(assign_statement_->children[2]);
+        if (leftVal->GetFinalType() != rightVal->GetValueToken()) {
+            if (!((leftVal->GetFinalType() != Token::REAL) &&
+                  rightVal->GetValueToken() != Token::INTEGER)) { // int 可以 赋值给 real
+                // FIXME:类型不同报错处理，这里需要修改
+            }
+        }
     }
     AssignStatement::AssignStatement(ParseNode *idNode, Expression expression_)
     {
@@ -782,8 +771,9 @@ namespace AST
         delete rightVal;
     }
 
-    CaseStatement::CaseStatement(ParseNode *)
+    CaseStatement::CaseStatement(ParseNode *case_statement_)
     {
+        condition = new Expression(case_statement_->children[1]);
     }
     CaseStatement::~CaseStatement() {}
 #pragma region 遍历声明相关节点树
@@ -843,6 +833,7 @@ namespace AST
             Stack subprogramDeclarationStack(subprogram_declarations_, 0, 1, 0, -1, Token::SUBPROGRAM_DECLARATION_);
             ParseNode *subprogram_declaration_ = subprogramDeclarationStack.Pop();
             ParseNode *subprogram_head = subprogram_declaration_->children[0];
+            int i = 0;
             while (subprogram_declaration_ != nullptr) {
                 string name = subprogram_head->children[1]->val;
                 map<string, Token::TokenType> list = curProgramBody->declaration->declarationList;
@@ -850,10 +841,12 @@ namespace AST
                     // 之前有声明过这个变量，这里要报错
                     // FIXME：报错函数重定义
                 }
-                SubProgram *subProgram = new SubProgram(subprogram_declaration_);
+                SubProgram *subProgram = new SubProgram(subprogram_declaration_, i);
                 subProgramList.insert(pair<string, SubProgram *>(name, subProgram));
                 curProgramBody->declaration->declarationList.insert(pair<string, Token::TokenType>(name, Token::FUNCTION));
                 subprogram_declaration_ = subprogramDeclarationStack.Pop();
+                // TODO:设置一个最高的函数嵌套层数
+                i++;
             }
         }
     }
