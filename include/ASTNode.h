@@ -71,8 +71,12 @@ namespace AST
         string prefix;       // 每一层添加的前缀
         Declaration *declaration;
         vector<Statement *> statementList;
+        ProgramBody(){};
         ProgramBody(string, ParseNode *);
         ~ProgramBody();
+
+        string GetPrefix(){return prefix;};
+        Declaration* GetDeclaration(){return declaration;};
     };
 #pragma region 定义
 
@@ -84,6 +88,9 @@ namespace AST
         map<string, SubProgram *> subProgramList;
         map<string, Token::TokenType> declarationList; // 用于快速检查是否重定义
         // 这里的Token::TokenType取值为 VAR CONST FUNCTION（包括过程）
+        
+        map<string, ConstDeclare *>& GetConstList(){return constList;};
+        Declaration(){};
         Declaration(ParseNode *);
         ~Declaration();
     };
@@ -92,7 +99,8 @@ namespace AST
     public:
         void SetUsed() { isUsed = 1; }
         int IsUsed() { return isUsed; }
-        Token::TokenType GetConstDeclareType() { return type; }
+        Token::TokenType& GetConstDeclareType() { return type; }
+        ConstDeclare(){};
         ConstDeclare(ParseNode *);
         ~ConstDeclare();
 
