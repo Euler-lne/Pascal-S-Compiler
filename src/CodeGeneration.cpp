@@ -46,9 +46,8 @@ namespace C_GEN
 
     std::string C_Code::GenerateTargetCode(std::string &outPutPath, AST::Program *ast)
     {
-        std::cout << outPutPath;
         outPutPath = ProcProgramHead(ast->GetProgramHead());
-        return "outPutPath";
+        return outPutPath;
     }
 
     std::string C_Code::ProcProgramHead (AST::ProgramHead *programHead)

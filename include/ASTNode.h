@@ -58,6 +58,7 @@ namespace AST
         pair<string, int> programId;        // PASCAL程序名称标识符及行号
         vector<pair<string, int>> paraList; // PASCAL程序参数列表及行号
 
+        ProgramHead(){};
         ProgramHead(ParseNode *);
         ~ProgramHead();
 
