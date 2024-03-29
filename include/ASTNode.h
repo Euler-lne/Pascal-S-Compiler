@@ -29,12 +29,14 @@ namespace AST
     class FormalParameter;
     class Statement;
     class Expression;
+    class Branch;
     class VariantReference;
     class SubProgramCall;
     class WhileStatement;
     class IfStatement;
     class AssignStatement;
     class CaseStatement;
+
     class Program // 程序
     {
     public:
@@ -279,11 +281,21 @@ namespace AST
         AssignStatement(ParseNode *idNode, Expression expression_);
         ~AssignStatement();
     };
+
+    class Branch{
+    public:
+        vector<ConstDeclare *> constList;
+        Statement* statement;
+        Branch(ParseNode *);
+        ~Branch();
+    };
+    
     class CaseStatement
     {
     public:
         Expression *condition;
         // TODO:完善case语句
+        vector<Branch*> branchList;
 
         CaseStatement(ParseNode *);
         ~CaseStatement();

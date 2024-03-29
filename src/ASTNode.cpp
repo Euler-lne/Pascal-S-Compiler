@@ -483,6 +483,8 @@ namespace AST
                 varDeclare->SetAssignment();
             } else if (varDeclare->IsAssignment() == 0) {
                 // FIXME:报错，使用了一个没有赋值的变量
+                cout << "line " << lineNum << ": " << idName << " has not been assigned" << endl;
+
             }
             idType = varDeclare->GetVarDeclareType();
             if (varDeclare->IsArray())
@@ -492,6 +494,7 @@ namespace AST
         case Token::CONST:
             if (isLeft) {
                 // FIXME:报错，左值不可以是常量，常量不可以修改
+                cout << "line " << lineNum << ": " << idName << " is a const, can not be assigned" << endl;
                 //
             } else {
                 ConstDeclare *constDeclare = cur->declaration->constList.find(idName)->second;
@@ -770,12 +773,55 @@ namespace AST
         delete leftVal;
         delete rightVal;
     }
+    Branch::Branch(ParseNode *branch_)
+    {
+        //branch -> const_lilst : statement
+        //const_list -> const_list , const | const
+        //const -> +id | -id | id | +num | -num | num | 'letter'
+        statement = new Statement(branch_->children[2]);
+        ParseNode *const_list_ = branch_->children[0];
+        Stack constListStack(const_list_, 0, 2, 1, 0, Token::CONST_LIST_);
+        ParseNode *const_ = constListStack.Pop();
+        while (const_ != nullptr) {
+            //ConstDeclare::ConstDeclare(ParseNode *const_variable_)
+            ConstDeclare* const_val = new ConstDeclare(const_);
+            constList.emplace_back(const_val);
+            const_ = constListStack.Pop();
+        }
 
+    }
+    Branch::~Branch(){
+        delete statement;
+        for (int i = 0; i < constList.size(); i++) {
+            delete constList[i];
+        }
+    }
     CaseStatement::CaseStatement(ParseNode *case_statement_)
     {
         condition = new Expression(case_statement_->children[1]);
+        //判断casebody是否为空
+        if (case_statement_->children.size() == 0) {
+            //为空则不用构造
+            //branchList = nullptr;
+        }
+        else{
+            //不为空则构造
+            ParseNode *branch_list_ = case_statement_->children[3];
+            Stack branchListStack(branch_list_, 0, 2, 1, 0, Token::BRANCH_);
+            ParseNode *branch_ = branchListStack.Pop();
+            while (branch_ != nullptr) {
+                Branch *curBranch = new Branch(branch_);
+                branchList.emplace_back(curBranch);
+                branch_ = branchListStack.Pop();
+            }
+        }
     }
-    CaseStatement::~CaseStatement() {}
+    CaseStatement::~CaseStatement() {
+        delete condition;
+        for (int i = 0; i < branchList.size(); i++) {
+            delete branchList[i];
+        }
+    }
 #pragma region 遍历声明相关节点树
     void ReadVarDeclarations(ParseNode *var_declarations_, map<string, pair<int, VarDeclare *>> &varList)
     {
