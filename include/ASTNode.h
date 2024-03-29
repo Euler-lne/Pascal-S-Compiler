@@ -89,6 +89,7 @@ namespace AST
         map<string, pair<int, VarDeclare *>> varList; // 注意其孩子
         map<string, SubProgram *> subProgramList;
         map<string, Token::TokenType> declarationList; // 用于快速检查是否重定义
+        vector<string> declarationQueue; // 用于记录变量顺序，因为map会改变插入顺序
         // 这里的Token::TokenType取值为 VAR CONST FUNCTION（包括过程）
         
         map<string, ConstDeclare *>& GetConstList(){return constList;};
