@@ -45,6 +45,9 @@ namespace Token
         ELSE_PART_,
         // CASE 语句
         CASE_BODY_,
+        BRANCH_LIST_,
+        BRANCH_,
+        CONST_LIST_,
         // FOR
         UPDOWN_,
         // 赋值语句
