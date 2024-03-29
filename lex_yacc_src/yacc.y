@@ -120,31 +120,27 @@ vector<string> syntaxErrorInformation; //存放语法错误信息
 
 
 %%
-programstruct: 	PROGRAM_HEAD_ SEMICOLON PROGTAM_BODY_ DOT{ //正常
+programstruct: 	PROGRAM_HEAD_ PROGTAM_BODY_ DOT{ //正常
 			   		ParseTreeHead=$$=new ParseNode;
 			   		$$->token =Token::PROGRAM_;
 			   		$$->children.push_back($1); $$->children.push_back($2);
-					$$->children.push_back($3); $$->children.push_back($4);
+					$$->children.push_back($3);
 					if(yylex()) //多余的内容
-						yyerror("redundant content at the end!", @4.last_line, @4.last_column+1);
+						yyerror("redundant content at the end!", @3.last_line, @3.last_column+1);
 					YYACCEPT;
-			   	}|PROGRAM_HEAD_ error PROGTAM_BODY_ DOT{ //ERROR 缺少分号 checked
+			   	}|PROGRAM_HEAD_ PROGTAM_BODY_ error{ //ERROR 缺少点号 checked
 			   		ParseTreeHead=$$=new ParseNode;
 			   		$$->token =Token::PROGRAM_;
-					yyerror("missing a semicolon here", @1.last_line, @1.last_column+1);
-			   	}|PROGRAM_HEAD_ SEMICOLON PROGTAM_BODY_ error{ //ERROR 缺少点号 checked
-			   		ParseTreeHead=$$=new ParseNode;
-			   		$$->token =Token::PROGRAM_;
-					yyerror("missing a dot here", @3.last_line, @3.last_column+1);
-			   	}|error SEMICOLON PROGTAM_BODY_ DOT{ //ERROR PROGRAM_HEAD_识别失败 checked
+					yyerror("missing a dot here", @2.last_line, @2.last_column+1);
+			   	}|error PROGTAM_BODY_ DOT{ //ERROR PROGRAM_HEAD_识别失败 checked
 			   		ParseTreeHead=$$=new ParseNode;
 			   		$$->token =Token::PROGRAM_;
 					yyerror("fatal error in program head, maybe missing keyword \"program\"",@1.first_line, @1.first_column, @1.last_line, @1.last_column);
-			   	}|PROGRAM_HEAD_ SEMICOLON error DOT{ //ERROR PROGTAM_BODY_识别失败 unchecked
+			   	}|PROGRAM_HEAD_ error DOT{ //ERROR PROGTAM_BODY_识别失败 unchecked
 			   		ParseTreeHead=$$=new ParseNode;
 			   		$$->token =Token::PROGRAM_;
 					yyerror("fatal error in program body");
-			   	}|error PROGRAM_HEAD_ SEMICOLON PROGTAM_BODY_ DOT{ //ERROR PROGRAM_HEAD_前包含非法字符 checked
+			   	}|error PROGRAM_HEAD_ PROGTAM_BODY_ DOT{ //ERROR PROGRAM_HEAD_前包含非法字符 checked
 					ParseTreeHead=$$=new ParseNode;
 					$$->token =Token::PROGRAM_;
 					yyerror("invalid symbol before program head", @$.first_line, @$.first_column, @2.first_line, @2.first_column-1);
@@ -153,36 +149,41 @@ programstruct: 	PROGRAM_HEAD_ SEMICOLON PROGTAM_BODY_ DOT{ //正常
 					$$->token =Token::PROGRAM_;
 					yyerror("invalid token before program head, maybe missing keyword \"program\"", @$.first_line, @$.first_column, @2.first_line, @2.first_column-1);
 					yyerror("missing a semicolon here", @2.last_line, @2.last_column+1);
-				}|error PROGRAM_HEAD_ SEMICOLON PROGTAM_BODY_ error{ //ERROR PROGRAM_HEAD_前包含非法记号、缺失点号 checked
+				}|error PROGRAM_HEAD_ PROGTAM_BODY_ error{ //ERROR PROGRAM_HEAD_前包含非法记号、缺失点号 checked
 					ParseTreeHead=$$=new ParseNode;
 					$$->token =Token::PROGRAM_;
 					yyerror("invalid token before program head, maybe missing keyword \"program\"", @$.first_line, @$.first_column, @2.first_line, @2.first_column-1);
 					yyerror("missing a dot here", @4.last_line, @4.last_column+1);
-				}|error PROGRAM_HEAD_ SEMICOLON error DOT{ //ERROR PROGRAM_HEAD_前包含非法记号、PROGTAM_BODY_识别失败 unchecked
+				}|error PROGRAM_HEAD_ error DOT{ //ERROR PROGRAM_HEAD_前包含非法记号、PROGTAM_BODY_识别失败 unchecked
 					ParseTreeHead=$$=new ParseNode;
 					$$->token =Token::PROGRAM_;
 					yyerror("invalid token before program head, maybe missing keyword \"program\"", @$.first_line, @$.first_column, @2.first_line, @2.first_column-1);
-					yyerror("fatal error in program body", @3.last_line, @3.last_column+1, @5.first_line, @5.first_column-1);
+					yyerror("fatal error in program body", @2.last_line, @2.last_column+1, @4.first_line, @4.first_column-1);
 				};
 
-PROGRAM_HEAD_: 	PROGRAM ID LEFT_PARENTHESES IDENTIFIER_LIST_ RIGHT_PARENTHESES{ //正常
+PROGRAM_HEAD_: 	PROGRAM ID LEFT_PARENTHESES IDENTIFIER_LIST_ RIGHT_PARENTHESES SEMICOLON{ //正常
 					$$=new ParseNode;
 					$$->token =Token::PROGRAM_HEAD_;
 					$$->children.push_back($1); $$->children.push_back($2);
-					$$->children.push_back($3); $$->children.push_back($4); $$->children.push_back($5);
-				}|PROGRAM error LEFT_PARENTHESES  IDENTIFIER_LIST_ RIGHT_PARENTHESES{ //ERROR 缺少主程序名 checked
+					$$->children.push_back($3); $$->children.push_back($4); 
+					$$->children.push_back($5);	$$->children.push_back($6);
+				}|PROGRAM ID LEFT_PARENTHESES IDENTIFIER_LIST_ RIGHT_PARENTHESES error{ //ERROR 缺少; checked
+					$$=new ParseNode;
+					$$->token =Token::PROGRAM_HEAD_;
+					yyerror("missing a semicolon here", @5.last_line, @5.last_column+1);
+				}|PROGRAM error LEFT_PARENTHESES  IDENTIFIER_LIST_ RIGHT_PARENTHESES SEMICOLON{ //ERROR 缺少主程序名 checked
 					$$=new ParseNode;
 					$$->token =Token::PROGRAM_HEAD_;
 					yyerror("missing program name here", @1.last_line, @1.last_column+1);
-				}|PROGRAM ID error IDENTIFIER_LIST_ RIGHT_PARENTHESES{ //ERROR 缺少左括号 checked
+				}|PROGRAM ID error IDENTIFIER_LIST_ RIGHT_PARENTHESES SEMICOLON{ //ERROR 缺少左括号 checked
 					$$=new ParseNode;
 					$$->token =Token::PROGRAM_HEAD_;
 					yyerror("missing a left bracket here", @4.first_line, @4.first_column-1);
-				}|PROGRAM ID LEFT_PARENTHESES error RIGHT_PARENTHESES{ //ERROR  IDENTIFIER_LIST_识别失败 checked
+				}|PROGRAM ID LEFT_PARENTHESES error RIGHT_PARENTHESES SEMICOLON{ //ERROR  IDENTIFIER_LIST_识别失败 checked
 					$$=new ParseNode;
 					$$->token =Token::PROGRAM_HEAD_;
 					yyerror("program ID list missing or imcomplete", @4.first_line, @4.first_column, @4.last_line, @4.last_column);
-				}|PROGRAM ID LEFT_PARENTHESES  IDENTIFIER_LIST_ error{ //ERROR 缺少右括号 checked
+				}|PROGRAM ID LEFT_PARENTHESES  IDENTIFIER_LIST_ error SEMICOLON{ //ERROR 缺少右括号 checked
 					$$=new ParseNode;
 					$$->token =Token::PROGRAM_HEAD_;
 					yyerror("missing a right bracket here", @4.last_line, @4.last_column+1);
