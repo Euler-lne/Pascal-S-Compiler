@@ -56,8 +56,21 @@ namespace C_GEN
         return programHead->GetProgramId();
     }
 
+    //main
     std::string C_Code::ProcProgramBody(AST::ProgramBody *programBody)
     {
+        ProcDeclaration(programBody->GetDeclaration());
+        targetCode << string("int main()\n{\n");
         
     }
+
+    void C_Code::ProcDeclaration(AST::Declaration *declaration)
+    {
+        for(auto it : declaration->GetConstList())
+        {
+            
+        }
+    }
+
+
 };

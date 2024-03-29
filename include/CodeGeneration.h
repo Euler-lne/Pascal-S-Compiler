@@ -50,7 +50,7 @@ namespace C_GEN
 
     class TargetCode
     {
-    private:
+    protected:
         std::stringstream targetCode;
     public:
         TargetCode(){targetCode.clear();};
@@ -68,5 +68,8 @@ namespace C_GEN
     private:
         std::string ProcProgramHead(AST::ProgramHead *programHead);
         std::string ProcProgramBody(AST::ProgramBody *programBody);
+        std::string ProcProgramBody(AST::ProgramBody *programBody, std::string programBodyId);
+        void ProcDeclaration(AST::Declaration *declaration);
+        void ProcConstDeclare();
     };
 } // namespace C_G
