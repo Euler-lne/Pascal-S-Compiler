@@ -143,12 +143,13 @@ namespace AST
         void SetUsed() { isUsed = 1; }
         int IsUsed() { return isUsed; } // TODO:用于代码生成时候的优化
         int GetParameterNums() { return formalParameterList.size(); }
-        SubProgram(ParseNode *);
+        SubProgram(ParseNode *, int);
         ~SubProgram();
 
     private:
         string subProgramId;
         int lineNum; // 函数/过程行号
+        int number;  // 当前这个函数定义位于当前作用域下的第几个函数定义
         Token::TokenType returnType;
         // 返回值类型为基本类型，行号，没有代表为过程，已经声明了一个NULL的TokenType
         int isUsed; // 是否被调用了，如果被调用了就为1，没有为0；
@@ -194,7 +195,7 @@ namespace AST
         string value;                       // 当前表达式的值，如果有的话
         VariantReference *variantReference; // 变量或常量或数组 或者记录
         SubProgramCall *subProgramCall;
-        /// @brief 1.value 2.variantReference 3.subProgramCall
+        /// @brief 1.value 2.variantReference 3.subProgramCall，用于判断哪个被赋值了
         int GetValueType() { return valueType; }
         Token::TokenType GetValueToken() { return type; }
         Expression(ParseNode *);
