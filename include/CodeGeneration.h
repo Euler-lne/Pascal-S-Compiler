@@ -67,5 +67,6 @@ namespace C_GEN
     
     private:
         std::string ProcProgramHead(AST::ProgramHead *programHead);
+        std::string ProcProgramBody(AST::ProgramBody *programBody);
     };
 } // namespace C_G
