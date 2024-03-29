@@ -71,6 +71,7 @@ namespace AST
         string prefix;       // 每一层添加的前缀
         Declaration *declaration;
         vector<Statement *> statementList;
+        ProgramBody(){};
         ProgramBody(string, ParseNode *);
         ~ProgramBody();
 
@@ -89,6 +90,7 @@ namespace AST
         // 这里的Token::TokenType取值为 VAR CONST FUNCTION（包括过程）
         
         map<string, ConstDeclare *>& GetConstList(){return constList;};
+        Declaration(){};
         Declaration(ParseNode *);
         ~Declaration();
     };
@@ -97,7 +99,8 @@ namespace AST
     public:
         void SetUsed() { isUsed = 1; }
         int IsUsed() { return isUsed; }
-        Token::TokenType GetConstDeclareType() { return type; }
+        Token::TokenType& GetConstDeclareType() { return type; }
+        ConstDeclare(){};
         ConstDeclare(ParseNode *);
         ~ConstDeclare();
 

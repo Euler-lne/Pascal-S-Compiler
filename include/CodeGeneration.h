@@ -68,8 +68,8 @@ namespace C_GEN
     private:
         std::string ProcProgramHead(AST::ProgramHead *programHead);
         std::string ProcProgramBody(AST::ProgramBody *programBody);
-        std::string ProcProgramBody(AST::ProgramBody *programBody, std::string programBodyId);
+        std::string ProcProgramBody(AST::ProgramBody *programBody, std::string programBodyId){};
         void ProcDeclaration(AST::Declaration *declaration);
-        void ProcConstDeclare();
+        void ProcConstDeclare(AST::Declaration *declaration);
     };
 } // namespace C_G

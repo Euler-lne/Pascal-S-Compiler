@@ -48,7 +48,7 @@ namespace C_GEN
     {
         outPutPath = ProcProgramHead(ast->GetProgramHead());
 
-        return outPutPath;
+        return ProcProgramBody(ast->GetProgramBody());
     }
 
     std::string C_Code::ProcProgramHead (AST::ProgramHead *programHead)
@@ -61,16 +61,26 @@ namespace C_GEN
     {
         ProcDeclaration(programBody->GetDeclaration());
         targetCode << string("int main()\n{\n");
-        
+        return targetCode.str();
     }
 
     void C_Code::ProcDeclaration(AST::Declaration *declaration)
     {
         for(auto it : declaration->GetConstList())
         {
+            targetCode<<string("const ");
+            switch (it.second->GetConstDeclareType())
+            {
+            case Token::TokenType::INTEGER:
+            case Token::TokenType::REAL:
+                targetCode<<string("int ");
+                break;
             
+            case Token::TokenType::CHAR:
+                targetCode<<string("char ");
+                break;
+            }
+            targetCode<< it.first<<"\n";
         }
     }
-
-
 };
