@@ -120,7 +120,7 @@ namespace AST
     { // 传入type_，这里没有记录当前的ID，要看ID请到 Declaration 中
       // 这里只保存了这个变量对应的类型
     public:
-        Token::TokenType GetVarDeclareType() { return type; }
+        Token::TokenType &GetVarDeclareType() { return type; }
         int GetArrayDimension() { return dimension.size(); }
         auto &GetDimension() { return dimension; };
         auto &GetRecordList() { return recordList; };
@@ -130,6 +130,8 @@ namespace AST
         int IsAssignment() { return isAssignment; }
         void SetUsed() { isUsed = 1; }
         int IsUsed() { return isUsed; }
+
+        VarDeclare(){};
         VarDeclare(ParseNode *);
         ~VarDeclare();
 
@@ -153,6 +155,7 @@ namespace AST
         Token::TokenType GetReturnType() { return returnType; }
         void SetUsed() { isUsed = 1; }
         int IsUsed() { return isUsed; } // TODO:用于代码生成时候的优化
+        auto &GetFormalPataList() { return formalParameterList; };
         int GetParameterNums() { return formalParameterList.size(); }
         SubProgram(ParseNode *, int);
         ~SubProgram();

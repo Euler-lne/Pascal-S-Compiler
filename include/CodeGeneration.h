@@ -15,6 +15,7 @@
 #include <sstream>
 #include "TokenTypeEnum.h"
 #include "ASTNode.h"
+#include <map>
 
 namespace C_GEN
 {
@@ -52,8 +53,14 @@ namespace C_GEN
     protected:
         std::stringstream targetCode;
 
+        // 引用传参
+        std::map<std::string, int> paraFlag;
+
     public:
-        TargetCode() { targetCode.clear(); };
+        TargetCode()
+        {
+            targetCode.clear();
+        };
         virtual std::string GenerateTargetCode(std::string &outPutPath, AST::Program *ast) = 0;
 
     private:
@@ -72,5 +79,6 @@ namespace C_GEN
         void ProcConstDeclare(AST::Declaration *declaration, const std::string &prefix);
         void ProcVarDeclare(std::map<string, pair<int, AST::VarDeclare *>> &varList, const std::string &prefix);
         void ProcArray(vector<pair<int, int>> dimension);
+        void ProcSubProgram(map<string, AST::SubProgram *> &subProgramList);
     };
 } // namespace C_G

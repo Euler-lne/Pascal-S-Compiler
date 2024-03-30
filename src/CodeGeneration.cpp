@@ -52,7 +52,7 @@ namespace C_GEN
     std::string C_Code::GenerateTargetCode(std::string &outPutPath, AST::Program *ast)
     {
         outPutPath = ProcProgramHead(ast->GetProgramHead());
-        targetCode << "#define bool int\n#define true 1\n#define false 0\n ";
+        targetCode << "#define bool int\n#define true 1\n#define false 0\n";
         return ProcProgramBody(ast->GetProgramBody());
     }
 
@@ -66,6 +66,10 @@ namespace C_GEN
     {
         ProcDeclaration(programBody->GetDeclaration(), programBody->GetPrefix());
         targetCode << string("int main()\n{\n");
+
+        //
+
+        targetCode << string("return 0;\n}");
         return targetCode.str();
     }
 
@@ -141,6 +145,36 @@ namespace C_GEN
         for (auto it : dimension)
         {
             targetCode << "[" << it.first + it.second << "]";
+        }
+    }
+
+    void C_Code::ProcSubProgram(map<string, AST::SubProgram *> &subProgramList)
+    {
+        bool IsFirstPara = true; // 判断是否是第一个参数
+        for (auto it : subProgramList)
+        {
+            switch (it.second->GetReturnType())
+            {
+            case Token::TokenType::INTEGER:
+            case Token::TokenType::REAL:
+            case Token::TokenType::BOLLEAN:
+                targetCode << "int ";
+                break;
+
+            case Token::TokenType::CHAR:
+                targetCode << "char ";
+            }
+            targetCode << it.first << "(";
+            for (auto _it : it.second->GetFormalPataList())
+            {
+                if (!IsFirstPara) // 不是第一个参数，需要加逗号
+                {
+                    targetCode << ", ";
+                    IsFirstPara = false;
+                }
+            }
+            targetCode << ")";
+            IsFirstPara = true;
         }
     }
 };
