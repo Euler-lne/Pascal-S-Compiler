@@ -453,7 +453,7 @@ mulop (\*|\/|div|mod|and)
     
     if(yytext[0]=='\'' && len==0){
         // 如果字符常量缺失，则返回空字符常量
-        yylval = new ParseNode;
+        yylval = new ParseNode();
         yylval->val="\0";
         yylval->token=Token::CHAR;
         yylval->lineNumber=yylineno - 1;
@@ -461,7 +461,7 @@ mulop (\*|\/|div|mod|and)
     }
     else if(yytext[0]=='\'' && len==1){
         // 如果字符常量长度为1，则返回字符常量
-        yylval = new ParseNode;
+        yylval = new ParseNode();
         yylval->val=charRec[0];
         yylval->token=Token::CHAR;
         yylval->lineNumber=yylineno - 1;
@@ -469,7 +469,7 @@ mulop (\*|\/|div|mod|and)
     }
     else if(yytext[0]=='\''){
         // 如果字符常量长度不为0或1，则返回字符常量
-        yylval = new ParseNode;
+        yylval = new ParseNode();
         yylval->val=charRec[0];
         yylval->token=Token::CHAR;
         yylval->lineNumber=yylineno - 1;
@@ -480,7 +480,7 @@ mulop (\*|\/|div|mod|and)
         yyless(0);//将换行符退回
         yylineno--;//行号减一
         
-        yylval = new ParseNode;
+        yylval = new ParseNode();
         if(len==0)
             yylval->val="\0";
         else
