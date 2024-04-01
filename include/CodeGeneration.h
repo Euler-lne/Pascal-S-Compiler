@@ -53,9 +53,6 @@ namespace C_GEN
     protected:
         std::stringstream targetCode;
 
-        // 引用传参
-        std::map<std::string, int> paraFlag;
-
     public:
         TargetCode()
         {
@@ -80,5 +77,6 @@ namespace C_GEN
         void ProcVarDeclare(std::map<string, pair<int, AST::VarDeclare *>> &varList, const std::string &prefix);
         void ProcArray(vector<pair<int, int>> dimension);
         void ProcSubProgram(map<string, AST::SubProgram *> &subProgramList);
+        void ProcStateMent(vector<AST::Statement *> &statementList);
     };
 } // namespace C_G

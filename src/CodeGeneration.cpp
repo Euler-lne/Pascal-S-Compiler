@@ -67,10 +67,20 @@ namespace C_GEN
         ProcDeclaration(programBody->GetDeclaration(), programBody->GetPrefix());
         targetCode << string("int main()\n{\n");
 
-        //
+        ProcStateMent(programBody->statementList);
 
         targetCode << string("return 0;\n}");
         return targetCode.str();
+    }
+
+    void C_Code::ProcStateMent(vector<AST::Statement *> &statementList)
+    {
+        for (auto it : statementList)
+        {
+            switch (it->statementType)
+            {
+            }
+        }
     }
 
     void C_Code::ProcDeclaration(AST::Declaration *declaration, std::string prefix)
@@ -172,9 +182,31 @@ namespace C_GEN
                     targetCode << ", ";
                     IsFirstPara = false;
                 }
+
+                for (auto __it : _it->paraIdList)
+                {
+                    switch (_it->type)
+                    {
+                        {
+                        case Token::TokenType::INTEGER:
+                        case Token::TokenType::REAL:
+                        case Token::TokenType::BOLLEAN:
+                            targetCode << "int ";
+                            break;
+
+                        case Token::TokenType::CHAR:
+                            targetCode << "char ";
+                        }
+                    }
+                    targetCode << __it.first;
+                }
             }
-            targetCode << ")";
+            targetCode << ")\n{\n";
             IsFirstPara = true;
+
+            // 定义
+
+            targetCode << "}";
         }
     }
 };
