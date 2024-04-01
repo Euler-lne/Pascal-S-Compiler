@@ -484,7 +484,7 @@ mulop (\*|\/|div|mod|and)
         if(len==0)
             yylval->val="\0";
         else
-            yylval->str=charRec[0];
+            yylval->val=charRec[0];
         yylval->token=Token::CHAR;
         yylval->lineNumber=yylineno - 1;
         return CHAR;
