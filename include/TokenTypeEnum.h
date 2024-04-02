@@ -75,7 +75,7 @@ namespace Token
         VAR,
         FUNCTION,
         PROCEDURE,
-        BEGIN,
+        _BEGIN,
         IF,
         THEN,
         ELSE,
