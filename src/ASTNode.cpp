@@ -16,11 +16,13 @@ using namespace ParseTree;
 namespace AST
 {
     ProgramBody *curProgramBody = nullptr;
+    SubProgram *curSubProgram = nullptr;
     void ReadVarDeclarations(ParseNode *var_declarations_, map<string, pair<int, VarDeclare *>> &varList);
     void ReadConstDeclarations(ParseNode *const_declarations_, map<string, ConstDeclare *> &constList);
     void ReadSubProgramDeclarations(ParseNode *subprogram_declarations_, map<string, SubProgram *> &subProgramList);
     Token::TokenType GetConstTypeFromParseTree(ParseNode *const_variable_, string &value);
     ProgramBody *FindDeclaration(string idName);
+    int FindDeclarationInSubProgram(string idName, Token::TokenType &_type);
 
     // program->program_head program_body .
     Program::Program(ParseNode *program_)
@@ -203,7 +205,7 @@ namespace AST
             returnType = Token::NULL_;
         }
         ParseNode *program_body_ = subprogram_declaration_->children[1];
-
+        curSubProgram = this;
         programBody = new ProgramBody(subProgramId + to_string(number), program_body_);
     }
     SubProgram::~SubProgram()
@@ -467,6 +469,9 @@ namespace AST
         isArrayAtRecordEnd = 0;
         lineNum = variable_->children[0]->lineNumber;
         string idName = variable_->children[0]->val;
+        isFormalParameter = FindDeclarationInSubProgram(idName, idType);
+        if (isFormalParameter)
+            return;
         ProgramBody *cur = curProgramBody = FindDeclaration(idName);
 
         // 寻找idName，判断其类型，最开始的id
@@ -503,7 +508,7 @@ namespace AST
             break;
         default:
             // TODO:这里是不可能得到的情况，是否处理
-            // 原因只要id在主表里面就一定在三个分表中的任意一个中
+            // 原因只要id在主表里面就一定在三个分表中的任意一个中，如果是函数名字不处理
             break;
         }
 
@@ -606,6 +611,9 @@ namespace AST
         isArrayAtRecordEnd = 0;
         lineNum = idNode->lineNumber;
         string idName = idNode->val;
+        isFormalParameter = FindDeclarationInSubProgram(idName, idType);
+        if (isFormalParameter)
+            return;
         ProgramBody *cur = curProgramBody = FindDeclaration(idName);
         map<string, Token::TokenType> list = cur->declaration->declarationList;
 
@@ -975,6 +983,26 @@ namespace AST
         }
         // FIXME:没有找到就要报错，因为const variable必须是一个const类型的变量
         return nullptr;
+    }
+    /// @brief 在当前的作用域的参数列表中查找这个id名字
+    /// @param idName
+    /// @return 0代表不是函数参数；1代表值传递；2代表引用传递
+    int FindDeclarationInSubProgram(string idName, Token::TokenType &_type)
+    {
+        if (curSubProgram == nullptr)
+            return 0;
+        for (int i = 0; i < curSubProgram->formalParameterList.size(); i++) {
+            for (int j = 0; j < curSubProgram->formalParameterList[i]->paraIdList.size(); j++) {
+                if (idName == curSubProgram->formalParameterList[i]->paraIdList[j].first) {
+                    _type = curSubProgram->formalParameterList[i]->type;
+                    if (curSubProgram->formalParameterList[i]->flag) // 引用传递
+                        return 2;
+                    else
+                        return 1;
+                }
+            }
+        }
+        return 0;
     }
 
 } // namespace AST
