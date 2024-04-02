@@ -1,4 +1,8 @@
 %{
+
+
+
+
 #include "main.h"
 #include "yacc.tab.h"
 #include "TokenTypeEnum.h"
@@ -13,17 +17,19 @@ extern YYLTYPE yylloc;
     yycolumn += yyleng;
 
 string charRec; //保存字符常量
-char lineBuffer[10005]; //保存当前行的所有内容
+char lineBuffer[500]; //保存当前行的所有内容
 
-YYSTYPE yylval;
+extern YYSTYPE yylval;
+
 
 //函数声明
 extern "C"
 {
 	int yywrap();
-	int yylex();
+    int yylex();
 }
 %}
+
 
 %option yylineno
 
@@ -180,9 +186,9 @@ mulop (\*|\/|div|mod|and)
 "begin" {
     yylval=new ParseNode();
     yylval->val=yytext;
-    yylval->token=Token::BEGIN;
+    yylval->token=Token::_BEGIN;
     yylval->lineNumber = yylineno - 1;
-    return BEGIN;
+    return _BEGIN;
 }
 
 "if" {

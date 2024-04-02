@@ -4,13 +4,21 @@
 */
 
 %{
+
+
+
 #include "main.h"
-#include "yacc.tab.c"
+#include "yacc.tab.h"
+
+
+
+
+
+
 
 extern "C"
 {
 	void yyerror(const char *s);
-	int yyparse();
 	extern int yylex();
 }
 
@@ -55,7 +63,7 @@ vector<string> syntaxErrorInformation; //存放语法错误信息
 %token VAR 
 %token FUNCTION 
 %token PROCEDURE 
-%token BEGIN 
+%token _BEGIN 
 %token IF 
 %token THEN 
 %token ELSE 
@@ -101,7 +109,7 @@ vector<string> syntaxErrorInformation; //存放语法错误信息
 %token LETTER 
 
        
-%token NULL  
+
 
 %start programstruct
 
@@ -459,28 +467,28 @@ SUBPROGRAM_DECLARATION_: SUBPROGRAM_HEAD_ SEMICOLON PROGTAM_BODY_{ //正常
 				yyerror("missing a semicolon here", @1.last_line, @1.last_column+1);
 			};
 
-SUBPROGRAM_HEAD_: 	PROCEDURE ID FORMAL_PARAMETER_LIST_{ //正常
+SUBPROGRAM_HEAD_: 	PROCEDURE ID FORMAL_PARAMETER_{ //正常
 						$$=new ParseNode;
 						$$->token=Token::SUBPROGRAM_HEAD_;
 						$$->children.push_back($1);$$->children.push_back($2);$$->children.push_back($3);
-					}|FUNCTION ID FORMAL_PARAMETER_LIST_ COLON TYPE_{ //正常
+					}|FUNCTION ID FORMAL_PARAMETER_ COLON TYPE_{ //正常
 						$$=new ParseNode;
 						$$->token=Token::SUBPROGRAM_HEAD_;
 						$$->children.push_back($1);$$->children.push_back($2);
 						$$->children.push_back($3);$$->children.push_back($4);$$->children.push_back($5);
-					}|FUNCTION error FORMAL_PARAMETER_LIST_ COLON TYPE_{ //ERROR 函数名缺失 checked
+					}|FUNCTION error FORMAL_PARAMETER_ COLON TYPE_{ //ERROR 函数名缺失 checked
 						$$=new ParseNode;
 						$$->token=Token::SUBPROGRAM_HEAD_;
 						yyerror("missing function name", @1.last_line, @1.last_column+1);
-					}|FUNCTION ID FORMAL_PARAMETER_LIST_ error TYPE_{ //ERROR 缺少冒号 checked
+					}|FUNCTION ID FORMAL_PARAMETER_ error TYPE_{ //ERROR 缺少冒号 checked
 						$$=new ParseNode;
 						$$->token=Token::SUBPROGRAM_HEAD_;
 						yyerror("missing a colon here", @3.last_line, @3.last_column);
-					}|FUNCTION ID FORMAL_PARAMETER_LIST_ COLON error{ //ERROR 缺少基本类型关键字 checked
+					}|FUNCTION ID FORMAL_PARAMETER_ COLON error{ //ERROR 缺少基本类型关键字 checked
 						$$=new ParseNode;
 						$$->token=Token::SUBPROGRAM_HEAD_;
 						yyerror("missing a base TYPE_ keyword here", @4.last_line, @4.last_column+1);
-					}|FUNCTION ID FORMAL_PARAMETER_LIST_ error{ //ERROR 缺少基本类型关键字 checked
+					}|FUNCTION ID FORMAL_PARAMETER_ error{ //ERROR 缺少基本类型关键字 checked
 						$$=new ParseNode;
 						$$->token=Token::SUBPROGRAM_HEAD_;
 						yyerror("missing a base TYPE_ keyword here", @3.last_line, @3.last_column+1);
@@ -494,20 +502,20 @@ SUBPROGRAM_HEAD_: 	PROCEDURE ID FORMAL_PARAMETER_LIST_{ //正常
 						yyerror("incomplete procedure head", &@$);
 					};
 
-FORMAL_PARAMETER_LIST_: 	LEFT_PARENTHESES PARAMETER_LISTS_ RIGHT_PARENTHESES{ //正常
+FORMAL_PARAMETER_: 	LEFT_PARENTHESES PARAMETER_LISTS_ RIGHT_PARENTHESES{ //正常
 						$$=new ParseNode;
-						$$->token=Token::FORMAL_PARAMETER_LIST_;
+						$$->token=Token::FORMAL_PARAMETER_;
 						$$->children.push_back($1);$$->children.push_back($2);$$->children.push_back($3);
 					}|{ //正常
 						$$=new ParseNode;
-						$$->token=Token::FORMAL_PARAMETER_LIST_;
+						$$->token=Token::FORMAL_PARAMETER_;
 					}|LEFT_PARENTHESES error{ //ERROR 不完整的形参列表
 						$$=new ParseNode;
-						$$->token=Token::FORMAL_PARAMETER_LIST_;
+						$$->token=Token::FORMAL_PARAMETER_;
 						yyerror("incomplete formal PARAMETER_LIST_ list", &@$);
 					}|LEFT_PARENTHESES PARAMETER_LISTS_ error{ //ERROR 右括号缺失
 						$$=new ParseNode;
-						$$->token=Token::FORMAL_PARAMETER_LIST_;
+						$$->token=Token::FORMAL_PARAMETER_;
 						yyerror("missing a right bracket here", @2.last_line, @2.last_column+1);
 					};
 
@@ -564,11 +572,11 @@ VALUE_PARAMETER_: 	 IDENTIFIER_LIST_ COLON STANDRAD_TYPE_{ //正常
 					};
 
 
-COMPOUND_STATEMENT_: BEGIN STATEMENT_LIST_ END{ //正常
+COMPOUND_STATEMENT_: _BEGIN STATEMENT_LIST_ END{ //正常
 						$$=new ParseNode;
 						$$->token=Token::COMPOUND_STATEMENT_;
 						$$->children.push_back($1);$$->children.push_back($2);$$->children.push_back($3);
-					}|BEGIN STATEMENT_LIST_ error{ //ERROR 缺少END关键字 checked
+					}|_BEGIN STATEMENT_LIST_ error{ //ERROR 缺少END关键字 checked
 						$$=new ParseNode;
 						$$->token=Token::COMPOUND_STATEMENT_;
 						yyerror("missing keyword \"end\"", @2.last_line, @2.last_column+1);
@@ -650,7 +658,7 @@ STATEMENT_:  VARIABLE_ ASSIGNOP EXPRESSION_{
 VARIABLE_:  ID ID_VARPARTS_{
               $$=new ParseNode;
 			  $$->token=Token::VARIABLE_;
-			  $$->children.push_back($1);8$$->children.push_back($2);
+			  $$->children.push_back($1);$$->children.push_back($2);
            };
 ID_VARPARTS_:  ID_VARPARTS_ ID_VARPART_{
                  $$=new ParseNode;

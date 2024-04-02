@@ -28,7 +28,7 @@ namespace C_GEN
         if (ast == nullptr)
         {
             std::cout << "ERROR::No AST For Generater" << std::endl;
-            // return;
+            return;
         }
 
         if (this->generationType == Token::GenerationType::C)
@@ -96,8 +96,15 @@ namespace C_GEN
             switch (it.second.second->GetVarDeclareType())
             {
             case Token::TokenType::INTEGER:
-            case Token::TokenType::REAL:
                 targetCode << "int " << prefix << it.first;
+                if (it.second.second->IsArray())
+                {
+                    ProcArray(it.second.second->GetDimension());
+                }
+                break;
+
+            case Token::TokenType::REAL:
+                targetCode << "double " << prefix << it.first;
                 if (it.second.second->IsArray())
                 {
                     ProcArray(it.second.second->GetDimension());
@@ -138,8 +145,11 @@ namespace C_GEN
             switch (declarationList[it]->GetConstDeclareType())
             {
             case Token::TokenType::INTEGER:
-            case Token::TokenType::REAL:
                 targetCode << string("int ");
+                break;
+
+            case Token::TokenType::REAL:
+                targetCode << string("double ");
                 break;
 
             case Token::TokenType::CHAR:
@@ -166,9 +176,12 @@ namespace C_GEN
             switch (it.second->GetReturnType())
             {
             case Token::TokenType::INTEGER:
-            case Token::TokenType::REAL:
             case Token::TokenType::BOLLEAN:
                 targetCode << "int ";
+                break;
+
+            case Token::TokenType::REAL:
+                targetCode << "double ";
                 break;
 
             case Token::TokenType::CHAR:
@@ -189,9 +202,12 @@ namespace C_GEN
                     {
                         {
                         case Token::TokenType::INTEGER:
-                        case Token::TokenType::REAL:
                         case Token::TokenType::BOLLEAN:
                             targetCode << "int ";
+                            break;
+
+                        case Token::TokenType::REAL:
+                            targetCode << "double ";
                             break;
 
                         case Token::TokenType::CHAR:
