@@ -28,7 +28,7 @@ namespace C_GEN
         if (ast == nullptr)
         {
             std::cout << "ERROR::No AST For Generater" << std::endl;
-            // return;
+            return;
         }
 
         if (this->generationType == Token::GenerationType::C)
