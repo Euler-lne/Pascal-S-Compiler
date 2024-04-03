@@ -77,7 +77,7 @@ mulop (\*|\/|div|mod|and)
     #ifdef LEXDEBUG
     printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
     #endif
-    return CONST;
+    return PROGRAM;
 }
 
 "const" {
