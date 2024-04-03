@@ -1,5 +1,6 @@
 %{
 
+#define LEXDEBUG
 
 
 
@@ -7,7 +8,7 @@
 #include "yacc.tab.h"
 #include "TokenTypeEnum.h"
 
-
+using
 
 //处理位置信息
 int yycolumn = 1;
@@ -73,7 +74,10 @@ mulop (\*|\/|div|mod|and)
     yylval->val=yytext;
     yylval->token=Token::PROGRAM;
     yylval->lineNumber = yylineno - 1;
-    return PROGRAM;
+    #ifdef LEXDEBUG
+    printf("keyword: %s\n", yylval->val);
+    #endif
+    return CONST;
 }
 
 "const" {
@@ -81,6 +85,9 @@ mulop (\*|\/|div|mod|and)
     yylval->val=yytext;
     yylval->token=Token::CONST;
     yylval->lineNumber = yylineno - 1;
+    #ifdef LEXDEBUG
+    cout << "keyword: " << yylval->val << endl;
+    #endif
     return CONST;
 }
 
@@ -90,6 +97,9 @@ mulop (\*|\/|div|mod|and)
     yylval->val=yytext;
     yylval->token=Token::RECORD;
     yylval->lineNumber = yylineno - 1;
+    #ifdef LEXDEBUG
+    cout << "keyword: " << yylval->val << endl;
+    #endif
     return RECORD;
 
 }
@@ -99,15 +109,21 @@ mulop (\*|\/|div|mod|and)
     yylval->val=yytext;
     yylval->token=Token::END;
     yylval->lineNumber = yylineno - 1;
+    #ifdef LEXDEBUG
+    cout << "keyword: " << yylval->val << endl;
+    #endif
     return END;
 
 }
 
-"ARRAY" {
+"array" {
     yylval=new ParseNode();
     yylval->val=yytext;
     yylval->token=Token::ARRAY;
     yylval->lineNumber = yylineno - 1;
+    #ifdef LEXDEBUG
+    cout << "keyword: " << yylval->val << endl;
+    #endif
     return ARRAY;
 
 }
@@ -117,6 +133,9 @@ mulop (\*|\/|div|mod|and)
     yylval->val=yytext;
     yylval->token=Token::OF;
     yylval->lineNumber = yylineno - 1;
+    #ifdef LEXDEBUG
+    cout << "keyword: " << yylval->val << endl;
+    #endif
     return OF;
 
 }
@@ -126,15 +145,21 @@ mulop (\*|\/|div|mod|and)
     yylval->val=yytext;
     yylval->token=Token::INTEGER;
     yylval->lineNumber = yylineno - 1;
+    #ifdef LEXDEBUG
+    cout << "keyword: " << yylval->val << endl;
+    #endif
     return INTEGER;
 
 }
 
-"REAL" {
+"real" {
     yylval=new ParseNode();
     yylval->val=yytext;
     yylval->token=Token::REAL;
     yylval->lineNumber = yylineno - 1;
+    #ifdef LEXDEBUG
+    cout << "keyword: " << yylval->val << endl;
+    #endif
     return REAL;
 
 }
@@ -144,6 +169,9 @@ mulop (\*|\/|div|mod|and)
     yylval->val=yytext;
     yylval->token=Token::BOLLEAN;
     yylval->lineNumber = yylineno - 1;
+    #ifdef LEXDEBUG
+    cout << "keyword: " << yylval->val << endl;
+    #endif
     return BOLLEAN;
 
 }
@@ -153,6 +181,9 @@ mulop (\*|\/|div|mod|and)
     yylval->val=yytext;
     yylval->token=Token::CHAR;
     yylval->lineNumber = yylineno - 1;
+    #ifdef LEXDEBUG
+    cout << "keyword: " << yylval->val << endl;
+    #endif
     return CHAR;
 
 }
@@ -162,6 +193,9 @@ mulop (\*|\/|div|mod|and)
     yylval->val=yytext;
     yylval->token=Token::VAR;
     yylval->lineNumber = yylineno - 1;
+    #ifdef LEXDEBUG
+    cout << "keyword: " << yylval->val << endl;
+    #endif
     return VAR;
 
 }
@@ -171,6 +205,9 @@ mulop (\*|\/|div|mod|and)
     yylval->val=yytext;
     yylval->token=Token::FUNCTION;
     yylval->lineNumber = yylineno - 1;
+    #ifdef LEXDEBUG
+    cout << "keyword: " << yylval->val << endl;
+    #endif
     return FUNCTION;
 
 }
@@ -180,6 +217,9 @@ mulop (\*|\/|div|mod|and)
     yylval->val=yytext;
     yylval->token=Token::PROCEDURE;
     yylval->lineNumber = yylineno - 1;
+    #ifdef LEXDEBUG
+    cout << "keyword: " << yylval->val << endl;
+    #endif
     return PROCEDURE;
 
 }
@@ -188,6 +228,9 @@ mulop (\*|\/|div|mod|and)
     yylval->val=yytext;
     yylval->token=Token::_BEGIN;
     yylval->lineNumber = yylineno - 1;
+    #ifdef LEXDEBUG
+    cout << "keyword: " << yylval->val << endl;
+    #endif
     return _BEGIN;
 }
 
@@ -196,6 +239,9 @@ mulop (\*|\/|div|mod|and)
     yylval->val=yytext;
     yylval->token=Token::IF;
     yylval->lineNumber = yylineno - 1;
+    #ifdef LEXDEBUG
+    cout << "keyword: " << yylval->val << endl;
+    #endif
     return IF;
 
 }
@@ -205,6 +251,9 @@ mulop (\*|\/|div|mod|and)
     yylval->val=yytext;
     yylval->token=Token::THEN;
     yylval->lineNumber = yylineno - 1;
+    #ifdef LEXDEBUG
+    cout << "keyword: " << yylval->val << endl;
+    #endif
     return THEN;
 
 }
@@ -214,6 +263,9 @@ mulop (\*|\/|div|mod|and)
     yylval->val=yytext;
     yylval->token=Token::ELSE;
     yylval->lineNumber = yylineno - 1;
+    #ifdef LEXDEBUG
+    cout << "keyword: " << yylval->val << endl;
+    #endif
     return ELSE;
 
 }
@@ -223,6 +275,9 @@ mulop (\*|\/|div|mod|and)
     yylval->val=yytext;
     yylval->token=Token::CASE;
     yylval->lineNumber = yylineno - 1;
+    #ifdef LEXDEBUG
+    cout << "keyword: " << yylval->val << endl;
+    #endif
     return CASE;
 
 }
@@ -232,6 +287,9 @@ mulop (\*|\/|div|mod|and)
     yylval->val=yytext;
     yylval->token=Token::WHILE;
     yylval->lineNumber = yylineno - 1;
+    #ifdef LEXDEBUG
+    cout << "keyword: " << yylval->val << endl;
+    #endif
     return WHILE;
 
 }
@@ -241,6 +299,9 @@ mulop (\*|\/|div|mod|and)
     yylval->val=yytext;
     yylval->token=Token::DO;
     yylval->lineNumber = yylineno - 1;
+    #ifdef LEXDEBUG
+    cout << "keyword: " << yylval->val << endl;
+    #endif
     return DO;
 
 }
@@ -250,6 +311,9 @@ mulop (\*|\/|div|mod|and)
     yylval->val=yytext;
     yylval->token=Token::REPEAT;
     yylval->lineNumber = yylineno - 1;
+    #ifdef LEXDEBUG
+    cout << "keyword: " << yylval->val << endl;
+    #endif
     return REPEAT;
 
 }
@@ -259,6 +323,9 @@ mulop (\*|\/|div|mod|and)
     yylval->val=yytext;
     yylval->token=Token::UNTIL;
     yylval->lineNumber = yylineno - 1;
+    #ifdef LEXDEBUG
+    cout << "keyword: " << yylval->val << endl;
+    #endif
     return UNTIL;
 
 }
@@ -268,6 +335,9 @@ mulop (\*|\/|div|mod|and)
     yylval->val=yytext;
     yylval->token=Token::FOR;
     yylval->lineNumber = yylineno - 1;
+    #ifdef LEXDEBUG
+    cout << "keyword: " << yylval->val << endl;
+    #endif
     return FOR;
 
 }
@@ -277,6 +347,9 @@ mulop (\*|\/|div|mod|and)
     yylval->val=yytext;
     yylval->token=Token::TO;
     yylval->lineNumber = yylineno - 1;
+    #ifdef LEXDEBUG
+    cout << "keyword: " << yylval->val << endl;
+    #endif
     return TO;
 
 }
@@ -286,6 +359,9 @@ mulop (\*|\/|div|mod|and)
     yylval->val=yytext;
     yylval->token=Token::DOWNTO;
     yylval->lineNumber = yylineno - 1;
+    #ifdef LEXDEBUG
+    cout << "keyword: " << yylval->val << endl;
+    #endif
     return DOWNTO;
 
 }
@@ -296,6 +372,9 @@ mulop (\*|\/|div|mod|and)
 	yylval->val=yytext;
 	yylval->token=Token::NOT;
     yylval->lineNumber = yylineno - 1;
+    #ifdef LEXDEBUG
+    cout << "keyword: " << yylval->val << endl;
+    #endif
     return NOT;
 }
 
@@ -304,6 +383,9 @@ mulop (\*|\/|div|mod|and)
 	yylval->val=yytext;
 	yylval->token=Token::RANGE_DOT;
     yylval->lineNumber = yylineno - 1;
+    #ifdef LEXDEBUG
+    cout << "keyword: " << yylval->val << endl;
+    #endif
     return RANGE_DOT;
 }
 
@@ -312,6 +394,9 @@ mulop (\*|\/|div|mod|and)
 	yylval->val=yytext;
 	yylval->token=Token::DOT;
     yylval->lineNumber = yylineno - 1;
+    #ifdef LEXDEBUG
+    cout << "keyword: " << yylval->val << endl;
+    #endif
     return DOT;
 }
 
@@ -320,6 +405,9 @@ mulop (\*|\/|div|mod|and)
 	yylval->val=yytext;
 	yylval->token=Token::COMMA;
     yylval->lineNumber = yylineno - 1;
+    #ifdef LEXDEBUG
+    cout << "keyword: " << yylval->val << endl;
+    #endif
     return COMMA;
 }
 
@@ -328,6 +416,9 @@ mulop (\*|\/|div|mod|and)
 	yylval->val=yytext;
 	yylval->token=Token::LEFT_PARENTHESES;
     yylval->lineNumber = yylineno - 1;
+    #ifdef LEXDEBUG
+    cout << "keyword: " << yylval->val << endl;
+    #endif
     return LEFT_PARENTHESES;
 }
 
@@ -336,6 +427,9 @@ mulop (\*|\/|div|mod|and)
 	yylval->val=yytext;
 	yylval->token=Token::RIGHT_PARENTHESES;
     yylval->lineNumber = yylineno - 1;
+    #ifdef LEXDEBUG
+    cout << "keyword: " << yylval->val << endl;
+    #endif
     return RIGHT_PARENTHESES;
 }
 
@@ -344,6 +438,9 @@ mulop (\*|\/|div|mod|and)
 	yylval->val=yytext;
 	yylval->token=Token::LEFT_MEDIUM_PARENTHESES;
     yylval->lineNumber = yylineno - 1;
+    #ifdef LEXDEBUG
+    cout << "keyword: " << yylval->val << endl;
+    #endif
     return LEFT_MEDIUM_PARENTHESES;
 }
 
@@ -352,6 +449,9 @@ mulop (\*|\/|div|mod|and)
 	yylval->val=yytext;
 	yylval->token=Token::RIGHT_MEDIUM_PARENTHESES;
     yylval->lineNumber = yylineno - 1;
+    #ifdef LEXDEBUG
+    cout << "keyword: " << yylval->val << endl;
+    #endif
     return RIGHT_MEDIUM_PARENTHESES;
 }
 
@@ -360,6 +460,9 @@ mulop (\*|\/|div|mod|and)
 	yylval->val=yytext;
 	yylval->token=Token::SEMICOLON;
     yylval->lineNumber = yylineno - 1;
+    #ifdef LEXDEBUG
+    cout << "keyword: " << yylval->val << endl;
+    #endif
     return SEMICOLON;
 }
 
@@ -368,6 +471,9 @@ mulop (\*|\/|div|mod|and)
 	yylval->val=yytext;
 	yylval->token=Token::ASSIGNOP;
     yylval->lineNumber = yylineno - 1;
+    #ifdef LEXDEBUG
+    cout << "keyword: " << yylval->val << endl;
+    #endif
     return ASSIGNOP;
 }
 
@@ -376,6 +482,9 @@ mulop (\*|\/|div|mod|and)
 	yylval->val=yytext;
 	yylval->token=Token::COLON;
     yylval->lineNumber = yylineno - 1;
+    #ifdef LEXDEBUG
+    cout << "keyword: " << yylval->val << endl;
+    #endif
     return COLON;
 }
 
@@ -384,6 +493,9 @@ mulop (\*|\/|div|mod|and)
 	yylval->val=yytext;
 	yylval->token=Token::RELOP;
     yylval->lineNumber = yylineno - 1;
+    #ifdef LEXDEBUG
+    cout << "RELOP: " << yylval->val << endl;
+    #endif
     return RELOP;
 }
 
@@ -392,6 +504,9 @@ mulop (\*|\/|div|mod|and)
 	yylval->val=yytext;
 	yylval->token=Token::ADDOP;
     yylval->lineNumber = yylineno - 1;
+    #ifdef LEXDEBUG
+    cout << "ADDOP: " << yylval->val << endl;
+    #endif
     return ADDOP;
 }
 
@@ -400,6 +515,9 @@ mulop (\*|\/|div|mod|and)
 	yylval->val=yytext;
 	yylval->token=Token::MULOP;
     yylval->lineNumber = yylineno - 1;
+    #ifdef LEXDEBUG
+    cout << "MULOP: " << yylval->val << endl;
+    #endif
     return MULOP;
 }
 
@@ -412,6 +530,9 @@ mulop (\*|\/|div|mod|and)
 	yylval->val=yytext;
 	yylval->token = Token::ID;
     yylval->lineNumber = yylineno - 1;
+    #ifdef LEXDEBUG
+    cout << "ID: " << yylval->val << endl;
+    #endif
     return ID;
 }
 
@@ -420,6 +541,9 @@ mulop (\*|\/|div|mod|and)
 	yylval->val=yytext;
 	yylval->token=Token::INT_NUM;
     yylval->lineNumber = yylineno - 1;
+    #ifdef LEXDEBUG
+    cout << "INT_NUM: " << yylval->val << endl;
+    #endif
     return NUM;
 }
 
@@ -428,6 +552,9 @@ mulop (\*|\/|div|mod|and)
     yylval->val=yytext;
     yylval->token=Token::FLOAT_NUM;
     yylval->lineNumber = yylineno - 1;
+    #ifdef LEXDEBUG
+    cout << "FLOAT_NUM: " << yylval->val << endl;
+    #endif
     return NUM;
 }
 
@@ -436,6 +563,9 @@ mulop (\*|\/|div|mod|and)
     yylval->val=yytext;
     yylval->token=Token::LETTER;
     yylval->lineNumber = yylineno - 1;
+    #ifdef LEXDEBUG
+    cout << "LETTER: " << yylval->val << endl;
+    #endif
     return LETTER;
 }
 
@@ -463,6 +593,9 @@ mulop (\*|\/|div|mod|and)
         yylval->val="\0";
         yylval->token=Token::CHAR;
         yylval->lineNumber=yylineno - 1;
+        #ifdef LEXDEBUG
+        cout << "CHAR: " << yylval->val << endl;
+        #endif
         return CHAR;
     }
     else if(yytext[0]=='\'' && len==1){
@@ -471,6 +604,9 @@ mulop (\*|\/|div|mod|and)
         yylval->val=charRec[0];
         yylval->token=Token::CHAR;
         yylval->lineNumber=yylineno - 1;
+        #ifdef LEXDEBUG
+        cout << "CHAR: " << yylval->val << endl;
+        #endif
         return CHAR;
     }
     else if(yytext[0]=='\''){
@@ -479,6 +615,9 @@ mulop (\*|\/|div|mod|and)
         yylval->val=charRec[0];
         yylval->token=Token::CHAR;
         yylval->lineNumber=yylineno - 1;
+        #ifdef LEXDEBUG
+        cout << "CHAR: " << yylval->val << endl;
+        #endif
         return CHAR;
     }
     else{
@@ -493,6 +632,9 @@ mulop (\*|\/|div|mod|and)
             yylval->val=charRec[0];
         yylval->token=Token::CHAR;
         yylval->lineNumber=yylineno - 1;
+        #ifdef LEXDEBUG
+        cout << "CHAR: " << yylval->val << endl;
+        #endif
         return CHAR;
     }
 }
@@ -530,7 +672,11 @@ mulop (\*|\/|div|mod|and)
 <MCOM>. {}
 %%
 
-
+int main()
+{
+    yylex();
+    return 0;
+}
 
 //这个函数是必须的，不用动
 int yywrap()
