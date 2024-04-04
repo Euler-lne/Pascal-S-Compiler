@@ -2,10 +2,6 @@ program quicksort(input,output);
 var
 n,i:integer;
 a:array[0..100000] of integer;
-{ 我是注释 }
-(* 
-    我是注释
-*)
 procedure kp(l,r:integer);
 var
 i,j,mid:integer;
