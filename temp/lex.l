@@ -7,8 +7,8 @@
 #include "main.h"
 #include "yacc.tab.h"
 #include "TokenTypeEnum.h"
+#include <string>
 
-using
 
 //处理位置信息
 int yycolumn = 1;
