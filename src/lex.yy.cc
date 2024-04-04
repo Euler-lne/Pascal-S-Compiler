@@ -1,6 +1,6 @@
-#line 2 "/mnt/d/PASCC-main/PASCC-main/testt/build/../lex.yy.cc"
+#line 2 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/lex.yy.cc"
 
-#line 4 "/mnt/d/PASCC-main/PASCC-main/testt/build/../lex.yy.cc"
+#line 4 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/lex.yy.cc"
 
 #define  YY_INT_ALIGNED short int
 
@@ -380,26 +380,26 @@ struct yy_trans_info
 	flex_int32_t yy_verify;
 	flex_int32_t yy_nxt;
 	};
-static const flex_int16_t yy_accept[165] =
+static const flex_int16_t yy_accept[164] =
     {   0,
         0,    0,    0,    0,    0,    0,    0,    0,   57,   56,
         1,    2,   46,   32,   33,   41,   40,   31,   30,   41,
-       43,   38,   36,   39,   39,   39,   56,   56,   34,   35,
+       43,   38,   36,   39,   39,   39,   56,   34,   35,   42,
        42,   42,   42,   42,   42,   42,   42,   42,   42,   42,
-       42,   42,   42,   42,   42,   42,   42,   48,   52,   51,
-       55,   53,   54,   50,   49,   49,    1,    2,   29,   47,
-        0,   43,   37,   39,    0,    0,   42,   42,   42,   42,
-       42,   42,   42,   42,   22,   42,   42,   42,   42,   17,
-       42,   42,   42,    8,   40,   42,   42,   42,   26,   42,
-       42,   42,   53,   44,    0,    0,   41,   42,   42,   42,
+       42,   42,   42,   42,   42,   42,   48,   52,   51,   55,
+       53,   54,   50,   49,   49,    1,    2,   29,   47,    0,
+       43,   37,   39,    0,   42,   42,   42,   42,   42,   42,
+       42,   42,   42,   22,   42,   42,   42,   42,   17,   42,
+       42,   42,    8,   40,   42,   42,   42,   26,   42,   42,
+       42,   53,   44,    0,   41,   42,   42,   42,   42,   42,
 
-       42,   42,   42,   42,    6,   25,   42,   42,   28,   42,
-       42,   42,   42,   42,   13,   42,    0,   10,   42,   42,
-       20,   12,   42,   42,   19,   42,   42,   42,   42,   42,
-       42,   18,   42,   42,    7,   16,   42,    4,   42,   42,
-       42,   42,   42,   42,   42,   24,   21,   42,   27,   42,
-       42,   42,   42,    5,   23,   11,   42,    9,   42,    3,
-       14,   42,   15,    0
+       42,   42,   42,    6,   25,   42,   42,   28,   42,   42,
+       42,   42,   42,   13,   42,   10,   42,   42,   42,   20,
+       12,   42,   42,   19,   42,   42,   42,   42,   42,   42,
+       18,   42,   42,    7,   16,   42,    4,   42,   42,   42,
+       42,   42,   42,   42,   24,   21,   42,   27,   42,   42,
+       42,   42,    5,   23,   11,   42,    9,   42,    3,   14,
+       42,   15,    0
     } ;
 
 static const YY_CHAR yy_ec[256] =
@@ -412,12 +412,12 @@ static const YY_CHAR yy_ec[256] =
        13,   13,   13,   13,   13,   13,   13,   14,   15,   16,
        17,   18,    1,    1,   19,    1,    1,    1,   20,    1,
         1,    1,    1,    1,    1,   21,    1,    1,    1,    1,
-        1,   22,    1,    1,    1,    1,    1,    1,   23,    1,
-       24,    1,   25,    1,    1,    1,   26,   27,   28,   29,
+        1,   22,    1,    1,    1,    1,    1,    1,    1,    1,
+       23,    1,   24,    1,    1,    1,   25,   26,   27,   28,
 
-       30,   31,   32,   33,   34,   35,   35,   36,   37,   38,
-       39,   40,   35,   41,   42,   43,   44,   45,   46,   35,
-       35,   35,   47,    1,   48,    1,    1,    1,    1,    1,
+       29,   30,   31,   32,   33,   34,   34,   35,   36,   37,
+       38,   39,   34,   40,   41,   42,   43,   44,   45,   34,
+       46,   34,   47,    1,   48,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
@@ -438,83 +438,83 @@ static const YY_CHAR yy_meta[49] =
     {   0,
         1,    1,    2,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    3,    1,    1,    1,    1,    1,    1,    1,
-        1,    1,    1,    1,    1,    3,    3,    3,    3,    3,
+        1,    1,    1,    1,    3,    3,    3,    3,    3,    3,
         3,    3,    3,    3,    3,    3,    3,    3,    3,    3,
         3,    3,    3,    3,    3,    3,    1,    1
     } ;
 
-static const flex_int16_t yy_base[171] =
+static const flex_int16_t yy_base[170] =
     {   0,
         0,    0,  182,  181,   46,   47,   48,   50,  183,  186,
       180,    0,  186,  186,  186,  186,  186,  186,  170,  168,
-       44,  162,  186,   41,  186,  161,  155,  156,  186,  186,
-      137,   26,   34,   27,   26,   24,    0,   38,  135,  134,
-       39,  131,  141,   38,  132,  143,  135,  186,  186,  186,
-      186,    0,  186,  186,  186,  186,  165,    0,  186,  186,
-      153,   61,  186,  186,  143,  145,    0,  134,  130,  125,
-      118,  133,  120,  112,  110,  113,  125,  112,  114,    0,
-      108,  121,  106,    0,    0,  109,   47,  117,    0,  103,
-      104,  110,    0,  130,  123,  120,    0,  106,  103,  108,
+       44,  162,  186,   41,  186,  161,  157,  186,  186,   23,
+       27,   36,   29,   29,   32,    0,   39,  138,  137,   41,
+      134,  144,   40,  135,  146,  138,  186,  186,  186,  186,
+        0,  186,  186,  186,  186,  167,    0,  186,  186,  155,
+       66,  186,  186,  148,    0,  138,  125,  133,  128,  121,
+      136,  123,  115,  113,  116,  128,  115,  117,    0,  111,
+      124,  109,    0,    0,  112,   46,  120,    0,  106,  107,
+      113,    0,  132,  123,    0,  118,  109,  106,  111,   99,
 
-       96,   94,   97,  104,    0,    0,  105,  102,    0,   50,
-       92,  100,   91,   94,    0,   91,  103,  186,   87,   94,
-        0,    0,   80,   79,    0,   78,   88,   89,   77,   76,
-       90,    0,   79,   84,  186,    0,   87,    0,   73,   77,
-       79,   77,   67,   63,   48,    0,    0,   52,    0,   50,
-       47,   42,   48,    0,    0,    0,   46,    0,   42,    0,
-        0,   51,    0,  186,   95,   98,  101,  104,   76,  107
+       97,  100,  107,    0,    0,  108,  105,    0,   53,   95,
+      103,   94,   97,    0,   94,  186,   82,   90,   97,    0,
+        0,   83,   82,    0,   81,   91,   92,   80,   79,   93,
+        0,   82,   87,    0,    0,   90,    0,   76,   80,   83,
+       83,   84,   78,   51,    0,    0,   55,    0,   53,   50,
+       46,   52,    0,    0,    0,   50,    0,   46,    0,    0,
+       54,    0,  186,   95,   98,  101,  104,   79,  107
     } ;
 
-static const flex_int16_t yy_def[171] =
+static const flex_int16_t yy_def[170] =
     {   0,
-      164,    1,  165,  165,  166,  166,  167,  167,  164,  164,
-      164,  168,  164,  164,  164,  164,  164,  164,  164,  164,
-      164,  164,  164,  164,  164,  164,  164,  164,  164,  164,
-      169,  169,  169,  169,  169,  169,  169,  169,  169,  169,
-      169,  169,  169,  169,  169,  169,  169,  164,  164,  164,
-      164,  170,  164,  164,  164,  164,  164,  168,  164,  164,
-      164,  164,  164,  164,  164,  164,  169,  169,  169,  169,
-      169,  169,  169,  169,  169,  169,  169,  169,  169,  169,
-      169,  169,  169,  169,  169,  169,  169,  169,  169,  169,
-      169,  169,  170,  164,  164,  164,  169,  169,  169,  169,
+      163,    1,  164,  164,  165,  165,  166,  166,  163,  163,
+      163,  167,  163,  163,  163,  163,  163,  163,  163,  163,
+      163,  163,  163,  163,  163,  163,  163,  163,  163,  168,
+      168,  168,  168,  168,  168,  168,  168,  168,  168,  168,
+      168,  168,  168,  168,  168,  168,  163,  163,  163,  163,
+      169,  163,  163,  163,  163,  163,  167,  163,  163,  163,
+      163,  163,  163,  163,  168,  168,  168,  168,  168,  168,
+      168,  168,  168,  168,  168,  168,  168,  168,  168,  168,
+      168,  168,  168,  168,  168,  168,  168,  168,  168,  168,
+      168,  169,  163,  163,  168,  168,  168,  168,  168,  168,
 
-      169,  169,  169,  169,  169,  169,  169,  169,  169,  169,
-      169,  169,  169,  169,  169,  169,  164,  164,  169,  169,
-      169,  169,  169,  169,  169,  169,  169,  169,  169,  169,
-      169,  169,  169,  169,  164,  169,  169,  169,  169,  169,
-      169,  169,  169,  169,  169,  169,  169,  169,  169,  169,
-      169,  169,  169,  169,  169,  169,  169,  169,  169,  169,
-      169,  169,  169,    0,  164,  164,  164,  164,  164,  164
+      168,  168,  168,  168,  168,  168,  168,  168,  168,  168,
+      168,  168,  168,  168,  168,  163,  168,  168,  168,  168,
+      168,  168,  168,  168,  168,  168,  168,  168,  168,  168,
+      168,  168,  168,  168,  168,  168,  168,  168,  168,  168,
+      168,  168,  168,  168,  168,  168,  168,  168,  168,  168,
+      168,  168,  168,  168,  168,  168,  168,  168,  168,  168,
+      168,  168,    0,  163,  163,  163,  163,  163,  163
     } ;
 
 static const flex_int16_t yy_nxt[235] =
     {   0,
        10,   11,   12,   13,   14,   15,   16,   17,   18,   17,
-       19,   20,   21,   22,   23,   24,   25,   26,   27,   10,
-       10,   28,   10,   29,   30,   31,   32,   33,   34,   35,
-       36,   37,   37,   38,   37,   37,   39,   40,   41,   42,
-       43,   37,   44,   45,   46,   47,   48,   10,   52,   52,
-       55,   56,   55,   56,   61,   69,   62,   64,   64,   71,
-       74,   76,   78,   77,   70,   75,   72,   79,   80,   84,
-       88,   61,   73,   62,  111,   81,   89,  128,   67,   85,
-      163,  129,  162,  161,  160,  159,  112,  158,  157,  156,
-      155,  154,  153,   53,   53,   49,   49,   49,   51,   51,
+       19,   20,   21,   22,   23,   24,   25,   26,   10,   10,
+       10,   27,   28,   29,   30,   31,   32,   33,   34,   35,
+       36,   36,   37,   36,   36,   38,   39,   40,   41,   42,
+       36,   43,   44,   45,   46,   36,   47,   10,   51,   51,
+       54,   55,   54,   55,   60,   68,   61,   63,   63,   66,
+       70,   73,   67,   75,   69,   76,   74,   71,   79,   77,
+       83,   87,  110,   72,   78,   80,   60,   88,   61,  127,
+       84,   65,  162,  128,  111,  161,  160,  159,  158,  157,
+      156,  155,  154,   52,   52,   48,   48,   48,   50,   50,
 
-       51,   54,   54,   54,   58,  152,   58,   93,  151,   93,
-      150,  149,  148,  147,  146,  145,  144,  143,  142,  141,
-      140,  139,  138,  137,  136,  135,  134,  133,  132,  131,
-      130,  127,  126,  125,  124,  123,  122,  121,  120,  119,
-      118,  117,   94,  116,  115,  114,  113,  110,  109,   97,
-      108,  107,  106,  105,  104,  103,   97,  102,  101,  100,
-       99,   98,   97,   96,   95,   94,   57,   92,   91,   90,
-       87,   86,   83,   82,   68,   66,   65,   64,   63,   60,
-       59,   57,  164,   50,   50,    9,  164,  164,  164,  164,
-      164,  164,  164,  164,  164,  164,  164,  164,  164,  164,
+       50,   53,   53,   53,   57,  153,   57,   92,  152,   92,
+      151,  150,  149,  148,  147,  146,  145,  144,  143,  142,
+      141,  140,  139,  138,  137,  136,  135,  134,  133,  132,
+      131,  130,  129,  126,  125,  124,  123,  122,  121,  120,
+      119,  118,  117,  116,   93,  115,  114,  113,  112,  109,
+      108,   95,  107,  106,  105,  104,  103,  102,   95,  101,
+      100,   99,   98,   97,   96,   95,   94,   93,   56,   91,
+       90,   89,   86,   85,   82,   81,   64,   63,   62,   59,
+       58,   56,  163,   49,   49,    9,  163,  163,  163,  163,
+      163,  163,  163,  163,  163,  163,  163,  163,  163,  163,
 
-      164,  164,  164,  164,  164,  164,  164,  164,  164,  164,
-      164,  164,  164,  164,  164,  164,  164,  164,  164,  164,
-      164,  164,  164,  164,  164,  164,  164,  164,  164,  164,
-      164,  164,  164,  164
+      163,  163,  163,  163,  163,  163,  163,  163,  163,  163,
+      163,  163,  163,  163,  163,  163,  163,  163,  163,  163,
+      163,  163,  163,  163,  163,  163,  163,  163,  163,  163,
+      163,  163,  163,  163
     } ;
 
 static const flex_int16_t yy_chk[235] =
@@ -524,27 +524,27 @@ static const flex_int16_t yy_chk[235] =
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    5,    6,
-        7,    7,    8,    8,   21,   32,   21,   24,   24,   33,
-       34,   35,   36,   35,   32,   34,   33,   36,   38,   41,
-       44,   62,   33,   62,   87,   38,   44,  110,  169,   41,
-      162,  110,  159,  157,  153,  152,   87,  151,  150,  148,
-      145,  144,  143,    5,    6,  165,  165,  165,  166,  166,
+        7,    7,    8,    8,   21,   31,   21,   24,   24,   30,
+       32,   33,   30,   34,   31,   34,   33,   32,   37,   35,
+       40,   43,   86,   32,   35,   37,   61,   43,   61,  109,
+       40,  168,  161,  109,   86,  158,  156,  152,  151,  150,
+      149,  147,  144,    5,    6,  164,  164,  164,  165,  165,
 
-      166,  167,  167,  167,  168,  142,  168,  170,  141,  170,
-      140,  139,  137,  134,  133,  131,  130,  129,  128,  127,
-      126,  124,  123,  120,  119,  117,  116,  114,  113,  112,
-      111,  108,  107,  104,  103,  102,  101,  100,   99,   98,
-       96,   95,   94,   92,   91,   90,   88,   86,   83,   82,
-       81,   79,   78,   77,   76,   75,   74,   73,   72,   71,
-       70,   69,   68,   66,   65,   61,   57,   47,   46,   45,
-       43,   42,   40,   39,   31,   28,   27,   26,   22,   20,
-       19,   11,    9,    4,    3,  164,  164,  164,  164,  164,
-      164,  164,  164,  164,  164,  164,  164,  164,  164,  164,
+      165,  166,  166,  166,  167,  143,  167,  169,  142,  169,
+      141,  140,  139,  138,  136,  133,  132,  130,  129,  128,
+      127,  126,  125,  123,  122,  119,  118,  117,  115,  113,
+      112,  111,  110,  107,  106,  103,  102,  101,  100,   99,
+       98,   97,   96,   94,   93,   91,   90,   89,   87,   85,
+       82,   81,   80,   78,   77,   76,   75,   74,   73,   72,
+       71,   70,   69,   68,   67,   66,   64,   60,   56,   46,
+       45,   44,   42,   41,   39,   38,   27,   26,   22,   20,
+       19,   11,    9,    4,    3,  163,  163,  163,  163,  163,
+      163,  163,  163,  163,  163,  163,  163,  163,  163,  163,
 
-      164,  164,  164,  164,  164,  164,  164,  164,  164,  164,
-      164,  164,  164,  164,  164,  164,  164,  164,  164,  164,
-      164,  164,  164,  164,  164,  164,  164,  164,  164,  164,
-      164,  164,  164,  164
+      163,  163,  163,  163,  163,  163,  163,  163,  163,  163,
+      163,  163,  163,  163,  163,  163,  163,  163,  163,  163,
+      163,  163,  163,  163,  163,  163,  163,  163,  163,  163,
+      163,  163,  163,  163
     } ;
 
 /* Table of booleans, true if rule could match eol. */
@@ -568,8 +568,8 @@ int yy_flex_debug = 0;
 #define YY_MORE_ADJ 0
 #define YY_RESTORE_YY_MORE_OFFSET
 char *yytext;
-#line 1 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/lex.l"
-#line 2 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/lex.l"
+#line 1 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/lex.l"
+#line 2 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/lex.l"
 
 
 
@@ -577,6 +577,7 @@ char *yytext;
 #include "main.h"
 #include "yacc.tab.h"
 #include "TokenTypeEnum.h"
+#include <string>
 
 
 
@@ -599,9 +600,9 @@ extern "C"
 	int yywrap();
     int yylex();
 }
-#line 603 "/mnt/d/PASCC-main/PASCC-main/testt/build/../lex.yy.cc"
+#line 604 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/lex.yy.cc"
 
-#line 605 "/mnt/d/PASCC-main/PASCC-main/testt/build/../lex.yy.cc"
+#line 606 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/lex.yy.cc"
 
 #define INITIAL 0
 #define SCOM 1
@@ -821,11 +822,11 @@ YY_DECL
 		}
 
 	{
-#line 61 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/lex.l"
+#line 62 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/lex.l"
 
-#line 63 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/lex.l"
+#line 64 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/lex.l"
                   
-#line 829 "/mnt/d/PASCC-main/PASCC-main/testt/build/../lex.yy.cc"
+#line 830 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/lex.yy.cc"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -852,7 +853,7 @@ yy_match:
 			while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
 				{
 				yy_current_state = (int) yy_def[yy_current_state];
-				if ( yy_current_state >= 165 )
+				if ( yy_current_state >= 164 )
 					yy_c = yy_meta[yy_c];
 				}
 			yy_current_state = yy_nxt[yy_base[yy_current_state] + yy_c];
@@ -894,13 +895,13 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 64 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/lex.l"
+#line 65 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/lex.l"
 {}
 	YY_BREAK
 case 2:
 /* rule 2 can match eol */
 YY_RULE_SETUP
-#line 66 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/lex.l"
+#line 67 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/lex.l"
 { 
     strcpy(lineBuffer,yytext+1);
     yycolumn=1;
@@ -909,7 +910,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 72 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/lex.l"
+#line 73 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/lex.l"
 {
     yylval=new ParseNode();
     yylval->val=yytext;
@@ -920,7 +921,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 80 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/lex.l"
+#line 81 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/lex.l"
 {
     yylval=new ParseNode();
     yylval->val=yytext;
@@ -931,7 +932,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 89 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/lex.l"
+#line 90 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/lex.l"
 {
     yylval=new ParseNode();
     yylval->val=yytext;
@@ -943,7 +944,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 98 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/lex.l"
+#line 99 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/lex.l"
 {
     yylval=new ParseNode();
     yylval->val=yytext;
@@ -955,7 +956,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 107 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/lex.l"
+#line 108 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/lex.l"
 {
     yylval=new ParseNode();
     yylval->val=yytext;
@@ -967,7 +968,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 116 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/lex.l"
+#line 117 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/lex.l"
 {
     yylval=new ParseNode();
     yylval->val=yytext;
@@ -979,7 +980,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 125 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/lex.l"
+#line 126 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/lex.l"
 {
     yylval=new ParseNode();
     yylval->val=yytext;
@@ -991,7 +992,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 134 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/lex.l"
+#line 135 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/lex.l"
 {
     yylval=new ParseNode();
     yylval->val=yytext;
@@ -1003,7 +1004,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 143 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/lex.l"
+#line 144 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/lex.l"
 {
     yylval=new ParseNode();
     yylval->val=yytext;
@@ -1015,7 +1016,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 152 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/lex.l"
+#line 153 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/lex.l"
 {
     yylval=new ParseNode();
     yylval->val=yytext;
@@ -1027,7 +1028,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 161 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/lex.l"
+#line 162 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/lex.l"
 {
     yylval=new ParseNode();
     yylval->val=yytext;
@@ -1039,7 +1040,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 170 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/lex.l"
+#line 171 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/lex.l"
 {
     yylval=new ParseNode();
     yylval->val=yytext;
@@ -1051,7 +1052,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 179 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/lex.l"
+#line 180 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/lex.l"
 {
     yylval=new ParseNode();
     yylval->val=yytext;
@@ -1063,7 +1064,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 187 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/lex.l"
+#line 188 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/lex.l"
 {
     yylval=new ParseNode();
     yylval->val=yytext;
@@ -1074,7 +1075,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 195 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/lex.l"
+#line 196 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/lex.l"
 {
     yylval=new ParseNode();
     yylval->val=yytext;
@@ -1086,7 +1087,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 204 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/lex.l"
+#line 205 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/lex.l"
 {
     yylval=new ParseNode();
     yylval->val=yytext;
@@ -1098,7 +1099,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 213 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/lex.l"
+#line 214 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/lex.l"
 {
     yylval=new ParseNode();
     yylval->val=yytext;
@@ -1110,7 +1111,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 222 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/lex.l"
+#line 223 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/lex.l"
 {
     yylval=new ParseNode();
     yylval->val=yytext;
@@ -1122,7 +1123,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 231 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/lex.l"
+#line 232 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/lex.l"
 {
     yylval=new ParseNode();
     yylval->val=yytext;
@@ -1134,7 +1135,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 240 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/lex.l"
+#line 241 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/lex.l"
 {
     yylval=new ParseNode();
     yylval->val=yytext;
@@ -1146,7 +1147,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 249 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/lex.l"
+#line 250 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/lex.l"
 {
     yylval=new ParseNode();
     yylval->val=yytext;
@@ -1158,7 +1159,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 258 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/lex.l"
+#line 259 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/lex.l"
 {
     yylval=new ParseNode();
     yylval->val=yytext;
@@ -1170,7 +1171,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 267 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/lex.l"
+#line 268 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/lex.l"
 {
     yylval=new ParseNode();
     yylval->val=yytext;
@@ -1182,7 +1183,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 276 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/lex.l"
+#line 277 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/lex.l"
 {
     yylval=new ParseNode();
     yylval->val=yytext;
@@ -1194,7 +1195,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 285 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/lex.l"
+#line 286 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/lex.l"
 {
     yylval=new ParseNode();
     yylval->val=yytext;
@@ -1206,7 +1207,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 295 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/lex.l"
+#line 296 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/lex.l"
 {
     yylval=new ParseNode();
 	yylval->val=yytext;
@@ -1217,7 +1218,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 303 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/lex.l"
+#line 304 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/lex.l"
 {
     yylval=new ParseNode();
 	yylval->val=yytext;
@@ -1228,7 +1229,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 311 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/lex.l"
+#line 312 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/lex.l"
 {
     yylval=new ParseNode();
 	yylval->val=yytext;
@@ -1239,7 +1240,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 319 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/lex.l"
+#line 320 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/lex.l"
 {
     yylval=new ParseNode();
 	yylval->val=yytext;
@@ -1250,7 +1251,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
-#line 327 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/lex.l"
+#line 328 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/lex.l"
 {
     yylval=new ParseNode();
 	yylval->val=yytext;
@@ -1261,7 +1262,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
-#line 335 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/lex.l"
+#line 336 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/lex.l"
 {
     yylval=new ParseNode();
 	yylval->val=yytext;
@@ -1272,7 +1273,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
-#line 343 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/lex.l"
+#line 344 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/lex.l"
 {
     yylval=new ParseNode();
 	yylval->val=yytext;
@@ -1283,7 +1284,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 35:
 YY_RULE_SETUP
-#line 351 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/lex.l"
+#line 352 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/lex.l"
 {
     yylval=new ParseNode();
 	yylval->val=yytext;
@@ -1294,7 +1295,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
-#line 359 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/lex.l"
+#line 360 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/lex.l"
 {
     yylval=new ParseNode();
 	yylval->val=yytext;
@@ -1305,7 +1306,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 37:
 YY_RULE_SETUP
-#line 367 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/lex.l"
+#line 368 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/lex.l"
 {
     yylval=new ParseNode();
 	yylval->val=yytext;
@@ -1316,7 +1317,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 38:
 YY_RULE_SETUP
-#line 375 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/lex.l"
+#line 376 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/lex.l"
 {
     yylval=new ParseNode();
 	yylval->val=yytext;
@@ -1327,7 +1328,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 39:
 YY_RULE_SETUP
-#line 383 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/lex.l"
+#line 384 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/lex.l"
 {
     yylval=new ParseNode();
 	yylval->val=yytext;
@@ -1338,7 +1339,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 40:
 YY_RULE_SETUP
-#line 391 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/lex.l"
+#line 392 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/lex.l"
 {
     yylval=new ParseNode();
 	yylval->val=yytext;
@@ -1349,7 +1350,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 41:
 YY_RULE_SETUP
-#line 399 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/lex.l"
+#line 400 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/lex.l"
 {
     yylval=new ParseNode();
 	yylval->val=yytext;
@@ -1360,7 +1361,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 42:
 YY_RULE_SETUP
-#line 411 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/lex.l"
+#line 412 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/lex.l"
 {
     yylval=new ParseNode();
 	yylval->val=yytext;
@@ -1371,7 +1372,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 43:
 YY_RULE_SETUP
-#line 419 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/lex.l"
+#line 420 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/lex.l"
 {
     yylval=new ParseNode();
 	yylval->val=yytext;
@@ -1382,7 +1383,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 44:
 YY_RULE_SETUP
-#line 427 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/lex.l"
+#line 428 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/lex.l"
 {
     yylval=new ParseNode();
     yylval->val=yytext;
@@ -1393,7 +1394,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 45:
 YY_RULE_SETUP
-#line 435 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/lex.l"
+#line 436 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/lex.l"
 {
     yylval=new ParseNode();
     yylval->val=yytext;
@@ -1404,7 +1405,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 46:
 YY_RULE_SETUP
-#line 445 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/lex.l"
+#line 446 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/lex.l"
 {//进入字符常量识别
     BEGIN CH;
 	charRec="";
@@ -1412,14 +1413,14 @@ YY_RULE_SETUP
 	YY_BREAK
 case 47:
 YY_RULE_SETUP
-#line 450 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/lex.l"
+#line 451 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/lex.l"
 {//进入单行注释
     BEGIN SCOM;
 }
 	YY_BREAK
 case 48:
 YY_RULE_SETUP
-#line 454 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/lex.l"
+#line 455 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/lex.l"
 {//进入多行注释
 	BEGIN MCOM;
 }
@@ -1427,7 +1428,7 @@ YY_RULE_SETUP
 case 49:
 /* rule 49 can match eol */
 YY_RULE_SETUP
-#line 458 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/lex.l"
+#line 459 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/lex.l"
 {//字符常量限定在一行中
     int len = charRec.length();
     
@@ -1473,13 +1474,13 @@ YY_RULE_SETUP
 	YY_BREAK
 case 50:
 YY_RULE_SETUP
-#line 501 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/lex.l"
+#line 502 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/lex.l"
 {
 	charRec+=yytext[0];
 }
 	YY_BREAK
 case YY_STATE_EOF(SCOM):
-#line 505 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/lex.l"
+#line 506 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/lex.l"
 { //单行注释遇到文件尾
     return 0;
 }
@@ -1487,7 +1488,7 @@ case YY_STATE_EOF(SCOM):
 case 51:
 /* rule 51 can match eol */
 YY_RULE_SETUP
-#line 509 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/lex.l"
+#line 510 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/lex.l"
 {
     BEGIN INITIAL;
     yyless(0);//将换行符退回
@@ -1496,11 +1497,11 @@ YY_RULE_SETUP
 	YY_BREAK
 case 52:
 YY_RULE_SETUP
-#line 515 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/lex.l"
+#line 516 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/lex.l"
 {}
 	YY_BREAK
 case YY_STATE_EOF(MCOM):
-#line 517 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/lex.l"
+#line 518 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/lex.l"
 { //多行注释遇到文件尾 错误8
     return 0;
 }
@@ -1508,7 +1509,7 @@ case YY_STATE_EOF(MCOM):
 case 53:
 /* rule 53 can match eol */
 YY_RULE_SETUP
-#line 521 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/lex.l"
+#line 522 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/lex.l"
 {
     yycolumn=1;
     strcpy(lineBuffer, yytext+1);
@@ -1517,22 +1518,22 @@ YY_RULE_SETUP
 	YY_BREAK
 case 54:
 YY_RULE_SETUP
-#line 527 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/lex.l"
+#line 528 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/lex.l"
 {
 	BEGIN INITIAL;
 }
 	YY_BREAK
 case 55:
 YY_RULE_SETUP
-#line 531 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/lex.l"
+#line 532 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/lex.l"
 {}
 	YY_BREAK
 case 56:
 YY_RULE_SETUP
-#line 532 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/lex.l"
+#line 533 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/lex.l"
 ECHO;
 	YY_BREAK
-#line 1536 "/mnt/d/PASCC-main/PASCC-main/testt/build/../lex.yy.cc"
+#line 1537 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/lex.yy.cc"
 case YY_STATE_EOF(INITIAL):
 case YY_STATE_EOF(CH):
 	yyterminate();
@@ -1830,7 +1831,7 @@ static int yy_get_next_buffer (void)
 		while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
 			{
 			yy_current_state = (int) yy_def[yy_current_state];
-			if ( yy_current_state >= 165 )
+			if ( yy_current_state >= 164 )
 				yy_c = yy_meta[yy_c];
 			}
 		yy_current_state = yy_nxt[yy_base[yy_current_state] + yy_c];
@@ -1858,11 +1859,11 @@ static int yy_get_next_buffer (void)
 	while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
 		{
 		yy_current_state = (int) yy_def[yy_current_state];
-		if ( yy_current_state >= 165 )
+		if ( yy_current_state >= 164 )
 			yy_c = yy_meta[yy_c];
 		}
 	yy_current_state = yy_nxt[yy_base[yy_current_state] + yy_c];
-	yy_is_jam = (yy_current_state == 164);
+	yy_is_jam = (yy_current_state == 163);
 
 		return yy_is_jam ? 0 : yy_current_state;
 }
@@ -2550,7 +2551,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 532 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/lex.l"
+#line 533 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/lex.l"
 
 
 

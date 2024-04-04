@@ -67,7 +67,7 @@
 
 
 /* First part of user prologue.  */
-#line 6 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 6 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
 
 
 
@@ -106,7 +106,7 @@ ParseNode* ParseTreeHead=NULL;
 vector<string> syntaxErrorInformation; //存放语法错误信息
 
 
-#line 110 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 110 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
 
 # ifndef YY_CAST
 #  ifdef __cplusplus
@@ -1535,7 +1535,7 @@ yyreduce:
   switch (yyn)
     {
   case 2: /* programstruct: PROGRAM_HEAD_ PROGTAM_BODY_ DOT  */
-#line 131 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 131 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                                { //正常
 			   		ParseTreeHead=yyval=new ParseNode;
 			   		yyval->token =Token::PROGRAM_;
@@ -1545,84 +1545,84 @@ yyreduce:
 						yyerror("redundant content at the end!", (yylsp[0]).last_line, (yylsp[0]).last_column+1);
 					YYACCEPT;
 			   	}
-#line 1549 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 1549 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 3: /* programstruct: PROGRAM_HEAD_ PROGTAM_BODY_ error  */
-#line 139 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 139 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                                                    { //ERROR 缺少点号 checked
 			   		ParseTreeHead=yyval=new ParseNode;
 			   		yyval->token =Token::PROGRAM_;
 					yyerror("missing a dot here", (yylsp[-1]).last_line, (yylsp[-1]).last_column+1);
 			   	}
-#line 1559 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 1559 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 4: /* programstruct: error PROGTAM_BODY_ DOT  */
-#line 143 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 143 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                                          { //ERROR PROGRAM_HEAD_识别失败 checked
 			   		ParseTreeHead=yyval=new ParseNode;
 			   		yyval->token =Token::PROGRAM_;
 					yyerror("fatal error in program head, maybe missing keyword \"program\"",(yylsp[-2]).first_line, (yylsp[-2]).first_column, (yylsp[-2]).last_line, (yylsp[-2]).last_column);
 			   	}
-#line 1569 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 1569 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 5: /* programstruct: PROGRAM_HEAD_ error DOT  */
-#line 147 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 147 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                                          { //ERROR PROGTAM_BODY_识别失败 unchecked
 			   		ParseTreeHead=yyval=new ParseNode;
 			   		yyval->token =Token::PROGRAM_;
 					yyerror("fatal error in program body");
 			   	}
-#line 1579 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 1579 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 6: /* programstruct: error PROGRAM_HEAD_ PROGTAM_BODY_ DOT  */
-#line 151 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 151 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                                                        { //ERROR PROGRAM_HEAD_前包含非法字符 checked
 					ParseTreeHead=yyval=new ParseNode;
 					yyval->token =Token::PROGRAM_;
 					yyerror("invalid symbol before program head", (yyloc).first_line, (yyloc).first_column, (yylsp[-2]).first_line, (yylsp[-2]).first_column-1);
 				}
-#line 1589 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 1589 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 7: /* programstruct: error PROGRAM_HEAD_ error PROGTAM_BODY_ DOT  */
-#line 155 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 155 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                                                              { //ERROR PROGRAM_HEAD_前包含非法记号、缺失分号 checked
 					ParseTreeHead=yyval=new ParseNode;
 					yyval->token =Token::PROGRAM_;
 					yyerror("invalid token before program head, maybe missing keyword \"program\"", (yyloc).first_line, (yyloc).first_column, (yylsp[-3]).first_line, (yylsp[-3]).first_column-1);
 					yyerror("missing a semicolon here", (yylsp[-3]).last_line, (yylsp[-3]).last_column+1);
 				}
-#line 1600 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 1600 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 8: /* programstruct: error PROGRAM_HEAD_ PROGTAM_BODY_ error  */
-#line 160 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 160 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                                                          { //ERROR PROGRAM_HEAD_前包含非法记号、缺失点号 checked
 					ParseTreeHead=yyval=new ParseNode;
 					yyval->token =Token::PROGRAM_;
 					yyerror("invalid token before program head, maybe missing keyword \"program\"", (yyloc).first_line, (yyloc).first_column, (yylsp[-2]).first_line, (yylsp[-2]).first_column-1);
 					yyerror("missing a dot here", (yylsp[0]).last_line, (yylsp[0]).last_column+1);
 				}
-#line 1611 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 1611 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 9: /* programstruct: error PROGRAM_HEAD_ error DOT  */
-#line 165 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 165 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                                                { //ERROR PROGRAM_HEAD_前包含非法记号、PROGTAM_BODY_识别失败 unchecked
 					ParseTreeHead=yyval=new ParseNode;
 					yyval->token =Token::PROGRAM_;
 					yyerror("invalid token before program head, maybe missing keyword \"program\"", (yyloc).first_line, (yyloc).first_column, (yylsp[-2]).first_line, (yylsp[-2]).first_column-1);
 					yyerror("fatal error in program body", (yylsp[-2]).last_line, (yylsp[-2]).last_column+1, (yylsp[0]).first_line, (yylsp[0]).first_column-1);
 				}
-#line 1622 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 1622 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 10: /* PROGRAM_HEAD_: PROGRAM ID LEFT_PARENTHESES IDENTIFIER_LIST_ RIGHT_PARENTHESES SEMICOLON  */
-#line 172 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 172 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                                                                         { //正常
 					yyval=new ParseNode;
 					yyval->token =Token::PROGRAM_HEAD_;
@@ -1630,232 +1630,232 @@ yyreduce:
 					yyval->children.push_back(yyvsp[-3]); yyval->children.push_back(yyvsp[-2]); 
 					yyval->children.push_back(yyvsp[-1]);	yyval->children.push_back(yyvsp[0]);
 				}
-#line 1634 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 1634 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 11: /* PROGRAM_HEAD_: PROGRAM ID LEFT_PARENTHESES IDENTIFIER_LIST_ RIGHT_PARENTHESES error  */
-#line 178 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 178 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                                                                                       { //ERROR 缺少; checked
 					yyval=new ParseNode;
 					yyval->token =Token::PROGRAM_HEAD_;
 					yyerror("missing a semicolon here", (yylsp[-1]).last_line, (yylsp[-1]).last_column+1);
 				}
-#line 1644 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 1644 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 12: /* PROGRAM_HEAD_: PROGRAM error LEFT_PARENTHESES IDENTIFIER_LIST_ RIGHT_PARENTHESES SEMICOLON  */
-#line 182 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 182 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                                                                                               { //ERROR 缺少主程序名 checked
 					yyval=new ParseNode;
 					yyval->token =Token::PROGRAM_HEAD_;
 					yyerror("missing program name here", (yylsp[-5]).last_line, (yylsp[-5]).last_column+1);
 				}
-#line 1654 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 1654 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 13: /* PROGRAM_HEAD_: PROGRAM ID error IDENTIFIER_LIST_ RIGHT_PARENTHESES SEMICOLON  */
-#line 186 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 186 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                                                                                { //ERROR 缺少左括号 checked
 					yyval=new ParseNode;
 					yyval->token =Token::PROGRAM_HEAD_;
 					yyerror("missing a left bracket here", (yylsp[-2]).first_line, (yylsp[-2]).first_column-1);
 				}
-#line 1664 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 1664 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 14: /* PROGRAM_HEAD_: PROGRAM ID LEFT_PARENTHESES error RIGHT_PARENTHESES SEMICOLON  */
-#line 190 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 190 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                                                                                { //ERROR  IDENTIFIER_LIST_识别失败 checked
 					yyval=new ParseNode;
 					yyval->token =Token::PROGRAM_HEAD_;
 					yyerror("program ID list missing or imcomplete", (yylsp[-2]).first_line, (yylsp[-2]).first_column, (yylsp[-2]).last_line, (yylsp[-2]).last_column);
 				}
-#line 1674 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 1674 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 15: /* PROGRAM_HEAD_: PROGRAM ID LEFT_PARENTHESES IDENTIFIER_LIST_ error SEMICOLON  */
-#line 194 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 194 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                                                                                { //ERROR 缺少右括号 checked
 					yyval=new ParseNode;
 					yyval->token =Token::PROGRAM_HEAD_;
 					yyerror("missing a right bracket here", (yylsp[-2]).last_line, (yylsp[-2]).last_column+1);
 				}
-#line 1684 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 1684 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 16: /* PROGRAM_HEAD_: PROGRAM error  */
-#line 198 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 198 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                                { //ERROR program head checked
 					yyval=new ParseNode;
 					yyval->token =Token::PROGRAM_HEAD_;
 					yyerror("program head imcomplete", (yylsp[-1]).first_line, (yylsp[-1]).first_column, (yylsp[-1]).last_line, (yylsp[-1]).last_column);
 				}
-#line 1694 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 1694 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 17: /* PROGRAM_HEAD_: PROGRAM ID error  */
-#line 202 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 202 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                                   { //ERROR  IDENTIFIER_LIST_缺失 checked
 					yyval=new ParseNode;
 					yyval->token =Token::PROGRAM_HEAD_;
 					yyerror("program ID list missing or imcomplete", (yylsp[-2]).first_line, (yylsp[-2]).first_column, (yylsp[-1]).last_line, (yylsp[-1]).last_column);
 				}
-#line 1704 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 1704 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 18: /* PROGRAM_HEAD_: PROGRAM ID LEFT_PARENTHESES error  */
-#line 206 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 206 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                                                    { //ERROR  IDENTIFIER_LIST_缺失 checked
 					yyval=new ParseNode;
 					yyval->token =Token::PROGRAM_HEAD_;
 					yyerror("program ID list missing or imcomplete", (yylsp[-3]).first_line, (yylsp[-3]).first_column, (yylsp[-2]).last_line, (yylsp[-2]).last_column);
 				}
-#line 1714 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 1714 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 19: /* PROGTAM_BODY_: CONST_DECLARATIONS_ VAR_DECLARATIONS_ SUBPROGRAM_DECLARATIONS_ COMPOUND_STATEMENT_  */
-#line 212 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 212 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                                                                                   { //正常
 					yyval=new ParseNode;
 					yyval->token =Token::PROGTAM_BODY_;
 					yyval->children.push_back(yyvsp[-3]); yyval->children.push_back(yyvsp[-2]);
 					yyval->children.push_back(yyvsp[-1]); yyval->children.push_back(yyvsp[0]);
 				}
-#line 1725 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 1725 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 20: /* IDENTIFIER_LIST_: IDENTIFIER_LIST_ COMMA ID  */
-#line 219 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 219 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                              { //正常  IDENTIFIER_LIST_的产生式不打算加入error
 			yyval=new ParseNode;
 			yyval->token =Token::IDENTIFIER_LIST_;
 			yyval->children.push_back(yyvsp[-2]); yyval->children.push_back(yyvsp[-1]); yyval->children.push_back(yyvsp[0]);
 		}
-#line 1735 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 1735 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 21: /* IDENTIFIER_LIST_: ID  */
-#line 223 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 223 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                     { //正常
 			yyval=new ParseNode;
 		   	yyval->token =Token::IDENTIFIER_LIST_;
 			yyval->children.push_back(yyvsp[0]);
 		}
-#line 1745 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 1745 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 22: /* CONST_DECLARATIONS_: CONST CONST_DECLARATION_ SEMICOLON  */
-#line 229 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 229 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                                         { //正常
 						yyval=new ParseNode;
 						yyval->token =Token::CONST_DECLARATIONS_;
 						yyval->children.push_back(yyvsp[-2]); yyval->children.push_back(yyvsp[-1]); yyval->children.push_back(yyvsp[0]);
 					}
-#line 1755 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 1755 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 23: /* CONST_DECLARATIONS_: %empty  */
-#line 233 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 233 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                           { //正常
 						yyval=new ParseNode;
 						yyval->token =Token::CONST_DECLARATIONS_;
 					}
-#line 1764 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 1764 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 24: /* CONST_DECLARATIONS_: CONST error SEMICOLON  */
-#line 236 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 236 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                                                 { //ERROR 常量定义出现错误 checked
 						yyval=new ParseNode;
 						yyval->token =Token::CONST_DECLARATIONS_;
 						yyerror("fatal error in const declarations", (yylsp[-1]).first_line, (yylsp[-1]).first_column, (yylsp[-1]).last_line, (yylsp[-1]).last_column);
 					}
-#line 1774 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 1774 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 25: /* CONST_DECLARATIONS_: CONST CONST_DECLARATION_ error  */
-#line 240 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 240 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                                                          { //ERROR 缺少分号 checked
 						yyval=new ParseNode;
 						yyval->token =Token::CONST_DECLARATIONS_;
 						yyerror("missing a semicolon here", (yylsp[-1]).first_line, (yylsp[-1]).first_column, (yylsp[-1]).last_line, (yylsp[-1]).last_column);
 					}
-#line 1784 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 1784 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 26: /* CONST_DECLARATION_: CONST_DECLARATION_ SEMICOLON ID RELOP CONST_VARIABLE_  */
-#line 246 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 246 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                                                              { //正常
 						yyval=new ParseNode;
 						yyval->token =Token::CONST_DECLARATION_;
 						yyval->children.push_back(yyvsp[-4]); yyval->children.push_back(yyvsp[-3]);
 						yyval->children.push_back(yyvsp[-2]); yyval->children.push_back(yyvsp[-1]); yyval->children.push_back(yyvsp[0]);
 					}
-#line 1795 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 1795 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 27: /* CONST_DECLARATION_: CONST_DECLARATION_ SEMICOLON ID RELOP error  */
-#line 251 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 251 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                                                                      { //常数初始化右值缺失 checked
 						yyval=new ParseNode;
 						yyval->token =Token::CONST_DECLARATION_;
 						yyerror("constant definition missing initial r-value", (yylsp[-1]).first_line, (yylsp[-1]).first_column, (yylsp[-1]).last_line, (yylsp[-1]).last_column);
 					}
-#line 1805 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 1805 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 28: /* CONST_DECLARATION_: ID RELOP CONST_VARIABLE_  */
-#line 255 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 255 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                                                   { //正常
 						yyval=new ParseNode;
 						yyval->token =Token::CONST_DECLARATION_;
 						yyval->children.push_back(yyvsp[-2]); yyval->children.push_back(yyvsp[-1]); yyval->children.push_back(yyvsp[0]);
 					}
-#line 1815 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 1815 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 29: /* CONST_DECLARATION_: ID RELOP error  */
-#line 259 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 259 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                                         { //常数初始化右值缺失 checked
 						yyval=new ParseNode;
 						yyval->token =Token::CONST_DECLARATION_;
 						yyerror("constant definition missing initial r-value", (yylsp[0]).first_line, (yylsp[0]).first_column, (yylsp[0]).last_line, (yylsp[0]).last_column);
 					}
-#line 1825 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 1825 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 30: /* CONST_DECLARATION_: CONST_DECLARATION_ error ID RELOP CONST_VARIABLE_  */
-#line 263 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 263 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                                                                            { //ERROR 缺少分号 checked
 						yyval=new ParseNode;
 						yyval->token =Token::CONST_DECLARATION_;
 						yyerror("missing a semicolon here", (yylsp[-4]).first_line, (yylsp[-4]).first_column, (yylsp[-4]).last_line, (yylsp[-4]).last_column+1);
 					}
-#line 1835 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 1835 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 31: /* CONST_DECLARATION_: CONST_DECLARATION_ SEMICOLON ID error CONST_VARIABLE_  */
-#line 267 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 267 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                                                                                { //ERROR 缺少等号（常量的初始化用的是等号，而不是赋值号） checked
 						yyval=new ParseNode;
 						yyval->token =Token::CONST_DECLARATION_;
 						yyerror("missing a equal sign here",(yylsp[-2]).first_line, (yylsp[-2]).first_column, (yylsp[-2]).last_line, (yylsp[-2]).last_column);
 					}
-#line 1845 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 1845 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 32: /* CONST_DECLARATION_: ID error CONST_VARIABLE_  */
-#line 271 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 271 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                                                   { //ERROR 缺少等号（常量的初始化用的是等号，而不是赋值号） checked
 						yyval=new ParseNode;
 						yyval->token =Token::CONST_DECLARATION_;
 						yyerror("missing a equal sign here", (yylsp[-1]).first_line, (yylsp[-1]).first_column, (yylsp[-1]).last_line, (yylsp[-1]).last_column);
 					}
-#line 1855 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 1855 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 33: /* CONST_VARIABLE_: ADDOP ID  */
-#line 277 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 277 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                  { //正常
 					if(yyval->val != "+" && yyval->val != "-"){
 						yyval=new ParseNode;
@@ -1868,21 +1868,21 @@ yyreduce:
 					}
 					
 				}
-#line 1872 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 1872 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 34: /* CONST_VARIABLE_: ID  */
-#line 288 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 288 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                      { //正常
 					yyval=new ParseNode;
 					yyval->token =Token::CONST_VARIABLE_;
 					yyval->children.push_back(yyvsp[0]);
 				}
-#line 1882 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 1882 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 35: /* CONST_VARIABLE_: ADDOP NUM  */
-#line 292 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 292 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                             { //正常
 					if(yyval->val != "+" && yyval->val != "-"){
 						yyval=new ParseNode;
@@ -1894,51 +1894,51 @@ yyreduce:
 						yyval->children.push_back(yyvsp[-1]); yyval->children.push_back(yyvsp[0]);
 					}
 				}
-#line 1898 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 1898 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 36: /* CONST_VARIABLE_: NUM  */
-#line 302 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 302 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                       { //正常
 					yyval=new ParseNode;
 					yyval->token =Token::CONST_VARIABLE_;
 					yyval->children.push_back(yyvsp[0]);
 				}
-#line 1908 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 1908 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 37: /* CONST_VARIABLE_: LETTER  */
-#line 306 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 306 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                         { //正常
 					yyval=new ParseNode;
 					yyval->token =Token::CONST_VARIABLE_;
 					yyval->children.push_back(yyvsp[0]);
 				}
-#line 1918 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 1918 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 38: /* TYPE_: STANDRAD_TYPE_  */
-#line 313 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 313 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                       { //正常
 			yyval=new ParseNode;
 			yyval->token = Token::TYPE_;
 			yyval->children.push_back(yyvsp[0]);
 		}
-#line 1928 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 1928 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 39: /* TYPE_: RECORD VAR_DECLARATION_ END  */
-#line 317 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 317 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                              { //正常
 			yyval=new ParseNode;
 			yyval->token = Token::TYPE_;
             yyval->children.push_back(yyvsp[-2]); yyval->children.push_back(yyvsp[-1]); yyval->children.push_back(yyvsp[0]);
 		}
-#line 1938 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 1938 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 40: /* TYPE_: ARRAY LEFT_MEDIUM_PARENTHESES PERIODS_ RIGHT_MEDIUM_PARENTHESES OF STANDRAD_TYPE_  */
-#line 321 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 321 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                                                                                    { //正常
 			yyval=new ParseNode;
 			yyval->token = Token::TYPE_;
@@ -1946,633 +1946,633 @@ yyreduce:
 			yyval->children.push_back(yyvsp[-3]);yyval->children.push_back(yyvsp[-2]);
 			yyval->children.push_back(yyvsp[-1]);yyval->children.push_back(yyvsp[0]);
 		}
-#line 1950 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 1950 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 41: /* TYPE_: ARRAY error PERIODS_ RIGHT_MEDIUM_PARENTHESES OF TYPE_  */
-#line 327 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 327 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                                                         { //ERROR 缺少左中括号 checked
 			yyval=new ParseNode;
 			yyval->token = Token::TYPE_;
 			yyerror("missing a left square bracket here", (yylsp[-5]).last_line, (yylsp[-5]).last_column+1);
 		}
-#line 1960 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 1960 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 42: /* TYPE_: ARRAY LEFT_MEDIUM_PARENTHESES PERIODS_ RIGHT_MEDIUM_PARENTHESES error TYPE_  */
-#line 331 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 331 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                                                                              { //ERROR 缺少OF关键字 checked
 			yyval=new ParseNode;
 			yyval->token = Token::TYPE_;
 			yyerror("missing keyword \"OF\" here", (yylsp[-2]).last_line, (yylsp[-2]).last_column+1, (yylsp[0]).first_line, (yylsp[0]).first_column-1);
 		}
-#line 1970 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 1970 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 43: /* TYPE_: ARRAY LEFT_MEDIUM_PARENTHESES PERIODS_ RIGHT_MEDIUM_PARENTHESES OF error  */
-#line 335 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 335 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                                                                           { //ERROR 数组元素类型识别失败 checked
 			yyval=new ParseNode;
 			yyval->token = Token::TYPE_;
 			yyerror("missing a base TYPE_ keyword here", (yylsp[-1]).last_line, (yylsp[-1]).last_column+1);
 		}
-#line 1980 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 1980 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 44: /* TYPE_: ARRAY error  */
-#line 339 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 339 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                              { //ERROR 不完整的数组类型 checked
 			yyval=new ParseNode;
 			yyval->token = Token::TYPE_;
 			yyerror("incomplete array TYPE_", &(yyloc));
 		}
-#line 1990 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 1990 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 45: /* TYPE_: ARRAY LEFT_MEDIUM_PARENTHESES error  */
-#line 343 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 343 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                                      { //ERROR 不完整的数组类型 checked
 			yyval=new ParseNode;
 			yyval->token = Token::TYPE_;
 			yyerror("incomplete array TYPE_", &(yyloc));
 		}
-#line 2000 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 2000 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 46: /* TYPE_: ARRAY LEFT_MEDIUM_PARENTHESES PERIODS_ error  */
-#line 347 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 347 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                                               { //ERROR 不完整的数组类型 checked
 			yyval=new ParseNode;
 			yyval->token = Token::TYPE_;
 			yyerror("incomplete array TYPE_", &(yyloc));
 		}
-#line 2010 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 2010 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 47: /* STANDRAD_TYPE_: INTEGER  */
-#line 353 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 353 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                            { //正常
 						yyval=new ParseNode;
 						yyval->token=Token::STANDRAD_TYPE_;
 						yyval->children.push_back(yyvsp[0]);
 					}
-#line 2020 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 2020 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 48: /* STANDRAD_TYPE_: REAL  */
-#line 357 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 357 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                               { //正常
 						yyval=new ParseNode;
 						yyval->token=Token::STANDRAD_TYPE_;
 						yyval->children.push_back(yyvsp[0]);
 					}
-#line 2030 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 2030 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 49: /* STANDRAD_TYPE_: CHAR  */
-#line 361 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 361 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                               { //正常
 						yyval=new ParseNode;
 						yyval->token=Token::STANDRAD_TYPE_;
 						yyval->children.push_back(yyvsp[0]);
 					}
-#line 2040 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 2040 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 50: /* STANDRAD_TYPE_: BOLLEAN  */
-#line 365 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 365 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                                  { //正常
 						yyval=new ParseNode;
 						yyval->token =Token::STANDRAD_TYPE_;
                         yyval->children.push_back(yyvsp[0]);
 					}
-#line 2050 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 2050 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 51: /* PERIODS_: PERIODS_ COMMA PERIOD_  */
-#line 371 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 371 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                 { //正常
 			yyval=new ParseNode;
 			yyval->token=Token::PERIODS_;
 			yyval->children.push_back(yyvsp[-2]);yyval->children.push_back(yyvsp[-1]);
 			yyval->children.push_back(yyvsp[0]);
 		}
-#line 2061 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 2061 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 52: /* PERIODS_: PERIODS_ error PERIOD_  */
-#line 376 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 376 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                         { //ERROR 缺少逗号 checked
 			yyval=new ParseNode;
 			yyval->token=Token::PERIODS_;
 			yyerror("missing a comma here", (yylsp[-2]).last_line, (yylsp[-2]).last_column+1);
 		}
-#line 2071 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 2071 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 53: /* PERIODS_: PERIOD_  */
-#line 380 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 380 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                          { //正常
 			yyval=new ParseNode;
 			yyval->token=Token::PERIODS_;
 			yyval->children.push_back(yyvsp[0]);
 		}
-#line 2081 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 2081 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 54: /* PERIOD_: CONST_VARIABLE_ RANGE_DOT CONST_VARIABLE_  */
-#line 386 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 386 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                                   { //正常
 			yyval=new ParseNode;
 			yyval->token=Token::PERIOD_;
 			yyval->children.push_back(yyvsp[-2]);yyval->children.push_back(yyvsp[-1]);
 			yyval->children.push_back(yyvsp[0]);
 		}
-#line 2092 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 2092 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 55: /* PERIOD_: CONST_VARIABLE_ error CONST_VARIABLE_  */
-#line 391 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 391 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                                        { //ERROR 缺少.. checked
 			yyval=new ParseNode;
 			yyval->token=Token::PERIOD_;
 			yyerror("missing a comma here", (yylsp[-2]).last_line, (yylsp[-2]).last_column+1);
 		}
-#line 2102 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 2102 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 56: /* VAR_DECLARATIONS_: VAR VAR_DECLARATION_ SEMICOLON  */
-#line 399 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 399 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                                       { //正常
 						yyval=new ParseNode;
 						yyval->token = Token::VAR_DECLARATIONS_;
 						yyval->children.push_back(yyvsp[-2]); yyval->children.push_back(yyvsp[-1]); yyval->children.push_back(yyvsp[0]);
 					}
-#line 2112 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 2112 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 57: /* VAR_DECLARATIONS_: %empty  */
-#line 403 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 403 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                           { //正常
 						yyval=new ParseNode;
 						yyval->token = Token::VAR_DECLARATIONS_;
 					}
-#line 2121 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 2121 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 58: /* VAR_DECLARATIONS_: VAR error SEMICOLON  */
-#line 406 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 406 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                                              { //ERROR 变量定义出现错误 checked
 						yyval=new ParseNode;
 						yyval->token = Token::VAR_DECLARATIONS_;
 						yyerror("fatal error in variant declarations", (yylsp[-2]).first_line, (yylsp[-2]).first_column, (yylsp[-2]).last_line, (yylsp[-2]).last_column);
 					}
-#line 2131 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 2131 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 59: /* VAR_DECLARATIONS_: VAR VAR_DECLARATION_ error  */
-#line 410 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 410 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                                                     { //ERROR 缺少分号 checked
 						yyval=new ParseNode;
 						yyval->token = Token::VAR_DECLARATIONS_;
 						yyerror("missing a semicolon here", (yylsp[-1]).last_line, (yylsp[-1]).last_column+1);
 					}
-#line 2141 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 2141 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 60: /* VAR_DECLARATION_: VAR_DECLARATION_ SEMICOLON IDENTIFIER_LIST_ COLON TYPE_  */
-#line 416 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 416 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                                                                 { //正常
 						yyval=new ParseNode;
 						yyval->token = Token::VAR_DECLARATION_;
 						yyval->children.push_back(yyvsp[-4]);yyval->children.push_back(yyvsp[-3]);
 						yyval->children.push_back(yyvsp[-2]); yyval->children.push_back(yyvsp[-1]); yyval->children.push_back(yyvsp[0]);
 					}
-#line 2152 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 2152 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 61: /* VAR_DECLARATION_: IDENTIFIER_LIST_ COLON TYPE_  */
-#line 421 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 421 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                                                         { //正常
 						yyval=new ParseNode;
 						yyval->token =Token::VAR_DECLARATION_;
 						yyval->children.push_back(yyvsp[-2]);yyval->children.push_back(yyvsp[-1]); yyval->children.push_back(yyvsp[0]);
 					}
-#line 2162 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 2162 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 62: /* VAR_DECLARATION_: VAR_DECLARATION_ error IDENTIFIER_LIST_ COLON TYPE_  */
-#line 425 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 425 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                                                                               { //ERROR 缺少分号 checked
 						yyval=new ParseNode;
 						yyval->token = Token::VAR_DECLARATION_;
 						yyerror("missing a semicolon here", (yylsp[-4]).last_line, (yylsp[-4]).last_column+1);
 					}
-#line 2172 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 2172 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 63: /* VAR_DECLARATION_: VAR_DECLARATION_ SEMICOLON IDENTIFIER_LIST_ error TYPE_  */
-#line 429 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 429 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                                                                                   { //ERROR 缺少冒号 checked
 						yyval=new ParseNode;
 						yyval->token = Token::VAR_DECLARATION_;
 						yyerror("missing a colon here", (yylsp[-2]).last_line, (yylsp[-2]).last_column+1);
 					}
-#line 2182 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 2182 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 64: /* VAR_DECLARATION_: VAR_DECLARATION_ SEMICOLON IDENTIFIER_LIST_ COLON error  */
-#line 433 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 433 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                                                                                   { //ERROR TYPE_识别失败 checked
 						yyval=new ParseNode;
 						yyval->token = Token::VAR_DECLARATION_;
 						yyerror("missing a TYPE_ here", (yylsp[-1]).last_line, (yylsp[-1]).last_column+1);
 					}
-#line 2192 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 2192 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 65: /* VAR_DECLARATION_: IDENTIFIER_LIST_ COLON error  */
-#line 437 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 437 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                                                         { //ERROR TYPE_识别失败 checked
 						yyval=new ParseNode;
 						yyval->token =Token::VAR_DECLARATION_;
 						yyerror("missing a TYPE_ here", (yylsp[0]).last_line, (yylsp[0]).last_column+1);
 					}
-#line 2202 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 2202 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 66: /* VAR_DECLARATION_: IDENTIFIER_LIST_ error TYPE_  */
-#line 441 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 441 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                                                         { //ERROR 缺少分号 checked
 						yyval=new ParseNode;
 						yyval->token =Token::VAR_DECLARATION_;
 						yyerror("missing a colon here", (yylsp[-2]).last_line, (yylsp[-2]).last_column+1);
 					}
-#line 2212 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 2212 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 67: /* SUBPROGRAM_DECLARATIONS_: SUBPROGRAM_DECLARATIONS_ SUBPROGRAM_DECLARATION_ SEMICOLON  */
-#line 447 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 447 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                                                                           { //正常
 								yyval=new ParseNode;
 								yyval->token=Token::SUBPROGRAM_DECLARATIONS_;
 								yyval->children.push_back(yyvsp[-2]);yyval->children.push_back(yyvsp[-1]);yyval->children.push_back(yyvsp[0]);
 							}
-#line 2222 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 2222 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 68: /* SUBPROGRAM_DECLARATIONS_: SUBPROGRAM_DECLARATIONS_ SUBPROGRAM_DECLARATION_ error  */
-#line 451 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 451 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                                                                                                 { //ERROR 缺少分号 checked
 								yyval=new ParseNode;
 								yyval->token=Token::SUBPROGRAM_DECLARATIONS_;
 								yyerror("missing a semicolon here", (yylsp[-1]).last_line, (yylsp[-1]).last_column+1);
 							}
-#line 2232 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 2232 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 69: /* SUBPROGRAM_DECLARATIONS_: %empty  */
-#line 455 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 455 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                                           { //正常
 								yyval=new ParseNode;
 								yyval->token =Token::SUBPROGRAM_DECLARATIONS_;
 							}
-#line 2241 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 2241 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 70: /* SUBPROGRAM_DECLARATION_: SUBPROGRAM_HEAD_ SEMICOLON PROGTAM_BODY_  */
-#line 460 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 460 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                                                  { //正常
 				yyval=new ParseNode;
 				yyval->token=Token::SUBPROGRAM_DECLARATION_;
 				yyval->children.push_back(yyvsp[-2]);yyval->children.push_back(yyvsp[-1]);yyval->children.push_back(yyvsp[0]);
 			}
-#line 2251 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 2251 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 71: /* SUBPROGRAM_DECLARATION_: SUBPROGRAM_HEAD_ error PROGTAM_BODY_  */
-#line 464 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 464 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                                               { //ERROR 缺少分号 checked
 				yyval=new ParseNode;
 				yyval->token=Token::SUBPROGRAM_DECLARATION_;
 				yyerror("missing a semicolon here", (yylsp[-2]).last_line, (yylsp[-2]).last_column+1);
 			}
-#line 2261 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 2261 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 72: /* SUBPROGRAM_HEAD_: PROCEDURE ID FORMAL_PARAMETER_  */
-#line 470 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 470 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                                       { //正常
 						yyval=new ParseNode;
 						yyval->token=Token::SUBPROGRAM_HEAD_;
 						yyval->children.push_back(yyvsp[-2]);yyval->children.push_back(yyvsp[-1]);yyval->children.push_back(yyvsp[0]);
 					}
-#line 2271 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 2271 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 73: /* SUBPROGRAM_HEAD_: FUNCTION ID FORMAL_PARAMETER_ COLON TYPE_  */
-#line 474 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 474 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                                                                    { //正常
 						yyval=new ParseNode;
 						yyval->token=Token::SUBPROGRAM_HEAD_;
 						yyval->children.push_back(yyvsp[-4]);yyval->children.push_back(yyvsp[-3]);
 						yyval->children.push_back(yyvsp[-2]);yyval->children.push_back(yyvsp[-1]);yyval->children.push_back(yyvsp[0]);
 					}
-#line 2282 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 2282 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 74: /* SUBPROGRAM_HEAD_: FUNCTION error FORMAL_PARAMETER_ COLON TYPE_  */
-#line 479 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 479 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                                                                       { //ERROR 函数名缺失 checked
 						yyval=new ParseNode;
 						yyval->token=Token::SUBPROGRAM_HEAD_;
 						yyerror("missing function name", (yylsp[-4]).last_line, (yylsp[-4]).last_column+1);
 					}
-#line 2292 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 2292 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 75: /* SUBPROGRAM_HEAD_: FUNCTION ID FORMAL_PARAMETER_ error TYPE_  */
-#line 483 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 483 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                                                                    { //ERROR 缺少冒号 checked
 						yyval=new ParseNode;
 						yyval->token=Token::SUBPROGRAM_HEAD_;
 						yyerror("missing a colon here", (yylsp[-2]).last_line, (yylsp[-2]).last_column);
 					}
-#line 2302 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 2302 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 76: /* SUBPROGRAM_HEAD_: FUNCTION ID FORMAL_PARAMETER_ COLON error  */
-#line 487 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 487 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                                                                    { //ERROR 缺少基本类型关键字 checked
 						yyval=new ParseNode;
 						yyval->token=Token::SUBPROGRAM_HEAD_;
 						yyerror("missing a base TYPE_ keyword here", (yylsp[-1]).last_line, (yylsp[-1]).last_column+1);
 					}
-#line 2312 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 2312 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 77: /* SUBPROGRAM_HEAD_: FUNCTION ID FORMAL_PARAMETER_ error  */
-#line 491 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 491 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                                                              { //ERROR 缺少基本类型关键字 checked
 						yyval=new ParseNode;
 						yyval->token=Token::SUBPROGRAM_HEAD_;
 						yyerror("missing a base TYPE_ keyword here", (yylsp[-1]).last_line, (yylsp[-1]).last_column+1);
 					}
-#line 2322 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 2322 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 78: /* SUBPROGRAM_HEAD_: FUNCTION error  */
-#line 495 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 495 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                                         { //ERROR 不完整的函数头 checked
 						yyval=new ParseNode;
 						yyval->token=Token::SUBPROGRAM_HEAD_;
 						yyerror("incomplete function head", &(yyloc));
 					}
-#line 2332 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 2332 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 79: /* SUBPROGRAM_HEAD_: PROCEDURE error  */
-#line 499 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 499 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                                          { //ERROR 不完整的过程头 checked
 						yyval=new ParseNode;
 						yyval->token=Token::SUBPROGRAM_HEAD_;
 						yyerror("incomplete procedure head", &(yyloc));
 					}
-#line 2342 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 2342 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 80: /* FORMAL_PARAMETER_: LEFT_PARENTHESES PARAMETER_LISTS_ RIGHT_PARENTHESES  */
-#line 505 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 505 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                                                            { //正常
 						yyval=new ParseNode;
 						yyval->token=Token::FORMAL_PARAMETER_;
 						yyval->children.push_back(yyvsp[-2]);yyval->children.push_back(yyvsp[-1]);yyval->children.push_back(yyvsp[0]);
 					}
-#line 2352 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 2352 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 81: /* FORMAL_PARAMETER_: %empty  */
-#line 509 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 509 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                           { //正常
 						yyval=new ParseNode;
 						yyval->token=Token::FORMAL_PARAMETER_;
 					}
-#line 2361 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 2361 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 82: /* FORMAL_PARAMETER_: LEFT_PARENTHESES error  */
-#line 512 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 512 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                                                 { //ERROR 不完整的形参列表
 						yyval=new ParseNode;
 						yyval->token=Token::FORMAL_PARAMETER_;
 						yyerror("incomplete formal PARAMETER_LIST_ list", &(yyloc));
 					}
-#line 2371 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 2371 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 83: /* FORMAL_PARAMETER_: LEFT_PARENTHESES PARAMETER_LISTS_ error  */
-#line 516 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 516 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                                                                  { //ERROR 右括号缺失
 						yyval=new ParseNode;
 						yyval->token=Token::FORMAL_PARAMETER_;
 						yyerror("missing a right bracket here", (yylsp[-1]).last_line, (yylsp[-1]).last_column+1);
 					}
-#line 2381 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 2381 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 84: /* PARAMETER_LISTS_: PARAMETER_LISTS_ SEMICOLON PARAMETER_LIST_  */
-#line 522 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 522 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                                             { //正常
 					yyval=new ParseNode;
 					yyval->token=Token::PARAMETER_LISTS_;
 					yyval->children.push_back(yyvsp[-2]);yyval->children.push_back(yyvsp[-1]);yyval->children.push_back(yyvsp[0]);
 				}
-#line 2391 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 2391 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 85: /* PARAMETER_LISTS_: PARAMETER_LISTS_ error PARAMETER_LIST_  */
-#line 526 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 526 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                                                         { //ERROR 缺少分号 checked
 					yyval=new ParseNode;
 					yyval->token=Token::PARAMETER_LISTS_;
 					yyerror("missing a semicolon here", (yylsp[-2]).last_line, (yylsp[-2]).last_column+1);
 				}
-#line 2401 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 2401 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 86: /* PARAMETER_LISTS_: PARAMETER_LIST_  */
-#line 530 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 530 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                                  { //正常
 					yyval=new ParseNode;
 					yyval->token=Token::PARAMETER_LISTS_;
 					yyval->children.push_back(yyvsp[0]);
 				}
-#line 2411 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 2411 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 87: /* PARAMETER_LIST_: VAR_PARAMETER_  */
-#line 536 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 536 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                        { //正常，非终结符PARAMETER_LIST_的产生式不打算加入error
 				yyval=new ParseNode;
 				yyval->token=Token::PARAMETER_LIST_;
 				yyval->children.push_back(yyvsp[0]);
 			}
-#line 2421 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 2421 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 88: /* PARAMETER_LIST_: VALUE_PARAMETER_  */
-#line 540 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 540 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                           { //正常
 				yyval=new ParseNode;
 				yyval->token=Token::PARAMETER_LIST_;
 				yyval->children.push_back(yyvsp[0]);
 			}
-#line 2431 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 2431 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 89: /* VAR_PARAMETER_: VAR VALUE_PARAMETER_  */
-#line 546 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 546 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                             { //正常
 					yyval=new ParseNode;
 					yyval->token=Token::VAR_PARAMETER_;
 					yyval->children.push_back(yyvsp[-1]);yyval->children.push_back(yyvsp[0]);
 				}
-#line 2441 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 2441 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 90: /* VAR_PARAMETER_: VAR error  */
-#line 550 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 550 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                            { //ERROR 不完整的引用参数列表 checked
 					yyval=new ParseNode;
 					yyval->token=Token::VAR_PARAMETER_;
 					yyerror("incomplete refereced PARAMETER_LIST_ list", &(yyloc));
 				}
-#line 2451 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 2451 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 91: /* VALUE_PARAMETER_: IDENTIFIER_LIST_ COLON STANDRAD_TYPE_  */
-#line 556 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 556 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                                               { //正常
 						yyval=new ParseNode;
 						yyval->token=Token::VALUE_PARAMETER_;
 						yyval->children.push_back(yyvsp[-2]);yyval->children.push_back(yyvsp[-1]);yyval->children.push_back(yyvsp[0]);
 					}
-#line 2461 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 2461 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 92: /* VALUE_PARAMETER_: IDENTIFIER_LIST_ error STANDRAD_TYPE_  */
-#line 560 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 560 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                                                                 { //ERROR 缺少分号 checked
 						yyval=new ParseNode;
 						yyval->token=Token::VALUE_PARAMETER_;
 						yyerror("missing a colon here", (yylsp[-2]).first_line, (yylsp[-2]).last_column+1);
 					}
-#line 2471 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 2471 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 93: /* VALUE_PARAMETER_: IDENTIFIER_LIST_ COLON error  */
-#line 564 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 564 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                                                        { //ERROR 缺少基本类型关键字 checked
 						yyval=new ParseNode;
 						yyval->token=Token::VALUE_PARAMETER_;
 						yyerror("missing a base TYPE_ keyword here", (yylsp[-1]).last_line, (yylsp[-1]).last_column+1);
 					}
-#line 2481 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 2481 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 94: /* VALUE_PARAMETER_: IDENTIFIER_LIST_ error  */
-#line 568 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 568 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                                                  { //ERROR 缺少基本类型关键字 checked
 						yyval=new ParseNode;
 						yyval->token=Token::VALUE_PARAMETER_;
 						yyerror("missing a base TYPE_ keyword here", (yylsp[-1]).last_line, (yylsp[-1]).last_column+1);
 					}
-#line 2491 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 2491 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 95: /* COMPOUND_STATEMENT_: _BEGIN STATEMENT_LIST_ END  */
-#line 575 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 575 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                                { //正常
 						yyval=new ParseNode;
 						yyval->token=Token::COMPOUND_STATEMENT_;
 						yyval->children.push_back(yyvsp[-2]);yyval->children.push_back(yyvsp[-1]);yyval->children.push_back(yyvsp[0]);
 					}
-#line 2501 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 2501 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 96: /* COMPOUND_STATEMENT_: _BEGIN STATEMENT_LIST_ error  */
-#line 579 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 579 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                                                       { //ERROR 缺少END关键字 checked
 						yyval=new ParseNode;
 						yyval->token=Token::COMPOUND_STATEMENT_;
 						yyerror("missing keyword \"end\"", (yylsp[-1]).last_line, (yylsp[-1]).last_column+1);
 					}
-#line 2511 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 2511 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 97: /* STATEMENT_LIST_: STATEMENT_LIST_ SEMICOLON STATEMENT_  */
-#line 585 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 585 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                                      { //正常
 					yyval=new ParseNode;
 					yyval->token=Token::STATEMENT_LIST_;
 					yyval->children.push_back(yyvsp[-2]);yyval->children.push_back(yyvsp[-1]); yyval->children.push_back(yyvsp[0]);
 				}
-#line 2521 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 2521 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 98: /* STATEMENT_LIST_: STATEMENT_LIST_ error STATEMENT_  */
-#line 589 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 589 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                                                   { //ERROR 缺失分号 这里引发了3个规约规约冲突 checked
 					yyval=new ParseNode;
 					yyval->token=Token::STATEMENT_LIST_;
 					yyerror("missing a semicolon here", (yylsp[-2]).last_line, (yylsp[-2]).last_column+1);
 				}
-#line 2531 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 2531 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 99: /* STATEMENT_LIST_: STATEMENT_  */
-#line 593 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 593 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                             { //正常
 					yyval=new ParseNode;
 					yyval->token=Token::STATEMENT_LIST_;
 					yyval->children.push_back(yyvsp[0]);
 				}
-#line 2541 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 2541 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 100: /* STATEMENT_: VARIABLE_ ASSIGNOP EXPRESSION_  */
-#line 599 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 599 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                            {
                yyval=new ParseNode;
 			   yyval->token=Token::STATEMENT_;
 			   yyval->children.push_back(yyvsp[-2]);yyval->children.push_back(yyvsp[-1]);
 			   yyval->children.push_back(yyvsp[0]);
             }
-#line 2552 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 2552 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 101: /* STATEMENT_: CALL_PROCEDURE_STATEMENT_  */
-#line 604 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 604 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                        {
                yyval=new ParseNode;
 			   yyval->token=Token::STATEMENT_;
 			   yyval->children.push_back(yyvsp[0]); 
             }
-#line 2562 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 2562 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 102: /* STATEMENT_: COMPOUND_STATEMENT_  */
-#line 608 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 608 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                  {
                 yyval=new ParseNode;
 				yyval->token=Token::STATEMENT_;
 				yyval->children.push_back(yyvsp[0]);
             }
-#line 2572 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 2572 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 103: /* STATEMENT_: IF EXPRESSION_ THEN STATEMENT_ ELSE_PART_  */
-#line 612 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 612 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                                        {
                  yyval=new ParseNode;
 				 yyval->token=Token::STATEMENT_;
@@ -2580,11 +2580,11 @@ yyreduce:
 				 yyval->children.push_back(yyvsp[-2]);yyval->children.push_back(yyvsp[-1]);
 				 yyval->children.push_back(yyvsp[0]);
             }
-#line 2584 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 2584 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 104: /* STATEMENT_: CASE EXPRESSION_ OF CASE_BODY_ END  */
-#line 618 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 618 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                                 {
                  yyval=new ParseNode;
 				 yyval->token=Token::STATEMENT_;
@@ -2592,63 +2592,63 @@ yyreduce:
 				 yyval->children.push_back(yyvsp[-2]);yyval->children.push_back(yyvsp[-1]);
 				 yyval->children.push_back(yyvsp[0]);
             }
-#line 2596 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 2596 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 105: /* STATEMENT_: WHILE EXPRESSION_ DO STATEMENT_  */
-#line 624 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 624 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                              {
                  yyval=new ParseNode;
 				 yyval->token=Token::STATEMENT_;
 				 yyval->children.push_back(yyvsp[-3]);yyval->children.push_back(yyvsp[-2]);
 				 yyval->children.push_back(yyvsp[-1]);yyval->children.push_back(yyvsp[0]);
             }
-#line 2607 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 2607 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 106: /* STATEMENT_: REPEAT STATEMENT_LIST_ UNTIL EXPRESSION_  */
-#line 629 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 629 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                                       {
                  yyval=new ParseNode;
 				 yyval->token=Token::STATEMENT_;
 				 yyval->children.push_back(yyvsp[-3]);yyval->children.push_back(yyvsp[-2]);
 				 yyval->children.push_back(yyvsp[-1]);yyval->children.push_back(yyvsp[0]);
             }
-#line 2618 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 2618 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 107: /* STATEMENT_: IF EXPRESSION_ error STATEMENT_ ELSE_PART_  */
-#line 634 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 634 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                                         { //ERROR 缺少then关键字 checked
 				yyval=new ParseNode;
 				yyval->token=Token::STATEMENT_;
 				yyerror("missing keyword \"then\"", (yylsp[-3]).last_line, (yylsp[-3]).last_column+1);
 			}
-#line 2628 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 2628 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 108: /* STATEMENT_: WHILE EXPRESSION_ error STATEMENT_  */
-#line 638 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 638 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                                             { //ERROR 缺少关键字do checked
 				yyval=new ParseNode;
 				yyval->token=Token::STATEMENT_;
 				yyerror("missing keywrod \"do\"", (yylsp[-2]).last_line, (yylsp[-2]).last_column+1);
 			}
-#line 2638 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 2638 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 109: /* STATEMENT_: REPEAT STATEMENT_LIST_ error EXPRESSION_  */
-#line 642 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 642 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                                                   { //ERROR 缺少关键字until checked
 				yyval=new ParseNode;
 				yyval->token=Token::STATEMENT_;
 				yyerror("missing keywrod \"until\"", (yylsp[0]).first_line, (yylsp[0]).first_column);
 			}
-#line 2648 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 2648 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 110: /* STATEMENT_: FOR ID ASSIGNOP EXPRESSION_ UPDOWN_ EXPRESSION_ DO STATEMENT_  */
-#line 646 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 646 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                                                                        {
 				yyval=new ParseNode;
 				yyval->token=Token::STATEMENT_;
@@ -2657,294 +2657,294 @@ yyreduce:
 				yyval->children.push_back(yyvsp[-3]);yyval->children.push_back(yyvsp[-2]);
 				yyval->children.push_back(yyvsp[-1]);yyval->children.push_back(yyvsp[0]);
 			}
-#line 2661 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 2661 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 111: /* STATEMENT_: %empty  */
-#line 653 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 653 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                           {
 				yyval=new ParseNode;
 				yyval->token=Token::STATEMENT_;
 			}
-#line 2670 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 2670 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 112: /* VARIABLE_: ID ID_VARPARTS_  */
-#line 658 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 658 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                            {
               yyval=new ParseNode;
 			  yyval->token=Token::VARIABLE_;
 			  yyval->children.push_back(yyvsp[-1]);yyval->children.push_back(yyvsp[0]);
            }
-#line 2680 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 2680 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 113: /* ID_VARPARTS_: ID_VARPARTS_ ID_VARPART_  */
-#line 663 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 663 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                        {
                  yyval=new ParseNode;
 				 yyval->token=Token::ID_VARPARTS_;
 				 yyval->children.push_back(yyvsp[-1]);yyval->children.push_back(yyvsp[0]);
                }
-#line 2690 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 2690 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 114: /* ID_VARPARTS_: %empty  */
-#line 667 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 667 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                  {
                  yyval=new ParseNode;
 				 yyval->token=Token::ID_VARPARTS_;
                 }
-#line 2699 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 2699 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 115: /* ID_VARPART_: LEFT_MEDIUM_PARENTHESES EXPRESSION_LIST_ RIGHT_MEDIUM_PARENTHESES  */
-#line 671 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 671 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                                                                {
                  yyval=new ParseNode;
 				 yyval->token=Token::ID_VARPART_;
 				 yyval->children.push_back(yyvsp[-2]);yyval->children.push_back(yyvsp[-1]);
 				 yyval->children.push_back(yyvsp[-1]);
                }
-#line 2710 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 2710 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 116: /* ID_VARPART_: DOT ID  */
-#line 676 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 676 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                        {
                  yyval=new ParseNode;
 				 yyval->token=Token::ID_VARPART_;
 				 yyval->children.push_back(yyvsp[-1]);yyval->children.push_back(yyvsp[0]);
                }
-#line 2720 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 2720 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 117: /* ID_VARPART_: LEFT_MEDIUM_PARENTHESES error  */
-#line 680 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 680 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                               { //ERROR 不完整的数组下标列表 checked
 				 yyval=new ParseNode;
 				 yyval->token=Token::ID_VARPART_;
 				 yyerror("incomplete EXPRESSION_ list of array subindex", &(yyloc));
 			   }
-#line 2730 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 2730 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 118: /* ID_VARPART_: LEFT_MEDIUM_PARENTHESES EXPRESSION_LIST_ error  */
-#line 684 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 684 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                                                            { //ERROR 缺失右中括号 checked
 				 yyval=new ParseNode;
 				 yyval->token=Token::ID_VARPART_;
 				 yyerror("missing a right square bracket here", (yylsp[-1]).last_line, (yylsp[-1]).last_column+1);
 			   }
-#line 2740 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 2740 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 119: /* ELSE_PART_: ELSE STATEMENT_  */
-#line 689 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 689 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                             {
                 yyval=new ParseNode;
 				yyval->token=Token::ELSE_PART_;
 				yyval->children.push_back(yyvsp[-1]);yyval->children.push_back(yyvsp[0]);
             }
-#line 2750 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 2750 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 120: /* ELSE_PART_: %empty  */
-#line 693 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 693 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
               { 
                 yyval=new ParseNode;
 				yyval->token=Token::ELSE_PART_;
             }
-#line 2759 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 2759 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 121: /* CASE_BODY_: BRANCH_LIST_  */
-#line 697 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 697 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                          {
                 yyval=new ParseNode;
 				yyval->token=Token::CASE_BODY_;
 				yyval->children.push_back(yyvsp[0]);
             }
-#line 2769 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 2769 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 122: /* CASE_BODY_: %empty  */
-#line 701 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 701 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
               {
                 yyval=new ParseNode;
 				yyval->token=Token::CASE_BODY_;
             }
-#line 2778 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 2778 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 123: /* BRANCH_LIST_: BRANCH_LIST_ SEMICOLON BRANCH_  */
-#line 705 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 705 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                              {
                  yyval=new ParseNode;
 				 yyval->token=Token::BRANCH_LIST_;
 				 yyval->children.push_back(yyvsp[-2]);yyval->children.push_back(yyvsp[-1]);
 				 yyval->children.push_back(yyvsp[0]);
                 }
-#line 2789 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 2789 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 124: /* BRANCH_LIST_: BRANCH_  */
-#line 710 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 710 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                          {
                  yyval=new ParseNode;
 				 yyval->token=Token::BRANCH_LIST_;
 				 yyval->children.push_back(yyvsp[0]);
                 }
-#line 2799 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 2799 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 125: /* BRANCH_: CONST_LIST_ COLON STATEMENT_  */
-#line 715 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 715 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                       {
               yyval=new ParseNode;
 			  yyval->token=Token::BRANCH_;
 			  yyval->children.push_back(yyvsp[-2]);yyval->children.push_back(yyvsp[-1]);
 			  yyval->children.push_back(yyvsp[0]);
 }
-#line 2810 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 2810 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 126: /* CONST_LIST_: CONST_LIST_ COMMA CONST_VARIABLE_  */
-#line 721 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 721 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                                {
                 yyval=new ParseNode;
 				yyval->token=Token::CONST_LIST_;
 				yyval->children.push_back(yyvsp[-2]);yyval->children.push_back(yyvsp[-1]);
 				yyval->children.push_back(yyvsp[0]);
             }
-#line 2821 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 2821 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 127: /* CONST_LIST_: CONST_VARIABLE_  */
-#line 726 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 726 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                              {
                 yyval=new ParseNode;
 				yyval->token=Token::CONST_LIST_;
 				yyval->children.push_back(yyvsp[0]);
             }
-#line 2831 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 2831 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 128: /* UPDOWN_: TO  */
-#line 731 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 731 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
            {
             yyval=new ParseNode;
 			yyval->token=Token::UPDOWN_;
 			yyval->children.push_back(yyvsp[0]);
         }
-#line 2841 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 2841 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 129: /* UPDOWN_: DOWNTO  */
-#line 735 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 735 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                 {
             yyval=new ParseNode;
 			yyval->token=Token::UPDOWN_;
 			yyval->children.push_back(yyvsp[0]);
         }
-#line 2851 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 2851 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 130: /* CALL_PROCEDURE_STATEMENT_: ID  */
-#line 740 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 740 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                               {
                               yyval=new ParseNode;
 							  yyval->token=Token::CALL_PROCEDURE_STATEMENT_;
 							  yyval->children.push_back(yyvsp[0]); 
                             }
-#line 2861 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 2861 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 131: /* CALL_PROCEDURE_STATEMENT_: ID LEFT_PARENTHESES EXPRESSION_LIST_ RIGHT_PARENTHESES  */
-#line 744 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 744 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                                                                     {
                                 yyval=new ParseNode;
 								yyval->token=Token::CALL_PROCEDURE_STATEMENT_;
 								yyval->children.push_back(yyvsp[-3]);yyval->children.push_back(yyvsp[-2]);
 								yyval->children.push_back(yyvsp[-1]);yyval->children.push_back(yyvsp[0]);
                             }
-#line 2872 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 2872 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 132: /* CALL_PROCEDURE_STATEMENT_: ID LEFT_PARENTHESES EXPRESSION_LIST_ error  */
-#line 749 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 749 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                                                         { //ERROR 缺少右括号 checked
 				                yyval=new ParseNode;
 								yyval->token=Token::CALL_PROCEDURE_STATEMENT_;
 								yyerror("missing a right bracket here", (yylsp[-1]).last_line, (yylsp[-1]).last_column+1);
 			                }
-#line 2882 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 2882 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 133: /* EXPRESSION_LIST_: EXPRESSION_LIST_ COMMA EXPRESSION_  */
-#line 754 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 754 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                                      {
                       yyval=new ParseNode;
 					  yyval->token=Token::EXPRESSION_LIST_;
 					  yyval->children.push_back(yyvsp[-2]);yyval->children.push_back(yyvsp[-1]);
 					  yyval->children.push_back(yyvsp[0]);
                     }
-#line 2893 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 2893 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 134: /* EXPRESSION_LIST_: EXPRESSION_  */
-#line 759 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 759 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                  {
                         yyval=new ParseNode;
 						yyval->token=Token::EXPRESSION_LIST_;
 						yyval->children.push_back(yyvsp[0]);
                     }
-#line 2903 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 2903 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 135: /* EXPRESSION_LIST_: EXPRESSION_LIST_ error EXPRESSION_  */
-#line 763 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 763 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                                         { //ERROR 缺少逗号 这里引发了一个移进规约冲突 checked
 						yyval=new ParseNode;
 						yyval->token=Token::EXPRESSION_LIST_;
 						yyerror("missing a comma here", (yylsp[-2]).last_line, (yylsp[-2]).last_column+1);
 					}
-#line 2913 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 2913 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 136: /* EXPRESSION_: SIMPLE_EXPRESSION_ RELOP SIMPLE_EXPRESSION_  */
-#line 768 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 768 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                                          {
                  yyval=new ParseNode;
 				 yyval->token=Token::EXPRESSION_;
 				 yyval->children.push_back(yyvsp[-2]);yyval->children.push_back(yyvsp[-1]);
 				 yyval->children.push_back(yyvsp[0]);
                }
-#line 2924 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 2924 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 137: /* EXPRESSION_: SIMPLE_EXPRESSION_  */
-#line 773 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 773 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                    {
                    yyval=new ParseNode;
 				   yyval->token=Token::EXPRESSION_;
 				   yyval->children.push_back(yyvsp[0]);
                }
-#line 2934 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 2934 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 138: /* SIMPLE_EXPRESSION_: TERM_  */
-#line 778 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 778 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                           {
                        yyval=new ParseNode;
 					   yyval->token=Token::SIMPLE_EXPRESSION_;
 					   yyval->children.push_back(yyvsp[0]);
                     }
-#line 2944 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 2944 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 139: /* SIMPLE_EXPRESSION_: ADDOP TERM_  */
-#line 782 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 782 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                  {
 						if(yyval->val != "+" && yyval->val != "-"){
 						yyval=new ParseNode;
@@ -2956,175 +2956,175 @@ yyreduce:
 						yyval->children.push_back(yyvsp[-1]); yyval->children.push_back(yyvsp[0]);
 					}
                     }
-#line 2960 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 2960 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 140: /* SIMPLE_EXPRESSION_: SIMPLE_EXPRESSION_ ADDOP TERM_  */
-#line 792 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 792 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                                     {
                         yyval=new ParseNode;
 						yyval->token=Token::SIMPLE_EXPRESSION_;
 						yyval->children.push_back(yyvsp[-2]);yyval->children.push_back(yyvsp[-1]);
 						yyval->children.push_back(yyvsp[0]);
                     }
-#line 2971 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 2971 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 141: /* SIMPLE_EXPRESSION_: SIMPLE_EXPRESSION_ ADDOP error TERM_  */
-#line 797 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 797 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                                                       {//error，缺少操作数
 						yyval=new ParseNode;
 						yyval->token=Token::SIMPLE_EXPRESSION_;
 						yyerror("missing operand",(yylsp[-2]).last_line, (yylsp[-2]).last_column+1);
 					}
-#line 2981 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 2981 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 142: /* TERM_: TERM_ MULOP FACTOR_  */
-#line 802 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 802 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                            {
           yyval=new ParseNode;
 		  yyval->token=Token::TERM_;
 		  yyval->children.push_back(yyvsp[-2]);yyval->children.push_back(yyvsp[-1]);
 		  yyval->children.push_back(yyvsp[0]);
         }
-#line 2992 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 2992 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 143: /* TERM_: FACTOR_  */
-#line 807 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 807 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                  {
           yyval=new ParseNode;
 		  yyval->token=Token::TERM_;
 		  yyval->children.push_back(yyvsp[0]);
         }
-#line 3002 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 3002 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 144: /* TERM_: TERM_ MULOP error FACTOR_  */
-#line 811 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 811 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                                { //error,缺少操作数
 			yyval=new ParseNode;
 			yyval->token=Token::TERM_;
 			yyerror("missing operand",(yylsp[-2]).last_line, (yylsp[-2]).last_column+1);
 		}
-#line 3012 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 3012 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 145: /* FACTOR_: UNSIGN_CONST_VARIABLE_  */
-#line 816 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 816 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                 {
              yyval=new ParseNode;
 			 yyval->token=Token::FACTOR_;
 			 yyval->children.push_back(yyvsp[0]);
           }
-#line 3022 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 3022 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 146: /* FACTOR_: VARIABLE_  */
-#line 820 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 820 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                      {
              yyval=new ParseNode;
 			 yyval->token=Token::FACTOR_;
 			 yyval->children.push_back(yyvsp[0]);
           }
-#line 3032 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 3032 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 147: /* FACTOR_: ID LEFT_PARENTHESES EXPRESSION_LIST_ RIGHT_PARENTHESES  */
-#line 824 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 824 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                                                   {
              yyval=new ParseNode;
 			 yyval->token=Token::FACTOR_;
 			 yyval->children.push_back(yyvsp[-3]);yyval->children.push_back(yyvsp[-2]);
 			 yyval->children.push_back(yyvsp[-1]);yyval->children.push_back(yyvsp[0]);
           }
-#line 3043 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 3043 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 148: /* FACTOR_: LEFT_PARENTHESES EXPRESSION_ RIGHT_PARENTHESES  */
-#line 829 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 829 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                                           {
              yyval=new ParseNode;
 			 yyval->token=Token::FACTOR_;
 			 yyval->children.push_back(yyvsp[-2]);yyval->children.push_back(yyvsp[-1]);
 			 yyval->children.push_back(yyvsp[0]);
           }
-#line 3054 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 3054 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 149: /* FACTOR_: NOT FACTOR_  */
-#line 834 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 834 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                        {
              yyval=new ParseNode;
 			 yyval->token=Token::FACTOR_;
 			 yyval->children.push_back(yyvsp[-1]);yyval->children.push_back(yyvsp[0]);
           }
-#line 3064 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 3064 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 150: /* FACTOR_: ID LEFT_PARENTHESES EXPRESSION_LIST_ error  */
-#line 838 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 838 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                                       { //ERROR 缺少右括号 这里引发了一个移进规约冲突
 			yyval=new ParseNode;
 			yyval->token=Token::FACTOR_;
 			yyerror("missing a right bracket here", (yylsp[-1]).last_line, (yylsp[-1]).last_column+1);
 		  }
-#line 3074 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 3074 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 151: /* FACTOR_: ID LEFT_PARENTHESES error  */
-#line 842 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 842 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                              { //ERROR 函数调用的表达式列表缺失
 			yyval=new ParseNode;
 			yyval->token=Token::FACTOR_;
 			yyerror("missing actual parameter list of function call", (yylsp[-1]).last_line, (yylsp[-1]).last_column+1);
 		  }
-#line 3084 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 3084 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 152: /* FACTOR_: LEFT_PARENTHESES EXPRESSION_ error  */
-#line 846 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 846 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                                       { //ERROR 缺少右括号
 			yyval=new ParseNode;
 			yyval->token=Token::FACTOR_;
 			yyerror("missing a right bracket here", (yylsp[-1]).last_line, (yylsp[-1]).last_column+1);
 		  }
-#line 3094 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 3094 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 153: /* UNSIGN_CONST_VARIABLE_: INT_NUM  */
-#line 851 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 851 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                 {
                              yyval=new ParseNode;
 							 yyval->token=Token::UNSIGN_CONST_VARIABLE_;
 							 yyval->children.push_back(yyvsp[0]);
                          }
-#line 3104 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 3104 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 154: /* UNSIGN_CONST_VARIABLE_: FLOAT_NUM  */
-#line 855 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 855 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                     {
                              yyval=new ParseNode;
 							 yyval->token=Token::UNSIGN_CONST_VARIABLE_;
 							 yyval->children.push_back(yyvsp[0]);
                          }
-#line 3114 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 3114 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
   case 155: /* UNSIGN_CONST_VARIABLE_: LETTER  */
-#line 859 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 859 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
                                  {
                              yyval=new ParseNode;
 							 yyval->token=Token::UNSIGN_CONST_VARIABLE_;
 							 yyval->children.push_back(yyvsp[0]);
                          }
-#line 3124 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 3124 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
     break;
 
 
-#line 3128 "/mnt/d/PASCC-main/PASCC-main/testt/build/../yacc.tab.cc"
+#line 3128 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.tab.cc"
 
       default: break;
     }
@@ -3322,7 +3322,7 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 866 "/mnt/d/PASCC-main/PASCC-main/testt/build/../src/yacc.y"
+#line 866 "/mnt/d/Work/Program/Course/Compilation Principle/Pascal2C/build/../src/yacc.y"
 
 // 函数定义
 
