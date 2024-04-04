@@ -2,7 +2,7 @@ program quicksort(input,output);
 var
 n,i:integer;
 a:array[0..100000] of integer;
-procedure kp(l,r:integer);
+procedure kp(l,r:integer);{ 我是注释 }
 var
 i,j,mid:integer;
 begin
