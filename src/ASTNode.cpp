@@ -17,9 +17,9 @@ namespace AST
 {
     ProgramBody *curProgramBody = nullptr;
     SubProgram *curSubProgram = nullptr;
-    void ReadVarDeclarations(ParseNode *var_declarations_, map<string, pair<int, VarDeclare *>> &varList);
-    void ReadConstDeclarations(ParseNode *const_declarations_, map<string, ConstDeclare *> &constList);
-    void ReadSubProgramDeclarations(ParseNode *subprogram_declarations_, map<string, SubProgram *> &subProgramList);
+    void ReadVarDeclarations(ParseNode *var_declarations_, map<string, pair<int, VarDeclare *>> &varList, map<string, Token::TokenType> &declarationList, vector<string> &declarationQueue);
+    void ReadConstDeclarations(ParseNode *const_declarations_, map<string, ConstDeclare *> &constList, map<string, Token::TokenType> &declarationList, vector<string> &declarationQueue);
+    void ReadSubProgramDeclarations(ParseNode *subprogram_declarations_, map<string, SubProgram *> &subProgramList, map<string, Token::TokenType> &declarationList, vector<string> &declarationQueue);
     Token::TokenType GetConstTypeFromParseTree(ParseNode *const_variable_, string &value);
     ProgramBody *FindDeclaration(string idName);
     int FindDeclarationInSubProgram(string idName, Token::TokenType &_type);
@@ -95,11 +95,11 @@ namespace AST
         ParseNode *subprogram_declarations_ = program_body_->children[2];
 
         // 遍历常量声明部分
-        ReadConstDeclarations(const_declarations_, constList);
+        ReadConstDeclarations(const_declarations_, constList, declarationList, declarationQueue);
         // 遍历变量声明部分
-        ReadVarDeclarations(var_declarations_, varList);
+        ReadVarDeclarations(var_declarations_, varList, declarationList, declarationQueue);
         // 遍历过程声明部分
-        ReadSubProgramDeclarations(subprogram_declarations_, subProgramList);
+        ReadSubProgramDeclarations(subprogram_declarations_, subProgramList, declarationList, declarationQueue);
     }
     Declaration::~Declaration()
     {
@@ -172,7 +172,8 @@ namespace AST
         } else if (type == Token::RECORD) {
             // 解析 record
             ParseNode *var_declarations_ = type_->children[1];
-            ReadVarDeclarations(var_declarations_, recordList);
+            ReadVarDeclarations(var_declarations_, recordList, declarationList, declarationQueue);
+            // 虽然是私有变量但是执行完毕之后是会改变其值的
         }
     }
     VarDeclare::~VarDeclare()
@@ -470,9 +471,14 @@ namespace AST
         lineNum = variable_->children[0]->lineNumber;
         string idName = variable_->children[0]->val;
         isFormalParameter = FindDeclarationInSubProgram(idName, idType);
-        if (isFormalParameter)
+        if (isFormalParameter) {
+            finalType = idType;
             return;
-        ProgramBody *cur = curProgramBody = FindDeclaration(idName);
+        }
+        ProgramBody *cur = FindDeclaration(idName);
+        if (cur == nullptr) {
+            return;
+        }
 
         // 寻找idName，判断其类型，最开始的id
         map<string, Token::TokenType> list = cur->declaration->declarationList;
@@ -612,9 +618,14 @@ namespace AST
         lineNum = idNode->lineNumber;
         string idName = idNode->val;
         isFormalParameter = FindDeclarationInSubProgram(idName, idType);
-        if (isFormalParameter)
+        if (isFormalParameter) {
+            finalType = idType;
             return;
-        ProgramBody *cur = curProgramBody = FindDeclaration(idName);
+        }
+        ProgramBody *cur = FindDeclaration(idName);
+        if (cur == nullptr) {
+            return;
+        }
         map<string, Token::TokenType> list = cur->declaration->declarationList;
 
         idType = list.find(idName)->second;
@@ -638,6 +649,9 @@ namespace AST
         int line = call_subprogram_statement_->children[0]->lineNumber;
         subProgramId = pair<string, int>(name, line);
         ProgramBody *cur = FindDeclaration(name);
+        if (cur == nullptr) {
+            return;
+        }
 
         map<string, SubProgram *> subList = cur->declaration->subProgramList;
         if (subList.find(name) == subList.end()) {
@@ -830,7 +844,7 @@ namespace AST
         }
     }
 #pragma region 遍历声明相关节点树
-    void ReadVarDeclarations(ParseNode *var_declarations_, map<string, pair<int, VarDeclare *>> &varList)
+    void ReadVarDeclarations(ParseNode *var_declarations_, map<string, pair<int, VarDeclare *>> &varList, map<string, Token::TokenType> &declarationList, vector<string> &declarationQueue)
     {
         if (var_declarations_->children.size() != 0) {
             ParseNode *var_declaration_ = var_declarations_->children[1];
@@ -843,15 +857,14 @@ namespace AST
                 Stack idStack(identifier_list_, 0, 2, 1, 0, Token::ID);
                 ParseNode *idNode = idStack.Pop();
                 while (idNode != nullptr) {
-                    map<string, Token::TokenType> list = curProgramBody->declaration->declarationList;
-                    if (list.find(idNode->val) != list.end()) {
+                    if (declarationList.find(idNode->val) != declarationList.end()) {
                         // 之前有声明过这个变量，这里要报错
                         // FIXME：报错变量重定义
                     }
                     pair<int, VarDeclare *> temp = pair<int, VarDeclare *>(idNode->lineNumber, varDeclare);
                     varList.insert(pair<string, pair<int, VarDeclare *>>(idNode->val, temp));
-                    curProgramBody->declaration->declarationList.insert(pair<string, Token::TokenType>(idNode->val, Token::VAR));
-                    curProgramBody->declaration->declarationQueue.emplace_back(idNode->val);
+                    declarationList.insert(pair<string, Token::TokenType>(idNode->val, Token::VAR));
+                    declarationQueue.emplace_back(idNode->val);
                     idNode = idStack.Pop();
                 }
                 type_ = typeStack.Pop();
@@ -859,7 +872,7 @@ namespace AST
             }
         }
     }
-    void ReadConstDeclarations(ParseNode *const_declarations_, map<string, ConstDeclare *> &constList)
+    void ReadConstDeclarations(ParseNode *const_declarations_, map<string, ConstDeclare *> &constList, map<string, Token::TokenType> &declarationList, vector<string> &declarationQueue)
     {
         if (const_declarations_->children.size() != 0) {
             ParseNode *const_declaration_ = const_declarations_->children[1];
@@ -868,22 +881,21 @@ namespace AST
             ParseNode *idNode = idStack.Pop();
             ParseNode *const_variable = constVariableStack.Pop();
             while (idNode != nullptr) {
-                map<string, Token::TokenType> list = curProgramBody->declaration->declarationList;
-                if (list.find(idNode->val) != list.end()) {
+                if (declarationList.find(idNode->val) != declarationList.end()) {
                     // 之前有声明过这个变量，这里要报错
                     // FIXME：报错常量重定义
                 }
                 ConstDeclare *constDeclare = new ConstDeclare(const_variable);
                 constList.insert(pair<string, ConstDeclare *>(idNode->val, constDeclare));
-                curProgramBody->declaration->declarationList.insert(pair<string, Token::TokenType>(idNode->val, Token::CONST));
-                curProgramBody->declaration->declarationQueue.emplace_back(idNode->val);
+                declarationList.insert(pair<string, Token::TokenType>(idNode->val, Token::CONST));
+                declarationQueue.emplace_back(idNode->val);
 
                 idNode = idStack.Pop();
                 const_variable = constVariableStack.Pop();
             }
         }
     }
-    void ReadSubProgramDeclarations(ParseNode *subprogram_declarations_, map<string, SubProgram *> &subProgramList)
+    void ReadSubProgramDeclarations(ParseNode *subprogram_declarations_, map<string, SubProgram *> &subProgramList, map<string, Token::TokenType> &declarationList, vector<string> &declarationQueue)
     {
         if (subprogram_declarations_->children.size() != 0) {
             Stack subprogramDeclarationStack(subprogram_declarations_, 0, 1, 0, -1, Token::SUBPROGRAM_DECLARATION_);
@@ -892,15 +904,14 @@ namespace AST
             int i = 0;
             while (subprogram_declaration_ != nullptr) {
                 string name = subprogram_head->children[1]->val;
-                map<string, Token::TokenType> list = curProgramBody->declaration->declarationList;
-                if (list.find(name) != list.end()) {
+                if (declarationList.find(name) != declarationList.end()) {
                     // 之前有声明过这个变量，这里要报错
                     // FIXME：报错函数重定义
                 }
                 SubProgram *subProgram = new SubProgram(subprogram_declaration_, i);
                 subProgramList.insert(pair<string, SubProgram *>(name, subProgram));
-                curProgramBody->declaration->declarationList.insert(pair<string, Token::TokenType>(name, Token::FUNCTION));
-                curProgramBody->declaration->declarationQueue.emplace_back(name);
+                declarationList.insert(pair<string, Token::TokenType>(name, Token::FUNCTION));
+                declarationQueue.emplace_back(name);
                 subprogram_declaration_ = subprogramDeclarationStack.Pop();
                 // TODO:设置一个最高的函数嵌套层数
                 i++;
@@ -951,6 +962,9 @@ namespace AST
                 string idName = item->val;
 
                 ProgramBody *cur = FindDeclaration(idName);
+                if (cur == nullptr) {
+                    return Token::NULL_;
+                }
 
                 map<string, ConstDeclare *> constList = cur->declaration->constList;
                 if (constList.find(idName) != constList.end()) {
