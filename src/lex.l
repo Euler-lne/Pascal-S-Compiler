@@ -632,6 +632,7 @@ mulop (\*|\/|div|mod|and)
 
 
 "'" {//进入字符常量识别
+cout<<"进入字符常量识别"<<endl;
     BEGIN CH;
 	charRec="";
 }
@@ -667,7 +668,7 @@ mulop (\*|\/|div|mod|and)
         yylval->lineNumber=yylineno ;
         #ifdef LEXDEBUG
         //printf("CHAR: %s  Token: %s\n", yylval->val,yylval->token);
-        cout << "CHAR: " << yylval->val << "Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
+        cout << "CHAR1: " << yylval->val << "Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
         #endif
         return CHAR;
     }
@@ -679,8 +680,9 @@ mulop (\*|\/|div|mod|and)
         yylval->lineNumber=yylineno ;
         #ifdef LEXDEBUG
         //printf("CHAR: %s  Token: %s\n", yylval->val,yylval->token);
-        cout << "CHAR: " << yylval->val << "Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
+        cout << "CHAR2: " << yylval->val << "Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
         #endif
+        BEGIN INITIAL;
         return CHAR;
     }
     else if(yytext[0]=='\''){
@@ -692,8 +694,9 @@ mulop (\*|\/|div|mod|and)
         yylval->lineNumber=yylineno ;
         #ifdef LEXDEBUG
         //printf("CHAR: %s  Token: %s\n", yylval->val,yylval->token);
-        cout << "CHAR: " << yylval->val << "Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
+        cout << "CHAR3: " << yylval->val << "Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
         #endif
+        BEGIN INITIAL;
         return CHAR;
     }
     else{
@@ -711,8 +714,9 @@ mulop (\*|\/|div|mod|and)
         yylval->lineNumber=yylineno ;
         #ifdef LEXDEBUG
        // printf("CHAR: %s  Token: %s\n", yylval->val,yylval->token);
-       cout << "CHAR: " << yylval->val << "Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
+       cout << "CHAR4: " << yylval->val << "Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
         #endif
+        BEGIN INITIAL;
         return CHAR;
     }
 }
@@ -785,7 +789,7 @@ bool CheckAndAddLengthTooLargeErrorInformation(char *text, string type, int l, i
         }
         return false;
     }
-    else if(type=="identifier"){
+    else if(type=="id"){
         if(len>100){ //错误2
             string id = string(text);
             errorInformation = "[Identifier length too large, exceed 100] " + itos(yylineno-1) + "." + itos(l) + "-" + itos(yylineno-1) + "." + itos(r);

@@ -14,6 +14,7 @@
 #include <string>
 #include <vector>
 
+#include "ASTError.h"
 #include "TokenTypeEnum.h"
 #include "main.h"
 using namespace std;
