@@ -2567,7 +2567,7 @@ bool CheckAndAddLengthTooLargeErrorInformation(char *text, string type, int l, i
         }
         return false;
     }
-    else if(type=="identifier"){
+    else if(type=="id"){
         if(len>100){ //错误2
             string id = string(text);
             errorInformation = "[Identifier length too large, exceed 100] " + itos(yylineno-1) + "." + itos(l) + "-" + itos(yylineno-1) + "." + itos(r);
