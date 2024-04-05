@@ -533,7 +533,7 @@ namespace AST
                 varDeclare->SetAssignment();
             } else if (varDeclare->IsAssignment() == 0) {
                 // FIXME:报错，使用了一个没有赋值的变量
-                CompilerError::reportError(lineNum, CompilerError::ErrorType::UNDEFINED_VARIABLE, idName);
+                CompilerError::reportError(lineNum, CompilerError::ErrorType::UNASSIGNED_VARIABLE, idName);
             }
             idType = varDeclare->GetVarDeclareType();
             if (varDeclare->IsArray())

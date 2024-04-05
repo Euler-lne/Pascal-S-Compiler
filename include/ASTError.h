@@ -24,7 +24,8 @@ public:
         REDEFINED_VARIABLE,
         REDEFINED_CONSTANT,
         REDEFINED_FUNCTION,
-        CONST_NOT_FOUND
+        CONST_NOT_FOUND,
+        UNASSIGNED_VARIABLE
     };
 
     static void reportError(int lineNum, ErrorType errorType, const std::string &additionalInfo = "")
@@ -90,6 +91,9 @@ public:
             break;
         case ErrorType::CONST_NOT_FOUND:
             errorMessage = "Constant not found: " + additionalInfo;
+            break;
+        case ErrorType::UNASSIGNED_VARIABLE:
+            errorMessage = "Variable not assigned: " + additionalInfo;
             break;
         default:
             errorMessage = "Unknown error";
