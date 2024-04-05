@@ -4,8 +4,7 @@
 class CompilerError
 {
 public:
-    enum class ErrorType
-    {
+    enum class ErrorType {
         ARRAY_INDEX_NOT_INTEGER,
         ARRAY_INDEX_OUT_OF_RANGE,
         OPERAND_TYPE_MISMATCH,
@@ -31,8 +30,7 @@ public:
     static void reportError(int lineNum, ErrorType errorType, const std::string &additionalInfo = "")
     {
         std::string errorMessage;
-        switch (errorType)
-        {
+        switch (errorType) {
         case ErrorType::ARRAY_INDEX_NOT_INTEGER:
             errorMessage = "Array index should be INTEGER";
             break;
@@ -99,5 +97,6 @@ public:
         }
 
         std::cerr << "Error at line " << lineNum << ": " << errorMessage << std::endl;
+        exit(-1);
     }
 };

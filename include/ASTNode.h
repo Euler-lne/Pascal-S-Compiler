@@ -99,7 +99,7 @@ namespace AST
         Declaration(){};
         Declaration(ParseNode *);
         ~Declaration();
-        };
+    };
     class ConstDeclare
     { // 输入的节点为 const_variable
     public:

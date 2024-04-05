@@ -12,6 +12,7 @@
 #include "ToolOfParseTree.h"
 #include <cassert>
 #include <iostream>
+#include <unordered_set>
 using namespace ParseTree;
 namespace AST
 {
@@ -21,7 +22,7 @@ namespace AST
     void ReadConstDeclarations(ParseNode *const_declarations_, map<string, ConstDeclare *> &constList, map<string, Token::TokenType> &declarationList, vector<string> &declarationQueue);
     void ReadSubProgramDeclarations(ParseNode *subprogram_declarations_, map<string, SubProgram *> &subProgramList, map<string, Token::TokenType> &declarationList, vector<string> &declarationQueue);
     Token::TokenType GetConstTypeFromParseTree(ParseNode *const_variable_, string &value);
-    ProgramBody *FindDeclaration(string idName);
+    ProgramBody *FindDeclaration(string idName, int lineNum);
     int FindDeclarationInSubProgram(string idName, Token::TokenType &_type);
 
     // program->program_head program_body .
@@ -80,10 +81,13 @@ namespace AST
     }
     ProgramBody::~ProgramBody()
     {
-        delete parent;
-        delete declaration;
+        if (parent != nullptr)
+            delete parent;
+        if (declaration != nullptr)
+            delete declaration;
         for (int i = 0; i < statementList.size(); i++) {
-            delete statementList[i];
+            if (statementList[i] != nullptr)
+                delete statementList[i];
         }
     }
 
@@ -103,18 +107,28 @@ namespace AST
     }
     Declaration::~Declaration()
     {
-        for (auto iter = constList.begin(); iter != constList.end(); iter++) {
-            delete iter->second;
+
+        // 删除 constList 中的值
+        for (auto &entry : constList) {
+            delete entry.second;
         }
-        for (auto iter = varList.begin(); iter != varList.end(); iter++) {
-            if (iter->second.second != nullptr) {
-                delete iter->second.second;
-                iter->second.second = nullptr;
+        constList.clear();
+
+        // 删除 varList 中的值
+        for (auto &entry : varList) {
+            // 检查地址是否已经删除过
+            if (entry.second.second != nullptr) {
+                // 如果地址尚未删除过，则删除它并将其添加到已删除地址的集合中
+                delete entry.second.second;
             }
         }
-        for (auto iter = subProgramList.begin(); iter != subProgramList.end(); iter++) {
-            delete iter->second;
+        varList.clear();
+
+        // 删除 subProgramList 中的值
+        for (auto &entry : subProgramList) {
+            delete entry.second;
         }
+        subProgramList.clear();
     }
 
     ConstDeclare::ConstDeclare(ParseNode *const_variable_)
@@ -180,6 +194,13 @@ namespace AST
     }
     VarDeclare::~VarDeclare()
     {
+        for (auto iter = recordList.begin(); iter != recordList.end();) {
+            if (iter->second.second != nullptr) {
+                delete iter->second.second;
+            }
+            iter->second.second = nullptr;
+            iter = recordList.erase(iter);
+        }
     }
 
     SubProgram::SubProgram(ParseNode *subprogram_declaration_, int _num)
@@ -213,6 +234,12 @@ namespace AST
     }
     SubProgram::~SubProgram()
     {
+        if (programBody != nullptr)
+            delete programBody;
+        for (int i = 0; i < formalParameterList.size(); i++) {
+            if (formalParameterList[i] != nullptr)
+                delete formalParameterList[i];
+        }
     }
 
     FormalParameter::FormalParameter(ParseNode *parameter_list_)
@@ -295,7 +322,8 @@ namespace AST
             break;
         case Token::COMPOUND_STATEMENT_:
             for (int i = 0; i < statementList.size(); i++) {
-                delete statementList[i];
+                if (statementList[i] != nullptr)
+                    delete statementList[i];
             }
             break;
         default:
@@ -486,7 +514,7 @@ namespace AST
             finalType = idType;
             return;
         }
-        ProgramBody *cur = FindDeclaration(idName);
+        ProgramBody *cur = FindDeclaration(idName, lineNum);
         if (cur == nullptr) {
             return;
         }
@@ -629,10 +657,11 @@ namespace AST
     VariantReference::~VariantReference()
     {
         for (int i = 0; i < arrayPart.size(); i++) {
-            delete arrayPart[i];
+            if (arrayPart[i] != nullptr)
+                delete arrayPart[i];
         }
     }
-    /// @brief 由一个id推到出的
+    /// @brief 由一个id推到出的，吹出现再for语句中
     /// @param idNode
     VariantReference::VariantReference(ParseNode *idNode)
     {
@@ -645,7 +674,7 @@ namespace AST
             finalType = idType;
             return;
         }
-        ProgramBody *cur = FindDeclaration(idName);
+        ProgramBody *cur = FindDeclaration(idName, lineNum);
         if (cur == nullptr) {
             return;
         }
@@ -673,7 +702,7 @@ namespace AST
         string name = call_subprogram_statement_->children[0]->val;
         int line = call_subprogram_statement_->children[0]->lineNumber;
         subProgramId = pair<string, int>(name, line);
-        ProgramBody *cur = FindDeclaration(name);
+        ProgramBody *cur = FindDeclaration(name, line);
         if (cur == nullptr) {
             return;
         }
@@ -710,7 +739,8 @@ namespace AST
     SubProgramCall::~SubProgramCall()
     {
         for (int i = 0; i < paraList.size(); i++) {
-            delete paraList[i];
+            if (paraList[i] != nullptr)
+                delete paraList[i];
         }
     }
 
@@ -887,7 +917,6 @@ namespace AST
             ParseNode *type_ = typeStack.Pop();
             ParseNode *identifier_list_ = identifierListStack.Pop();
             while (type_ != nullptr) {
-                VarDeclare *varDeclare = new VarDeclare(type_);
                 Stack idStack(identifier_list_, 0, 2, 1, 0, Token::ID);
                 ParseNode *idNode = idStack.Pop();
                 while (idNode != nullptr) {
@@ -896,6 +925,7 @@ namespace AST
                         // FIXME：报错变量重定义
                         CompilerError::reportError(idNode->lineNumber, CompilerError::ErrorType::REDEFINED_VARIABLE, idNode->val);
                     }
+                    VarDeclare *varDeclare = new VarDeclare(type_);
                     pair<int, VarDeclare *> temp = pair<int, VarDeclare *>(idNode->lineNumber, varDeclare);
                     varList.insert(pair<string, pair<int, VarDeclare *>>(idNode->val, temp));
                     declarationList.insert(pair<string, Token::TokenType>(idNode->val, Token::VAR));
@@ -998,7 +1028,7 @@ namespace AST
                 // 此时不为 为ID，这个ID必须是之前定义过的，且必须是常量
                 string idName = item->val;
 
-                ProgramBody *cur = FindDeclaration(idName);
+                ProgramBody *cur = FindDeclaration(idName, item->lineNumber);
                 if (cur == nullptr) {
                     return Token::NULL_;
                 }
@@ -1022,7 +1052,7 @@ namespace AST
     /// @brief 沿着定义链寻找变量
     /// @param idName 变量的名字
     /// @return 返回这个变量所在的定义域
-    ProgramBody *FindDeclaration(string idName)
+    ProgramBody *FindDeclaration(string idName, int lineNum)
     {
         ProgramBody *cur = curProgramBody;
         while (cur != nullptr) {
@@ -1034,7 +1064,7 @@ namespace AST
             cur = cur->parent;
         }
         // FIXME:没有找到就要报错，因为const variable必须是一个const类型的变量
-        CompilerError::reportError(0, CompilerError::ErrorType::CONST_NOT_FOUND, idName + " is not found in the declaration list");
+        CompilerError::reportError(lineNum, CompilerError::ErrorType::CONST_NOT_FOUND, idName + " is not found in the declaration list");
         return nullptr;
     }
     /// @brief 在当前的作用域的参数列表中查找这个id名字
