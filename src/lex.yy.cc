@@ -834,7 +834,7 @@ YY_RULE_SETUP
     yylval->lineNumber = yylineno;
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
-    cout << "keyword: " << yylval->val << "Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
+    cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
     #endif
     return CONST;
 }
@@ -849,7 +849,7 @@ YY_RULE_SETUP
     yylval->lineNumber = yylineno ;
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
-    cout << "keyword: " << yylval->val << "Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
+    cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
     #endif
     return RECORD;
 
@@ -865,7 +865,7 @@ YY_RULE_SETUP
     yylval->lineNumber = yylineno ;
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
-    cout << "keyword: " << yylval->val << "Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
+    cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
     #endif
     return END;
 
@@ -881,7 +881,7 @@ YY_RULE_SETUP
     yylval->lineNumber = yylineno ;
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
-    cout << "keyword: " << yylval->val << "Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
+    cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
     #endif
     return ARRAY;
 
@@ -897,7 +897,7 @@ YY_RULE_SETUP
     yylval->lineNumber = yylineno ;
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
-    cout << "keyword: " << yylval->val << "Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
+    cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
     #endif
     return OF;
 
@@ -913,7 +913,7 @@ YY_RULE_SETUP
     yylval->lineNumber = yylineno ;
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
-    cout << "keyword: " << yylval->val << "Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
+    cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
     #endif
     return INTEGER;
 
@@ -929,7 +929,7 @@ YY_RULE_SETUP
     yylval->lineNumber = yylineno ;
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
-    cout << "keyword: " << yylval->val << "Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
+    cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
     #endif
     return REAL;
 
@@ -945,7 +945,7 @@ YY_RULE_SETUP
     yylval->lineNumber = yylineno ;
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
-    cout << "keyword: " << yylval->val << "Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
+    cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
     #endif
     return BOLLEAN;
 
@@ -961,7 +961,7 @@ YY_RULE_SETUP
     yylval->lineNumber = yylineno ;
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
-    cout << "keyword: " << yylval->val << "Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
+    cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
     #endif
     return CHAR;
 
@@ -977,7 +977,7 @@ YY_RULE_SETUP
     yylval->lineNumber = yylineno ;
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
-    cout << "keyword: " << yylval->val << "Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
+    cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
     #endif
     return VAR;
 
@@ -993,7 +993,7 @@ YY_RULE_SETUP
     yylval->lineNumber = yylineno ;
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
-    cout << "keyword: " << yylval->val << "Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
+    cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
     #endif
     return FUNCTION;
 
@@ -1009,7 +1009,7 @@ YY_RULE_SETUP
     yylval->lineNumber = yylineno ;
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
-    cout << "keyword: " << yylval->val << "Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
+    cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
     #endif
     return PROCEDURE;
 
@@ -1025,7 +1025,7 @@ YY_RULE_SETUP
     yylval->lineNumber = yylineno ;
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
-    cout << "keyword: " << yylval->val << "Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
+    cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
     #endif
     return _BEGIN;
 }
@@ -1040,7 +1040,7 @@ YY_RULE_SETUP
     yylval->lineNumber = yylineno ;
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
-    cout << "keyword: " << yylval->val << "Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
+    cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
     #endif
     return IF;
 
@@ -1056,7 +1056,7 @@ YY_RULE_SETUP
     yylval->lineNumber = yylineno ;
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
-    cout << "keyword: " << yylval->val << "Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
+    cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
     #endif
     return THEN;
 
@@ -1072,7 +1072,7 @@ YY_RULE_SETUP
     yylval->lineNumber = yylineno ;
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
-    cout << "keyword: " << yylval->val << "Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
+    cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
     #endif
     return ELSE;
 
@@ -1088,7 +1088,7 @@ YY_RULE_SETUP
     yylval->lineNumber = yylineno ;
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
-    cout << "keyword: " << yylval->val << "Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
+    cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
     #endif
     return CASE;
 
@@ -1104,7 +1104,7 @@ YY_RULE_SETUP
     yylval->lineNumber = yylineno ;
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
-    cout << "keyword: " << yylval->val << "Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
+    cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
     #endif
     return WHILE;
 
@@ -1120,7 +1120,7 @@ YY_RULE_SETUP
     yylval->lineNumber = yylineno ;
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
-    cout << "keyword: " << yylval->val << "Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
+    cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
     #endif
     return DO;
 
@@ -1136,7 +1136,7 @@ YY_RULE_SETUP
     yylval->lineNumber = yylineno ;
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
-    cout << "keyword: " << yylval->val << "Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
+    cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
     #endif
     return REPEAT;
 
@@ -1152,7 +1152,7 @@ YY_RULE_SETUP
     yylval->lineNumber = yylineno ;
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
-    cout << "keyword: " << yylval->val << "Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
+    cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
     #endif
     return UNTIL;
 
@@ -1168,7 +1168,7 @@ YY_RULE_SETUP
     yylval->lineNumber = yylineno ;
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
-    cout << "keyword: " << yylval->val << "Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
+    cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
     #endif
     return FOR;
 
@@ -1184,7 +1184,7 @@ YY_RULE_SETUP
     yylval->lineNumber = yylineno ;
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
-    cout << "keyword: " << yylval->val << "Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
+    cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
     #endif
     return TO;
 
@@ -1200,7 +1200,7 @@ YY_RULE_SETUP
     yylval->lineNumber = yylineno ;
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
-    cout << "keyword: " << yylval->val << "Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
+    cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
     #endif
     return DOWNTO;
 
@@ -1216,7 +1216,7 @@ YY_RULE_SETUP
     yylval->lineNumber = yylineno ;
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
-    cout << "keyword: " << yylval->val << "Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
+    cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
     #endif
     return NOT;
 }
@@ -1231,7 +1231,7 @@ YY_RULE_SETUP
     yylval->lineNumber = yylineno ;
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
-    cout << "keyword: " << yylval->val << "Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
+    cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
     #endif
     return RANGE_DOT;
 }
@@ -1246,7 +1246,7 @@ YY_RULE_SETUP
     yylval->lineNumber = yylineno ;
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
-    cout << "keyword: " << yylval->val << "Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
+    cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
     #endif
     return DOT;
 }
@@ -1261,7 +1261,7 @@ YY_RULE_SETUP
     yylval->lineNumber = yylineno ;
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
-    cout << "keyword: " << yylval->val << "Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
+    cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
     #endif
     return COMMA;
 }
@@ -1276,7 +1276,7 @@ YY_RULE_SETUP
     yylval->lineNumber = yylineno ;
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
-    cout << "keyword: " << yylval->val << "Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
+    cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
     #endif
     return LEFT_PARENTHESES;
 }
@@ -1291,7 +1291,7 @@ YY_RULE_SETUP
     yylval->lineNumber = yylineno ;
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
-    cout << "keyword: " << yylval->val << "Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
+    cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
     #endif
     return RIGHT_PARENTHESES;
 }
@@ -1306,7 +1306,7 @@ YY_RULE_SETUP
     yylval->lineNumber = yylineno ;
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
-    cout << "keyword: " << yylval->val << "Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
+    cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
     #endif
     return LEFT_MEDIUM_PARENTHESES;
 }
@@ -1321,7 +1321,7 @@ YY_RULE_SETUP
     yylval->lineNumber = yylineno ;
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
-    cout << "keyword: " << yylval->val << "Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
+    cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
     #endif
     return RIGHT_MEDIUM_PARENTHESES;
 }
@@ -1336,7 +1336,7 @@ YY_RULE_SETUP
     yylval->lineNumber = yylineno ;
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
-    cout << "keyword: " << yylval->val << "Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
+    cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
     #endif
     return SEMICOLON;
 }
@@ -1351,7 +1351,7 @@ YY_RULE_SETUP
     yylval->lineNumber = yylineno ;
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
-    cout << "keyword: " << yylval->val << "Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
+    cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
     #endif
     return ASSIGNOP;
 }
@@ -1366,7 +1366,7 @@ YY_RULE_SETUP
     yylval->lineNumber = yylineno ;
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
-    cout << "keyword: " << yylval->val << "Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
+    cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
     #endif
     return COLON;
 }
@@ -1381,7 +1381,7 @@ YY_RULE_SETUP
     yylval->lineNumber = yylineno ;
     #ifdef LEXDEBUG
     //printf("RELOP: %s  Token: %s\n", yylval->val,yylval->token);
-    cout << "RELOP: " << yylval->val << "Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
+    cout << "RELOP: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
     #endif
     return RELOP;
 }
@@ -1396,7 +1396,7 @@ YY_RULE_SETUP
     yylval->lineNumber = yylineno ;
     #ifdef LEXDEBUG
     //printf("ADDOP: %s  Token: %s\n", yylval->val,yylval->token);
-    cout << "ADDOP: " << yylval->val << "Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
+    cout << "ADDOP: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
     #endif
     return ADDOP;
 }
@@ -1411,7 +1411,7 @@ YY_RULE_SETUP
     yylval->lineNumber = yylineno ;
     #ifdef LEXDEBUG
     //printf("MULOP: %s  Token: %s\n", yylval->val,yylval->token);
-    cout << "MULOP: " << yylval->val << "Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
+    cout << "MULOP: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
     #endif
     return MULOP;
 }
@@ -1434,7 +1434,7 @@ YY_RULE_SETUP
     yylval->lineNumber = yylineno ;
     #ifdef LEXDEBUG
     //printf("ID: %s  Token: %s\n", yylval->val,yylval->token);
-    cout << "ID: " << yylval->val << "Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
+    cout << "ID: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
     #endif
     return ID;
 }
@@ -1449,7 +1449,7 @@ YY_RULE_SETUP
     yylval->lineNumber = yylineno ;
     #ifdef LEXDEBUG
     //printf("INT_NUM: %s  Token: %s\n", yylval->val,yylval->token);
-    cout << "INT_NUM: " << yylval->val << "Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
+    cout << "INT_NUM: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
     #endif
     return NUM;
 }
@@ -1464,7 +1464,7 @@ YY_RULE_SETUP
     yylval->lineNumber = yylineno ;
     #ifdef LEXDEBUG
     //printf("FLOAT_NUM: %s  Token: %s\n", yylval->val,yylval->token);
-    cout << "FLOAT_NUM: " << yylval->val << "Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
+    cout << "FLOAT_NUM: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
     #endif
     return NUM;
 }
@@ -1479,7 +1479,7 @@ YY_RULE_SETUP
     yylval->lineNumber = yylineno ;
     #ifdef LEXDEBUG
     //printf("LETTER: %s  Token: %s\n", yylval->val,yylval->token);
-    cout << "LETTER: " << yylval->val << "Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
+    cout << "LETTER: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
     #endif
     return LETTER;
 }
@@ -1537,7 +1537,7 @@ YY_RULE_SETUP
         yylval->lineNumber=yylineno ;
         #ifdef LEXDEBUG
         //printf("CHAR: %s  Token: %s\n", yylval->val,yylval->token);
-        cout << "CHAR1: " << yylval->val << "Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
+        cout << "CHAR1: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
         #endif
         return CHAR;
     }
@@ -1549,7 +1549,7 @@ YY_RULE_SETUP
         yylval->lineNumber=yylineno ;
         #ifdef LEXDEBUG
         //printf("CHAR: %s  Token: %s\n", yylval->val,yylval->token);
-        cout << "CHAR2: " << yylval->val << "Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
+        cout << "CHAR2: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
         #endif
         BEGIN INITIAL;
         return CHAR;
@@ -1563,7 +1563,7 @@ YY_RULE_SETUP
         yylval->lineNumber=yylineno ;
         #ifdef LEXDEBUG
         //printf("CHAR: %s  Token: %s\n", yylval->val,yylval->token);
-        cout << "CHAR3: " << yylval->val << "Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
+        cout << "CHAR3: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
         #endif
         BEGIN INITIAL;
         return CHAR;
@@ -1583,7 +1583,7 @@ YY_RULE_SETUP
         yylval->lineNumber=yylineno ;
         #ifdef LEXDEBUG
        // printf("CHAR: %s  Token: %s\n", yylval->val,yylval->token);
-       cout << "CHAR4: " << yylval->val << "Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
+       cout << "CHAR4: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
         #endif
         BEGIN INITIAL;
         return CHAR;

@@ -97,7 +97,7 @@ mulop (\*|\/|div|mod|and)
     yylval->lineNumber = yylineno;
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
-    cout << "keyword: " << yylval->val << "Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
+    cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
     #endif
     return CONST;
 }
@@ -110,7 +110,7 @@ mulop (\*|\/|div|mod|and)
     yylval->lineNumber = yylineno ;
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
-    cout << "keyword: " << yylval->val << "Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
+    cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
     #endif
     return RECORD;
 
@@ -123,7 +123,7 @@ mulop (\*|\/|div|mod|and)
     yylval->lineNumber = yylineno ;
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
-    cout << "keyword: " << yylval->val << "Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
+    cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
     #endif
     return END;
 
@@ -136,7 +136,7 @@ mulop (\*|\/|div|mod|and)
     yylval->lineNumber = yylineno ;
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
-    cout << "keyword: " << yylval->val << "Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
+    cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
     #endif
     return ARRAY;
 
@@ -149,7 +149,7 @@ mulop (\*|\/|div|mod|and)
     yylval->lineNumber = yylineno ;
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
-    cout << "keyword: " << yylval->val << "Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
+    cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
     #endif
     return OF;
 
@@ -162,7 +162,7 @@ mulop (\*|\/|div|mod|and)
     yylval->lineNumber = yylineno ;
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
-    cout << "keyword: " << yylval->val << "Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
+    cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
     #endif
     return INTEGER;
 
@@ -175,7 +175,7 @@ mulop (\*|\/|div|mod|and)
     yylval->lineNumber = yylineno ;
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
-    cout << "keyword: " << yylval->val << "Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
+    cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
     #endif
     return REAL;
 
@@ -188,7 +188,7 @@ mulop (\*|\/|div|mod|and)
     yylval->lineNumber = yylineno ;
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
-    cout << "keyword: " << yylval->val << "Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
+    cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
     #endif
     return BOLLEAN;
 
@@ -201,7 +201,7 @@ mulop (\*|\/|div|mod|and)
     yylval->lineNumber = yylineno ;
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
-    cout << "keyword: " << yylval->val << "Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
+    cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
     #endif
     return CHAR;
 
@@ -214,7 +214,7 @@ mulop (\*|\/|div|mod|and)
     yylval->lineNumber = yylineno ;
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
-    cout << "keyword: " << yylval->val << "Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
+    cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
     #endif
     return VAR;
 
@@ -227,7 +227,7 @@ mulop (\*|\/|div|mod|and)
     yylval->lineNumber = yylineno ;
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
-    cout << "keyword: " << yylval->val << "Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
+    cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
     #endif
     return FUNCTION;
 
@@ -240,7 +240,7 @@ mulop (\*|\/|div|mod|and)
     yylval->lineNumber = yylineno ;
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
-    cout << "keyword: " << yylval->val << "Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
+    cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
     #endif
     return PROCEDURE;
 
@@ -252,7 +252,7 @@ mulop (\*|\/|div|mod|and)
     yylval->lineNumber = yylineno ;
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
-    cout << "keyword: " << yylval->val << "Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
+    cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
     #endif
     return _BEGIN;
 }
@@ -264,7 +264,7 @@ mulop (\*|\/|div|mod|and)
     yylval->lineNumber = yylineno ;
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
-    cout << "keyword: " << yylval->val << "Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
+    cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
     #endif
     return IF;
 
@@ -277,7 +277,7 @@ mulop (\*|\/|div|mod|and)
     yylval->lineNumber = yylineno ;
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
-    cout << "keyword: " << yylval->val << "Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
+    cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
     #endif
     return THEN;
 
@@ -290,7 +290,7 @@ mulop (\*|\/|div|mod|and)
     yylval->lineNumber = yylineno ;
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
-    cout << "keyword: " << yylval->val << "Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
+    cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
     #endif
     return ELSE;
 
@@ -303,7 +303,7 @@ mulop (\*|\/|div|mod|and)
     yylval->lineNumber = yylineno ;
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
-    cout << "keyword: " << yylval->val << "Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
+    cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
     #endif
     return CASE;
 
@@ -316,7 +316,7 @@ mulop (\*|\/|div|mod|and)
     yylval->lineNumber = yylineno ;
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
-    cout << "keyword: " << yylval->val << "Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
+    cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
     #endif
     return WHILE;
 
@@ -329,7 +329,7 @@ mulop (\*|\/|div|mod|and)
     yylval->lineNumber = yylineno ;
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
-    cout << "keyword: " << yylval->val << "Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
+    cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
     #endif
     return DO;
 
@@ -342,7 +342,7 @@ mulop (\*|\/|div|mod|and)
     yylval->lineNumber = yylineno ;
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
-    cout << "keyword: " << yylval->val << "Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
+    cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
     #endif
     return REPEAT;
 
@@ -355,7 +355,7 @@ mulop (\*|\/|div|mod|and)
     yylval->lineNumber = yylineno ;
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
-    cout << "keyword: " << yylval->val << "Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
+    cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
     #endif
     return UNTIL;
 
@@ -368,7 +368,7 @@ mulop (\*|\/|div|mod|and)
     yylval->lineNumber = yylineno ;
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
-    cout << "keyword: " << yylval->val << "Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
+    cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
     #endif
     return FOR;
 
@@ -381,7 +381,7 @@ mulop (\*|\/|div|mod|and)
     yylval->lineNumber = yylineno ;
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
-    cout << "keyword: " << yylval->val << "Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
+    cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
     #endif
     return TO;
 
@@ -394,7 +394,7 @@ mulop (\*|\/|div|mod|and)
     yylval->lineNumber = yylineno ;
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
-    cout << "keyword: " << yylval->val << "Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
+    cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
     #endif
     return DOWNTO;
 
@@ -408,7 +408,7 @@ mulop (\*|\/|div|mod|and)
     yylval->lineNumber = yylineno ;
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
-    cout << "keyword: " << yylval->val << "Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
+    cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
     #endif
     return NOT;
 }
@@ -420,7 +420,7 @@ mulop (\*|\/|div|mod|and)
     yylval->lineNumber = yylineno ;
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
-    cout << "keyword: " << yylval->val << "Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
+    cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
     #endif
     return RANGE_DOT;
 }
@@ -432,7 +432,7 @@ mulop (\*|\/|div|mod|and)
     yylval->lineNumber = yylineno ;
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
-    cout << "keyword: " << yylval->val << "Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
+    cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
     #endif
     return DOT;
 }
@@ -444,7 +444,7 @@ mulop (\*|\/|div|mod|and)
     yylval->lineNumber = yylineno ;
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
-    cout << "keyword: " << yylval->val << "Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
+    cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
     #endif
     return COMMA;
 }
@@ -456,7 +456,7 @@ mulop (\*|\/|div|mod|and)
     yylval->lineNumber = yylineno ;
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
-    cout << "keyword: " << yylval->val << "Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
+    cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
     #endif
     return LEFT_PARENTHESES;
 }
@@ -468,7 +468,7 @@ mulop (\*|\/|div|mod|and)
     yylval->lineNumber = yylineno ;
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
-    cout << "keyword: " << yylval->val << "Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
+    cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
     #endif
     return RIGHT_PARENTHESES;
 }
@@ -480,7 +480,7 @@ mulop (\*|\/|div|mod|and)
     yylval->lineNumber = yylineno ;
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
-    cout << "keyword: " << yylval->val << "Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
+    cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
     #endif
     return LEFT_MEDIUM_PARENTHESES;
 }
@@ -492,7 +492,7 @@ mulop (\*|\/|div|mod|and)
     yylval->lineNumber = yylineno ;
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
-    cout << "keyword: " << yylval->val << "Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
+    cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
     #endif
     return RIGHT_MEDIUM_PARENTHESES;
 }
@@ -504,7 +504,7 @@ mulop (\*|\/|div|mod|and)
     yylval->lineNumber = yylineno ;
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
-    cout << "keyword: " << yylval->val << "Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
+    cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
     #endif
     return SEMICOLON;
 }
@@ -516,7 +516,7 @@ mulop (\*|\/|div|mod|and)
     yylval->lineNumber = yylineno ;
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
-    cout << "keyword: " << yylval->val << "Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
+    cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
     #endif
     return ASSIGNOP;
 }
@@ -528,7 +528,7 @@ mulop (\*|\/|div|mod|and)
     yylval->lineNumber = yylineno ;
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
-    cout << "keyword: " << yylval->val << "Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
+    cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
     #endif
     return COLON;
 }
@@ -540,7 +540,7 @@ mulop (\*|\/|div|mod|and)
     yylval->lineNumber = yylineno ;
     #ifdef LEXDEBUG
     //printf("RELOP: %s  Token: %s\n", yylval->val,yylval->token);
-    cout << "RELOP: " << yylval->val << "Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
+    cout << "RELOP: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
     #endif
     return RELOP;
 }
@@ -552,7 +552,7 @@ mulop (\*|\/|div|mod|and)
     yylval->lineNumber = yylineno ;
     #ifdef LEXDEBUG
     //printf("ADDOP: %s  Token: %s\n", yylval->val,yylval->token);
-    cout << "ADDOP: " << yylval->val << "Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
+    cout << "ADDOP: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
     #endif
     return ADDOP;
 }
@@ -564,7 +564,7 @@ mulop (\*|\/|div|mod|and)
     yylval->lineNumber = yylineno ;
     #ifdef LEXDEBUG
     //printf("MULOP: %s  Token: %s\n", yylval->val,yylval->token);
-    cout << "MULOP: " << yylval->val << "Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
+    cout << "MULOP: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
     #endif
     return MULOP;
 }
@@ -588,7 +588,7 @@ mulop (\*|\/|div|mod|and)
     yylval->lineNumber = yylineno ;
     #ifdef LEXDEBUG
     //printf("ID: %s  Token: %s\n", yylval->val,yylval->token);
-    cout << "ID: " << yylval->val << "Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
+    cout << "ID: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
     #endif
     return ID;
 }
@@ -600,7 +600,7 @@ mulop (\*|\/|div|mod|and)
     yylval->lineNumber = yylineno ;
     #ifdef LEXDEBUG
     //printf("INT_NUM: %s  Token: %s\n", yylval->val,yylval->token);
-    cout << "INT_NUM: " << yylval->val << "Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
+    cout << "INT_NUM: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
     #endif
     return NUM;
 }
@@ -612,7 +612,7 @@ mulop (\*|\/|div|mod|and)
     yylval->lineNumber = yylineno ;
     #ifdef LEXDEBUG
     //printf("FLOAT_NUM: %s  Token: %s\n", yylval->val,yylval->token);
-    cout << "FLOAT_NUM: " << yylval->val << "Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
+    cout << "FLOAT_NUM: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
     #endif
     return NUM;
 }
@@ -624,7 +624,7 @@ mulop (\*|\/|div|mod|and)
     yylval->lineNumber = yylineno ;
     #ifdef LEXDEBUG
     //printf("LETTER: %s  Token: %s\n", yylval->val,yylval->token);
-    cout << "LETTER: " << yylval->val << "Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
+    cout << "LETTER: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
     #endif
     return LETTER;
 }
@@ -668,7 +668,7 @@ cout<<"进入字符常量识别"<<endl;
         yylval->lineNumber=yylineno ;
         #ifdef LEXDEBUG
         //printf("CHAR: %s  Token: %s\n", yylval->val,yylval->token);
-        cout << "CHAR1: " << yylval->val << "Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
+        cout << "CHAR1: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
         #endif
         return CHAR;
     }
@@ -680,7 +680,7 @@ cout<<"进入字符常量识别"<<endl;
         yylval->lineNumber=yylineno ;
         #ifdef LEXDEBUG
         //printf("CHAR: %s  Token: %s\n", yylval->val,yylval->token);
-        cout << "CHAR2: " << yylval->val << "Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
+        cout << "CHAR2: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
         #endif
         BEGIN INITIAL;
         return CHAR;
@@ -694,7 +694,7 @@ cout<<"进入字符常量识别"<<endl;
         yylval->lineNumber=yylineno ;
         #ifdef LEXDEBUG
         //printf("CHAR: %s  Token: %s\n", yylval->val,yylval->token);
-        cout << "CHAR3: " << yylval->val << "Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
+        cout << "CHAR3: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
         #endif
         BEGIN INITIAL;
         return CHAR;
@@ -714,7 +714,7 @@ cout<<"进入字符常量识别"<<endl;
         yylval->lineNumber=yylineno ;
         #ifdef LEXDEBUG
        // printf("CHAR: %s  Token: %s\n", yylval->val,yylval->token);
-       cout << "CHAR4: " << yylval->val << "Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
+       cout << "CHAR4: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
         #endif
         BEGIN INITIAL;
         return CHAR;
