@@ -14,6 +14,7 @@
 #include <string>
 #include <vector>
 
+#include "ASTError.h"
 #include "TokenTypeEnum.h"
 #include "main.h"
 using namespace std;
@@ -144,8 +145,10 @@ namespace AST
         vector<pair<int, int>> dimension;
         // vector长度代表维数，第一个值为起始下标，第二个值为长度
         map<string, pair<int, VarDeclare *>> recordList;
-        int isAssignment; // 如果赋值了就为1，没有就为0，用于报错
-        int isUsed;       // 这个变量是否被使用
+        map<string, Token::TokenType> declarationList; // 用于快速检查是否重定义
+        vector<string> declarationQueue;               // 用于记录变量顺序，因为map会改变插入顺序
+        int isAssignment;                              // 如果赋值了就为1，没有就为0，用于报错
+        int isUsed;                                    // 这个变量是否被使用
     };
     class SubProgram
     { // 传入 subprogram_declaration_
@@ -154,7 +157,7 @@ namespace AST
         vector<FormalParameter *> formalParameterList; // 参数列表
         Token::TokenType GetReturnType() { return returnType; }
         void SetUsed() { isUsed = 1; }
-        int IsUsed() { return isUsed; } // TODO:用于代码生成时候的优化
+        int IsUsed() { return isUsed; }
         auto &GetFormalPataList() { return formalParameterList; };
         int GetParameterNums() { return formalParameterList.size(); }
         SubProgram(ParseNode *, int);
@@ -203,7 +206,6 @@ namespace AST
         // 一定只有两个操作数同为nullptr，方可使用 value, variantReference, subProgarmCall
         // 若没有到达两个操作数同为nullptr，不保证上述变量可用
         // 至于用谁通过函数GetValueType
-        // TODO：待完善
         string opration; // 具体操作符
         Expression *operand1, *operand2;
         string value;                       // 当前表达式的值，如果有的话
@@ -233,7 +235,7 @@ namespace AST
         vector<Expression *> arrayPart; // 数组下标的表达式，其长度和数组的长度相同
         // 如果为数组或者记录 记录接下来的内容（a[1]; a.b）
         // 就是记录[1] 和 b 写入的时候判断类型是否合法
-        string GetIDToCodeGenerator() { return prefix + id; } // TODO:如果是记录的话需要遍历
+        string GetIDToCodeGenerator() { return prefix + id; }
         Token::TokenType GetFinalType() { return finalType; }
         VariantReference(ParseNode *, int);
         VariantReference(ParseNode *idNode);
@@ -305,7 +307,6 @@ namespace AST
     {
     public:
         Expression *condition;
-        // TODO:完善case语句
         vector<Branch *> branchList;
 
         CaseStatement(ParseNode *);
