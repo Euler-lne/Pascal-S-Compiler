@@ -4,8 +4,7 @@
 class CompilerError
 {
 public:
-    enum class ErrorType
-    {
+    enum class ErrorType {
         ARRAY_INDEX_NOT_INTEGER,
         ARRAY_INDEX_OUT_OF_RANGE,
         OPERAND_TYPE_MISMATCH,
@@ -25,14 +24,14 @@ public:
         REDEFINED_VARIABLE,
         REDEFINED_CONSTANT,
         REDEFINED_FUNCTION,
-        CONST_NOT_FOUND
+        CONST_NOT_FOUND,
+        UNASSIGNED_VARIABLE
     };
 
     static void reportError(int lineNum, ErrorType errorType, const std::string &additionalInfo = "")
     {
         std::string errorMessage;
-        switch (errorType)
-        {
+        switch (errorType) {
         case ErrorType::ARRAY_INDEX_NOT_INTEGER:
             errorMessage = "Array index should be INTEGER";
             break;
@@ -93,11 +92,15 @@ public:
         case ErrorType::CONST_NOT_FOUND:
             errorMessage = "Constant not found: " + additionalInfo;
             break;
+        case ErrorType::UNASSIGNED_VARIABLE:
+            errorMessage = "Variable not assigned: " + additionalInfo;
+            break;
         default:
             errorMessage = "Unknown error";
             break;
         }
 
         std::cerr << "Error at line " << lineNum << ": " << errorMessage << std::endl;
+        exit(-1);
     }
 };

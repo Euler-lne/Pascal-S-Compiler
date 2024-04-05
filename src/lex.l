@@ -7,7 +7,7 @@
 #include "main.h"
 #include "yacc.tab.h"
 #include "TokenTypeEnum.h"
-#include <string>
+#include <cstring>
 
 
 //处理位置信息
