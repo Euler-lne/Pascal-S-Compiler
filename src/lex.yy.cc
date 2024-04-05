@@ -1488,34 +1488,35 @@ case 46:
 YY_RULE_SETUP
 #line 634 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {//进入字符常量识别
+cout<<"进入字符常量识别"<<endl;
     BEGIN CH;
 	charRec="";
 }
 	YY_BREAK
 case 47:
 YY_RULE_SETUP
-#line 639 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 640 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {//进入单行注释
     BEGIN SCOM;
 }
 	YY_BREAK
 case 48:
 YY_RULE_SETUP
-#line 643 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 644 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {//进入多行注释
 	BEGIN MCOM;
 }
 	YY_BREAK
 case 49:
 YY_RULE_SETUP
-#line 647 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 648 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {//非法字符 错误3
     addLexicalErrorInformation(yytext, "Invalid character!", yycolumn-yyleng, yycolumn-1);
 	//cout << "error: invalid char" << endl;
 }
 	YY_BREAK
 case YY_STATE_EOF(CH):
-#line 653 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 654 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 { //读取字符常量时遇到文件尾 错误4
     addLexicalErrorInformation(yytext, "Unexpected end of file when reading a char constant", yycolumn-yyleng, yycolumn-1);
     return 0;
@@ -1523,7 +1524,7 @@ case YY_STATE_EOF(CH):
 	YY_BREAK
 case 50:
 YY_RULE_SETUP
-#line 658 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 659 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {//字符常量限定在一行中
     int len = charRec.length();
     
@@ -1536,7 +1537,7 @@ YY_RULE_SETUP
         yylval->lineNumber=yylineno ;
         #ifdef LEXDEBUG
         //printf("CHAR: %s  Token: %s\n", yylval->val,yylval->token);
-        cout << "CHAR: " << yylval->val << "Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
+        cout << "CHAR1: " << yylval->val << "Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
         #endif
         return CHAR;
     }
@@ -1548,8 +1549,9 @@ YY_RULE_SETUP
         yylval->lineNumber=yylineno ;
         #ifdef LEXDEBUG
         //printf("CHAR: %s  Token: %s\n", yylval->val,yylval->token);
-        cout << "CHAR: " << yylval->val << "Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
+        cout << "CHAR2: " << yylval->val << "Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
         #endif
+        BEGIN INITIAL;
         return CHAR;
     }
     else if(yytext[0]=='\''){
@@ -1561,8 +1563,9 @@ YY_RULE_SETUP
         yylval->lineNumber=yylineno ;
         #ifdef LEXDEBUG
         //printf("CHAR: %s  Token: %s\n", yylval->val,yylval->token);
-        cout << "CHAR: " << yylval->val << "Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
+        cout << "CHAR3: " << yylval->val << "Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
         #endif
+        BEGIN INITIAL;
         return CHAR;
     }
     else{
@@ -1580,28 +1583,29 @@ YY_RULE_SETUP
         yylval->lineNumber=yylineno ;
         #ifdef LEXDEBUG
        // printf("CHAR: %s  Token: %s\n", yylval->val,yylval->token);
-       cout << "CHAR: " << yylval->val << "Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
+       cout << "CHAR4: " << yylval->val << "Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
         #endif
+        BEGIN INITIAL;
         return CHAR;
     }
 }
 	YY_BREAK
 case 51:
 YY_RULE_SETUP
-#line 720 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 724 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {
 	charRec+=yytext[0];
 }
 	YY_BREAK
 case YY_STATE_EOF(SCOM):
-#line 724 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 728 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 { //单行注释遇到文件尾
     return 0;
 }
 	YY_BREAK
 case 52:
 YY_RULE_SETUP
-#line 728 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 732 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {
     BEGIN INITIAL;
     yyless(0);//将换行符退回
@@ -1610,11 +1614,11 @@ YY_RULE_SETUP
 	YY_BREAK
 case 53:
 YY_RULE_SETUP
-#line 734 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 738 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {}
 	YY_BREAK
 case YY_STATE_EOF(MCOM):
-#line 736 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 740 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 { //多行注释遇到文件尾 错误8
     addLexicalErrorInformation(yytext, "Unexpected end of file when reading a multiple line comment, lacking of a right brace", yycolumn-yyleng, yycolumn-1);
     return 0;
@@ -1622,7 +1626,7 @@ case YY_STATE_EOF(MCOM):
 	YY_BREAK
 case 54:
 YY_RULE_SETUP
-#line 741 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 745 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {
     if(CheckAndAddLengthTooLargeErrorInformation(yytext, "line", 1, yyleng)) //行长度超过限制
         return 0;
@@ -1633,22 +1637,22 @@ YY_RULE_SETUP
 	YY_BREAK
 case 55:
 YY_RULE_SETUP
-#line 749 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 753 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {
 	BEGIN INITIAL;
 }
 	YY_BREAK
 case 56:
 YY_RULE_SETUP
-#line 753 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 757 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {}
 	YY_BREAK
 case 57:
 YY_RULE_SETUP
-#line 754 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 758 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 ECHO;
 	YY_BREAK
-#line 1652 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.yy.cc"
+#line 1656 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.yy.cc"
 			case YY_STATE_EOF(INITIAL):
 				yyterminate();
 
@@ -2532,7 +2536,7 @@ int main()
 	return 0;
 	}
 #endif
-#line 754 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 758 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 
 
 
@@ -2567,7 +2571,7 @@ bool CheckAndAddLengthTooLargeErrorInformation(char *text, string type, int l, i
         }
         return false;
     }
-    else if(type=="identifier"){
+    else if(type=="id"){
         if(len>100){ //错误2
             string id = string(text);
             errorInformation = "[Identifier length too large, exceed 100] " + itos(yylineno-1) + "." + itos(l) + "-" + itos(yylineno-1) + "." + itos(r);
