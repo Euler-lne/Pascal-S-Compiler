@@ -1,6 +1,8 @@
 program quicksort(input,output);
+var
+    i,n:integer;
 begin
     for i:=1 to n do
-    kp(1,n);
+    i:=2;
     for i:=1 to n do
 end.

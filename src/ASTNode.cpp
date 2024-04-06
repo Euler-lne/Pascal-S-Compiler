@@ -272,6 +272,18 @@ namespace AST
     FormalParameter::~FormalParameter()
     {
     }
+    /// @brief 如果全部语句都是空，那就返回1，因为可能推出空语句
+    /// @return 为空返回1
+    int Statement::IsEmpty()
+    {
+        if (whileStatement == nullptr &&
+            ifStatement == nullptr &&
+            assignStatement == nullptr &&
+            subProgramCall == nullptr &&
+            caseStatement == nullptr)
+            return 1;
+        return 0;
+    }
 
     Statement::Statement(ParseNode *statement_)
     {
@@ -281,6 +293,9 @@ namespace AST
         assignStatement = nullptr;
         subProgramCall = nullptr;
         caseStatement = nullptr;
+        if (statement_->children.size() == 0) {
+            return;
+        }
         ParseNode *node = statement_->children[0];
         statementType = node->token;
         if (node->token == Token::VARIABLE_) {
@@ -768,7 +783,11 @@ namespace AST
                 CompilerError::reportError(while_statement_->children[1]->lineNumber, CompilerError::ErrorType::CONDITION_NOT_BOOLEAN, "while condition must be boolean");
             }
             statement_ = new Statement(while_statement_->children[3]);
-            statementList.emplace_back(statement_);
+            if (statement_->IsEmpty()) {
+                delete statement_;
+            } else {
+                statementList.emplace_back(statement_);
+            }
         } else if (whileType == Token::REPEAT) {
             condition = new Expression(while_statement_->children[3]);
             if (condition->GetValueToken() != Token::BOLLEAN) {
@@ -802,7 +821,11 @@ namespace AST
                 CompilerError::reportError(while_statement_->children[5]->lineNumber, CompilerError::ErrorType::FOR_LOOP_CONDITION_NOT_INTEGER);
             }
             statement_ = new Statement(while_statement_->children[7]);
-            statementList.emplace_back(statement_);
+            if (statement_->IsEmpty()) {
+                delete statement_;
+            } else {
+                statementList.emplace_back(statement_);
+            }
         }
     }
     WhileStatement::~WhileStatement()
@@ -830,10 +853,18 @@ namespace AST
             CompilerError::reportError(if_statement_->children[0]->lineNumber, CompilerError::ErrorType::CONDITION_NOT_BOOLEAN, "if condition must be boolean");
         }
         thenStatement = new Statement(statement_);
+        if (thenStatement->IsEmpty()) {
+            delete thenStatement;
+            thenStatement = nullptr;
+        }
         if (else_part_->children.size() == 0)
             return;
         statement_ = else_part_->children[1];
         elseStatement = new Statement(statement_);
+        if (elseStatement->IsEmpty()) {
+            delete elseStatement;
+            elseStatement = nullptr;
+        }
     }
     IfStatement::~IfStatement()
     {
@@ -873,6 +904,10 @@ namespace AST
         // const_list -> const_list , const | const
         // const -> +id | -id | id | +num | -num | num | 'letter'
         statement = new Statement(branch_->children[2]);
+        if (statement->IsEmpty()) {
+            delete statement;
+            statement = nullptr;
+        }
         ParseNode *const_list_ = branch_->children[0];
         Stack constListStack(const_list_, 0, 2, 1, 0, Token::CONST_LIST_);
         ParseNode *const_ = constListStack.Pop();
