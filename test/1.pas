@@ -6,7 +6,7 @@ procedure kp(l,r:integer);{ 我是注释 }
 var
 i,j,mid:integer;
 begin
-    if l>=r then exit;
+    if l>=r then i:=1;
     i:=l;j:=r;mid:=a[(l+r) div 2];
     repeat
 	begin
@@ -26,5 +26,4 @@ end;
 begin
     for i:=1 to n do
     kp(1,n);
-    for i:=1 to n do
 end.

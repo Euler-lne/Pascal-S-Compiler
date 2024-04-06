@@ -96,8 +96,8 @@ namespace AST
         vector<string> GetDeclarationQueue() { return declarationQueue; };
         map<string, ConstDeclare *> &GetConstList() { return constList; };
         auto &GetVarList() { return varList; };
+        void SetDeclaration(ParseNode *);
         Declaration(){};
-        Declaration(ParseNode *);
         ~Declaration();
     };
     class ConstDeclare
@@ -159,14 +159,13 @@ namespace AST
         void SetUsed() { isUsed = 1; }
         int IsUsed() { return isUsed; }
         auto &GetFormalPataList() { return formalParameterList; };
-        int GetParameterNums() { return formalParameterList.size(); }
-        SubProgram(ParseNode *, int);
+        void SetSubProgram(ParseNode *);
+        SubProgram(ParseNode *);
         ~SubProgram();
 
     private:
         string subProgramId;
         int lineNum; // 函数/过程行号
-        int number;  // 当前这个函数定义位于当前作用域下的第几个函数定义
         Token::TokenType returnType;
         // 返回值类型为基本类型，行号，没有代表为过程，已经声明了一个NULL的TokenType
         int isUsed; // 是否被调用了，如果被调用了就为1，没有为0；

@@ -24,6 +24,8 @@ namespace AST
     Token::TokenType GetConstTypeFromParseTree(ParseNode *const_variable_, string &value);
     ProgramBody *FindDeclaration(string idName, int lineNum);
     int FindDeclarationInSubProgram(string idName, Token::TokenType &_type);
+    int GetParameterNums(vector<FormalParameter *> formalParameterList);
+    Token::TokenType GetParameterType(vector<FormalParameter *> formalParameterList, int index);
 
     // program->program_head program_body .
     Program::Program(ParseNode *program_)
@@ -42,12 +44,10 @@ namespace AST
     // program_head->program id
     ProgramHead::ProgramHead(ParseNode *program_head_)
     {
-        // 第1个子结点应该是PROGRAM
-        assert(program_head_->children[0]->token == Token::PROGRAM);
-        // 第2个子结点是程序名称
         programId = make_pair(program_head_->children[1]->val,
                               program_head_->children[1]->lineNumber);
-
+        if (program_head_->children.size() < 5)
+            return;
         // 从第3个子结点开始是参数列表
         ParseNode *identifier_list_ = program_head_->children[3];
         Stack idStack(identifier_list_, 0, 2, 1, 0, Token::ID);
@@ -63,10 +63,11 @@ namespace AST
     {
         // 对于分析数的ProgramBody 0，1，2都是Declaration；3代表compound_statement_
         parent = curProgramBody;
-        prefix = (parent ? parent->prefix : "") + name;
+        prefix = (parent ? parent->prefix : "") + name + "_";
         curProgramBody = this;
 
-        declaration = new Declaration(program_body_);
+        declaration = new Declaration();
+        declaration->SetDeclaration(program_body_);
         ParseNode *compound_statement_ = program_body_->children[3];   // 得到符合语句
         ParseNode *statement_list_ = compound_statement_->children[1]; // 得到语句列表
         Stack statementStack(statement_list_, 0, 2, 1, 0, Token::STATEMENT_, 1);
@@ -91,7 +92,7 @@ namespace AST
         }
     }
 
-    Declaration::Declaration(ParseNode *program_body_)
+    void Declaration::SetDeclaration(ParseNode *program_body_)
     {
         // 只可以使用children的前三个，首先获得头，然后分别遍历
         ParseNode *const_declarations_ = program_body_->children[0];
@@ -184,6 +185,7 @@ namespace AST
                         CompilerError::reportError(period_->children[0]->lineNumber, CompilerError::ErrorType::ARRAY_INDEX_OUT_OF_RANGE);
                     }
                 }
+                period_ = periodStack.Pop();
             }
         } else if (type == Token::RECORD) {
             // 解析 record
@@ -203,11 +205,10 @@ namespace AST
         }
     }
 
-    SubProgram::SubProgram(ParseNode *subprogram_declaration_, int _num)
+    SubProgram::SubProgram(ParseNode *subprogram_declaration_)
     {
         ParseNode *subprogram_head_ = subprogram_declaration_->children[0];
         isUsed = 0;
-        number = _num;
         Token::TokenType type = subprogram_head_->children[0]->token; // 判断是函数/过程
         subProgramId = subprogram_head_->children[1]->val;            // 得到函数名字
         lineNum = subprogram_head_->children[0]->lineNumber;
@@ -222,6 +223,11 @@ namespace AST
                 parameter_list_ = parameterListStack.Pop();
             }
         }
+    }
+    void SubProgram::SetSubProgram(ParseNode *subprogram_declaration_)
+    {
+        ParseNode *subprogram_head_ = subprogram_declaration_->children[0];
+        Token::TokenType type = subprogram_head_->children[0]->token; // 判断是函数/过程
         if (type == Token::FUNCTION) {
             ParseNode *standard_type_ = subprogram_head_->children[4];
             returnType = standard_type_->children[0]->token;
@@ -230,7 +236,7 @@ namespace AST
         }
         ParseNode *program_body_ = subprogram_declaration_->children[1];
         curSubProgram = this;
-        programBody = new ProgramBody(subProgramId + to_string(number), program_body_);
+        programBody = new ProgramBody(subProgramId, program_body_);
     }
     SubProgram::~SubProgram()
     {
@@ -282,16 +288,16 @@ namespace AST
         if (node->token == Token::VARIABLE_) {
             assignStatement = new AssignStatement(statement_);
         } else if (node->token == Token::CALL_PROCEDURE_STATEMENT_) {
-            subProgramCall = new SubProgramCall(statement_);
+            subProgramCall = new SubProgramCall(statement_->children[0]);
         } else if (node->token == Token::COMPOUND_STATEMENT_) {
             ParseNode *compound_statement_ = statement_->children[0];
             ParseNode *statement_list_ = compound_statement_->children[1];
             Stack statementStack(statement_list_, 0, 2, 1, 0, Token::STATEMENT_, 1);
-            ParseNode *statement_ = statementStack.Pop();
-            while (statement_ != nullptr) {
-                Statement *curStatement = new Statement(statement_);
+            ParseNode *statement_node_ = statementStack.Pop();
+            while (statement_node_ != nullptr) {
+                Statement *curStatement = new Statement(statement_node_);
                 statementList.emplace_back(curStatement);
-                statement_ = statementStack.Pop();
+                statement_node_ = statementStack.Pop();
             }
         } else if (node->token == Token::IF) {
             ifStatement = new IfStatement(statement_);
@@ -531,10 +537,11 @@ namespace AST
             if (isLeft) {
                 varDeclare->SetUsed();
                 varDeclare->SetAssignment();
-            } else if (varDeclare->IsAssignment() == 0) {
-                // FIXME:报错，使用了一个没有赋值的变量
-                CompilerError::reportError(lineNum, CompilerError::ErrorType::UNASSIGNED_VARIABLE, idName);
             }
+            // } else if (varDeclare->IsAssignment() == 0) {
+            //     // FIXME:报错，使用了一个没有赋值的变量
+            //     CompilerError::reportError(lineNum, CompilerError::ErrorType::UNASSIGNED_VARIABLE, idName);
+            // }
             idType = varDeclare->GetVarDeclareType();
             if (varDeclare->IsArray())
                 idType = Token::ARRAY;
@@ -612,6 +619,7 @@ namespace AST
                                     CompilerError::reportError(lineNum, CompilerError::ErrorType::ARRAY_INDEX_NOT_INTEGER);
                                 }
                                 arrayPart.emplace_back(expression);
+                                expression_ = expressionListStack.Pop();
                             }
                             finalType = varDeclare->GetVarDeclareType(); // 返回的是标准类型
                         }
@@ -648,6 +656,7 @@ namespace AST
                             CompilerError::reportError(lineNum, CompilerError::ErrorType::ARRAY_INDEX_NOT_INTEGER);
                         }
                         arrayPart.emplace_back(expression);
+                        expression_ = expressionListStack.Pop();
                     }
                     finalType = varDeclare->GetVarDeclareType();
                 }
@@ -692,6 +701,7 @@ namespace AST
             // FIXME:报错，只能是普通类型
             CompilerError::reportError(lineNum, CompilerError::ErrorType::VARIABLE_NOT_ALLOWED, idName + " shouldn't be an array or record");
         }
+        idType = varDeclare->GetVarDeclareType();
         varDeclare->SetUsed();
         varDeclare->SetAssignment();
         finalType = idType;
@@ -719,7 +729,7 @@ namespace AST
             return;
         ParseNode *expression_list_ = call_subprogram_statement_->children[2];
         Stack expressionListStack(expression_list_, 0, 2, 1, 0, Token::EXPRESSION_);
-        if (expressionListStack.GetStackLen() != subprogram->GetParameterNums()) {
+        if (expressionListStack.GetStackLen() != GetParameterNums(subprogram->formalParameterList)) {
             // FIXME: expression的数目和参数长度不匹配
             CompilerError::reportError(line, CompilerError::ErrorType::PARAMETER_NUMBER_MISMATCH, name + "parameter number mismatch");
         } else {
@@ -727,12 +737,13 @@ namespace AST
             int i = 0;
             while (expression_ != nullptr) {
                 Expression *expression = new Expression(expression_);
-                if (expression->GetValueToken() != subprogram->formalParameterList[i]->type) {
+                if (expression->GetValueToken() != GetParameterType(subprogram->formalParameterList, i)) {
                     // FIXME:报错，参数类不匹配
                     CompilerError::reportError(line, CompilerError::ErrorType::PARAMETER_TYPE_MISMATCH, name + "parameter type mismatch");
                 }
                 paraList.emplace_back(expression);
                 i++;
+                expression_ = expressionListStack.Pop();
             }
         }
     }
@@ -768,8 +779,8 @@ namespace AST
             }
             ParseNode *statement_list_ = while_statement_->children[1]; // 得到语句列表
             Stack statementStack(statement_list_, 0, 2, 1, 0, Token::STATEMENT_, 1);
-            ParseNode *statement_node_ = statementStack.Pop();
-            while (statement_ != nullptr) {
+            statement_node_ = statementStack.Pop();
+            while (statement_node_ != nullptr) {
                 Statement *curStatement = new Statement(statement_node_);
                 statementList.emplace_back(curStatement);
                 statement_node_ = statementStack.Pop();
@@ -809,7 +820,7 @@ namespace AST
 
     IfStatement::IfStatement(ParseNode *if_statement_)
     {
-        ParseNode *expression_ = if_statement_->children[0];
+        ParseNode *expression_ = if_statement_->children[1];
         ParseNode *statement_ = if_statement_->children[3];
         ParseNode *else_part_ = if_statement_->children[4];
         condition = nullptr;
@@ -967,7 +978,6 @@ namespace AST
             Stack subprogramDeclarationStack(subprogram_declarations_, 0, 1, 0, -1, Token::SUBPROGRAM_DECLARATION_);
             ParseNode *subprogram_declaration_ = subprogramDeclarationStack.Pop();
             ParseNode *subprogram_head = subprogram_declaration_->children[0];
-            int i = 0;
             while (subprogram_declaration_ != nullptr) {
                 string name = subprogram_head->children[1]->val;
                 if (declarationList.find(name) != declarationList.end()) {
@@ -975,13 +985,12 @@ namespace AST
                     // FIXME：报错函数重定义
                     CompilerError::reportError(subprogram_head->children[1]->lineNumber, CompilerError::ErrorType::REDEFINED_VARIABLE, name);
                 }
-                SubProgram *subProgram = new SubProgram(subprogram_declaration_, i);
+                SubProgram *subProgram = new SubProgram(subprogram_declaration_);
                 subProgramList.insert(pair<string, SubProgram *>(name, subProgram));
                 declarationList.insert(pair<string, Token::TokenType>(name, Token::FUNCTION));
                 declarationQueue.emplace_back(name);
+                subProgram->SetSubProgram(subprogram_declaration_);
                 subprogram_declaration_ = subprogramDeclarationStack.Pop();
-                // TODO:设置一个最高的函数嵌套层数
-                i++;
             }
         }
     }
@@ -1086,6 +1095,30 @@ namespace AST
             }
         }
         return 0;
+    }
+    int GetParameterNums(vector<FormalParameter *> formalParameterList)
+    {
+        int num = 0;
+        for (int i = 0; i < formalParameterList.size(); i++) {
+            num += formalParameterList[i]->paraIdList.size();
+        }
+        return num;
+    }
+    /// @brief 返回指定下标的参数列表的类型
+    /// @param formalParameterList 参数列表
+    /// @param index 下标
+    /// @return 参数类型，如果index过大会返回NULL_
+    Token::TokenType GetParameterType(vector<FormalParameter *> formalParameterList, int index)
+    {
+        int num = 0;
+        for (int i = 0; i < formalParameterList.size(); i++) {
+            for (int j = 0; j < formalParameterList[i]->paraIdList.size(); j++) {
+                if (num == index)
+                    return formalParameterList[i]->type;
+                num++;
+            }
+        }
+        return Token::NULL_;
     }
 
 } // namespace AST
