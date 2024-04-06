@@ -289,7 +289,7 @@ namespace AST
         Expression *rightVal;      // 右值
 
         AssignStatement(ParseNode *);
-        AssignStatement(ParseNode *idNode, Expression expression_);
+        AssignStatement(ParseNode *idNode, ParseNode *expression_);
         ~AssignStatement();
     };
 

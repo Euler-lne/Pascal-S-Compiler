@@ -82,8 +82,6 @@ namespace AST
     }
     ProgramBody::~ProgramBody()
     {
-        if (parent != nullptr)
-            delete parent;
         if (declaration != nullptr)
             delete declaration;
         for (int i = 0; i < statementList.size(); i++) {
@@ -859,7 +857,7 @@ namespace AST
             }
         }
     }
-    AssignStatement::AssignStatement(ParseNode *idNode, Expression expression_)
+    AssignStatement::AssignStatement(ParseNode *idNode, ParseNode *expression_)
     {
         leftVal = new VariantReference(idNode);
         rightVal = new Expression(expression_);
