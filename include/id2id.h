@@ -5,7 +5,7 @@
  * 该头文件定义了 NameManager 类,该类用于管理字符串类型的 ID 名称。
  * 当新的 ID 名称进入时,会自动为其分配一个从 0 开始依次递增的整数编号,
  * 并在编号前添加 "Trans" 前缀。
- * 同时支持查询指定 ID 名称对应的编号,以及插入新的 ID 名称。
+ * 同时支持查询指定 ID 名称对应的编号。
  * 整个类的实现都采用了静态成员函数的方式,因此可以直接使用类名调用。
  *
  * @author zsz
@@ -26,8 +26,18 @@ private:
     static int currentIndex;
 
 public:
-    static std::string renameId(const std::string& idName);
-    static void insert(const std::string& idName);
+    /**
+     * @brief 插入一个新的 ID 名称,并返回分配的编号
+     * @param idName 需要插入的 ID 名称
+     * @return 分配给该 ID 名称的编号(字符串形式,前缀为 "Trans")
+     */
+    static std::string insert(const std::string& idName);
+
+    /**
+     * @brief 查询指定 ID 名称对应的编号
+     * @param idName 需要查询的 ID 名称
+     * @return 如果 ID 名称存在,返回对应的编号(字符串形式),否则返回空字符串
+     */
     static std::string get(const std::string& idName);
 };
 

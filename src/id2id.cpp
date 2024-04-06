@@ -1,6 +1,6 @@
 #include "id2id.h"
 
-std::string NameManager::renameId(const std::string& idName) {
+std::string NameManager::insert(const std::string& idName) {
     // 检查 idName 是否已经在 nameMap 中
     auto it = nameMap.find(idName);
     if (it != nameMap.end()) {
@@ -8,16 +8,9 @@ std::string NameManager::renameId(const std::string& idName) {
         return "Trans" + it->second;
     } else {
         // 如果没找到, 添加新的 idName 并返回新的 index
-        std::string newIndex = "Trans" + std::to_string(currentIndex);
+        std::string newIndex = "Trans" + std::to_string(currentIndex++);
         nameMap[idName] = newIndex;
         return newIndex;
-    }
-}
-
-void NameManager::insert(const std::string& idName) {
-    // 如果 idName 不在 nameMap 中, 则添加新的 idName
-    if (nameMap.find(idName) == nameMap.end()) {
-        nameMap[idName] = "Trans" + std::to_string(currentIndex++);
     }
 }
 
