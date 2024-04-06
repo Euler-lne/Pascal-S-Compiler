@@ -73,6 +73,16 @@ namespace C_GEN
         return targetCode.str();
     }
 
+    // subprogrtam
+    void C_Code::ProcProgramBody(AST::ProgramBody *programBody, std::string SubProgramDefine)
+    {
+        ProcDeclaration(programBody->GetDeclaration(), programBody->GetPrefix());
+        targetCode << SubProgramDefine;
+        targetCode << string("{\n");
+        ProcStateMent(programBody->statementList);
+        targetCode << string("}\n");
+    }
+
     void C_Code::ProcStateMent(vector<AST::Statement *> &statementList)
     {
         for (auto it : statementList)
@@ -87,6 +97,11 @@ namespace C_GEN
     {
         ProcConstDeclare(declaration, prefix);
         ProcVarDeclare(declaration->GetVarList(), prefix);
+
+        if (!declaration->subProgramList.empty())
+        {
+            ProcSubProgram(declaration->subProgramList);
+        }
     }
 
     void C_Code::ProcVarDeclare(std::map<string, pair<int, AST::VarDeclare *>> &varList, const std::string &prefix)
@@ -178,56 +193,58 @@ namespace C_GEN
         bool IsFirstPara = true; // 判断是否是第一个参数
         for (auto it : subProgramList)
         {
+
+            std::string SubProgramDefine = "";
             switch (it.second->GetReturnType())
             {
             case Token::TokenType::INTEGER:
             case Token::TokenType::BOLLEAN:
-                targetCode << "int ";
+                SubProgramDefine += "int ";
                 break;
 
             case Token::TokenType::REAL:
-                targetCode << "double ";
+                SubProgramDefine += "double ";
                 break;
 
             case Token::TokenType::CHAR:
-                targetCode << "char ";
+                SubProgramDefine += "char ";
             }
-            targetCode << it.first << "(";
+            SubProgramDefine += (it.first + "(");
             for (auto _it : it.second->GetFormalPataList())
             {
-                if (!IsFirstPara) // 不是第一个参数，需要加逗号
-                {
-                    targetCode << ", ";
-                    IsFirstPara = false;
-                }
 
                 for (auto __it : _it->paraIdList)
                 {
+                    if (!IsFirstPara) // 不是第一个参数，需要加逗号
+                    {
+                        SubProgramDefine += ", ";
+                    }
+                    else
+                    {
+                        IsFirstPara = false;
+                    }
                     switch (_it->type)
                     {
                         {
                         case Token::TokenType::INTEGER:
                         case Token::TokenType::BOLLEAN:
-                            targetCode << "int ";
+                            SubProgramDefine += "int ";
                             break;
 
                         case Token::TokenType::REAL:
-                            targetCode << "double ";
+                            SubProgramDefine += "double ";
                             break;
 
                         case Token::TokenType::CHAR:
-                            targetCode << "char ";
+                            SubProgramDefine += "char ";
                         }
                     }
-                    targetCode << __it.first;
+                    SubProgramDefine += __it.first;
                 }
             }
-            targetCode << ")\n{\n";
+            SubProgramDefine += ")\n";
             IsFirstPara = true;
-
-            // 定义
-
-            targetCode << "}";
+            ProcProgramBody(it.second->programBody, SubProgramDefine);
         }
     }
 };
