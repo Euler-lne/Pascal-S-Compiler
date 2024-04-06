@@ -140,6 +140,11 @@ namespace C_GEN
         auto &declarationList = declaration->GetConstList();
         for (auto it : declaration->GetDeclarationQueue())
         {
+            if (declarationList.end() == declarationList.find(it))
+            {
+                break;
+            }
+
             targetCode << string("const ");
 
             switch (declarationList[it]->GetConstDeclareType())
