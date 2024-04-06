@@ -194,6 +194,7 @@ namespace AST
         SubProgramCall *subProgramCall;
         CaseStatement *caseStatement;
         vector<Statement *> statementList;
+        int IsEmpty(); // 检测这个语句是否有用，无用语句就不加入到statement中
         Statement(ParseNode *);
         ~Statement();
     };
@@ -264,9 +265,9 @@ namespace AST
     {
         // 这里富含了 while repeat for 都写在While里
     public:
-        AssignStatement *initAssign; // 如果为null就不用执行
-        Expression *condition;       // 如果为 for 的话这个是结束的expression
-        vector<Statement *> statementList;
+        AssignStatement *initAssign;       // 如果为null就不用执行
+        Expression *condition;             // 如果为 for 的话这个是结束的expression
+        vector<Statement *> statementList; // 这里的长度可能为0
         Token::TokenType whileType;
         int isDownto; // -1,0,1 ; -1 非for，0 不是downto，1是downto
         WhileStatement(ParseNode *);
@@ -276,8 +277,8 @@ namespace AST
     {
     public:
         Expression *condition;
-        Statement *thenStatement;
-        Statement *elseStatement;
+        Statement *thenStatement; // 这可能为nullptr
+        Statement *elseStatement; // 这可能为nullptr
 
         IfStatement(ParseNode *);
         ~IfStatement();
@@ -289,7 +290,7 @@ namespace AST
         Expression *rightVal;      // 右值
 
         AssignStatement(ParseNode *);
-        AssignStatement(ParseNode *idNode, Expression expression_);
+        AssignStatement(ParseNode *idNode, ParseNode *expression_);
         ~AssignStatement();
     };
 
