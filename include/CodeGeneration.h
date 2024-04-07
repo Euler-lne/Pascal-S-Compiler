@@ -71,12 +71,16 @@ namespace C_GEN
     private:
         std::string ProcProgramHead(AST::ProgramHead *programHead);
         std::string ProcProgramBody(AST::ProgramBody *programBody);
-        std::string ProcProgramBody(AST::ProgramBody *programBody, std::string programBodyId){};
+        void ProcProgramBody(AST::ProgramBody *programBody, std::string programBodyId);
         void ProcDeclaration(AST::Declaration *declaration, std::string prefix);
         void ProcConstDeclare(AST::Declaration *declaration, const std::string &prefix);
         void ProcVarDeclare(std::map<string, pair<int, AST::VarDeclare *>> &varList, const std::string &prefix);
         void ProcArray(vector<pair<int, int>> dimension);
         void ProcSubProgram(map<string, AST::SubProgram *> &subProgramList);
         void ProcStateMent(vector<AST::Statement *> &statementList);
+        void ProcAssignStateMent(AST::AssignStatement *assignStatement);
+        void ProcVariantReference(AST::VariantReference *variantReference);
+        void ProcSubProgramCallStateMent(AST::SubProgramCall *subProgramCall);
+        void ProcExpression(AST::Expression *expression);
     };
 } // namespace C_G

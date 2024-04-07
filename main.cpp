@@ -21,7 +21,8 @@ int main()
     string inName = "../../test/1.pas"; // 默认输入文件名
     FILE *fp = NULL;
     fp = fopen(inName.c_str(), "r");
-    if (fp == NULL) {
+    if (fp == NULL)
+    {
         cout << "Cannot open PASCAL-S file " << inName.c_str() << " , please check it." << endl;
         exit(0);
     }
