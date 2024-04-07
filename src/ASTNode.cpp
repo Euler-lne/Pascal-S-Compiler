@@ -568,14 +568,15 @@ namespace AST
         lineNum = variable_->children[0]->lineNumber;
         string idName = variable_->children[0]->val;
         isFormalParameter = FindDeclarationInSubProgram(idName, idType);
-        ProgramBody *cur = FindDeclaration(idName, lineNum);
-        if (cur == nullptr && isFormalParameter == 0) {
-            // FIXME:报错 使用了没有声明的变量，并返回，不执行下面的语句
-            CompilerError::reportError(lineNum, CompilerError::ErrorType::UNDEFINED_VARIABLE, idName);
-        }
+        ProgramBody *cur = nullptr;
         if (isFormalParameter) {
             id = idName;
         } else {
+            cur = FindDeclaration(idName, lineNum);
+            if (cur == nullptr) {
+                // FIXME:报错 使用了没有声明的变量，并返回，不执行下面的语句
+                CompilerError::reportError(lineNum, CompilerError::ErrorType::UNDEFINED_VARIABLE, idName);
+            }
             // 寻找idName，判断其类型，最开始的id
             map<string, Token::TokenType> list = cur->declaration->declarationList;
 
