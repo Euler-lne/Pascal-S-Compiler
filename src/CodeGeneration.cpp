@@ -156,6 +156,10 @@ namespace C_GEN
         }
         else
         {
+            if (variantReference->isFunction)
+            {
+                targetCode << "return ";
+            }
             switch (variantReference->isFormalParameter)
             {
             case 0:
