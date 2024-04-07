@@ -480,11 +480,7 @@ namespace AST
                         // FIXME:报错处理，这里必须是整数或者实数
                         CompilerError::reportError(expression_->children[1]->lineNumber, CompilerError::ErrorType::OPERAND_TYPE_MISMATCH, "INTEGER or REAL");
                     } else {
-                        if (operand1->type == Token::REAL || operand2->type == Token::REAL) {
-                            type = Token::REAL; // 其中一个是实数就是实数
-                        } else {
-                            type = Token::INTEGER;
-                        }
+                        type = Token::REAL; // 其中一个是实数就是实数
                     }
                 }
             } else {
