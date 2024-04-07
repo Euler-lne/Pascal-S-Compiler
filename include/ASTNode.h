@@ -237,6 +237,7 @@ namespace AST
         // 就是记录[1] 和 b 写入的时候判断类型是否合法
         string GetIDToCodeGenerator() { return prefix + id; }
         Token::TokenType GetFinalType() { return finalType; }
+        auto GetId() { return id; };
         VariantReference(ParseNode *, int);
         VariantReference(ParseNode *idNode);
         ~VariantReference();

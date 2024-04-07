@@ -78,5 +78,9 @@ namespace C_GEN
         void ProcArray(vector<pair<int, int>> dimension);
         void ProcSubProgram(map<string, AST::SubProgram *> &subProgramList);
         void ProcStateMent(vector<AST::Statement *> &statementList);
+        void ProcAssignStateMent(AST::AssignStatement *assignStatement);
+        void ProcVariantReference(AST::VariantReference *variantReference);
+        void ProcSubProgramCallStateMent(AST::SubProgramCall *subProgramCall);
+        void ProcExpression(AST::Expression *expression);
     };
 } // namespace C_G

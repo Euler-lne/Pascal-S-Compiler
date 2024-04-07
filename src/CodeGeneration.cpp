@@ -65,11 +65,9 @@ namespace C_GEN
     std::string C_Code::ProcProgramBody(AST::ProgramBody *programBody)
     {
         ProcDeclaration(programBody->GetDeclaration(), programBody->GetPrefix());
-        targetCode << string("int main()\n{\n");
+        targetCode << string("int main()\n");
 
         ProcStateMent(programBody->statementList);
-
-        targetCode << string("return 0;\n}");
         return targetCode.str();
     }
 
@@ -78,17 +76,97 @@ namespace C_GEN
     {
         ProcDeclaration(programBody->GetDeclaration(), programBody->GetPrefix());
         targetCode << SubProgramDefine;
-        targetCode << string("{\n");
         ProcStateMent(programBody->statementList);
-        targetCode << string("}\n");
     }
 
     void C_Code::ProcStateMent(vector<AST::Statement *> &statementList)
     {
+        targetCode << string("{\n");
         for (auto it : statementList)
         {
             switch (it->statementType)
             {
+            case Token::TokenType::WHILE:
+                break;
+
+            case Token::TokenType::CASE:
+                break;
+
+            case Token::TokenType::IF:
+                break;
+
+            case Token::TokenType::VARIABLE_:
+                ProcAssignStateMent(it->assignStatement);
+                break;
+
+            case Token::TokenType::CALL_PROCEDURE_STATEMENT_:
+                ProcSubProgramCallStateMent(it->subProgramCall);
+                break;
+
+            case Token::TokenType::COMPOUND_STATEMENT_:
+                ProcStateMent(it->statementList);
+                break;
+            }
+        }
+        targetCode << string("}\n");
+    }
+
+    void C_Code::ProcSubProgramCallStateMent(AST::SubProgramCall *subProgramCall)
+    {
+        targetCode << subProgramCall->subProgramId.first << "(";
+        bool IsFirstPara = true; // 判断是否是第一个参数
+        for (auto it : subProgramCall->paraList)
+        {
+            if (!IsFirstPara) // 不是第一个参数，需要加逗号
+            {
+                targetCode << ", ";
+            }
+            else
+            {
+                IsFirstPara = false;
+            }
+        }
+    }
+
+    void C_Code::ProcAssignStateMent(AST::AssignStatement *assignStatement)
+    {
+        ProcVariantReference(assignStatement->leftVal);
+        targetCode << std::string(" = \n");
+    }
+
+    void C_Code::ProcExpression(AST::Expression *expression)
+    {
+    }
+
+    void C_Code::ProcVariantReference(AST::VariantReference *variantReference)
+    {
+        if (variantReference->idType == Token::TokenType::RECORD)
+        {
+            /* code */
+        }
+        else if (variantReference->idType == Token::TokenType::ARRAY)
+        {
+            targetCode << variantReference->GetIDToCodeGenerator();
+            for (auto it : variantReference->arrayPart)
+            {
+                targetCode << "[";
+                ProcExpression(it);
+                targetCode << "]";
+            }
+        }
+        else
+        {
+            switch (variantReference->isFormalParameter)
+            {
+            case 0:
+                targetCode << variantReference->GetIDToCodeGenerator();
+                break;
+            case 1:
+                targetCode << variantReference->GetIDToCodeGenerator();
+                break;
+            case 2:
+                targetCode << "(*" << variantReference->GetIDToCodeGenerator() << ")";
+                break;
             }
         }
     }
@@ -160,20 +238,20 @@ namespace C_GEN
                 break;
             }
 
-            targetCode << string("const ");
+            targetCode << "const ";
 
             switch (declarationList[it]->GetConstDeclareType())
             {
             case Token::TokenType::INTEGER:
-                targetCode << string("int ");
+                targetCode << "int ";
                 break;
 
             case Token::TokenType::REAL:
-                targetCode << string("double ");
+                targetCode << "double ";
                 break;
 
             case Token::TokenType::CHAR:
-                targetCode << string("char ");
+                targetCode << "char ";
                 break;
             }
             targetCode << prefix << it << " = " << declarationList[it]->GetConstVal() << ";\n";
@@ -239,6 +317,9 @@ namespace C_GEN
                             SubProgramDefine += "char ";
                         }
                     }
+
+                    if (_it->flag) // 引用传参
+                        SubProgramDefine += "*";
                     SubProgramDefine += __it.first;
                 }
             }
