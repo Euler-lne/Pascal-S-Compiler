@@ -193,7 +193,7 @@ namespace C_GEN
             {
                 targetCode << ", ";
             }
-            if (subProgramCall->subprogram->formalParameterList[i]->type) // 引用
+            if (subProgramCall->subprogram->IsVarParameterAtIndex(i)) // 引用
             {
                 targetCode << "&(";
                 ProcExpression(subProgramCall->paraList[i]);
