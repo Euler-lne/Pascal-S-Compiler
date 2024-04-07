@@ -387,6 +387,7 @@ namespace AST
         Token::TokenType nodeType = expression_->token;
         valueType = 0;
         isId = 0;
+        isParentheses = 0;
         operand1 = nullptr;
         operand2 = nullptr;
         if (nodeType == Token::EXPRESSION_) {
@@ -525,6 +526,7 @@ namespace AST
                 valueType = 3;
             } else if (factorType == Token::LEFT_PARENTHESES) {
                 operand1 = new Expression(expression_->children[1]);
+                isParentheses = 1;
                 type = operand1->type;
             } else if (factorType == Token::NOT) {
                 operationType = expression_->children[0]->token;
