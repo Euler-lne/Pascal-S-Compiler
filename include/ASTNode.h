@@ -160,6 +160,8 @@ namespace AST
         int IsUsed() { return isUsed; }
         auto &GetFormalPataList() { return formalParameterList; };
         void SetSubProgram(ParseNode *);
+        Token::TokenType GetParameterType(int index);
+        int IsVarParameterAtIndex(int index);
         SubProgram(ParseNode *);
         ~SubProgram();
 
@@ -211,6 +213,7 @@ namespace AST
         string value;                       // 当前表达式的值，如果有的话
         VariantReference *variantReference; // 变量或常量或数组 或者记录
         SubProgramCall *subProgramCall;
+        int isId;
         /// @brief 1.value 2.variantReference 3.subProgramCall，用于判断哪个被赋值了
         int GetValueType() { return valueType; }
         Token::TokenType GetValueToken() { return type; }
@@ -225,13 +228,14 @@ namespace AST
         int valueType;                  // 0.未赋值 1.value 2.vari 3.subProgramCall
     };
     class VariantReference
-    { // ID，不含Function
+    { // ID
     public:
         Token::TokenType idType; // 这个id对应的类型，借助这个变量判断如何展开变量
         // INTEGER BOOLEAN REAL CHAR ARRAY RECORD
         vector<string> recordPart;      // 第一个为record的id
         int isArrayAtRecordEnd;         // record的最后一位是否为数组
         int isFormalParameter;          // 0代表不是函数参数；1代表值传递；2代表引用传递
+        int isFunction;                 // 为1代表是Function，这里的function只能是代表函数返回
         vector<Expression *> arrayPart; // 数组下标的表达式，其长度和数组的长度相同
         // 如果为数组或者记录 记录接下来的内容（a[1]; a.b）
         // 就是记录[1] 和 b 写入的时候判断类型是否合法
@@ -255,7 +259,9 @@ namespace AST
     public:
         pair<string, int> subProgramId; // 函数标识符和行号
         vector<Expression *> paraList;
-        Token::TokenType GetReturnType() { return returnType; }
+        SubProgram *subprogram; // 指向当前的函数的定义，也就是本身
+        Token::TokenType
+        GetReturnType() { return returnType; }
         SubProgramCall(ParseNode *);
         ~SubProgramCall();
 
