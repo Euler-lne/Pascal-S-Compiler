@@ -77,10 +77,12 @@ namespace C_GEN
         void ProcVarDeclare(std::map<string, pair<int, AST::VarDeclare *>> &varList, const std::string &prefix);
         void ProcArray(vector<pair<int, int>> dimension);
         void ProcSubProgram(map<string, AST::SubProgram *> &subProgramList);
-        void ProcStateMent(vector<AST::Statement *> &statementList);
+        void ProcStateMent(vector<AST::Statement *> &statementList, std::string extra);
         void ProcAssignStateMent(AST::AssignStatement *assignStatement);
         void ProcVariantReference(AST::VariantReference *variantReference);
         void ProcSubProgramCallStateMent(AST::SubProgramCall *subProgramCall);
         void ProcExpression(AST::Expression *expression);
+        void ProcIfStateMent(AST::IfStatement *ifStatement);
+        void ProcWhileStateMent(AST::WhileStatement *whileStatement);
     };
 } // namespace C_G
