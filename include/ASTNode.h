@@ -242,6 +242,7 @@ namespace AST
         int isFormalParameter;          // 0代表不是函数参数；1代表值传递；2代表引用传递
         int isFunction;                 // 为1代表是Function，这里的function只能是代表函数返回
         vector<Expression *> arrayPart; // 数组下标的表达式，其长度和数组的长度相同
+        VarDeclare *varDeclare;
         // 如果为数组或者记录 记录接下来的内容（a[1]; a.b）
         // 就是记录[1] 和 b 写入的时候判断类型是否合法
         string GetIDToCodeGenerator() { return prefix + id; }

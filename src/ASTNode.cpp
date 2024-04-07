@@ -565,6 +565,7 @@ namespace AST
         isArrayAtRecordEnd = 0;
         prefix = "";
         lineNum = variable_->children[0]->lineNumber;
+        varDeclare = nullptr;
         string idName = variable_->children[0]->val;
         isFormalParameter = FindDeclarationInSubProgram(idName, idType);
         ProgramBody *cur = nullptr;
@@ -584,7 +585,7 @@ namespace AST
             prefix = cur->prefix;
             switch (idType) {
             case Token::VAR: {
-                VarDeclare *varDeclare = cur->declaration->varList.find(idName)->second.second;
+                varDeclare = cur->declaration->varList.find(idName)->second.second;
                 if (isLeft) {
                     varDeclare->SetUsed();
                     varDeclare->SetAssignment();
@@ -644,7 +645,6 @@ namespace AST
             }
         }
         if (finalType == Token::RECORD) {
-            VarDeclare *varDeclare = cur->declaration->varList.find(idName)->second.second;
             while (id_varpart_ != nullptr) {
                 if (finalType == Token::RECORD) {
                     if (id_varpart_->children[0]->token != Token::DOT) {
@@ -697,7 +697,6 @@ namespace AST
                 id_varpart_ = idVarpartsStack.Pop();
             }
         } else if (finalType == Token::ARRAY) {
-            VarDeclare *varDeclare = cur->declaration->varList.find(idName)->second.second;
             if (id_varpart_->children[0]->token != Token::LEFT_MEDIUM_PARENTHESES) {
                 // FIXME:报错，已经是数组类型了不可能是其他
                 CompilerError::reportError(lineNum, CompilerError::ErrorType::ARRAY_INDEX_MISMATCH, "missing LEFT_MEDIUM_PARENTHESES ");
