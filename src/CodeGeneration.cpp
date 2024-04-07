@@ -131,11 +131,56 @@ namespace C_GEN
     void C_Code::ProcAssignStateMent(AST::AssignStatement *assignStatement)
     {
         ProcVariantReference(assignStatement->leftVal);
-        targetCode << std::string(" = \n");
+        targetCode << " = ";
+        ProcExpression(assignStatement->rightVal);
+        targetCode << ";\n";
     }
 
     void C_Code::ProcExpression(AST::Expression *expression)
     {
+        // 退出条件
+        if (expression->operand1 == nullptr && expression->operand2 == nullptr)
+        {
+            switch (expression->GetValueType())
+            {
+            case 0:
+                return;
+            case 1:
+                targetCode << expression->value;
+                break;
+
+            case 2:
+                ProcVariantReference(expression->variantReference);
+                break;
+
+            case 3:
+                ProcSubProgramCallStateMent(expression->subProgramCall);
+                break;
+            }
+            return;
+        }
+
+        if (expression->operand1 && expression->operand2 == nullptr)
+        {
+            ProcExpression(expression->operand1);
+            return;
+        }
+
+        if (expression->operand1 == nullptr && expression->operand2)
+        {
+            targetCode << " " << expression->opration;
+            ProcExpression(expression->operand2);
+            return;
+        }
+
+        ProcExpression(expression->operand1);
+        targetCode << " ";
+        if (expression->opration == "/")
+            targetCode << "*1.0 /";
+        else
+            targetCode << expression->opration;
+        targetCode << " ";
+        ProcExpression(expression->operand2);
     }
 
     void C_Code::ProcVariantReference(AST::VariantReference *variantReference)
