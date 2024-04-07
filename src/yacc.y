@@ -180,6 +180,13 @@ PROGRAM_HEAD_: 	PROGRAM ID LEFT_PARENTHESES IDENTIFIER_LIST_ RIGHT_PARENTHESES S
 					$$->children.push_back($1); $$->children.push_back($2);
 					$$->children.push_back($3); $$->children.push_back($4); 
 					$$->children.push_back($5);	$$->children.push_back($6);
+				}|PROGRAM ID SEMICOLON{ //正常
+	
+					printf("PROGRAM_HEAD_: 	PROGRAM ID \n");
+					$$=new ParseNode;
+					$$->token =Token::PROGRAM_HEAD_;
+					$$->children.push_back($1); $$->children.push_back($2);
+					$$->children.push_back($3);
 				}|PROGRAM ID LEFT_PARENTHESES IDENTIFIER_LIST_ RIGHT_PARENTHESES error{ //ERROR 缺少; checked
 					$$=new ParseNode;
 					$$->token =Token::PROGRAM_HEAD_;
@@ -530,19 +537,28 @@ SUBPROGRAM_DECLARATION_: SUBPROGRAM_HEAD_ PROGTAM_BODY_{ //正常
 				$$->children.push_back($1);$$->children.push_back($2);
 			};
 
-SUBPROGRAM_HEAD_: 	PROCEDURE ID FORMAL_PARAMETER_ SEMICOLON{ //正常
-                        
-						printf("SUBPROGRAM_HEAD_: 	PROCEDURE ID FORMAL_PARAMETER_ SEMICOLON\n");
-						$$=new ParseNode;
-						$$->token=Token::SUBPROGRAM_HEAD_;
-						$$->children.push_back($1);$$->children.push_back($2);$$->children.push_back($3);
-					}|FUNCTION ID FORMAL_PARAMETER_ COLON STANDRAD_TYPE_ SEMICOLON{ //正常
+SUBPROGRAM_HEAD_: 	FUNCTION ID FORMAL_PARAMETER_ COLON STANDRAD_TYPE_ SEMICOLON{ //正常
 					    
 						printf("SUBPROGRAM_HEAD_: 	FUNCTION ID FORMAL_PARAMETER_ COLON STANDRAD_TYPE_ SEMICOLON\n");
 						$$=new ParseNode;
 						$$->token=Token::SUBPROGRAM_HEAD_;
 						$$->children.push_back($1);$$->children.push_back($2);
-						$$->children.push_back($3);$$->children.push_back($4);$$->children.push_back($5);$$->children.push_back($6);
+						$$->children.push_back($3);$$->children.push_back($4);
+						$$->children.push_back($5);$$->children.push_back($6);
+					}| PROCEDURE ID FORMAL_PARAMETER_ SEMICOLON{ //正常
+                        
+						printf("SUBPROGRAM_HEAD_: 	PROCEDURE ID FORMAL_PARAMETER_ SEMICOLON\n");
+						$$=new ParseNode;
+						$$->token=Token::SUBPROGRAM_HEAD_;
+						$$->children.push_back($1);$$->children.push_back($2);
+						$$->children.push_back($3);$$->children.push_back($4);
+					}| PROCEDURE ID SEMICOLON{ //正常
+                        
+						printf("SUBPROGRAM_HEAD_: 	PROCEDURE ID SEMICOLON\n");
+						$$=new ParseNode;
+						$$->token=Token::SUBPROGRAM_HEAD_;
+						$$->children.push_back($1);$$->children.push_back($2);
+						$$->children.push_back($3);
 					}|FUNCTION error FORMAL_PARAMETER_ COLON TYPE_{ //ERROR 函数名缺失 checked
 						$$=new ParseNode;
 						$$->token=Token::SUBPROGRAM_HEAD_;
