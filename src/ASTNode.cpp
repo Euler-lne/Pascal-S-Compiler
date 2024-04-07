@@ -564,6 +564,7 @@ namespace AST
         isLeft = _isLeft;
         isFunction = 0;
         isArrayAtRecordEnd = 0;
+        prefix = "";
         lineNum = variable_->children[0]->lineNumber;
         string idName = variable_->children[0]->val;
         isFormalParameter = FindDeclarationInSubProgram(idName, idType);
