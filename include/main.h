@@ -19,6 +19,15 @@ public:
     ParseNode() {}
     ParseNode(string _val, Token::TokenType _name, int _lineNum) : val(_val), token(_name), lineNumber(_lineNum) {}
     ParseNode(Token::TokenType _name, vector<ParseNode *> _child) : token(_name), children(_child) {}
+    ~ParseNode()
+    {
+        for (int i = 0; i < children.size(); i++) {
+            if (children[i] != nullptr) {
+                delete children[i];
+                children[i] = nullptr;
+            }
+        }
+    }
 };
 
 #define YYSTYPE ParseNode *
