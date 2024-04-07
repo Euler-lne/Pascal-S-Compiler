@@ -25,7 +25,6 @@ namespace AST
     ProgramBody *FindDeclaration(string idName, int lineNum);
     int FindDeclarationInSubProgram(string idName, Token::TokenType &_type);
     int GetParameterNums(vector<FormalParameter *> formalParameterList);
-    Token::TokenType GetParameterType(vector<FormalParameter *> formalParameterList, int index);
 
     // program->program_head program_body .
     Program::Program(ParseNode *program_)
@@ -236,6 +235,39 @@ namespace AST
         curSubProgram = this;
         programBody = new ProgramBody(subProgramId, program_body_);
     }
+    /// @brief 返回指定下标的参数列表的类型
+    /// @param index 下标
+    /// @return 参数类型，如果index过大会返回NULL_
+    Token::TokenType SubProgram::GetParameterType(int index)
+    {
+        int num = 0;
+        for (int i = 0; i < formalParameterList.size(); i++) {
+            for (int j = 0; j < formalParameterList[i]->paraIdList.size(); j++) {
+                if (num == index)
+                    return formalParameterList[i]->type;
+                num++;
+            }
+        }
+        return Token::NULL_;
+    }
+    /**
+     * @brief 返回指定位置是否是引用传参，是1 否0
+     *
+     * @param index
+     * @return int 是1 否0
+     */
+    int SubProgram::IsVarParameterAtIndex(int index)
+    {
+        for (int i = 0; i < formalParameterList.size(); i++) {
+            for (int j = 0; j < formalParameterList[i]->paraIdList.size(); j++) {
+                if (formalParameterList[i]->flag == 1) // 引用传递
+                    return 1;
+                else
+                    return 0;
+            }
+        }
+        return 0;
+    }
     SubProgram::~SubProgram()
     {
         if (programBody != nullptr)
@@ -354,6 +386,7 @@ namespace AST
     {
         Token::TokenType nodeType = expression_->token;
         valueType = 0;
+        isId = 0;
         operand1 = nullptr;
         operand2 = nullptr;
         if (nodeType == Token::EXPRESSION_) {
@@ -374,6 +407,7 @@ namespace AST
                 operand1 = new Expression(expression_->children[0]);
                 operand2 = nullptr;
                 type = operand1->type;
+                isId = operand1->isId;
             }
         } else if (nodeType == Token::SIMPLE_EXPRESSION_) {
             if (expression_->children.size() == 2) {
@@ -391,6 +425,7 @@ namespace AST
                 operand1 = new Expression(expression_->children[0]);
                 operand2 = nullptr;
                 type = operand1->type;
+                isId = operand1->isId;
             } else {
                 // “十”、“一”和“or”
                 operand1 = new Expression(expression_->children[0]);
@@ -456,6 +491,7 @@ namespace AST
                 operand1 = new Expression(expression_->children[0]);
                 operand2 = nullptr;
                 type = operand1->type;
+                isId = operand1->isId;
             }
         } else if (nodeType == Token::FACTOR_) {
             operand1 = nullptr;
@@ -480,6 +516,7 @@ namespace AST
                 valueType = 1;
             } else if (factorType == Token::VARIABLE_) {
                 variantReference = new VariantReference(expression_->children[0], 0);
+                isId = 1;
                 type = variantReference->GetFinalType();
                 valueType = 2;
             } else if (factorType == Token::ID) {
@@ -525,17 +562,20 @@ namespace AST
     VariantReference::VariantReference(ParseNode *variable_, int _isLeft)
     {
         isLeft = _isLeft;
+        isFunction = 0;
         isArrayAtRecordEnd = 0;
         lineNum = variable_->children[0]->lineNumber;
         string idName = variable_->children[0]->val;
         isFormalParameter = FindDeclarationInSubProgram(idName, idType);
         if (isFormalParameter) {
+            id = idName;
             finalType = idType;
             return;
         }
         ProgramBody *cur = FindDeclaration(idName, lineNum);
         if (cur == nullptr) {
-            return;
+            // FIXME:报错 使用了没有声明的变量，并返回，不执行下面的语句
+            CompilerError::reportError(lineNum, CompilerError::ErrorType::UNDEFINED_VARIABLE, idName);
         }
 
         // 寻找idName，判断其类型，最开始的id
@@ -571,6 +611,18 @@ namespace AST
                 idType = constDeclare->GetConstDeclareType();
             }
             break;
+        case Token::FUNCTION:
+            if (isLeft) {
+                if (cur == curProgramBody) {
+                    isFunction = 1;
+                    idType = cur->declaration->subProgramList.find(idName)->second->GetReturnType();
+                } else {
+                    // FIXME:报错之后当前作用域下的Function才可以作为一个左赋值语句
+                }
+            } else {
+                // FIXME:函数只能为左值
+            }
+            break;
         default:
             // TODO:这里是不可能得到的情况，是否处理
             // 原因只要id在主表里面就一定在三个分表中的任意一个中，如果是函数名字不处理
@@ -578,10 +630,7 @@ namespace AST
         }
 
         finalType = idType;
-        if (cur == nullptr) {
-            // FIXME:报错 使用了没有声明的变量，并返回，不执行下面的语句
-            CompilerError::reportError(lineNum, CompilerError::ErrorType::UNDEFINED_VARIABLE, idName);
-        }
+
         ParseNode *id_varparts_ = variable_->children[1];
         Stack idVarpartsStack(id_varparts_, 0, 1, 0, -1, Token::ID_VARPART_);
         ParseNode *id_varpart_ = idVarpartsStack.Pop();
@@ -592,7 +641,7 @@ namespace AST
             }
         } else {
             if (id_varpart_ != nullptr) {
-                // FIXME:报错，只有记录和函数才可能有id_varpart
+                // FIXME:报错，只有记录和数组才可能有id_varpart
                 CompilerError::reportError(lineNum, CompilerError::ErrorType::RECORD_FIELD_NOT_FOUND, idName);
             }
         }
@@ -693,6 +742,7 @@ namespace AST
         string idName = idNode->val;
         isFormalParameter = FindDeclarationInSubProgram(idName, idType);
         if (isFormalParameter) {
+            id = idName;
             finalType = idType;
             return;
         }
@@ -722,6 +772,7 @@ namespace AST
 
     SubProgramCall::SubProgramCall(ParseNode *call_subprogram_statement_)
     {
+        subprogram = nullptr;
         string name = call_subprogram_statement_->children[0]->val;
         int line = call_subprogram_statement_->children[0]->lineNumber;
         subProgramId = pair<string, int>(name, line);
@@ -735,7 +786,7 @@ namespace AST
             // FIXME:报错找到了这个变量但是不是函数名
             CompilerError::reportError(line, CompilerError::ErrorType::FUNCTION_NOT_FOUND, name + "should be a function name");
         }
-        SubProgram *subprogram = subList.find(name)->second;
+        subprogram = subList.find(name)->second;
         returnType = subprogram->GetReturnType();
         subprogram->SetUsed();
         if (call_subprogram_statement_->children.size() == 1)
@@ -750,9 +801,13 @@ namespace AST
             int i = 0;
             while (expression_ != nullptr) {
                 Expression *expression = new Expression(expression_);
-                if (expression->GetValueToken() != GetParameterType(subprogram->formalParameterList, i)) {
+                if (expression->GetValueToken() != subprogram->GetParameterType(i)) {
                     // FIXME:报错，参数类不匹配
                     CompilerError::reportError(line, CompilerError::ErrorType::PARAMETER_TYPE_MISMATCH, name + "parameter type mismatch");
+                }
+                if (subprogram->IsVarParameterAtIndex(i) && expression->isId == 0) {
+                    // 是引用传参且表达式的值不是单独的ID，那么就要报错
+                    // FIXME:报错，引用传参的函数调用必须是一个id类型，不能是表达式
                 }
                 paraList.emplace_back(expression);
                 i++;
@@ -1136,22 +1191,6 @@ namespace AST
             num += formalParameterList[i]->paraIdList.size();
         }
         return num;
-    }
-    /// @brief 返回指定下标的参数列表的类型
-    /// @param formalParameterList 参数列表
-    /// @param index 下标
-    /// @return 参数类型，如果index过大会返回NULL_
-    Token::TokenType GetParameterType(vector<FormalParameter *> formalParameterList, int index)
-    {
-        int num = 0;
-        for (int i = 0; i < formalParameterList.size(); i++) {
-            for (int j = 0; j < formalParameterList[i]->paraIdList.size(); j++) {
-                if (num == index)
-                    return formalParameterList[i]->type;
-                num++;
-            }
-        }
-        return Token::NULL_;
     }
 
 } // namespace AST
