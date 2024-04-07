@@ -98,6 +98,7 @@ namespace C_GEN
 
             case Token::TokenType::VARIABLE_:
                 ProcAssignStateMent(it->assignStatement);
+                targetCode << ";\n";
                 break;
 
             case Token::TokenType::CALL_PROCEDURE_STATEMENT_:
@@ -118,7 +119,32 @@ namespace C_GEN
         switch (whileStatement->whileType)
         {
         case Token::TokenType::FOR:
+            targetCode << "for(";
+            ProcAssignStateMent(whileStatement->initAssign);
+            targetCode << "; ";
 
+            ProcVariantReference(whileStatement->initAssign->leftVal);
+            if (whileStatement->isDownto == 0)
+            {
+                targetCode << " <= ";
+            }
+            else if (whileStatement->isDownto == 1)
+            {
+                targetCode << " >= ";
+            }
+            ProcExpression(whileStatement->condition);
+            targetCode << "; ";
+
+            ProcVariantReference(whileStatement->initAssign->leftVal);
+            if (whileStatement->isDownto == 0)
+            {
+                targetCode << "++)\n";
+            }
+            else if (whileStatement->isDownto == 1)
+            {
+                targetCode << "--)\n";
+            }
+            ProcStateMent(whileStatement->statementList, "");
             break;
 
         case Token::TokenType::WHILE:
@@ -161,17 +187,20 @@ namespace C_GEN
     void C_Code::ProcSubProgramCallStateMent(AST::SubProgramCall *subProgramCall)
     {
         targetCode << subProgramCall->subProgramId.first << "(";
-        bool IsFirstPara = true; // 判断是否是第一个参数
-        for (auto it : subProgramCall->paraList)
+        for (int i = 0; i < subProgramCall->paraList.size(); i++)
         {
-            if (!IsFirstPara) // 不是第一个参数，需要加逗号
+            if (i > 0) // 不是第一个参数，需要加逗号
             {
                 targetCode << ", ";
             }
-            else
+            if (subProgramCall->subprogram->formalParameterList[i]->type) // 引用
             {
-                IsFirstPara = false;
+                targetCode << "&(";
+                ProcExpression(subProgramCall->paraList[i]);
+                targetCode << ")";
             }
+            else
+                ProcExpression(subProgramCall->paraList[i]);
         }
         targetCode << ");\n";
     }
@@ -181,7 +210,6 @@ namespace C_GEN
         ProcVariantReference(assignStatement->leftVal);
         targetCode << " = ";
         ProcExpression(assignStatement->rightVal);
-        targetCode << ";\n";
     }
 
     void C_Code::ProcExpression(AST::Expression *expression)
@@ -253,6 +281,7 @@ namespace C_GEN
             {
                 targetCode << "[";
                 ProcExpression(it);
+                // 这里要减一个起始下标
                 targetCode << "]";
             }
         }
