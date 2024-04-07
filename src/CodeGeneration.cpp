@@ -66,7 +66,6 @@ namespace C_GEN
     {
         ProcDeclaration(programBody->GetDeclaration(), programBody->GetPrefix());
         targetCode << string("int main()\n");
-
         ProcStateMent(programBody->statementList);
         return targetCode.str();
     }
@@ -126,6 +125,7 @@ namespace C_GEN
                 IsFirstPara = false;
             }
         }
+        targetCode << ");\n";
     }
 
     void C_Code::ProcAssignStateMent(AST::AssignStatement *assignStatement)
