@@ -1,16 +1,16 @@
-program TestProcAndFunc;
+program testprocandfunc;
 
 var
   a, b: integer;
 
 
-procedure testPro1;
+procedure testpro1;
 begin
   writeln(2023);
 end;
 
 
-procedure testPro2(n: integer);
+procedure testpro2(n: integer);
 begin
   writeln(n + 1);
 end;
@@ -26,11 +26,11 @@ begin
 end;
 
 
-function testFunc: integer;
+function testfunc: integer;
 begin
-  writeln('before testFunc := 54');
+
   testFunc := 54;
-  writeln('after testFunc := 54');
+ 
 end;
 
 
@@ -41,15 +41,14 @@ begin
 end;
 
 begin
-  writeln('procedure-test');
-  testPro1;
-  testPro2(2022);
+ 
+  testpro1;
+  testpro2(2022);
   
-  writeln();
-  writeln('function-test');  
-  a := testFunc;
+ 
+  a := testfunc;
   b := 24;
-  writeln(gcd(a, b) + 1);
+
   swap(a, b);
-  writeln(a, ' ', b);
+
 end.

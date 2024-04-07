@@ -568,68 +568,66 @@ namespace AST
         lineNum = variable_->children[0]->lineNumber;
         string idName = variable_->children[0]->val;
         isFormalParameter = FindDeclarationInSubProgram(idName, idType);
+        ProgramBody *cur = nullptr;
         if (isFormalParameter) {
             id = idName;
-            finalType = idType;
-            return;
-        }
-        ProgramBody *cur = FindDeclaration(idName, lineNum);
-        if (cur == nullptr) {
-            // FIXME:报错 使用了没有声明的变量，并返回，不执行下面的语句
-            CompilerError::reportError(lineNum, CompilerError::ErrorType::UNDEFINED_VARIABLE, idName);
-        }
-
-        // 寻找idName，判断其类型，最开始的id
-        map<string, Token::TokenType> list = cur->declaration->declarationList;
-
-        idType = list.find(idName)->second;
-        id = idName;
-        prefix = cur->prefix;
-        switch (idType) {
-        case Token::VAR: {
-            VarDeclare *varDeclare = cur->declaration->varList.find(idName)->second.second;
-            if (isLeft) {
-                varDeclare->SetUsed();
-                varDeclare->SetAssignment();
+        } else {
+            cur = FindDeclaration(idName, lineNum);
+            if (cur == nullptr) {
+                // FIXME:报错 使用了没有声明的变量，并返回，不执行下面的语句
+                CompilerError::reportError(lineNum, CompilerError::ErrorType::UNDEFINED_VARIABLE, idName);
             }
-            // } else if (varDeclare->IsAssignment() == 0) {
-            //     // FIXME:报错，使用了一个没有赋值的变量
-            //     CompilerError::reportError(lineNum, CompilerError::ErrorType::UNASSIGNED_VARIABLE, idName);
-            // }
-            idType = varDeclare->GetVarDeclareType();
-            if (varDeclare->IsArray())
-                idType = Token::ARRAY;
-            break;
-        }
-        case Token::CONST:
-            if (isLeft) {
-                // FIXME:报错，左值不可以是常量，常量不可以修改
-                CompilerError::reportError(lineNum, CompilerError::ErrorType::CONST_CANNOT_BE_ASSIGNED, idName);
-                //
-            } else {
-                ConstDeclare *constDeclare = cur->declaration->constList.find(idName)->second;
-                constDeclare->SetUsed();
-                idType = constDeclare->GetConstDeclareType();
-            }
-            break;
-        case Token::FUNCTION:
-            if (isLeft) {
-                if (cur == curProgramBody) {
-                    isFunction = 1;
-                    idType = cur->declaration->subProgramList.find(idName)->second->GetReturnType();
-                } else {
-                    // FIXME:报错之后当前作用域下的Function才可以作为一个左赋值语句
+            // 寻找idName，判断其类型，最开始的id
+            map<string, Token::TokenType> list = cur->declaration->declarationList;
+
+            idType = list.find(idName)->second;
+            id = idName;
+            prefix = cur->prefix;
+            switch (idType) {
+            case Token::VAR: {
+                VarDeclare *varDeclare = cur->declaration->varList.find(idName)->second.second;
+                if (isLeft) {
+                    varDeclare->SetUsed();
+                    varDeclare->SetAssignment();
                 }
-            } else {
-                // FIXME:函数只能为左值
+                // } else if (varDeclare->IsAssignment() == 0) {
+                //     // FIXME:报错，使用了一个没有赋值的变量
+                //     CompilerError::reportError(lineNum, CompilerError::ErrorType::UNASSIGNED_VARIABLE, idName);
+                // }
+                idType = varDeclare->GetVarDeclareType();
+                if (varDeclare->IsArray())
+                    idType = Token::ARRAY;
+                break;
             }
-            break;
-        default:
-            // TODO:这里是不可能得到的情况，是否处理
-            // 原因只要id在主表里面就一定在三个分表中的任意一个中，如果是函数名字不处理
-            break;
+            case Token::CONST:
+                if (isLeft) {
+                    // FIXME:报错，左值不可以是常量，常量不可以修改
+                    CompilerError::reportError(lineNum, CompilerError::ErrorType::CONST_CANNOT_BE_ASSIGNED, idName);
+                    //
+                } else {
+                    ConstDeclare *constDeclare = cur->declaration->constList.find(idName)->second;
+                    constDeclare->SetUsed();
+                    idType = constDeclare->GetConstDeclareType();
+                }
+                break;
+            case Token::FUNCTION:
+                if (isLeft) {
+                    if (cur == curProgramBody) {
+                        isFunction = 1;
+                        idType = cur->declaration->subProgramList.find(idName)->second->GetReturnType();
+                    } else {
+                        // FIXME:报错之后当前作用域下的Function才可以作为一个左赋值语句
+                    }
+                } else {
+                    // FIXME:函数只能为左值
+                }
+                break;
+            default:
+                // TODO:这里是不可能得到的情况，是否处理
+                // 原因只要id在主表里面就一定在三个分表中的任意一个中，如果是函数名字不处理
+                break;
+            }
         }
-
         finalType = idType;
 
         ParseNode *id_varparts_ = variable_->children[1];
@@ -740,6 +738,7 @@ namespace AST
         isLeft = 1;
         isArrayAtRecordEnd = 0;
         lineNum = idNode->lineNumber;
+        prefix = "";
         string idName = idNode->val;
         isFormalParameter = FindDeclarationInSubProgram(idName, idType);
         if (isFormalParameter) {
