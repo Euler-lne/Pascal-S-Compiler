@@ -18,6 +18,8 @@ namespace AST
 {
     ProgramBody *curProgramBody = nullptr;
     SubProgram *curSubProgram = nullptr;
+    SubProgram *preSubProgram = nullptr;
+
     void ReadVarDeclarations(ParseNode *var_declarations_, map<string, pair<int, VarDeclare *>> &varList, map<string, Token::TokenType> &declarationList, vector<string> &declarationQueue);
     void ReadConstDeclarations(ParseNode *const_declarations_, map<string, ConstDeclare *> &constList, map<string, Token::TokenType> &declarationList, vector<string> &declarationQueue);
     void ReadSubProgramDeclarations(ParseNode *subprogram_declarations_, map<string, SubProgram *> &subProgramList, map<string, Token::TokenType> &declarationList, vector<string> &declarationQueue);

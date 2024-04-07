@@ -1,6 +1,21 @@
-program quicksort(input,output);
+program nestedfunctions;
 var
-    n,i:integer;
+    inputNumber, result: integer;
+    function outerfunction(x: integer): integer;
+    var
+        y: integer;
+
+        function innerfunction(z: integer): integer;
+        begin
+            innerfunction := z * 2;
+        end;
+
+    begin
+        y := innerfunction(x);
+        outerfunction := y + 1;
+    end;
+
 begin
-    i:=n;
+
+    result := outerfunction(inputNumber);
 end.
