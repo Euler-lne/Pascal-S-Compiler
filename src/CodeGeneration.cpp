@@ -66,7 +66,7 @@ namespace C_GEN
     {
         ProcDeclaration(programBody->GetDeclaration(), programBody->GetPrefix());
         targetCode << string("int main()\n");
-        ProcStateMent(programBody->statementList);
+        ProcStateMent(programBody->statementList, "");
         return targetCode.str();
     }
 
@@ -75,10 +75,10 @@ namespace C_GEN
     {
         ProcDeclaration(programBody->GetDeclaration(), programBody->GetPrefix());
         targetCode << SubProgramDefine;
-        ProcStateMent(programBody->statementList);
+        ProcStateMent(programBody->statementList, "");
     }
 
-    void C_Code::ProcStateMent(vector<AST::Statement *> &statementList)
+    void C_Code::ProcStateMent(vector<AST::Statement *> &statementList, std::string extra)
     {
         targetCode << string("{\n");
         for (auto it : statementList)
@@ -86,12 +86,14 @@ namespace C_GEN
             switch (it->statementType)
             {
             case Token::TokenType::WHILE:
+                ProcWhileStateMent(it->whileStatement);
                 break;
 
             case Token::TokenType::CASE:
                 break;
 
             case Token::TokenType::IF:
+                ProcIfStateMent(it->ifStatement);
                 break;
 
             case Token::TokenType::VARIABLE_:
@@ -103,11 +105,57 @@ namespace C_GEN
                 break;
 
             case Token::TokenType::COMPOUND_STATEMENT_:
-                ProcStateMent(it->statementList);
+                ProcStateMent(it->statementList, "");
                 break;
             }
         }
-        targetCode << string("}\n");
+        targetCode << extra;
+        targetCode << "}\n";
+    }
+
+    void C_Code::ProcWhileStateMent(AST::WhileStatement *whileStatement)
+    {
+        switch (whileStatement->whileType)
+        {
+        case Token::TokenType::FOR:
+
+            break;
+
+        case Token::TokenType::WHILE:
+            targetCode << "while(";
+            ProcExpression(whileStatement->condition);
+            targetCode << ")\n";
+            ProcStateMent(whileStatement->statementList, "");
+            break;
+
+        case Token::TokenType::REPEAT:
+            targetCode << "do\n";
+            ProcStateMent(whileStatement->statementList, "");
+            targetCode << "while(!(";
+            ProcExpression(whileStatement->condition);
+            targetCode << "));\n";
+            break;
+        }
+    }
+
+    void C_Code::ProcIfStateMent(AST::IfStatement *ifStatement)
+    {
+        targetCode << "if (";
+        ProcExpression(ifStatement->condition);
+        targetCode << ")\n";
+        if (!ifStatement->thenStatement)
+        {
+            targetCode << ";\n";
+            return;
+        }
+        vector<AST::Statement *> temp = {ifStatement->thenStatement};
+        ProcStateMent(temp, "");
+
+        if (!ifStatement->elseStatement)
+            return;
+        targetCode << "else\n";
+        temp = {ifStatement->elseStatement};
+        ProcStateMent(temp, "");
     }
 
     void C_Code::ProcSubProgramCallStateMent(AST::SubProgramCall *subProgramCall)
@@ -162,7 +210,14 @@ namespace C_GEN
 
         if (expression->operand1 && expression->operand2 == nullptr)
         {
-            ProcExpression(expression->operand1);
+            if (expression->isParentheses)
+            {
+                targetCode << "(";
+                ProcExpression(expression->operand1);
+                targetCode << ")";
+            }
+            else
+                ProcExpression(expression->operand1);
             return;
         }
 
@@ -176,7 +231,9 @@ namespace C_GEN
         ProcExpression(expression->operand1);
         targetCode << " ";
         if (expression->opration == "/")
-            targetCode << "*1.0 /";
+            targetCode << "* 1.0 /";
+        else if (expression->opration == "div")
+            targetCode << "/";
         else
             targetCode << expression->opration;
         targetCode << " ";
@@ -324,11 +381,15 @@ namespace C_GEN
             std::string SubProgramDefine = "";
             switch (it.second->GetReturnType())
             {
+            case Token::TokenType::NULL_:
+                SubProgramDefine += "void ";
+                break;
             case Token::TokenType::INTEGER:
-            case Token::TokenType::BOLLEAN:
                 SubProgramDefine += "int ";
                 break;
-
+            case Token::TokenType::BOLLEAN:
+                SubProgramDefine += "bool ";
+                break;
             case Token::TokenType::REAL:
                 SubProgramDefine += "double ";
                 break;
