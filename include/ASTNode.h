@@ -214,8 +214,13 @@ namespace AST
         VariantReference *variantReference; // 变量或常量或数组 或者记录
         SubProgramCall *subProgramCall;
         int isId;
+        int isParentheses; // PARENTHESES 是否为括号，如果是括号代表operand1中的值在一对括号里面
         /// @brief 1.value 2.variantReference 3.subProgramCall，用于判断哪个被赋值了
-        int GetValueType() { return valueType; }
+        int
+        GetValueType()
+        {
+            return valueType;
+        }
         Token::TokenType GetValueToken() { return type; }
         Expression(ParseNode *);
         ~Expression();

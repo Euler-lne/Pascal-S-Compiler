@@ -387,6 +387,7 @@ namespace AST
         Token::TokenType nodeType = expression_->token;
         valueType = 0;
         isId = 0;
+        isParentheses = 0;
         operand1 = nullptr;
         operand2 = nullptr;
         if (nodeType == Token::EXPRESSION_) {
@@ -480,11 +481,7 @@ namespace AST
                         // FIXME:报错处理，这里必须是整数或者实数
                         CompilerError::reportError(expression_->children[1]->lineNumber, CompilerError::ErrorType::OPERAND_TYPE_MISMATCH, "INTEGER or REAL");
                     } else {
-                        if (operand1->type == Token::REAL || operand2->type == Token::REAL) {
-                            type = Token::REAL; // 其中一个是实数就是实数
-                        } else {
-                            type = Token::INTEGER;
-                        }
+                        type = Token::REAL; // 其中一个是实数就是实数
                     }
                 }
             } else {
@@ -529,6 +526,7 @@ namespace AST
                 valueType = 3;
             } else if (factorType == Token::LEFT_PARENTHESES) {
                 operand1 = new Expression(expression_->children[1]);
+                isParentheses = 1;
                 type = operand1->type;
             } else if (factorType == Token::NOT) {
                 operationType = expression_->children[0]->token;
