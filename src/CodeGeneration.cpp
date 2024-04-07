@@ -277,11 +277,11 @@ namespace C_GEN
         else if (variantReference->idType == Token::TokenType::ARRAY)
         {
             targetCode << variantReference->GetIDToCodeGenerator();
-            for (auto it : variantReference->arrayPart)
+            for (int i = 0; i < variantReference->arrayPart.size(); i++)
             {
                 targetCode << "[";
-                ProcExpression(it);
-                // 这里要减一个起始下标
+                ProcExpression(variantReference->arrayPart[i]);
+                targetCode << "-" << variantReference->varDeclare->GetDimension()[i].first;
                 targetCode << "]";
             }
         }
