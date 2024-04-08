@@ -186,7 +186,7 @@ namespace C_GEN
 
     void C_Code::ProcSubProgramCallStateMent(AST::SubProgramCall *subProgramCall)
     {
-        targetCode << subProgramCall->subProgramId.first << "(";
+        targetCode << subProgramCall->GetPrefixId() << "(";
         for (int i = 0; i < subProgramCall->paraList.size(); i++)
         {
             if (i > 0) // 不是第一个参数，需要加逗号
@@ -208,7 +208,8 @@ namespace C_GEN
     void C_Code::ProcAssignStateMent(AST::AssignStatement *assignStatement)
     {
         ProcVariantReference(assignStatement->leftVal);
-        targetCode << " = ";
+        if (!(assignStatement->leftVal->isFunction))
+            targetCode << " = ";
         ProcExpression(assignStatement->rightVal);
     }
 
@@ -290,6 +291,7 @@ namespace C_GEN
             if (variantReference->isFunction)
             {
                 targetCode << "return ";
+                return;
             }
             switch (variantReference->isFormalParameter)
             {

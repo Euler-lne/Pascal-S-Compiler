@@ -266,8 +266,8 @@ namespace AST
         pair<string, int> subProgramId; // 函数标识符和行号
         vector<Expression *> paraList;
         SubProgram *subprogram; // 指向当前的函数的定义，也就是本身
-        Token::TokenType
-        GetReturnType() { return returnType; }
+        Token::TokenType GetReturnType() { return returnType; }
+        auto GetPrefixId() { return subprogram->programBody->prefix + subProgramId.first; }
         SubProgramCall(ParseNode *);
         ~SubProgramCall();
 
