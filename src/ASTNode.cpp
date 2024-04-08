@@ -82,6 +82,54 @@ namespace AST
 
         curProgramBody = parent;
     }
+    string ProgramBody::GetDeclarationNameAtIndex(int index)
+    {
+        for (int i = 0; i < declaration->declarationQueue.size(); i++) {
+
+            if (index == i) {
+                switch (declaration->declarationList.find(declaration->declarationQueue[i])->second) {
+                case Token::VAR:
+                case Token::CONST:
+                    return prefix + declaration->declarationQueue[i];
+                    break;
+                case Token::FUNCTION:
+                    return prefix + declaration->declarationQueue[i] + "_";
+                    break;
+                default:
+                    break;
+                }
+            }
+        }
+        return "";
+    }
+    void *ProgramBody::GetDeclarationAtIndex(int index, Token::TokenType &_type)
+    {
+        for (int i = 0; i < declaration->declarationQueue.size(); i++) {
+
+            if (index == i) {
+                string idName = declaration->declarationQueue[i];
+                switch (declaration->declarationList.find(idName)->second) {
+                case Token::VAR:
+                    _type = Token::VAR;
+                    return declaration->varList.find(idName)->second.second;
+                    break;
+                case Token::CONST:
+                    _type = Token::CONST;
+                    return declaration->constList.find(idName)->second;
+                    break;
+                case Token::FUNCTION:
+                    _type = Token::FUNCTION;
+                    return declaration->subProgramList.find(idName)->second;
+                    break;
+                default:
+                    break;
+                }
+            }
+        }
+        _type = Token::NULL_;
+        return nullptr;
+    }
+
     ProgramBody::~ProgramBody()
     {
         if (declaration != nullptr)
