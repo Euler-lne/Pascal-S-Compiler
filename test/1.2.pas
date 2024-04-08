@@ -1,6 +1,6 @@
 program nestedfunctions;
 var
-    inputNumber, result: integer;
+    inputnumber, result: integer;
     function outerfunction(x: integer): integer;
     var
         y: integer;
@@ -17,5 +17,5 @@ var
 
 begin
 
-    result := outerfunction(inputNumber);
+    result := outerfunction(inputnumber);
 end.

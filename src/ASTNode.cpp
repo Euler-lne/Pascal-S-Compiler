@@ -33,7 +33,7 @@ namespace AST
     {
         programHead = new ProgramHead(program_->children[0]);
         string name = programHead->GetProgramId();
-        programBody = new ProgramBody(name, program_->children[1]);
+        programBody = new ProgramBody(name, program_->children[1], nullptr);
     }
     Program::~Program()
     {
@@ -60,7 +60,7 @@ namespace AST
     }
     ProgramHead::~ProgramHead() {}
     // program_body->declaration declaration declaration compound_statement_
-    ProgramBody::ProgramBody(string name, ParseNode *program_body_)
+    ProgramBody::ProgramBody(string name, ParseNode *program_body_, SubProgram *preSubProgram)
     {
         // 对于分析数的ProgramBody 0，1，2都是Declaration；3代表compound_statement_
         parent = curProgramBody;
@@ -69,6 +69,7 @@ namespace AST
 
         declaration = new Declaration();
         declaration->SetDeclaration(program_body_);
+        curSubProgram = preSubProgram;
         ParseNode *compound_statement_ = program_body_->children[3];   // 得到符合语句
         ParseNode *statement_list_ = compound_statement_->children[1]; // 得到语句列表
         Stack statementStack(statement_list_, 0, 2, 1, 0, Token::STATEMENT_, 1);
@@ -235,7 +236,7 @@ namespace AST
         }
         ParseNode *program_body_ = subprogram_declaration_->children[1];
         curSubProgram = this;
-        programBody = new ProgramBody(subProgramId, program_body_);
+        programBody = new ProgramBody(subProgramId, program_body_, curSubProgram);
     }
     /// @brief 返回指定下标的参数列表的类型
     /// @param index 下标
@@ -614,7 +615,7 @@ namespace AST
                 break;
             case Token::FUNCTION:
                 if (isLeft) {
-                    if (cur == curProgramBody) {
+                    if (cur == curProgramBody->parent) {
                         isFunction = 1;
                         idType = cur->declaration->subProgramList.find(idName)->second->GetReturnType();
                     } else {

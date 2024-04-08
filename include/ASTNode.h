@@ -75,7 +75,7 @@ namespace AST
         Declaration *declaration;
         vector<Statement *> statementList;
         ProgramBody(){};
-        ProgramBody(string, ParseNode *);
+        ProgramBody(string name, ParseNode *program_body_, SubProgram *preSubProgram);
         ~ProgramBody();
 
         string GetPrefix() { return prefix; };
