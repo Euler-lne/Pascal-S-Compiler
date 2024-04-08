@@ -313,7 +313,7 @@ namespace C_GEN
 
         if (!declaration->subProgramList.empty())
         {
-            ProcSubProgram(declaration->subProgramList);
+            ProcSubProgram(declaration->subProgramList, prefix);
         }
     }
 
@@ -401,7 +401,7 @@ namespace C_GEN
         }
     }
 
-    void C_Code::ProcSubProgram(map<string, AST::SubProgram *> &subProgramList)
+    void C_Code::ProcSubProgram(map<string, AST::SubProgram *> &subProgramList, std::string prefix)
     {
         bool IsFirstPara = true; // 判断是否是第一个参数
         for (auto it : subProgramList)
@@ -426,7 +426,7 @@ namespace C_GEN
             case Token::TokenType::CHAR:
                 SubProgramDefine += "char ";
             }
-            SubProgramDefine += (it.first + "(");
+            SubProgramDefine += (prefix + it.first + "(");
             for (auto _it : it.second->GetFormalPataList())
             {
 
