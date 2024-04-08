@@ -98,11 +98,12 @@ namespace C_GEN
 
             case Token::TokenType::VARIABLE_:
                 ProcAssignStateMent(it->assignStatement);
-                targetCode << ";\n";
+
                 break;
 
             case Token::TokenType::CALL_PROCEDURE_STATEMENT_:
                 ProcSubProgramCallStateMent(it->subProgramCall);
+                targetCode << ";\n";
                 break;
 
             case Token::TokenType::COMPOUND_STATEMENT_:
@@ -202,7 +203,7 @@ namespace C_GEN
             else
                 ProcExpression(subProgramCall->paraList[i]);
         }
-        targetCode << ");\n";
+        targetCode << ")";
     }
 
     void C_Code::ProcAssignStateMent(AST::AssignStatement *assignStatement)
@@ -211,6 +212,7 @@ namespace C_GEN
         if (!(assignStatement->leftVal->isFunction))
             targetCode << " = ";
         ProcExpression(assignStatement->rightVal);
+        targetCode << ";\n";
     }
 
     void C_Code::ProcExpression(AST::Expression *expression)
