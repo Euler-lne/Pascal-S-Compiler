@@ -77,7 +77,9 @@ namespace AST
         ProgramBody(){};
         ProgramBody(string name, ParseNode *program_body_, SubProgram *preSubProgram);
         ~ProgramBody();
-
+        int GetDeclarationSize() { return declaration->declarationQueue.size(); }
+        string GetDeclarationNameAtIndex(int index);
+        void *GetDeclarationAtIndex(int index, Token::TokenType &_type);
         string GetPrefix() { return prefix; };
         Declaration *GetDeclaration() { return declaration; };
     };
@@ -92,7 +94,6 @@ namespace AST
         map<string, Token::TokenType> declarationList; // 用于快速检查是否重定义
         vector<string> declarationQueue;               // 用于记录变量顺序，因为map会改变插入顺序
         // 这里的Token::TokenType取值为 VAR CONST FUNCTION（包括过程）
-
         vector<string> GetDeclarationQueue() { return declarationQueue; };
         map<string, ConstDeclare *> &GetConstList() { return constList; };
         auto &GetVarList() { return varList; };
@@ -267,7 +268,8 @@ namespace AST
         vector<Expression *> paraList;
         SubProgram *subprogram; // 指向当前的函数的定义，也就是本身
         Token::TokenType GetReturnType() { return returnType; }
-        auto GetPrefixId() { return subprogram->programBody->prefix + subProgramId.first; }
+        auto GetSubProgramId() { return subprogram->programBody->prefix; }
+        string GetPrefixId() { return subprogram->programBody->prefix; }
         SubProgramCall(ParseNode *);
         ~SubProgramCall();
 
