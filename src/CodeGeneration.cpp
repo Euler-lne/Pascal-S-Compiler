@@ -356,7 +356,7 @@ namespace C_GEN
             case Token::TokenType::RECORD:
                 targetCode << "struct " << prefix << it.first << "\n{";
                 ProcVarDeclare(it.second.second->GetRecordList(), prefix);
-                targetCode << "}";
+                targetCode << "} " << it.first;
                 break;
             }
             targetCode << ";\n";
