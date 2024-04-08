@@ -77,7 +77,7 @@ namespace AST
         ProgramBody(){};
         ProgramBody(string name, ParseNode *program_body_, SubProgram *preSubProgram);
         ~ProgramBody();
-        int GetDeclarationSize() { return declaration->declarationQueue.size(); }
+        // int GetDeclarationSize() { return declaration->declarationQueue.size(); }
         string GetDeclarationNameAtIndex(int index);
         void *GetDeclarationAtIndex(int index, Token::TokenType &_type);
         string GetPrefix() { return prefix; };

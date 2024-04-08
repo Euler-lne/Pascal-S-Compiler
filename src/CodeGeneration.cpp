@@ -13,6 +13,59 @@
 
 namespace C_GEN
 {
+
+    void C_Code::PreProcDeclaration(AST::ProgramBody *programBody)
+    {
+        for (int i = 0; i < programBody->declaration->declarationQueue.size(); i++)
+        {
+            Token::TokenType type;
+            programBody->GetDeclarationAtIndex(i, type);
+            switch (type)
+            {
+            case Token::TokenType::VAR:
+                RePlaceMap(programBody->declaration->varList, programBody->declaration->declarationQueue[i], programBody->GetDeclarationNameAtIndex(i));
+                break;
+
+            case Token::TokenType::CONST:
+                RePlaceMap(programBody->declaration->constList, programBody->declaration->declarationQueue[i], programBody->GetDeclarationNameAtIndex(i));
+                break;
+            case Token::TokenType::FUNCTION:
+                RePlaceMap(programBody->declaration->subProgramList, programBody->declaration->declarationQueue[i], programBody->GetDeclarationNameAtIndex(i));
+                break;
+            }
+        }
+    }
+
+    void C_Code::RePlaceMap(map<string, AST::ConstDeclare *> &constList, std::string before, std::string after)
+    {
+        auto node = constList.extract(before);
+        if (!node.empty())
+        {
+            node.key() = after;
+            constList.insert(std::move(node));
+        }
+    }
+
+    void C_Code::RePlaceMap(map<string, pair<int, AST::VarDeclare *>> &varList, std::string before, std::string after)
+    {
+        auto node = varList.extract(before);
+        if (!node.empty())
+        {
+            node.key() = after;
+            varList.insert(std::move(node));
+        }
+    }
+
+    void C_Code::RePlaceMap(map<string, AST::SubProgram *> &subProgramList, std::string before, std::string after)
+    {
+        auto node = subProgramList.extract(before);
+        if (!node.empty())
+        {
+            node.key() = after;
+            subProgramList.insert(std::move(node));
+        }
+    }
+
     C_Generater::C_Generater()
     {
         this->targetCodeStream.clear();
@@ -64,6 +117,7 @@ namespace C_GEN
     // main
     std::string C_Code::ProcProgramBody(AST::ProgramBody *programBody)
     {
+        PreProcDeclaration(programBody);
         ProcDeclaration(programBody->GetDeclaration(), programBody->GetPrefix());
         targetCode << string("int main()\n");
         ProcStateMent(programBody->statementList, "");
@@ -73,6 +127,7 @@ namespace C_GEN
     // subprogrtam
     void C_Code::ProcProgramBody(AST::ProgramBody *programBody, std::string SubProgramDefine)
     {
+        PreProcDeclaration(programBody);
         ProcDeclaration(programBody->GetDeclaration(), programBody->GetPrefix());
         targetCode << SubProgramDefine;
         ProcStateMent(programBody->statementList, "");
@@ -328,7 +383,7 @@ namespace C_GEN
             switch (it.second.second->GetVarDeclareType())
             {
             case Token::TokenType::INTEGER:
-                targetCode << "int " << prefix << it.first;
+                targetCode << "int " << it.first;
                 if (it.second.second->IsArray())
                 {
                     ProcArray(it.second.second->GetDimension());
@@ -336,7 +391,7 @@ namespace C_GEN
                 break;
 
             case Token::TokenType::REAL:
-                targetCode << "double " << prefix << it.first;
+                targetCode << "double " << it.first;
                 if (it.second.second->IsArray())
                 {
                     ProcArray(it.second.second->GetDimension());
@@ -344,22 +399,22 @@ namespace C_GEN
                 break;
 
             case Token::TokenType::CHAR:
-                targetCode << "char " << prefix << it.first;
+                targetCode << "char " << it.first;
                 if (it.second.second->IsArray())
                 {
                     ProcArray(it.second.second->GetDimension());
                 }
                 break;
             case Token::TokenType::BOLLEAN:
-                targetCode << "bool " << prefix << it.first;
+                targetCode << "bool " << it.first;
                 if (it.second.second->IsArray())
                 {
                     ProcArray(it.second.second->GetDimension());
                 }
                 break;
             case Token::TokenType::RECORD:
-                targetCode << "struct " << prefix << it.first << "\n{";
-                ProcVarDeclare(it.second.second->GetRecordList(), prefix);
+                targetCode << "struct " << it.first << "\n{";
+                ProcVarDeclare(it.second.second->GetRecordList(), "");
                 targetCode << "} " << it.first;
                 break;
             }
@@ -393,7 +448,7 @@ namespace C_GEN
                 targetCode << "char ";
                 break;
             }
-            targetCode << prefix << it << " = " << declarationList[it]->GetConstVal() << ";\n";
+            targetCode << it << " = " << declarationList[it]->GetConstVal() << ";\n";
         }
     }
 
@@ -430,7 +485,7 @@ namespace C_GEN
             case Token::TokenType::CHAR:
                 SubProgramDefine += "char ";
             }
-            SubProgramDefine += (prefix + it.first + "(");
+            SubProgramDefine += (it.first + "(");
             for (auto _it : it.second->GetFormalPataList())
             {
 
