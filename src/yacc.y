@@ -114,8 +114,8 @@ vector<string> syntaxErrorInformation; //存放语法错误信息
 
 %start programstruct
 
-%left '+' '-' ADD
-%left '*' '/' MUL
+%left ADDOP
+%left MULOP
 %right UMINUS
 %nonassoc LOWER_THAN_ELSE
 %nonassoc ELSE
@@ -655,7 +655,8 @@ VALUE_PARAMETER_:          IDENTIFIER_LIST_ COLON STANDRAD_TYPE_{ //正常
 						printf("VALUE_PARAMETER_:          IDENTIFIER_LIST_ COLON STANDRAD_TYPE_\n");
 												$$=new ParseNode;
                                                 $$->token=Token::VALUE_PARAMETER_;
-                                                $$->children.push_back($1);$$->children.push_back($2);$$->children.push_back($3);
+                                                $$->children.push_back($1);$$->children.push_back($2);
+												$$->children.push_back($3);
                                         }| IDENTIFIER_LIST_ error STANDRAD_TYPE_{ //ERROR 缺少分号 checked
                                                 $$=new ParseNode;
                                                 $$->token=Token::VALUE_PARAMETER_;
@@ -805,7 +806,7 @@ ID_VARPART_:  LEFT_MEDIUM_PARENTHESES EXPRESSION_LIST_ RIGHT_MEDIUM_PARENTHESES{
 					$$=new ParseNode;
 					$$->token=Token::ID_VARPART_;
 					$$->children.push_back($1);$$->children.push_back($2);
-					$$->children.push_back($2);
+					$$->children.push_back($3);
                }|DOT ID{
 					
 						printf("ID_VARPART_: DOT ID\n");

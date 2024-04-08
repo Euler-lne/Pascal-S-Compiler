@@ -99,13 +99,11 @@ extern int yydebug;
     INT_NUM = 300,                 /* INT_NUM  */
     FLOAT_NUM = 301,               /* FLOAT_NUM  */
     LETTER = 302,                  /* LETTER  */
-    ADD = 303,                     /* ADD  */
-    MUL = 304,                     /* MUL  */
-    UMINUS = 305,                  /* UMINUS  */
-    LOWER_THAN_ELSE = 306,         /* LOWER_THAN_ELSE  */
-    ONE = 307,                     /* ONE  */
-    TWO = 308,                     /* TWO  */
-    THREE = 309                    /* THREE  */
+    UMINUS = 303,                  /* UMINUS  */
+    LOWER_THAN_ELSE = 304,         /* LOWER_THAN_ELSE  */
+    ONE = 305,                     /* ONE  */
+    TWO = 306,                     /* TWO  */
+    THREE = 307                    /* THREE  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
