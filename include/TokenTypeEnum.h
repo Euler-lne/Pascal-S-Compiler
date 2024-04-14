@@ -87,6 +87,8 @@ namespace Token
         FOR,
         TO,
         DOWNTO,
+        _WRITE,
+        _READ,
 
         NOT,
         // AND,
