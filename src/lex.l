@@ -400,6 +400,32 @@ mulop (\*|\/|div|mod|and)
 
 }
 
+"write" {
+    yylval=new ParseNode();
+    yylval->val=yytext;
+    yylval->token=Token::_WRITE;
+    yylval->lineNumber = yylineno ;
+    #ifdef LEXDEBUG
+    //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
+    cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
+    #endif
+    return _WRITE;
+
+}
+
+"read" {
+    yylval=new ParseNode();
+    yylval->val=yytext;
+    yylval->token=Token::_READ;
+    yylval->lineNumber = yylineno ;
+    #ifdef LEXDEBUG
+    //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
+    cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
+    #endif
+    return _READ;
+
+}
+
 
 "not" {
     yylval=new ParseNode();
