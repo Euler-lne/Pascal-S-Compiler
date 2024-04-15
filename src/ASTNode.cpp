@@ -400,7 +400,10 @@ namespace AST
             ifStatement = new IfStatement(statement_);
         } else if (node->token == Token::CASE) {
             caseStatement = new CaseStatement(statement_);
-        } else {
+        } else if (node->token == Token::_WRITE){
+            writeStatement = new WriteStatement(statement_);
+        }
+        else {
             statementType = Token::WHILE;
             whileStatement = new WhileStatement(statement_);
         }
@@ -1053,6 +1056,26 @@ namespace AST
         delete condition;
         for (int i = 0; i < branchList.size(); i++) {
             delete branchList[i];
+        }
+    }
+    WriteStatement::WriteStatement(ParseNode *writestatement)
+    {
+        ParseNode *expression_list_ = writestatement->children[2];
+        Stack expressionListStack(expression_list_, 0, 2, 1, 0, Token::EXPRESSION_);
+        ParseNode *expression_ = expressionListStack.Pop();
+        int i = 0;
+        while (expression_ != nullptr) {
+            Expression *expression = new Expression(expression_);
+            expressionList.emplace_back(expression);
+            i++;
+            expression_ = expressionListStack.Pop();
+        }
+
+    }
+    WriteStatement::~WriteStatement()
+    {
+        for (int i = 0; i < expressionList.size(); i++) {
+            delete expressionList[i];
         }
     }
 #pragma region 遍历声明相关节点树
