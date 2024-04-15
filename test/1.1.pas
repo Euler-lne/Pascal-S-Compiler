@@ -1,8 +1,8 @@
-program quicksort(input,output);
-var
-    i,n:integer;
+program quiCksoRt(inPut,output);
+Var
+    i,n:inTeger;
 begin
-    for i:=1 to n do
+    for i:=1 TO n do
     i:=2;
-    for i:=1 to n do
+    For i:=1 to n do
 end.
