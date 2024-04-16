@@ -435,6 +435,12 @@ namespace AST
                     delete statementList[i];
             }
             break;
+        case Token::_WRITE:
+            delete writeStatement;
+            break;
+        case Token::_READ:
+            delete readStatement;
+            break;
         default:
             break;
         }

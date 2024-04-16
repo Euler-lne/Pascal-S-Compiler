@@ -37,6 +37,8 @@ namespace AST
     class IfStatement;
     class AssignStatement;
     class CaseStatement;
+    class WriteStatement;
+    class ReadStatement;
 
     class Program // 程序
     {
