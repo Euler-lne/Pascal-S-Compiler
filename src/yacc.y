@@ -109,8 +109,8 @@ vector<string> syntaxErrorInformation; //存放语法错误信息
 %token FLOAT_NUM
 %token LETTER 
 
-       
-
+%token _WRITE
+%token _READ 
 
 %start programstruct
 
@@ -674,7 +674,7 @@ VALUE_PARAMETER_:          IDENTIFIER_LIST_ COLON STANDRAD_TYPE_{ //正常
 
 COMPOUND_STATEMENT_: _BEGIN STATEMENT_LIST_ END{ //正常
                                                 
-						printf("COMPOUND_STATEMENT_: BEGIN STATEMENT_LIST END\n");
+						printf("COMPOUND_STATEMENT_: _BEGIN STATEMENT_LIST END\n");
 												$$=new ParseNode;
                                                 $$->token=Token::COMPOUND_STATEMENT_;
                                                 $$->children.push_back($1);$$->children.push_back($2);$$->children.push_back($3);
@@ -753,6 +753,19 @@ STATEMENT_:  VARIABLE_ ASSIGNOP EXPRESSION_{//正常
                                  $$->token=Token::STATEMENT_;
                                  $$->children.push_back($1);$$->children.push_back($2);
                                  $$->children.push_back($3);$$->children.push_back($4);
+            }|_READ LEFT_PARENTHESES VARIABLE_LIST_ RIGHT_PARENTHESES{//正常
+						printf("STATEMENT_:_READ LEFT_PARENTHESES VARIABLE_LIST_ RIGHT_PARENTHESES\n");
+				 				$$=new ParseNode;
+                                 $$->token=Token::STATEMENT_;
+                                 $$->children.push_back($1);$$->children.push_back($2);
+                                 $$->children.push_back($3);$$->children.push_back($4);
+            }|_WRITE LEFT_PARENTHESES EXPRESSION_LIST_ RIGHT_PARENTHESES{//正常
+                 
+						printf("STATEMENT_:_WRITE LEFT_PARENTHESES VARIABLE_LIST_ RIGHT_PARENTHESES\n");
+								$$=new ParseNode;
+                                 $$->token=Token::STATEMENT_;
+                                 $$->children.push_back($1);$$->children.push_back($2);
+                                 $$->children.push_back($3);$$->children.push_back($4);
             }|IF EXPRESSION_ error STATEMENT_ ELSE_PART_{ //ERROR 缺少then关键字 checked
                                 $$=new ParseNode;
                                 $$->token=Token::STATEMENT_;
@@ -774,13 +787,24 @@ STATEMENT_:  VARIABLE_ ASSIGNOP EXPRESSION_{//正常
                                 $$->children.push_back($3);$$->children.push_back($4);
                                 $$->children.push_back($5);$$->children.push_back($6);
                                 $$->children.push_back($7);$$->children.push_back($8);
-                        }|{
-                                
-						printf("STATEMENT_:kong\n");
+                        }|{  
+								printf("STATEMENT_:kong\n");
 								$$=new ParseNode;
                                 $$->token=Token::STATEMENT_;
                         };//不知道case那需不需要报错
-
+VARIABLE_LIST_:  VARIABLE_{//正常
+					printf("VARIABLE_LIST_:  VARIABLE_\n");
+					$$=new ParseNode;
+					$$->token=Token::VARIABLE_LIST_;
+					$$->children.push_back($1);
+           }|VARIABLE_LIST_ COMMA VARIABLE_{   
+						printf("VARIABLE_LIST_:VARIABLE_LIST_ COMMA VARIABLE_\n");
+								$$=new ParseNode;
+                                $$->token=Token::VARIABLE_LIST_;
+								$$->children.push_back($1);
+								$$->children.push_back($2);
+								$$->children.push_back($3);
+                        };
 VARIABLE_:  ID ID_VARPARTS_{//正常
 					
 						printf("VARIABLE_:  ID ID_VARPARTS_\n");
@@ -796,7 +820,7 @@ ID_VARPARTS_:  ID_VARPARTS_ ID_VARPART_{//正常
 					$$->children.push_back($1);$$->children.push_back($2);
                }|{
 					
-						printf("STATEMENT_:kong\n");
+						printf("ID_VARPARTS_:kong\n");
 					$$=new ParseNode;
 					$$->token=Token::ID_VARPARTS_;
                 };

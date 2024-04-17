@@ -52,6 +52,7 @@ namespace Token
         UPDOWN_,
         // 赋值语句
         VARIABLE_,
+        VARIABLE_LIST_,
         ID_VARPARTS_,
         ID_VARPART_,
         EXPRESSION_LIST_,
