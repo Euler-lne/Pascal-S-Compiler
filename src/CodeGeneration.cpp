@@ -105,6 +105,7 @@ namespace C_GEN
     std::string C_Code::GenerateTargetCode(std::string &outPutPath, AST::Program *ast)
     {
         outPutPath = ProcProgramHead(ast->GetProgramHead());
+        targetCode << "#include <stdio.h>\n";
         targetCode << "#define bool int\n#define true 1\n#define false 0\n";
         return ProcProgramBody(ast->GetProgramBody());
     }
@@ -163,6 +164,10 @@ namespace C_GEN
 
             case Token::TokenType::COMPOUND_STATEMENT_:
                 ProcStateMent(it->statementList, "");
+                break;
+
+            case Token::TokenType::_READ:
+                ProcReadStatement(it->readStatement);
                 break;
             }
         }
@@ -524,5 +529,42 @@ namespace C_GEN
             IsFirstPara = true;
             ProcProgramBody(it.second->programBody, SubProgramDefine);
         }
+    }
+
+    void C_Code::ProcReadStatement(AST::ReadStatement *readStatment)
+    {
+        targetCode << "scanf(";
+        bool isFirst = true;
+        for (auto it : readStatment->variantList)
+        {
+            if (!isFirst)
+            {
+                targetCode << " ";
+            }
+            switch (it->idType)
+            {
+            case Token::TokenType::INTEGER:
+                targetCode << "%d";
+                break;
+            case Token::TokenType::BOLLEAN:
+                targetCode << "%d";
+                break;
+            case Token::TokenType::REAL:
+                targetCode << "%f";
+                break;
+            case Token::TokenType::CHAR:
+                targetCode << "%c";
+                break;
+            }
+            isFirst = false;
+        }
+        targetCode << "\"";
+        for (auto it : readStatment->variantList)
+        {
+            targetCode << ", &(";
+            ProcVariantReference(it);
+            targetCode << ")";
+        }
+        targetCode << ");\n";
     }
 };
