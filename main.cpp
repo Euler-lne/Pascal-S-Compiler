@@ -30,6 +30,7 @@ int main()
     yyparse(); // 调用语法分析程序
     fclose(fp);
     AST::Program program(ParseTreeHead); // 有问题，只有一个节点没有孩子节点
+    delete ParseTreeHead;
 
     C_GEN::C_Generater gen(&program, "");
     gen.run();
