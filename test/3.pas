@@ -9,14 +9,14 @@ begin
   rec1.y := 't';
   rec2.x := rec1.x;
   rec2.y := rec1.y;
-  writeln(rec2.x);
-  writeln(rec2.y);
+  write(rec2.x);
+  write(rec2.y);
 
 
   rec3.x.x1 := 2023;
   rec3.x.x2 := 3.14;
   rec3.y := 't';
-  writeln(rec3.x.x1);
-  writeln(rec3.x.x2);
-  writeln(rec3.y);
+  write(rec3.x.x1);
+  write(rec3.x.x2);
+  write(rec3.y);
 end.

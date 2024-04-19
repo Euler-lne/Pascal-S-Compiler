@@ -6,13 +6,13 @@ var
 
 procedure testPro1;
 begin
-  writeln(2023);
+  write(2023);
 end;
 
 
 procedure testPro2(n: integer);
 begin
-  writeln(n + 1);
+  write(n + 1);
 end;
 
 
@@ -28,9 +28,9 @@ end;
 
 function testFunc: integer;
 begin
-  writeln('before testFunc := 54');
+  write('before testFunc := 54');
   testFunc := 54;
-  writeln('after testFunc := 54');
+  write('after testFunc := 54');
 end;
 
 
@@ -41,15 +41,15 @@ begin
 end;
 
 begin
-  writeln('procedure-test');
+  write('procedure-test');
   testPro1;
   testPro2(2022);
   
-  writeln();
-  writeln('function-test');  
+  write();
+  write('function-test');  
   a := testFunc;
   b := 24;
-  writeln(gcd(a, b) + 1);
+  write(gcd(a, b) + 1);
   swap(a, b);
-  writeln(a, ' ', b);
+  write(a, ' ', b);
 end.
