@@ -669,7 +669,7 @@ mulop (\*|\/|div|mod|and)
 
 
 "'" {//进入字符常量识别
-cout<<"进入字符常量识别"<<endl;
+cout<<"BEGIN CH"<<endl;
     BEGIN CH;
 	charRec="";
 }
@@ -726,7 +726,7 @@ cout<<"进入字符常量识别"<<endl;
         addLexicalErrorInformation(yytext, "Too many characters in a char constant!", yycolumn-yyleng-len, yycolumn-yyleng-1); //错误6
         // 如果字符常量长度不为0或1，则返回字符常量
         yylval = new ParseNode();
-        yylval->val=charRec[0];
+        yylval->val=charRec;
         yylval->token=Token::CHAR;
         yylval->lineNumber=yylineno ;
         #ifdef LEXDEBUG
@@ -746,7 +746,7 @@ cout<<"进入字符常量识别"<<endl;
         if(len==0)
             yylval->val="\0";
         else
-            yylval->val=charRec[0];
+            yylval->val=charRec;
         yylval->token=Token::CHAR;
         yylval->lineNumber=yylineno ;
         #ifdef LEXDEBUG
