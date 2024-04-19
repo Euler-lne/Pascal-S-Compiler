@@ -27,6 +27,16 @@ vector<string> lexicalErrorInformation;
 void addLexicalErrorInformation(char *word, string info, int l, int r);
 bool CheckAndAddLengthTooLargeErrorInformation(char *text, string type, int l, int r);
 
+std::string toLowercase(const std::string& str) {
+    std::string result = str;
+    for (char& c : result) {
+        if (std::isupper(c)) {
+            c = std::tolower(c);
+        }
+    }
+    return result;
+}
+
 extern YYSTYPE yylval;
 
 
@@ -55,7 +65,7 @@ blank_chars [ \f\r\t\v]+
 id {letter}({letter}|{digit})*
 int_num {digit}+
 float_num {digit}+\.{digit}+
-letter [a-z]
+letter [a-zA-Z]
 
 relop (>=|>|<=|<>|<|=)
 addop (\+|or|\-)
@@ -78,9 +88,9 @@ mulop (\*|\/|div|mod|and)
     yyless(1); //yyleng是当前匹配的单词的长度,yyless(n)表示退回yyleng-n个字符，只保留n个字符
     }
 
-"program" {
+[Pp][Rr][Oo][Gg][Rr][Aa][Mm] {
     yylval=new ParseNode();
-    yylval->val=yytext;
+    yylval->val="program";
     yylval->token=Token::PROGRAM;
     yylval->lineNumber = yylineno;
     #ifdef LEXDEBUG
@@ -90,9 +100,9 @@ mulop (\*|\/|div|mod|and)
     return PROGRAM;
 }
 
-"const" {
+[Cc][Oo][Nn][Ss][Tt] {
     yylval=new ParseNode();
-    yylval->val=yytext;
+    yylval->val="const";
     yylval->token=Token::CONST;
     yylval->lineNumber = yylineno;
     #ifdef LEXDEBUG
@@ -102,10 +112,9 @@ mulop (\*|\/|div|mod|and)
     return CONST;
 }
 
-
-"record" {
+[Rr][Ee][Cc][Oo][Rr][Dd] {
     yylval=new ParseNode();
-    yylval->val=yytext;
+    yylval->val="record";
     yylval->token=Token::RECORD;
     yylval->lineNumber = yylineno ;
     #ifdef LEXDEBUG
@@ -116,9 +125,9 @@ mulop (\*|\/|div|mod|and)
 
 }
 
-"end" {
+[Ee][Nn][Dd] {
     yylval=new ParseNode();
-    yylval->val=yytext;
+    yylval->val="end";
     yylval->token=Token::END;
     yylval->lineNumber = yylineno ;
     #ifdef LEXDEBUG
@@ -129,9 +138,9 @@ mulop (\*|\/|div|mod|and)
 
 }
 
-"array" {
+[Aa][Rr][Rr][Aa][Yy] {
     yylval=new ParseNode();
-    yylval->val=yytext;
+    yylval->val="array";
     yylval->token=Token::ARRAY;
     yylval->lineNumber = yylineno ;
     #ifdef LEXDEBUG
@@ -142,9 +151,9 @@ mulop (\*|\/|div|mod|and)
 
 }
 
-"of" {
+[Oo][Ff] {
     yylval=new ParseNode();
-    yylval->val=yytext;
+    yylval->val="of";
     yylval->token=Token::OF;
     yylval->lineNumber = yylineno ;
     #ifdef LEXDEBUG
@@ -155,9 +164,9 @@ mulop (\*|\/|div|mod|and)
 
 }
 
-"integer" {
+[Ii][Nn][Tt][Ee][Gg][Ee][Rr] {
     yylval=new ParseNode();
-    yylval->val=yytext;
+    yylval->val="integer";
     yylval->token=Token::INTEGER;
     yylval->lineNumber = yylineno ;
     #ifdef LEXDEBUG
@@ -168,9 +177,9 @@ mulop (\*|\/|div|mod|and)
 
 }
 
-"real" {
+[Rr][Ee][Aa][Ll] {
     yylval=new ParseNode();
-    yylval->val=yytext;
+    yylval->val="real";
     yylval->token=Token::REAL;
     yylval->lineNumber = yylineno ;
     #ifdef LEXDEBUG
@@ -181,9 +190,9 @@ mulop (\*|\/|div|mod|and)
 
 }
 
-"bollean" {
+[Bb][Oo][Ll][Ll][Ee][Aa][Nn] {
     yylval=new ParseNode();
-    yylval->val=yytext;
+    yylval->val="bollean";
     yylval->token=Token::BOLLEAN;
     yylval->lineNumber = yylineno ;
     #ifdef LEXDEBUG
@@ -194,9 +203,9 @@ mulop (\*|\/|div|mod|and)
 
 }
 
-"char" {
+[Cc][Hh][Aa][Rr] {
     yylval=new ParseNode();
-    yylval->val=yytext;
+    yylval->val="char";
     yylval->token=Token::CHAR;
     yylval->lineNumber = yylineno ;
     #ifdef LEXDEBUG
@@ -207,9 +216,9 @@ mulop (\*|\/|div|mod|and)
 
 }
 
-"var" {
+[Vv][Aa][Rr] {
     yylval=new ParseNode();
-    yylval->val=yytext;
+    yylval->val="var";
     yylval->token=Token::VAR;
     yylval->lineNumber = yylineno ;
     #ifdef LEXDEBUG
@@ -220,9 +229,9 @@ mulop (\*|\/|div|mod|and)
 
 }
 
-"function" {
+[Ff][Uu][Nn][Cc][Tt][Ii][Oo][Nn] {
     yylval=new ParseNode();
-    yylval->val=yytext;
+    yylval->val="function";
     yylval->token=Token::FUNCTION;
     yylval->lineNumber = yylineno ;
     #ifdef LEXDEBUG
@@ -233,9 +242,9 @@ mulop (\*|\/|div|mod|and)
 
 }
 
-"procedure" {
+[Pp][Rr][Oo][Cc][Ee][Dd][Uu][Rr][Ee] {
     yylval=new ParseNode();
-    yylval->val=yytext;
+    yylval->val="procedure";
     yylval->token=Token::PROCEDURE;
     yylval->lineNumber = yylineno ;
     #ifdef LEXDEBUG
@@ -245,9 +254,9 @@ mulop (\*|\/|div|mod|and)
     return PROCEDURE;
 
 }
-"begin" {
+[Bb][Ee][Gg][Ii][Nn] {
     yylval=new ParseNode();
-    yylval->val=yytext;
+    yylval->val="begin";
     yylval->token=Token::_BEGIN;
     yylval->lineNumber = yylineno ;
     #ifdef LEXDEBUG
@@ -257,9 +266,9 @@ mulop (\*|\/|div|mod|and)
     return _BEGIN;
 }
 
-"if" {
+[Ii][Ff] {
     yylval=new ParseNode();
-    yylval->val=yytext;
+    yylval->val="if";
     yylval->token=Token::IF;
     yylval->lineNumber = yylineno ;
     #ifdef LEXDEBUG
@@ -270,9 +279,9 @@ mulop (\*|\/|div|mod|and)
 
 }
 
-"then" {
+[Tt][Hh][Ee][Nn] {
     yylval=new ParseNode();
-    yylval->val=yytext;
+    yylval->val="then";
     yylval->token=Token::THEN;
     yylval->lineNumber = yylineno ;
     #ifdef LEXDEBUG
@@ -283,9 +292,9 @@ mulop (\*|\/|div|mod|and)
 
 }
 
-"else" {
+[Ee][Ll][Ss][Ee] {
     yylval=new ParseNode();
-    yylval->val=yytext;
+    yylval->val="else";
     yylval->token=Token::ELSE;
     yylval->lineNumber = yylineno ;
     #ifdef LEXDEBUG
@@ -296,9 +305,9 @@ mulop (\*|\/|div|mod|and)
 
 }
 
-"case" {
+[Cc][Aa][Ss][Ee] {
     yylval=new ParseNode();
-    yylval->val=yytext;
+    yylval->val="case";
     yylval->token=Token::CASE;
     yylval->lineNumber = yylineno ;
     #ifdef LEXDEBUG
@@ -309,9 +318,9 @@ mulop (\*|\/|div|mod|and)
 
 }
 
-"while" {
+[Ww][Hh][Ii][Ll][Ee] {
     yylval=new ParseNode();
-    yylval->val=yytext;
+    yylval->val="while";
     yylval->token=Token::WHILE;
     yylval->lineNumber = yylineno ;
     #ifdef LEXDEBUG
@@ -322,9 +331,9 @@ mulop (\*|\/|div|mod|and)
 
 }
 
-"do" {
+[Dd][Oo] {
     yylval=new ParseNode();
-    yylval->val=yytext;
+    yylval->val="do";
     yylval->token=Token::DO;
     yylval->lineNumber = yylineno ;
     #ifdef LEXDEBUG
@@ -335,9 +344,9 @@ mulop (\*|\/|div|mod|and)
 
 }
 
-"repeat" {
+[Rr][Ee][Pp][Ee][Aa][Tt] {
     yylval=new ParseNode();
-    yylval->val=yytext;
+    yylval->val="repeat";
     yylval->token=Token::REPEAT;
     yylval->lineNumber = yylineno ;
     #ifdef LEXDEBUG
@@ -348,9 +357,9 @@ mulop (\*|\/|div|mod|and)
 
 }
 
-"until" {
+[Uu][Nn][Tt][Ii][Ll] {
     yylval=new ParseNode();
-    yylval->val=yytext;
+    yylval->val="until";
     yylval->token=Token::UNTIL;
     yylval->lineNumber = yylineno ;
     #ifdef LEXDEBUG
@@ -361,9 +370,9 @@ mulop (\*|\/|div|mod|and)
 
 }
 
-"for" {
+[Ff][Oo][Rr] {
     yylval=new ParseNode();
-    yylval->val=yytext;
+    yylval->val="for";
     yylval->token=Token::FOR;
     yylval->lineNumber = yylineno ;
     #ifdef LEXDEBUG
@@ -374,9 +383,9 @@ mulop (\*|\/|div|mod|and)
 
 }
 
-"to" {
+[Tt][Oo] {
     yylval=new ParseNode();
-    yylval->val=yytext;
+    yylval->val="to";
     yylval->token=Token::TO;
     yylval->lineNumber = yylineno ;
     #ifdef LEXDEBUG
@@ -387,9 +396,9 @@ mulop (\*|\/|div|mod|and)
 
 }
 
-"downto" {
+[Dd][Oo][Ww][Nn][Tt][Oo] {
     yylval=new ParseNode();
-    yylval->val=yytext;
+    yylval->val="downto";
     yylval->token=Token::DOWNTO;
     yylval->lineNumber = yylineno ;
     #ifdef LEXDEBUG
@@ -400,10 +409,36 @@ mulop (\*|\/|div|mod|and)
 
 }
 
-
-"not" {
+[Ww][Rr][Ii][Tt][Ee] {
     yylval=new ParseNode();
-	yylval->val=yytext;
+    yylval->val="write";
+    yylval->token=Token::_WRITE;
+    yylval->lineNumber = yylineno ;
+    #ifdef LEXDEBUG
+    //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
+    cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
+    #endif
+    return DOWNTO;
+
+}
+
+[Rr][Ee][Aa][Dd] {
+    yylval=new ParseNode();
+    yylval->val="read";
+    yylval->token=Token::_READ;
+    yylval->lineNumber = yylineno ;
+    #ifdef LEXDEBUG
+    //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
+    cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
+    #endif
+    return DOWNTO;
+
+}
+
+
+[Nn][Oo][Tt] {
+    yylval=new ParseNode();
+	yylval->val="not";
 	yylval->token=Token::NOT;
     yylval->lineNumber = yylineno ;
     #ifdef LEXDEBUG
@@ -576,14 +611,16 @@ mulop (\*|\/|div|mod|and)
 {id} {
     if(CheckAndAddLengthTooLargeErrorInformation(yytext, "id", yycolumn-yyleng, yycolumn-1)){
         yytext[100]=0; //截断处理
-        //yycolumn=yycolumn-yyleng;
-        //yylloc.first_column=yycolumn;
-        //yylloc.last_column=yycolumn+100-1;
-        //yycolumn+=100;
         yyleng=100;
     }
     yylval=new ParseNode();
-	yylval->val=yytext;
+
+    std::string lowercaseText = yytext;
+    
+    std::string lowercaseStr = toLowercase(lowercaseText);   
+
+    // 将小写形式的字符串存储到 yylval->val 中
+    yylval->val = lowercaseStr;
 	yylval->token = Token::ID;
     yylval->lineNumber = yylineno ;
     #ifdef LEXDEBUG
@@ -804,3 +841,4 @@ bool CheckAndAddLengthTooLargeErrorInformation(char *text, string type, int l, i
         return false;
     }
 }
+

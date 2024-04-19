@@ -377,6 +377,8 @@ namespace AST
         assignStatement = nullptr;
         subProgramCall = nullptr;
         caseStatement = nullptr;
+        writeStatement = nullptr;
+        readStatement = nullptr;
         if (statement_->children.size() == 0) {
             return;
         }
@@ -400,6 +402,10 @@ namespace AST
             ifStatement = new IfStatement(statement_);
         } else if (node->token == Token::CASE) {
             caseStatement = new CaseStatement(statement_);
+        } else if (node->token == Token::_WRITE) {
+            writeStatement = new WriteStatement(statement_);
+        } else if (node->token == Token::_READ) {
+            readStatement = new ReadStatement(statement_);
         } else {
             statementType = Token::WHILE;
             whileStatement = new WhileStatement(statement_);
@@ -428,6 +434,12 @@ namespace AST
                 if (statementList[i] != nullptr)
                     delete statementList[i];
             }
+            break;
+        case Token::_WRITE:
+            delete writeStatement;
+            break;
+        case Token::_READ:
+            delete readStatement;
             break;
         default:
             break;
@@ -1053,6 +1065,42 @@ namespace AST
         delete condition;
         for (int i = 0; i < branchList.size(); i++) {
             delete branchList[i];
+        }
+    }
+    WriteStatement::WriteStatement(ParseNode *writestatement)
+    {
+        ParseNode *expression_list_ = writestatement->children[2];
+        Stack expressionListStack(expression_list_, 0, 2, 1, 0, Token::EXPRESSION_);
+        ParseNode *expression_ = expressionListStack.Pop();
+        int i = 0;
+        while (expression_ != nullptr) {
+            Expression *expression = new Expression(expression_);
+            expressionList.emplace_back(expression);
+            i++;
+            expression_ = expressionListStack.Pop();
+        }
+    }
+    WriteStatement::~WriteStatement()
+    {
+        for (int i = 0; i < expressionList.size(); i++) {
+            delete expressionList[i];
+        }
+    }
+    ReadStatement::ReadStatement(ParseNode *read_statement_)
+    {
+        ParseNode *variable_list_ = read_statement_->children[2];
+        Stack variableListStack(variable_list_, 0, 2, 1, 0, Token::VARIABLE_);
+        ParseNode *variable_ = variableListStack.Pop();
+        while (variable_ != nullptr) {
+            VariantReference *variable = new VariantReference(variable_, 1);
+            variantList.emplace_back(variable);
+            variable_ = variableListStack.Pop();
+        }
+    }
+    ReadStatement::~ReadStatement()
+    {
+        for (int i = 0; i < variantList.size(); i++) {
+            delete variantList[i];
         }
     }
 #pragma region 遍历声明相关节点树

@@ -37,6 +37,8 @@ namespace AST
     class IfStatement;
     class AssignStatement;
     class CaseStatement;
+    class WriteStatement;
+    class ReadStatement;
 
     class Program // 程序
     {
@@ -196,6 +198,8 @@ namespace AST
         AssignStatement *assignStatement;
         SubProgramCall *subProgramCall;
         CaseStatement *caseStatement;
+        WriteStatement *writeStatement;
+        ReadStatement *readStatement;
         vector<Statement *> statementList;
         int IsEmpty(); // 检测这个语句是否有用，无用语句就不加入到statement中
         Statement(ParseNode *);
@@ -326,6 +330,20 @@ namespace AST
 
         CaseStatement(ParseNode *);
         ~CaseStatement();
+    };
+    class WriteStatement
+    {
+    public:
+        vector<Expression *> expressionList;
+        WriteStatement(ParseNode *);
+        ~WriteStatement();
+    };
+    class ReadStatement
+    {
+    public:
+        vector<VariantReference *> variantList;
+        ReadStatement(ParseNode *);
+        ~ReadStatement();
     };
 } // namespace AST
 

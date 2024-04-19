@@ -35,8 +35,8 @@
    especially those whose name start with YY_ or yy_.  They are
    private implementation details that can be changed or removed.  */
 
-#ifndef YY_YY_HOME_CQ_P2C_PASCAL_S_COMPILER_1_BUILD_INCLUDE_YACC_TAB_H_INCLUDED
-# define YY_YY_HOME_CQ_P2C_PASCAL_S_COMPILER_1_BUILD_INCLUDE_YACC_TAB_H_INCLUDED
+#ifndef YY_YY_HOME_CQ_PASCAL_S_COMPILER_BUILD_INCLUDE_YACC_TAB_H_INCLUDED
+# define YY_YY_HOME_CQ_PASCAL_S_COMPILER_BUILD_INCLUDE_YACC_TAB_H_INCLUDED
 /* Debug traces.  */
 #ifndef YYDEBUG
 # define YYDEBUG 1
@@ -99,8 +99,8 @@ extern int yydebug;
     INT_NUM = 300,                 /* INT_NUM  */
     FLOAT_NUM = 301,               /* FLOAT_NUM  */
     LETTER = 302,                  /* LETTER  */
-    ADD = 303,                     /* ADD  */
-    MUL = 304,                     /* MUL  */
+    _WRITE = 303,                  /* _WRITE  */
+    _READ = 304,                   /* _READ  */
     UMINUS = 305,                  /* UMINUS  */
     LOWER_THAN_ELSE = 306,         /* LOWER_THAN_ELSE  */
     ONE = 307,                     /* ONE  */
@@ -138,4 +138,4 @@ extern YYLTYPE yylloc;
 int yyparse (void);
 
 
-#endif /* !YY_YY_HOME_CQ_P2C_PASCAL_S_COMPILER_1_BUILD_INCLUDE_YACC_TAB_H_INCLUDED  */
+#endif /* !YY_YY_HOME_CQ_PASCAL_S_COMPILER_BUILD_INCLUDE_YACC_TAB_H_INCLUDED  */
