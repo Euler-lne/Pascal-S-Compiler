@@ -177,7 +177,6 @@ namespace C_GEN
         case Token::TokenType::FOR:
             targetCode << "for(";
             ProcAssignStateMent(whileStatement->initAssign);
-            targetCode << " ";
 
             ProcVariantReference(whileStatement->initAssign->leftVal);
             if (whileStatement->isDownto == 0)
@@ -189,7 +188,7 @@ namespace C_GEN
                 targetCode << " >= ";
             }
             ProcExpression(whileStatement->condition);
-            targetCode << "; ";
+            targetCode << ";\n";
 
             ProcVariantReference(whileStatement->initAssign->leftVal);
             if (whileStatement->isDownto == 0)
