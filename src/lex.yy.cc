@@ -287,34 +287,32 @@ static void yy_fatal_error YY_PROTO(( yyconst char msg[] ));
 	*yy_cp = '\0'; \
 	yy_c_buf_p = yy_cp;
 
-#define YY_NUM_RULES 59
-#define YY_END_OF_BUFFER 60
-static yyconst short int yy_acclist[298] =
+#define YY_NUM_RULES 58
+#define YY_END_OF_BUFFER 59
+static yyconst short int yy_acclist[278] =
     {   0,
-       60,   51,   59,    1,   51,   59,    2,   59,   48,   51,
-       59,   34,   51,   59,   35,   51,   59,   43,   51,   59,
-       42,   51,   59,   33,   51,   59,   32,   51,   59,   43,
-       51,   59,   45,   51,   59,   40,   51,   59,   38,   51,
-       59,   41,   51,   59,   41,   51,   59,   41,   51,   59,
-       44,   47,   51,   59,   44,   47,   51,   59,   44,   47,
-       51,   59,   44,   47,   51,   59,   44,   47,   51,   59,
-       44,   47,   51,   59,   44,   47,   51,   59,   44,   47,
-       51,   59,   44,   47,   51,   59,   44,   47,   51,   59,
-       44,   47,   51,   59,   44,   47,   51,   59,   44,   47,
+       59,   50,   58,    1,   50,   58,    2,   58,   47,   50,
+       58,   34,   50,   58,   35,   50,   58,   43,   50,   58,
+       42,   50,   58,   33,   50,   58,   32,   50,   58,   43,
+       50,   58,   45,   50,   58,   40,   50,   58,   38,   50,
+       58,   41,   50,   58,   41,   50,   58,   41,   50,   58,
+       44,   50,   58,   44,   50,   58,   44,   50,   58,   44,
+       50,   58,   44,   50,   58,   44,   50,   58,   44,   50,
+       58,   44,   50,   58,   44,   50,   58,   44,   50,   58,
+       44,   50,   58,   44,   50,   58,   44,   50,   58,   44,
+       50,   58,   44,   50,   58,   44,   50,   58,   36,   50,
 
-       51,   59,   44,   47,   51,   59,   44,   47,   51,   59,
-       44,   47,   51,   59,   36,   51,   59,   37,   51,   59,
-       44,   47,   51,   59,   44,   47,   51,   59,   44,   47,
-       51,   59,   44,   47,   51,   59,   50,   51,   59,   55,
-       59,   54,   59,   58,   59,   56,   59,   57,   58,   59,
-       53,   59,   52,   59,   52,   53,   59,    1,    2,   31,
-       49,   45,   39,   41,   44,   44,   44,   44,   44,   44,
+       58,   37,   50,   58,   44,   50,   58,   44,   50,   58,
+       44,   50,   58,   44,   50,   58,   49,   50,   58,   54,
+       58,   53,   58,   57,   58,   55,   58,   56,   57,   58,
+       52,   58,   51,   58,   51,   52,   58,    1,    2,   31,
+       48,   45,   39,   41,   44,   44,   44,   44,   44,   44,
        44,   22,   44,   44,   44,   44,   44,   17,   44,   44,
        44,    8,   44,   44,   44,   44,   26,   44,   44,   44,
-       44,   44,   44,   44,   44,   42,   44,   56,   46,   44,
-
+       44,   44,   44,   44,   44,   42,   44,   55,   46,   44,
        44,   44,   44,   44,   44,   44,   44,    6,   44,   25,
        44,   44,   44,   30,   44,   44,   44,   44,   44,   44,
+
        44,   13,   44,   44,   44,   43,   44,   44,   44,   44,
        20,   44,   12,   44,   44,   44,   19,   44,   44,   44,
        44,   44,   29,   44,   10,   44,   44,   44,   18,   44,
@@ -323,29 +321,28 @@ static yyconst short int yy_acclist[298] =
        44,   28,   44,   44,   27,   44,   44,   44,   44,   44,
         5,   44,   23,   44,   11,   44,   44,    9,   44,   44,
         3,   44,   14,   44,   44,   15,   44
-
     } ;
 
 static yyconst short int yy_accept[171] =
     {   0,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    2,
         4,    7,    9,   12,   15,   18,   21,   24,   27,   30,
-       33,   36,   39,   42,   45,   48,   51,   55,   59,   63,
-       67,   71,   75,   79,   83,   87,   91,   95,   99,  103,
-      107,  111,  115,  118,  121,  125,  129,  133,  137,  140,
-      142,  144,  146,  148,  151,  153,  155,  158,  159,  160,
-      161,  162,  162,  163,  164,  165,  166,  167,  168,  169,
-      170,  171,  172,  174,  175,  176,  177,  178,  180,  181,
-      182,  184,  185,  186,  187,  189,  190,  191,  192,  193,
-      194,  195,  196,  198,  199,  200,  201,  202,  203,  204,
+       33,   36,   39,   42,   45,   48,   51,   54,   57,   60,
+       63,   66,   69,   72,   75,   78,   81,   84,   87,   90,
+       93,   96,   99,  102,  105,  108,  111,  114,  117,  120,
+      122,  124,  126,  128,  131,  133,  135,  138,  139,  140,
+      141,  142,  142,  143,  144,  145,  146,  147,  148,  149,
+      150,  151,  152,  154,  155,  156,  157,  158,  160,  161,
+      162,  164,  165,  166,  167,  169,  170,  171,  172,  173,
+      174,  175,  176,  178,  179,  180,  181,  182,  183,  184,
 
-      205,  206,  207,  208,  210,  212,  213,  214,  216,  217,
-      218,  219,  220,  221,  222,  224,  225,  226,  228,  229,
-      230,  231,  233,  235,  236,  237,  239,  240,  241,  242,
-      243,  245,  247,  248,  249,  251,  252,  253,  254,  256,
-      258,  259,  261,  262,  263,  264,  265,  266,  267,  268,
-      270,  272,  274,  275,  277,  278,  279,  280,  281,  283,
-      285,  287,  288,  290,  291,  293,  295,  296,  298,  298
+      185,  186,  187,  188,  190,  192,  193,  194,  196,  197,
+      198,  199,  200,  201,  202,  204,  205,  206,  208,  209,
+      210,  211,  213,  215,  216,  217,  219,  220,  221,  222,
+      223,  225,  227,  228,  229,  231,  232,  233,  234,  236,
+      238,  239,  241,  242,  243,  244,  245,  246,  247,  248,
+      250,  252,  254,  255,  257,  258,  259,  260,  261,  263,
+      265,  267,  268,  270,  271,  273,  275,  276,  278,  278
     } ;
 
 static yyconst int yy_ec[256] =
@@ -580,7 +577,7 @@ extern "C"
 
 #define CH 3
 
-#line 584 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.yy.cc"
+#line 581 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.yy.cc"
 
 /* Macros after this point can all be overridden by user definitions in
  * section 1.
@@ -734,7 +731,7 @@ YY_DECL
 #line 79 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 
                   
-#line 738 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.yy.cc"
+#line 735 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.yy.cc"
 
 	if ( yy_init )
 		{
@@ -1537,60 +1534,45 @@ YY_RULE_SETUP
 	YY_BREAK
 case 47:
 YY_RULE_SETUP
-#line 657 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
-{
-    yylval=new ParseNode();
-    yylval->val=yytext;
-    yylval->token=Token::LETTER;
-    yylval->lineNumber = yylineno ;
-    #ifdef LEXDEBUG
-    //printf("LETTER: %s  Token: %s\n", yylval->val,yylval->token);
-    cout << "LETTER: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
-    #endif
-    return LETTER;
-}
-	YY_BREAK
-case 48:
-YY_RULE_SETUP
-#line 671 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 661 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {//进入字符常量识别
 cout<<"BEGIN CH"<<endl;
     BEGIN CH;
 	charRec="";
 }
 	YY_BREAK
-case 49:
+case 48:
 YY_RULE_SETUP
-#line 677 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 667 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {//进入单行注释
     BEGIN SCOM;
 }
 	YY_BREAK
-case 50:
+case 49:
 YY_RULE_SETUP
-#line 681 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 671 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {//进入多行注释
 	BEGIN MCOM;
 }
 	YY_BREAK
-case 51:
+case 50:
 YY_RULE_SETUP
-#line 685 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 675 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {//非法字符 错误3
     addLexicalErrorInformation(yytext, "Invalid character!", yycolumn-yyleng, yycolumn-1);
 	//cout << "error: invalid char" << endl;
 }
 	YY_BREAK
 case YY_STATE_EOF(CH):
-#line 691 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 681 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 { //读取字符常量时遇到文件尾 错误4
     addLexicalErrorInformation(yytext, "Unexpected end of file when reading a char constant", yycolumn-yyleng, yycolumn-1);
     return 0;
 }
 	YY_BREAK
-case 52:
+case 51:
 YY_RULE_SETUP
-#line 696 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 686 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {//字符常量限定在一行中
     int len = charRec.length();
     
@@ -1605,7 +1587,7 @@ YY_RULE_SETUP
         //printf("CHAR: %s  Token: %s\n", yylval->val,yylval->token);
         cout << "CHAR1: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
         #endif
-        return CHAR;
+        return LETTER;
     }
     else if(yytext[0]=='\'' && len==1){
         // 如果字符常量长度为1，则返回字符常量
@@ -1618,7 +1600,7 @@ YY_RULE_SETUP
         cout << "CHAR2: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
         #endif
         BEGIN INITIAL;
-        return CHAR;
+        return LETTER;
     }
     else if(yytext[0]=='\''){
         addLexicalErrorInformation(yytext, "Too many characters in a char constant!", yycolumn-yyleng-len, yycolumn-yyleng-1); //错误6
@@ -1632,7 +1614,7 @@ YY_RULE_SETUP
         cout << "CHAR3: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
         #endif
         BEGIN INITIAL;
-        return CHAR;
+        return LETTER;
     }
     else{
         addLexicalErrorInformation(yytext, "Right quote missing!", yycolumn-yyleng-len+1, yycolumn-yyleng-len+1); //错误7
@@ -1652,47 +1634,47 @@ YY_RULE_SETUP
        cout << "CHAR4: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
         #endif
         BEGIN INITIAL;
-        return CHAR;
+        return LETTER;
     }
 }
 	YY_BREAK
-case 53:
+case 52:
 YY_RULE_SETUP
-#line 761 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 751 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {
 	charRec+=yytext[0];
 }
 	YY_BREAK
 case YY_STATE_EOF(SCOM):
-#line 765 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 755 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 { //单行注释遇到文件尾
     return 0;
 }
 	YY_BREAK
-case 54:
+case 53:
 YY_RULE_SETUP
-#line 769 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 759 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {
     BEGIN INITIAL;
     yyless(0);//将换行符退回
 	yylineno--;//行号减一
 }
 	YY_BREAK
-case 55:
+case 54:
 YY_RULE_SETUP
-#line 775 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 765 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {}
 	YY_BREAK
 case YY_STATE_EOF(MCOM):
-#line 777 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 767 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 { //多行注释遇到文件尾 错误8
     addLexicalErrorInformation(yytext, "Unexpected end of file when reading a multiple line comment, lacking of a right brace", yycolumn-yyleng, yycolumn-1);
     return 0;
 }
 	YY_BREAK
-case 56:
+case 55:
 YY_RULE_SETUP
-#line 782 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 772 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {
     if(CheckAndAddLengthTooLargeErrorInformation(yytext, "line", 1, yyleng)) //行长度超过限制
         return 0;
@@ -1701,24 +1683,24 @@ YY_RULE_SETUP
     yyless(1);
 }
 	YY_BREAK
-case 57:
+case 56:
 YY_RULE_SETUP
-#line 790 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 780 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {
 	BEGIN INITIAL;
 }
 	YY_BREAK
-case 58:
+case 57:
 YY_RULE_SETUP
-#line 794 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 784 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {}
 	YY_BREAK
-case 59:
+case 58:
 YY_RULE_SETUP
-#line 795 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 785 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 ECHO;
 	YY_BREAK
-#line 1722 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.yy.cc"
+#line 1704 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.yy.cc"
 			case YY_STATE_EOF(INITIAL):
 				yyterminate();
 
@@ -2602,7 +2584,7 @@ int main()
 	return 0;
 	}
 #endif
-#line 795 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 785 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 
 
 

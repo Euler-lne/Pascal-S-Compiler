@@ -654,17 +654,7 @@ mulop (\*|\/|div|mod|and)
     return NUM;
 }
 
-{letter} {
-    yylval=new ParseNode();
-    yylval->val=yytext;
-    yylval->token=Token::LETTER;
-    yylval->lineNumber = yylineno ;
-    #ifdef LEXDEBUG
-    //printf("LETTER: %s  Token: %s\n", yylval->val,yylval->token);
-    cout << "LETTER: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
-    #endif
-    return LETTER;
-}
+
 
 
 
@@ -707,7 +697,7 @@ cout<<"BEGIN CH"<<endl;
         //printf("CHAR: %s  Token: %s\n", yylval->val,yylval->token);
         cout << "CHAR1: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
         #endif
-        return CHAR;
+        return LETTER;
     }
     else if(yytext[0]=='\'' && len==1){
         // 如果字符常量长度为1，则返回字符常量
@@ -720,7 +710,7 @@ cout<<"BEGIN CH"<<endl;
         cout << "CHAR2: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
         #endif
         BEGIN INITIAL;
-        return CHAR;
+        return LETTER;
     }
     else if(yytext[0]=='\''){
         addLexicalErrorInformation(yytext, "Too many characters in a char constant!", yycolumn-yyleng-len, yycolumn-yyleng-1); //错误6
@@ -734,7 +724,7 @@ cout<<"BEGIN CH"<<endl;
         cout << "CHAR3: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
         #endif
         BEGIN INITIAL;
-        return CHAR;
+        return LETTER;
     }
     else{
         addLexicalErrorInformation(yytext, "Right quote missing!", yycolumn-yyleng-len+1, yycolumn-yyleng-len+1); //错误7
@@ -754,7 +744,7 @@ cout<<"BEGIN CH"<<endl;
        cout << "CHAR4: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
         #endif
         BEGIN INITIAL;
-        return CHAR;
+        return LETTER;
     }
 }
 
