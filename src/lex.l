@@ -793,6 +793,7 @@ int yywrap()
 }
 
 void addLexicalErrorInformation(char *word, string info, int l, int r){
+    ERROR_NUM++;
     string errorInformation = "FLEX error : "+"[" + info + "] " + itos(yylineno-1) + "." + itos(l) + "-" + itos(yylineno-1) + "." + itos(r) + "\n";
     errorInformation += string(lineBuffer) + "\n";
     for(int i=1;i<=l-1;i++)
@@ -810,6 +811,7 @@ bool CheckAndAddLengthTooLargeErrorInformation(char *text, string type, int l, i
         if(len>500){ //错误1
             errorInformation = "FLEX error : "+"[Line length too large, exceed 500] " + itos(yylineno-1) + "." + itos(l) + "-" + itos(yylineno-1) + "." +itos(r); 
             errorInformation += "\nFLEX error : Lex analyse abort!";
+            ERROR_NUM++;
             //cout << errorInformation << endl;
             lexicalErrorInformation.push_back(errorInformation);
             return true;
@@ -821,6 +823,7 @@ bool CheckAndAddLengthTooLargeErrorInformation(char *text, string type, int l, i
             string id = string(text);
             errorInformation = "FLEX error : "+"[Identifier length too large, exceed 100] " + itos(yylineno-1) + "." + itos(l) + "-" + itos(yylineno-1) + "." + itos(r);
             //cout << errorInformation << endl;
+            ERROR_NUM++;
             lexicalErrorInformation.push_back(errorInformation);
             return true;
         }
