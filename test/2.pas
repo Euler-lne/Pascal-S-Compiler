@@ -45,7 +45,6 @@ begin
   testPro1;
   testPro2(2022);
   
-  write();
   write('function-test');  
   a := testFunc;
   b := 24;

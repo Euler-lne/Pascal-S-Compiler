@@ -8,7 +8,6 @@ begin
     begin
       write(j, ' * ', i, ' = ', i * j, '   '); {输出乘法表的一项}
     end;
-    write; {换行}
   end;
 end.
 
