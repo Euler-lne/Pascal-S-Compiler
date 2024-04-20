@@ -2596,7 +2596,12 @@ int yywrap()
 }
 
 void addLexicalErrorInformation(char *word, string info, int l, int r){
+<<<<<<< HEAD
     string errorInformation = "FLEX error : "+"[" + info + "] " + itos(yylineno-1) + "." + itos(l) + "-" + itos(yylineno-1) + "." + itos(r) + "\n";
+=======
+    ERROR_NUM+=1;
+    string errorInformation = "FLEX error : [" + info + "] " + itos(yylineno-1) + "." + itos(l) + "-" + itos(yylineno-1) + "." + itos(r) + "\n";
+>>>>>>> ebf04dcdd0429ffb7b86f20e327cb11c8f186118
     errorInformation += string(lineBuffer) + "\n";
     for(int i=1;i<=l-1;i++)
         errorInformation+=" ";
@@ -2611,8 +2616,14 @@ bool CheckAndAddLengthTooLargeErrorInformation(char *text, string type, int l, i
     int len=strlen(text);
     if(type=="line"){
         if(len>500){ //错误1
+<<<<<<< HEAD
             errorInformation = "FLEX error : "+"[Line length too large, exceed 500] " + itos(yylineno-1) + "." + itos(l) + "-" + itos(yylineno-1) + "." +itos(r); 
             errorInformation += "\nFLEX error : Lex analyse abort!";
+=======
+            errorInformation = "FLEX error : [Line length too large, exceed 500] " + itos(yylineno-1) + "." + itos(l) + "-" + itos(yylineno-1) + "." +itos(r); 
+            errorInformation += "\nFLEX error : Lex analyse abort!";
+            ERROR_NUM+=1;
+>>>>>>> ebf04dcdd0429ffb7b86f20e327cb11c8f186118
             //cout << errorInformation << endl;
             lexicalErrorInformation.push_back(errorInformation);
             return true;
@@ -2622,15 +2633,24 @@ bool CheckAndAddLengthTooLargeErrorInformation(char *text, string type, int l, i
     else if(type=="id"){
         if(len>100){ //错误2
             string id = string(text);
+<<<<<<< HEAD
             errorInformation = "FLEX error : "+"[Identifier length too large, exceed 100] " + itos(yylineno-1) + "." + itos(l) + "-" + itos(yylineno-1) + "." + itos(r);
+=======
+            errorInformation = "FLEX error : [Identifier length too large, exceed 100] " + itos(yylineno-1) + "." + itos(l) + "-" + itos(yylineno-1) + "." + itos(r);
+>>>>>>> ebf04dcdd0429ffb7b86f20e327cb11c8f186118
             //cout << errorInformation << endl;
+            ERROR_NUM+=1;
             lexicalErrorInformation.push_back(errorInformation);
             return true;
         }
         return false;
     }
     else{
+<<<<<<< HEAD
         cout << "FLEX error : "+"[CheckAndAddLengthTooLargeErrorInformation] type not found" << endl;
+=======
+        cout << "FLEX error : [CheckAndAddLengthTooLargeErrorInformation] type not found" << endl;
+>>>>>>> ebf04dcdd0429ffb7b86f20e327cb11c8f186118
         return false;
     }
 }
