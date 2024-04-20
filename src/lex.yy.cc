@@ -2596,7 +2596,8 @@ int yywrap()
 }
 
 void addLexicalErrorInformation(char *word, string info, int l, int r){
-    string errorInformation = "[" + info + "] " + itos(yylineno-1) + "." + itos(l) + "-" + itos(yylineno-1) + "." + itos(r) + "\n";
+    ERROR_NUM+=1;
+    string errorInformation = "FLEX error : [" + info + "] " + itos(yylineno-1) + "." + itos(l) + "-" + itos(yylineno-1) + "." + itos(r) + "\n";
     errorInformation += string(lineBuffer) + "\n";
     for(int i=1;i<=l-1;i++)
         errorInformation+=" ";
@@ -2611,8 +2612,9 @@ bool CheckAndAddLengthTooLargeErrorInformation(char *text, string type, int l, i
     int len=strlen(text);
     if(type=="line"){
         if(len>500){ //错误1
-            errorInformation = "[Line length too large, exceed 500] " + itos(yylineno-1) + "." + itos(l) + "-" + itos(yylineno-1) + "." +itos(r); 
-            errorInformation += "\nLex analyse abort!";
+            errorInformation = "FLEX error : [Line length too large, exceed 500] " + itos(yylineno-1) + "." + itos(l) + "-" + itos(yylineno-1) + "." +itos(r); 
+            errorInformation += "\nFLEX error : Lex analyse abort!";
+            ERROR_NUM+=1;
             //cout << errorInformation << endl;
             lexicalErrorInformation.push_back(errorInformation);
             return true;
@@ -2622,15 +2624,16 @@ bool CheckAndAddLengthTooLargeErrorInformation(char *text, string type, int l, i
     else if(type=="id"){
         if(len>100){ //错误2
             string id = string(text);
-            errorInformation = "[Identifier length too large, exceed 100] " + itos(yylineno-1) + "." + itos(l) + "-" + itos(yylineno-1) + "." + itos(r);
+            errorInformation = "FLEX error : [Identifier length too large, exceed 100] " + itos(yylineno-1) + "." + itos(l) + "-" + itos(yylineno-1) + "." + itos(r);
             //cout << errorInformation << endl;
+            ERROR_NUM+=1;
             lexicalErrorInformation.push_back(errorInformation);
             return true;
         }
         return false;
     }
     else{
-        cout << "[CheckAndAddLengthTooLargeErrorInformation] type not found" << endl;
+        cout << "FLEX error : [CheckAndAddLengthTooLargeErrorInformation] type not found" << endl;
         return false;
     }
 }
