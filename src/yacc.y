@@ -1,5 +1,5 @@
 /*
-    语法分析过程，一边进行语法分析一边构建语法分析树
+    语法分析过程，一边进行语法分析一边构建语法分析树_NULL
     注意编写完成之后请输入bison -d yacc.y指令编译出yacc.tab.h文件
 */
 
@@ -356,12 +356,13 @@ TYPE_: 	STANDRAD_TYPE_{ //正常
 			$$=new ParseNode;
 			$$->token = Token::TYPE_;
 			$$->children.push_back($1);
-		}|RECORD VAR_DECLARATION_ END{ //正常
+		}|RECORD VAR_DECLARATION_ SEMICOLON END{ //正常
 		    
-						printf("TYPE_: 	RECORD VAR_DECLARATION_ END\n");
+						printf("TYPE_: 	RECORD VAR_DECLARATION_ SEMICOLON END\n");
 			$$=new ParseNode;
 			$$->token = Token::TYPE_;
-            $$->children.push_back($1); $$->children.push_back($2); $$->children.push_back($3);
+            $$->children.push_back($1); $$->children.push_back($2); 
+			$$->children.push_back($3); $$->children.push_back($4);
 		}|ARRAY LEFT_MEDIUM_PARENTHESES PERIODS_ RIGHT_MEDIUM_PARENTHESES OF STANDRAD_TYPE_{ //正常
 			
 			printf("TYPE_: 	ARRAY LEFT_MEDIUM_PARENTHESES PERIODS_ RIGHT_MEDIUM_PARENTHESES OF STANDRAD_TYPE_\n");
@@ -788,7 +789,7 @@ STATEMENT_:  VARIABLE_ ASSIGNOP EXPRESSION_{//正常
                                 $$->children.push_back($5);$$->children.push_back($6);
                                 $$->children.push_back($7);$$->children.push_back($8);
                         }|{  
-								printf("STATEMENT_:kong\n");
+								printf("STATEMENT_:_NULL\n");
 								$$=new ParseNode;
                                 $$->token=Token::STATEMENT_;
                         };//不知道case那需不需要报错
@@ -820,7 +821,7 @@ ID_VARPARTS_:  ID_VARPARTS_ ID_VARPART_{//正常
 					$$->children.push_back($1);$$->children.push_back($2);
                }|{
 					
-						printf("ID_VARPARTS_:kong\n");
+						printf("ID_VARPARTS_:_NULL\n");
 					$$=new ParseNode;
 					$$->token=Token::ID_VARPARTS_;
                 };
@@ -854,7 +855,7 @@ ELSE_PART_:  ELSE STATEMENT_{//正常
 				$$->children.push_back($1);$$->children.push_back($2);
             }|{//正常
 				
-						printf("ELSE_PART_: kong\n");
+						printf("ELSE_PART_: _NULL\n");
                 $$=new ParseNode;
 				$$->token=Token::ELSE_PART_;
             };
@@ -866,7 +867,7 @@ CASE_BODY_:  BRANCH_LIST_{
 				$$->children.push_back($1);
             }|{
 				
-						printf("CASE_BODY_:  kong\n");
+				printf("CASE_BODY_:  _NULL\n");
 				$$=new ParseNode;
 				$$->token=Token::CASE_BODY_;
             };
