@@ -1,3 +1,4 @@
+#include "main.h"
 #include <iostream>
 #include <string>
 
@@ -101,6 +102,6 @@ public:
         }
 
         std::cerr << "Error at line " << lineNum << ": " << errorMessage << std::endl;
-        exit(-1);
+        ERROR_NUM++;
     }
 };

@@ -31,5 +31,5 @@ public:
 };
 
 #define YYSTYPE ParseNode *
-#define ERROR_NUM 0
+int ERROR_NUM = 0;
 #endif
