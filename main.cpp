@@ -3,7 +3,7 @@
 #include "CodeGeneration.h"
 #include <fstream>
 #include <sstream>
-
+int ERROR_NUM = 0;
 extern ParseNode *ParseTreeHead;
 extern FILE *yyin;
 extern int yyparse();
@@ -14,7 +14,6 @@ string itos(int num)
     sin << num;
     return sin.str();
 }
-
 int main()
 {
     // blog.csdn.net/cscmaker/article/details/7042718

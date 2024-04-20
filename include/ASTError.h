@@ -1,7 +1,9 @@
+#ifndef ASTERROR_H
+#define ASTERROR_H
 #include "main.h"
 #include <iostream>
 #include <string>
-
+extern int ERROR_NUM;
 class CompilerError
 {
 public:
@@ -105,3 +107,4 @@ public:
         ERROR_NUM++;
     }
 };
+#endif
