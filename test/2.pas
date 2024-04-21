@@ -46,7 +46,7 @@ begin
   testPro2(2022);
   
   write('function-test');  
-  a := testFunc;
+  testFunc;
   b := 24;
   write(gcd(a, b) + 1);
   swap(a, b);

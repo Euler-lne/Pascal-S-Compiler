@@ -288,7 +288,7 @@ namespace C_GEN
                 break;
 
             case 2:
-                cout << targetCode.str() << endl;
+
                 ProcVariantReference(expression->variantReference);
                 break;
 
@@ -350,9 +350,14 @@ namespace C_GEN
         }
         else
         {
-            if (variantReference->isFunction)
+            if (variantReference->isFunction && variantReference->GetIsLeft())
             {
                 targetCode << "return ";
+                return;
+            }
+            else if (variantReference->isFunction && !variantReference->GetIsLeft())
+            {
+                targetCode << variantReference->GetIDToCodeGenerator() << "()";
                 return;
             }
             switch (variantReference->isFormalParameter)
