@@ -93,6 +93,7 @@ mulop (\*|\/|div|mod|and)
     yylval->val="program";
     yylval->token=Token::PROGRAM;
     yylval->lineNumber = yylineno;
+    reduceNode.Insert(yylval);
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
     cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
@@ -105,6 +106,7 @@ mulop (\*|\/|div|mod|and)
     yylval->val="const";
     yylval->token=Token::CONST;
     yylval->lineNumber = yylineno;
+    reduceNode.Insert(yylval);
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
     cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
@@ -117,6 +119,7 @@ mulop (\*|\/|div|mod|and)
     yylval->val="record";
     yylval->token=Token::RECORD;
     yylval->lineNumber = yylineno ;
+    reduceNode.Insert(yylval);
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
     cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
@@ -130,6 +133,7 @@ mulop (\*|\/|div|mod|and)
     yylval->val="end";
     yylval->token=Token::END;
     yylval->lineNumber = yylineno ;
+    reduceNode.Insert(yylval);
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
     cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
@@ -143,6 +147,7 @@ mulop (\*|\/|div|mod|and)
     yylval->val="array";
     yylval->token=Token::ARRAY;
     yylval->lineNumber = yylineno ;
+    reduceNode.Insert(yylval);
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
     cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
@@ -156,6 +161,7 @@ mulop (\*|\/|div|mod|and)
     yylval->val="of";
     yylval->token=Token::OF;
     yylval->lineNumber = yylineno ;
+    reduceNode.Insert(yylval);
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
     cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
@@ -169,6 +175,7 @@ mulop (\*|\/|div|mod|and)
     yylval->val="integer";
     yylval->token=Token::INTEGER;
     yylval->lineNumber = yylineno ;
+    reduceNode.Insert(yylval);
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
     cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
@@ -182,6 +189,7 @@ mulop (\*|\/|div|mod|and)
     yylval->val="real";
     yylval->token=Token::REAL;
     yylval->lineNumber = yylineno ;
+    reduceNode.Insert(yylval);
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
     cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
@@ -195,6 +203,7 @@ mulop (\*|\/|div|mod|and)
     yylval->val="bollean";
     yylval->token=Token::BOLLEAN;
     yylval->lineNumber = yylineno ;
+    reduceNode.Insert(yylval);
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
     cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
@@ -208,6 +217,7 @@ mulop (\*|\/|div|mod|and)
     yylval->val="char";
     yylval->token=Token::CHAR;
     yylval->lineNumber = yylineno ;
+    reduceNode.Insert(yylval);
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
     cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
@@ -221,6 +231,7 @@ mulop (\*|\/|div|mod|and)
     yylval->val="var";
     yylval->token=Token::VAR;
     yylval->lineNumber = yylineno ;
+    reduceNode.Insert(yylval);
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
     cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
@@ -234,6 +245,7 @@ mulop (\*|\/|div|mod|and)
     yylval->val="function";
     yylval->token=Token::FUNCTION;
     yylval->lineNumber = yylineno ;
+    reduceNode.Insert(yylval);
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
     cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
@@ -247,6 +259,7 @@ mulop (\*|\/|div|mod|and)
     yylval->val="procedure";
     yylval->token=Token::PROCEDURE;
     yylval->lineNumber = yylineno ;
+    reduceNode.Insert(yylval);
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
     cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
@@ -259,6 +272,7 @@ mulop (\*|\/|div|mod|and)
     yylval->val="begin";
     yylval->token=Token::_BEGIN;
     yylval->lineNumber = yylineno ;
+    reduceNode.Insert(yylval);
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
     cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
@@ -271,6 +285,7 @@ mulop (\*|\/|div|mod|and)
     yylval->val="if";
     yylval->token=Token::IF;
     yylval->lineNumber = yylineno ;
+    reduceNode.Insert(yylval);
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
     cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
@@ -284,6 +299,7 @@ mulop (\*|\/|div|mod|and)
     yylval->val="then";
     yylval->token=Token::THEN;
     yylval->lineNumber = yylineno ;
+    reduceNode.Insert(yylval);
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
     cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
@@ -297,6 +313,7 @@ mulop (\*|\/|div|mod|and)
     yylval->val="else";
     yylval->token=Token::ELSE;
     yylval->lineNumber = yylineno ;
+    reduceNode.Insert(yylval);
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
     cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
@@ -310,6 +327,7 @@ mulop (\*|\/|div|mod|and)
     yylval->val="case";
     yylval->token=Token::CASE;
     yylval->lineNumber = yylineno ;
+    reduceNode.Insert(yylval);
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
     cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
@@ -323,6 +341,7 @@ mulop (\*|\/|div|mod|and)
     yylval->val="while";
     yylval->token=Token::WHILE;
     yylval->lineNumber = yylineno ;
+    reduceNode.Insert(yylval);
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
     cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
@@ -336,6 +355,7 @@ mulop (\*|\/|div|mod|and)
     yylval->val="do";
     yylval->token=Token::DO;
     yylval->lineNumber = yylineno ;
+    reduceNode.Insert(yylval);
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
     cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
@@ -349,6 +369,7 @@ mulop (\*|\/|div|mod|and)
     yylval->val="repeat";
     yylval->token=Token::REPEAT;
     yylval->lineNumber = yylineno ;
+    reduceNode.Insert(yylval);
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
     cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
@@ -362,6 +383,7 @@ mulop (\*|\/|div|mod|and)
     yylval->val="until";
     yylval->token=Token::UNTIL;
     yylval->lineNumber = yylineno ;
+    reduceNode.Insert(yylval);
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
     cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
@@ -375,6 +397,7 @@ mulop (\*|\/|div|mod|and)
     yylval->val="for";
     yylval->token=Token::FOR;
     yylval->lineNumber = yylineno ;
+    reduceNode.Insert(yylval);
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
     cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
@@ -388,6 +411,7 @@ mulop (\*|\/|div|mod|and)
     yylval->val="to";
     yylval->token=Token::TO;
     yylval->lineNumber = yylineno ;
+    reduceNode.Insert(yylval);
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
     cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
@@ -401,6 +425,7 @@ mulop (\*|\/|div|mod|and)
     yylval->val="downto";
     yylval->token=Token::DOWNTO;
     yylval->lineNumber = yylineno ;
+    reduceNode.Insert(yylval);
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
     cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
@@ -414,6 +439,7 @@ mulop (\*|\/|div|mod|and)
     yylval->val="write";
     yylval->token=Token::_WRITE;
     yylval->lineNumber = yylineno ;
+    reduceNode.Insert(yylval);
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
     cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
@@ -427,6 +453,7 @@ mulop (\*|\/|div|mod|and)
     yylval->val="read";
     yylval->token=Token::_READ;
     yylval->lineNumber = yylineno ;
+    reduceNode.Insert(yylval);
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
     cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
@@ -441,6 +468,7 @@ mulop (\*|\/|div|mod|and)
 	yylval->val="not";
 	yylval->token=Token::NOT;
     yylval->lineNumber = yylineno ;
+    reduceNode.Insert(yylval);
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
     cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
@@ -453,6 +481,7 @@ mulop (\*|\/|div|mod|and)
 	yylval->val=yytext;
 	yylval->token=Token::RANGE_DOT;
     yylval->lineNumber = yylineno ;
+    reduceNode.Insert(yylval);
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
     cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
@@ -465,6 +494,7 @@ mulop (\*|\/|div|mod|and)
 	yylval->val=yytext;
 	yylval->token=Token::DOT;
     yylval->lineNumber = yylineno ;
+    reduceNode.Insert(yylval);
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
     cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
@@ -477,6 +507,7 @@ mulop (\*|\/|div|mod|and)
 	yylval->val=yytext;
 	yylval->token=Token::COMMA;
     yylval->lineNumber = yylineno ;
+    reduceNode.Insert(yylval);
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
     cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
@@ -489,6 +520,7 @@ mulop (\*|\/|div|mod|and)
 	yylval->val=yytext;
 	yylval->token=Token::LEFT_PARENTHESES;
     yylval->lineNumber = yylineno ;
+    reduceNode.Insert(yylval);
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
     cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
@@ -501,6 +533,7 @@ mulop (\*|\/|div|mod|and)
 	yylval->val=yytext;
 	yylval->token=Token::RIGHT_PARENTHESES;
     yylval->lineNumber = yylineno ;
+    reduceNode.Insert(yylval);
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
     cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
@@ -513,6 +546,7 @@ mulop (\*|\/|div|mod|and)
 	yylval->val=yytext;
 	yylval->token=Token::LEFT_MEDIUM_PARENTHESES;
     yylval->lineNumber = yylineno ;
+    reduceNode.Insert(yylval);
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
     cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
@@ -525,6 +559,7 @@ mulop (\*|\/|div|mod|and)
 	yylval->val=yytext;
 	yylval->token=Token::RIGHT_MEDIUM_PARENTHESES;
     yylval->lineNumber = yylineno ;
+    reduceNode.Insert(yylval);
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
     cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
@@ -537,6 +572,7 @@ mulop (\*|\/|div|mod|and)
 	yylval->val=yytext;
 	yylval->token=Token::SEMICOLON;
     yylval->lineNumber = yylineno ;
+    reduceNode.Insert(yylval);
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
     cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
@@ -549,6 +585,7 @@ mulop (\*|\/|div|mod|and)
 	yylval->val=yytext;
 	yylval->token=Token::ASSIGNOP;
     yylval->lineNumber = yylineno ;
+    reduceNode.Insert(yylval);
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
     cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
@@ -561,6 +598,7 @@ mulop (\*|\/|div|mod|and)
 	yylval->val=yytext;
 	yylval->token=Token::COLON;
     yylval->lineNumber = yylineno ;
+    reduceNode.Insert(yylval);
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
     cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
@@ -573,6 +611,7 @@ mulop (\*|\/|div|mod|and)
 	yylval->val=yytext;
 	yylval->token=Token::RELOP;
     yylval->lineNumber = yylineno ;
+    reduceNode.Insert(yylval);
     #ifdef LEXDEBUG
     //printf("RELOP: %s  Token: %s\n", yylval->val,yylval->token);
     cout << "RELOP: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
@@ -585,6 +624,7 @@ mulop (\*|\/|div|mod|and)
 	yylval->val=yytext;
 	yylval->token=Token::ADDOP;
     yylval->lineNumber = yylineno ;
+    reduceNode.Insert(yylval);
     #ifdef LEXDEBUG
     //printf("ADDOP: %s  Token: %s\n", yylval->val,yylval->token);
     cout << "ADDOP: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
@@ -597,6 +637,7 @@ mulop (\*|\/|div|mod|and)
 	yylval->val=yytext;
 	yylval->token=Token::MULOP;
     yylval->lineNumber = yylineno ;
+    reduceNode.Insert(yylval);
     #ifdef LEXDEBUG
     //printf("MULOP: %s  Token: %s\n", yylval->val,yylval->token);
     cout << "MULOP: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
@@ -623,6 +664,7 @@ mulop (\*|\/|div|mod|and)
     yylval->val = lowercaseStr;
 	yylval->token = Token::ID;
     yylval->lineNumber = yylineno ;
+    reduceNode.Insert(yylval);
     #ifdef LEXDEBUG
     //printf("ID: %s  Token: %s\n", yylval->val,yylval->token);
     cout << "ID: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
@@ -635,6 +677,7 @@ mulop (\*|\/|div|mod|and)
 	yylval->val=yytext;
 	yylval->token=Token::INT_NUM;
     yylval->lineNumber = yylineno ;
+    reduceNode.Insert(yylval);
     #ifdef LEXDEBUG
     //printf("INT_NUM: %s  Token: %s\n", yylval->val,yylval->token);
     cout << "INT_NUM: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
@@ -647,6 +690,7 @@ mulop (\*|\/|div|mod|and)
     yylval->val=yytext;
     yylval->token=Token::FLOAT_NUM;
     yylval->lineNumber = yylineno ;
+    reduceNode.Insert(yylval);
     #ifdef LEXDEBUG
     //printf("FLOAT_NUM: %s  Token: %s\n", yylval->val,yylval->token);
     cout << "FLOAT_NUM: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
@@ -693,6 +737,7 @@ cout<<"BEGIN CH"<<endl;
         yylval->val="\0";
         yylval->token=Token::CHAR;
         yylval->lineNumber=yylineno ;
+        reduceNode.Insert(yylval);
         #ifdef LEXDEBUG
         //printf("CHAR: %s  Token: %s\n", yylval->val,yylval->token);
         cout << "CHAR1: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
@@ -705,6 +750,7 @@ cout<<"BEGIN CH"<<endl;
         yylval->val=charRec[0];
         yylval->token=Token::CHAR;
         yylval->lineNumber=yylineno ;
+        reduceNode.Insert(yylval);
         #ifdef LEXDEBUG
         //printf("CHAR: %s  Token: %s\n", yylval->val,yylval->token);
         cout << "CHAR2: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
@@ -719,6 +765,7 @@ cout<<"BEGIN CH"<<endl;
         yylval->val=charRec;
         yylval->token=Token::CHAR;
         yylval->lineNumber=yylineno ;
+        reduceNode.Insert(yylval);
         #ifdef LEXDEBUG
         //printf("CHAR: %s  Token: %s\n", yylval->val,yylval->token);
         cout << "CHAR3: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
@@ -739,6 +786,7 @@ cout<<"BEGIN CH"<<endl;
             yylval->val=charRec;
         yylval->token=Token::CHAR;
         yylval->lineNumber=yylineno ;
+        reduceNode.Insert(yylval);
         #ifdef LEXDEBUG
        // printf("CHAR: %s  Token: %s\n", yylval->val,yylval->token);
        cout << "CHAR4: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;

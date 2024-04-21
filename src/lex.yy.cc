@@ -846,6 +846,7 @@ YY_RULE_SETUP
     yylval->val="program";
     yylval->token=Token::PROGRAM;
     yylval->lineNumber = yylineno;
+    reduceNode.Insert(yylval);
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
     cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
@@ -855,7 +856,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 103 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 104 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {
     yylval=new ParseNode();
     yylval->val="const";
@@ -870,7 +871,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 115 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 116 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {
     yylval=new ParseNode();
     yylval->val="record";
@@ -886,7 +887,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 128 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 129 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {
     yylval=new ParseNode();
     yylval->val="end";
@@ -902,7 +903,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 141 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 142 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {
     yylval=new ParseNode();
     yylval->val="array";
@@ -918,7 +919,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 154 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 155 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {
     yylval=new ParseNode();
     yylval->val="of";
@@ -934,7 +935,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 167 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 168 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {
     yylval=new ParseNode();
     yylval->val="integer";
@@ -950,7 +951,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 180 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 181 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {
     yylval=new ParseNode();
     yylval->val="real";
@@ -966,7 +967,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 193 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 194 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {
     yylval=new ParseNode();
     yylval->val="bollean";
@@ -982,7 +983,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 206 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 207 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {
     yylval=new ParseNode();
     yylval->val="char";
@@ -998,7 +999,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 219 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 220 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {
     yylval=new ParseNode();
     yylval->val="var";
@@ -1014,7 +1015,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 232 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 233 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {
     yylval=new ParseNode();
     yylval->val="function";
@@ -1030,7 +1031,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 245 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 246 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {
     yylval=new ParseNode();
     yylval->val="procedure";
@@ -1046,7 +1047,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 257 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 258 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {
     yylval=new ParseNode();
     yylval->val="begin";
@@ -1061,7 +1062,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 269 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 270 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {
     yylval=new ParseNode();
     yylval->val="if";
@@ -1077,7 +1078,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 282 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 283 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {
     yylval=new ParseNode();
     yylval->val="then";
@@ -1093,7 +1094,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 295 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 296 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {
     yylval=new ParseNode();
     yylval->val="else";
@@ -1109,7 +1110,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 308 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 309 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {
     yylval=new ParseNode();
     yylval->val="case";
@@ -1125,7 +1126,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 321 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 322 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {
     yylval=new ParseNode();
     yylval->val="while";
@@ -1141,7 +1142,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 334 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 335 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {
     yylval=new ParseNode();
     yylval->val="do";
@@ -1157,7 +1158,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 347 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 348 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {
     yylval=new ParseNode();
     yylval->val="repeat";
@@ -1173,7 +1174,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 360 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 361 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {
     yylval=new ParseNode();
     yylval->val="until";
@@ -1189,7 +1190,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 373 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 374 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {
     yylval=new ParseNode();
     yylval->val="for";
@@ -1205,7 +1206,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 386 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 387 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {
     yylval=new ParseNode();
     yylval->val="to";
@@ -1221,7 +1222,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 399 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 400 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {
     yylval=new ParseNode();
     yylval->val="downto";
@@ -1237,7 +1238,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 412 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 413 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {
     yylval=new ParseNode();
     yylval->val="write";
@@ -1253,7 +1254,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 425 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 426 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {
     yylval=new ParseNode();
     yylval->val="read";
@@ -1269,7 +1270,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 439 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 440 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {
     yylval=new ParseNode();
 	yylval->val="not";
@@ -1284,7 +1285,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 451 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 452 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {
     yylval=new ParseNode();
 	yylval->val=yytext;
@@ -1299,7 +1300,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
-#line 463 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 464 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {
     yylval=new ParseNode();
 	yylval->val=yytext;
@@ -1314,7 +1315,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
-#line 475 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 476 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {
     yylval=new ParseNode();
 	yylval->val=yytext;
@@ -1329,7 +1330,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
-#line 487 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 488 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {
     yylval=new ParseNode();
 	yylval->val=yytext;
@@ -1344,7 +1345,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 35:
 YY_RULE_SETUP
-#line 499 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 500 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {
     yylval=new ParseNode();
 	yylval->val=yytext;
@@ -1359,7 +1360,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
-#line 511 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 512 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {
     yylval=new ParseNode();
 	yylval->val=yytext;
@@ -1374,7 +1375,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 37:
 YY_RULE_SETUP
-#line 523 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 524 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {
     yylval=new ParseNode();
 	yylval->val=yytext;
@@ -1389,7 +1390,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 38:
 YY_RULE_SETUP
-#line 535 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 536 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {
     yylval=new ParseNode();
 	yylval->val=yytext;
@@ -1404,7 +1405,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 39:
 YY_RULE_SETUP
-#line 547 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 548 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {
     yylval=new ParseNode();
 	yylval->val=yytext;
@@ -1419,7 +1420,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 40:
 YY_RULE_SETUP
-#line 559 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 560 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {
     yylval=new ParseNode();
 	yylval->val=yytext;
@@ -1434,7 +1435,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 41:
 YY_RULE_SETUP
-#line 571 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 572 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {
     yylval=new ParseNode();
 	yylval->val=yytext;
@@ -1449,7 +1450,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 42:
 YY_RULE_SETUP
-#line 583 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 584 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {
     yylval=new ParseNode();
 	yylval->val=yytext;
@@ -1464,7 +1465,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 43:
 YY_RULE_SETUP
-#line 595 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 596 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {
     yylval=new ParseNode();
 	yylval->val=yytext;
@@ -1479,7 +1480,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 44:
 YY_RULE_SETUP
-#line 611 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 612 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {
     if(CheckAndAddLengthTooLargeErrorInformation(yytext, "id", yycolumn-yyleng, yycolumn-1)){
         yytext[100]=0; //截断处理
@@ -1504,7 +1505,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 45:
 YY_RULE_SETUP
-#line 633 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 634 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {
     yylval=new ParseNode();
 	yylval->val=yytext;
@@ -1519,7 +1520,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 46:
 YY_RULE_SETUP
-#line 645 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 646 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {
     yylval=new ParseNode();
     yylval->val=yytext;
@@ -1534,7 +1535,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 47:
 YY_RULE_SETUP
-#line 661 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 662 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {//进入字符常量识别
 cout<<"BEGIN CH"<<endl;
     BEGIN CH;
@@ -1543,28 +1544,28 @@ cout<<"BEGIN CH"<<endl;
 	YY_BREAK
 case 48:
 YY_RULE_SETUP
-#line 667 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 668 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {//进入单行注释
     BEGIN SCOM;
 }
 	YY_BREAK
 case 49:
 YY_RULE_SETUP
-#line 671 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 672 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {//进入多行注释
 	BEGIN MCOM;
 }
 	YY_BREAK
 case 50:
 YY_RULE_SETUP
-#line 675 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 676 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {//非法字符 错误3
     addLexicalErrorInformation(yytext, "Invalid character!", yycolumn-yyleng, yycolumn-1);
 	//cout << "error: invalid char" << endl;
 }
 	YY_BREAK
 case YY_STATE_EOF(CH):
-#line 681 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 682 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 { //读取字符常量时遇到文件尾 错误4
     addLexicalErrorInformation(yytext, "Unexpected end of file when reading a char constant", yycolumn-yyleng, yycolumn-1);
     return 0;
@@ -1572,7 +1573,7 @@ case YY_STATE_EOF(CH):
 	YY_BREAK
 case 51:
 YY_RULE_SETUP
-#line 686 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 687 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {//字符常量限定在一行中
     int len = charRec.length();
     
@@ -1640,20 +1641,20 @@ YY_RULE_SETUP
 	YY_BREAK
 case 52:
 YY_RULE_SETUP
-#line 751 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 752 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {
 	charRec+=yytext[0];
 }
 	YY_BREAK
 case YY_STATE_EOF(SCOM):
-#line 755 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 756 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 { //单行注释遇到文件尾
     return 0;
 }
 	YY_BREAK
 case 53:
 YY_RULE_SETUP
-#line 759 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 760 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {
     BEGIN INITIAL;
     yyless(0);//将换行符退回
@@ -1662,11 +1663,11 @@ YY_RULE_SETUP
 	YY_BREAK
 case 54:
 YY_RULE_SETUP
-#line 765 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 766 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {}
 	YY_BREAK
 case YY_STATE_EOF(MCOM):
-#line 767 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 768 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 { //多行注释遇到文件尾 错误8
     addLexicalErrorInformation(yytext, "Unexpected end of file when reading a multiple line comment, lacking of a right brace", yycolumn-yyleng, yycolumn-1);
     return 0;
@@ -1674,7 +1675,7 @@ case YY_STATE_EOF(MCOM):
 	YY_BREAK
 case 55:
 YY_RULE_SETUP
-#line 772 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 773 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {
     if(CheckAndAddLengthTooLargeErrorInformation(yytext, "line", 1, yyleng)) //行长度超过限制
         return 0;
@@ -1685,22 +1686,22 @@ YY_RULE_SETUP
 	YY_BREAK
 case 56:
 YY_RULE_SETUP
-#line 780 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 781 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {
 	BEGIN INITIAL;
 }
 	YY_BREAK
 case 57:
 YY_RULE_SETUP
-#line 784 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 785 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {}
 	YY_BREAK
 case 58:
 YY_RULE_SETUP
-#line 785 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 786 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 ECHO;
 	YY_BREAK
-#line 1704 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.yy.cc"
+#line 1705 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.yy.cc"
 			case YY_STATE_EOF(INITIAL):
 				yyterminate();
 
@@ -2584,7 +2585,7 @@ int main()
 	return 0;
 	}
 #endif
-#line 785 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 786 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 
 
 
