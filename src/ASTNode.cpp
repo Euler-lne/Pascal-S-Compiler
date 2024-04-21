@@ -16,7 +16,7 @@
 using namespace ParseTree;
 namespace AST
 {
-    //设置一个全局变量用来记录当前是write，设置为1，然后在Expression中进行判断
+    // 设置一个全局变量用来记录当前是write，设置为1，然后在Expression中进行判断
     int StatementisWrite = 0;
     ProgramBody *curProgramBody = nullptr;
     SubProgram *curSubProgram = nullptr;
@@ -694,7 +694,6 @@ namespace AST
                     // 报错，左值不可以是常量，常量不可以修改
                     CompilerError::reportError(lineNum, CompilerError::ErrorType::CONST_CANNOT_BE_ASSIGNED, idName);
                     return;
-                    //
                 } else {
                     ConstDeclare *constDeclare = cur->declaration->constList.find(idName)->second;
                     constDeclare->SetUsed();
@@ -702,16 +701,16 @@ namespace AST
                 }
                 break;
             case Token::FUNCTION:
-                if (isLeft) {
-                    if (cur == curProgramBody->parent) {
-                        isFunction = 1;
-                        idType = cur->declaration->subProgramList.find(idName)->second->GetReturnType();
-                    } else {
-                        // FIXME:报错 当前作用域下的Function才可以作为一个左赋值语句，这里对应的是函数返回语句
-                        CompilerError::reportError(lineNum, CompilerError::ErrorType::FUNCTION_NOT_FOUND, idName);
-                    }
-                } else {
-                    // 函数只能为左值，右值不可能出现在这里，又出执行call中的语句
+                isFunction = 1;
+                idType = cur->declaration->subProgramList.find(idName)->second->GetReturnType();
+                if (isLeft && cur != curProgramBody->parent) {
+                    // FIXME:报错 当前作用域下的Function才可以作为一个左赋值语句，这里对应的是函数返回语句
+                    CompilerError::reportError(lineNum, CompilerError::ErrorType::FUNCTION_NOT_FOUND, idName);
+                    return;
+                }
+                if (isLeft == 0 && cur->declaration->subProgramList.find(idName)->second->formalParameterList.size() != 0) {
+                    // FIXME:报错 一个为右值的函数变量不能有为需要接受参数的函数
+                    return;
                 }
                 break;
             default:
@@ -913,6 +912,7 @@ namespace AST
                     // 是引用传参且表达式的值不是单独的ID，那么就要报错
                     // FIXME:报错，引用传参的函数调用必须是一个id类型，不能是表达式
                     CompilerError::reportError(line, CompilerError::ErrorType::VAR_PARAMETER_NOT_ID, name + "var parameter must be an id");
+                    return;
                 }
                 paraList.emplace_back(expression);
                 i++;

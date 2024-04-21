@@ -242,11 +242,12 @@ namespace AST
     public:
         Token::TokenType idType; // 这个id对应的类型，借助这个变量判断如何展开变量
         // INTEGER BOOLEAN REAL CHAR ARRAY RECORD
-        vector<string> recordPart;      // 第一个为record的id
-        int isArrayAtRecordEnd;         // record的最后一位是否为数组
-        int isFormalParameter;          // 0代表不是函数参数；1代表值传递；2代表引用传递
-        int isFunction;                 // 为1代表是Function，这里的function只能是代表函数返回
-        vector<Expression *> arrayPart; // 数组下标的表达式，其长度和数组的长度相同
+        vector<string> recordPart;         // 第一个为record的id
+        int isArrayAtRecordEnd;            // record的最后一位是否为数组
+        int isFormalParameter;             // 0代表不是函数参数；1代表值传递；2代表引用传递
+        int isFunction;                    // 为1代表是Function，这里的function只能是代表函数返回
+        int GetIsLeft() { return isLeft; } // 是否为左值，左值不可以为函数，1代表为左值，0则不是
+        vector<Expression *> arrayPart;    // 数组下标的表达式，其长度和数组的长度相同
         VarDeclare *varDeclare;
         // 如果为数组或者记录 记录接下来的内容（a[1]; a.b）
         // 就是记录[1] 和 b 写入的时候判断类型是否合法
