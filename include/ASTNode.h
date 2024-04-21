@@ -251,9 +251,14 @@ namespace AST
         VarDeclare *varDeclare;
         // 如果为数组或者记录 记录接下来的内容（a[1]; a.b）
         // 就是记录[1] 和 b 写入的时候判断类型是否合法
-        string GetIDToCodeGenerator() { return prefix + id; }
+        string GetIDToCodeGenerator()
+        {
+            if (isFunction)
+                return prefix + id + "_";
+            else
+                return prefix + id;
+        }
         Token::TokenType GetFinalType() { return finalType; }
-        auto GetId() { return id; };
         VariantReference(ParseNode *, int);
         VariantReference(ParseNode *idNode);
         ~VariantReference();
