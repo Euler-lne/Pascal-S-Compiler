@@ -239,8 +239,8 @@ namespace AST
             }
         } else if (type == Token::RECORD) {
             // 解析 record
-            ParseNode *var_declarations_ = type_->children[1];
-            ReadVarDeclarations(var_declarations_, recordList, declarationList, declarationQueue);
+            ParseNode *var_declaration_ = type_->children[1];
+            ReadVarDeclarations(var_declaration_, recordList, declarationList, declarationQueue);
             // 虽然是私有变量但是执行完毕之后是会改变其值的
         }
     }
@@ -1143,7 +1143,10 @@ namespace AST
     void ReadVarDeclarations(ParseNode *var_declarations_, map<string, pair<int, VarDeclare *>> &varList, map<string, Token::TokenType> &declarationList, vector<string> &declarationQueue)
     {
         if (var_declarations_->children.size() != 0) {
-            ParseNode *var_declaration_ = var_declarations_->children[1];
+            ParseNode *var_declaration_ = var_declarations_;
+            if (var_declarations_->children[0]->token == Token::VAR) {
+                var_declaration_ = var_declarations_->children[1];
+            }
             Stack typeStack(var_declaration_, 0, 4, 3, 2, Token::TYPE_);
             Stack identifierListStack(var_declaration_, 0, 2, 3, 0, Token::IDENTIFIER_LIST_);
             ParseNode *type_ = typeStack.Pop();
