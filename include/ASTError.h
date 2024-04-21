@@ -30,7 +30,8 @@ public:
         CONST_NOT_FOUND,
         UNASSIGNED_VARIABLE,
         CHAR_LENGTH_ERROR,
-        VAR_PARAMETER_NOT_ID
+        VAR_PARAMETER_NOT_ID,
+        FUNCTION_PARAMETER_MISMATCH
     };
 
     static void reportError(int lineNum, ErrorType errorType, const std::string &additionalInfo = "")
@@ -105,6 +106,9 @@ public:
             break;
         case ErrorType::VAR_PARAMETER_NOT_ID:
             errorMessage = "Var parameter should be an ID";
+            break;
+        case ErrorType::FUNCTION_PARAMETER_MISMATCH:
+            errorMessage = "A function variable used as r-value cannot accept parameters";
             break;
         default:
             errorMessage = "Unknown error";

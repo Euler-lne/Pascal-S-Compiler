@@ -710,6 +710,7 @@ namespace AST
                 }
                 if (isLeft == 0 && cur->declaration->subProgramList.find(idName)->second->formalParameterList.size() != 0) {
                     // FIXME:报错 一个为右值的函数变量不能有为需要接受参数的函数
+                    CompilerError::reportError(lineNum, CompilerError::ErrorType::FUNCTION_PARAMETER_MISMATCH, idName);
                     return;
                 }
                 break;
