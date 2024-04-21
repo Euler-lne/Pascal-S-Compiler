@@ -713,7 +713,7 @@ cout<<"BEGIN CH"<<endl;
         return LETTER;
     }
     else if(yytext[0]=='\''){
-        addLexicalErrorInformation(yytext, "Too many characters in a char constant!", yycolumn-yyleng-len, yycolumn-yyleng-1); //错误6
+        //addLexicalErrorInformation(yytext, "Too many characters in a char constant!", yycolumn-yyleng-len, yycolumn-yyleng-1); //错误6
         // 如果字符常量长度不为0或1，则返回字符常量
         yylval = new ParseNode();
         yylval->val=charRec;
@@ -794,13 +794,14 @@ int yywrap()
 
 void addLexicalErrorInformation(char *word, string info, int l, int r){
     ERROR_NUM+=1;
-    string errorInformation = "FLEX error ：[" + info + "] " + itos(yylineno-1) + "." + itos(l) + "-" + itos(yylineno-1) + "." + itos(r) + "\n";
+    cout<<"addddddERROR_NUM= "<<ERROR_NUM<<endl<<endl<<endl<<endl<<endl<<endl;
+    string errorInformation = "FLEX error :[" + info + "] " + itos(yylineno-1) + "." + itos(l) + "-" + itos(yylineno-1) + "." + itos(r) + "\n";
     errorInformation += string(lineBuffer) + "\n";
     for(int i=1;i<=l-1;i++)
         errorInformation+=" ";
     for(int i=l;i<=r;i++)
         errorInformation+="^";
-    //cout << errorInformation << endl;
+    cout << errorInformation << endl;
     lexicalErrorInformation.push_back(errorInformation);
 }
 
@@ -809,10 +810,11 @@ bool CheckAndAddLengthTooLargeErrorInformation(char *text, string type, int l, i
     int len=strlen(text);
     if(type=="line"){
         if(len>500){ //错误1
-            errorInformation = "FLEX error ：[Line length too large, exceed 500] " + itos(yylineno-1) + "." + itos(l) + "-" + itos(yylineno-1) + "." +itos(r); 
+            errorInformation = "FLEX error :[Line length too large, exceed 500] " + itos(yylineno-1) + "." + itos(l) + "-" + itos(yylineno-1) + "." +itos(r); 
             errorInformation += "\nLex analyse abort!";
             ERROR_NUM+=1;
-            //cout << errorInformation << endl;
+            cout<<"111111ERROR_NUM= "<<ERROR_NUM<<endl<<endl<<endl<<endl<<endl<<endl;
+            cout << errorInformation << endl;
             lexicalErrorInformation.push_back(errorInformation);
             return true;
         }
@@ -821,9 +823,10 @@ bool CheckAndAddLengthTooLargeErrorInformation(char *text, string type, int l, i
     else if(type=="id"){
         if(len>100){ //错误2
             string id = string(text);
-            errorInformation = "FLEX error ：[Identifier length too large, exceed 100] " + itos(yylineno-1) + "." + itos(l) + "-" + itos(yylineno-1) + "." + itos(r);
-            //cout << errorInformation << endl;
+            errorInformation = "FLEX error :[Identifier length too large, exceed 100] " + itos(yylineno-1) + "." + itos(l) + "-" + itos(yylineno-1) + "." + itos(r);
+            cout << errorInformation << endl;
             ERROR_NUM+=1;
+            cout<<"22222ERROR_NUM= "<<ERROR_NUM<<endl<<endl<<endl<<endl<<endl<<endl;
             lexicalErrorInformation.push_back(errorInformation);
             return true;
         }
