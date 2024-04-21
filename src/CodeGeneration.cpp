@@ -325,6 +325,8 @@ namespace C_GEN
             targetCode << "* 1.0 /";
         else if (expression->opration == "div")
             targetCode << "/";
+        else if (expression->opration == "mod")
+            targetCode << "%";
         else
             targetCode << expression->opration;
         targetCode << " ";
@@ -539,7 +541,7 @@ namespace C_GEN
 
     void C_Code::ProcReadStatement(AST::ReadStatement *readStatment)
     {
-        targetCode << "scanf(";
+        targetCode << "scanf(\"";
         bool isFirst = true;
         for (auto it : readStatment->variantList)
         {
