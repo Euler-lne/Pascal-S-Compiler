@@ -30,7 +30,8 @@ int main()
     cout << "Now start lex and syntax analyse..." << endl;
     yyparse(); // 调用语法分析程序
     fclose(fp);
-    if (ERROR_NUM == 0) {
+    if (ERROR_NUM == 0)
+    {
         // --------- 进入语义分析 ---------
         cout << "Now start semantic analysis..." << endl;
         AST::Program program(ParseTreeHead);
@@ -44,7 +45,10 @@ int main()
             gen.run();
         }
     }
-    reduceNode.Clear();
-    delete ParseTreeHead;
+    else
+    {
+        reduceNode.Clear();
+        delete ParseTreeHead;
+    }
     return 0;
 }
