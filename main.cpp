@@ -4,6 +4,7 @@
 #include <fstream>
 #include <sstream>
 int ERROR_NUM = 0;
+ReduceParseNode reduceNode;
 extern ParseNode *ParseTreeHead;
 extern FILE *yyin;
 extern int yyparse();
@@ -28,10 +29,18 @@ int main()
     cout << "Now start lex and syntax analyse..." << endl;
     yyparse(); // 调用语法分析程序
     fclose(fp);
-    AST::Program program(ParseTreeHead); // 有问题，只有一个节点没有孩子节点
+    if (ERROR_NUM == 0) {
+        // --------- 进入语法分析 ---------
+        AST::Program program(ParseTreeHead);
+        reduceNode.Clear();
+        delete ParseTreeHead;
+        if (ERROR_NUM == 0) {
+            // --------- 进入代码生成 ---------
+            C_GEN::C_Generater gen(&program, "");
+            gen.run();
+        }
+    }
+    reduceNode.Clear();
     delete ParseTreeHead;
-
-    C_GEN::C_Generater gen(&program, "");
-    gen.run();
     return 0;
 }

@@ -29,7 +29,32 @@ public:
         }
     }
 };
+class ReduceParseNode
+{
+private:
+    vector<ParseNode *> reduceList;
 
+public:
+    /// @brief 向规约列表中加入节点
+    /// @param node 待加入的节点
+    void Insert(ParseNode *node) { reduceList.emplace_back(node); }
+    /// @brief 清空规约列表
+    void Clear() { reduceList.clear(); }
+    /// @brief 遇到语法错误 删除节点并清空列表
+    void Delete()
+    {
+        for (int i = 0; i < reduceList.size(); i++) {
+            delete reduceList[i];
+        }
+        reduceList.clear();
+    }
+    ReduceParseNode() {}
+    ~ReduceParseNode()
+    {
+        reduceList.clear();
+    }
+};
 #define YYSTYPE ParseNode *
 extern int ERROR_NUM;
+extern ReduceParseNode reduceNode;
 #endif
