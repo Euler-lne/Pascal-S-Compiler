@@ -1205,6 +1205,7 @@ namespace AST
             ParseNode *subprogram_declaration_ = subprogramDeclarationStack.Pop();
             ParseNode *subprogram_head = subprogram_declaration_->children[0];
             while (subprogram_declaration_ != nullptr) {
+                subprogram_head = subprogram_declaration_->children[0];
                 string name = subprogram_head->children[1]->val;
                 if (declarationList.find(name) != declarationList.end()) {
                     // 之前有声明过这个变量，这里要报错
