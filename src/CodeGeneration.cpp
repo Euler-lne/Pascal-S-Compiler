@@ -288,6 +288,7 @@ namespace C_GEN
                 break;
 
             case 2:
+                cout << targetCode.str() << endl;
                 ProcVariantReference(expression->variantReference);
                 break;
 
