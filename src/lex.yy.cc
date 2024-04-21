@@ -862,6 +862,7 @@ YY_RULE_SETUP
     yylval->val="const";
     yylval->token=Token::CONST;
     yylval->lineNumber = yylineno;
+    reduceNode.Insert(yylval);
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
     cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
@@ -871,12 +872,13 @@ YY_RULE_SETUP
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 116 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 117 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {
     yylval=new ParseNode();
     yylval->val="record";
     yylval->token=Token::RECORD;
     yylval->lineNumber = yylineno ;
+    reduceNode.Insert(yylval);
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
     cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
@@ -887,12 +889,13 @@ YY_RULE_SETUP
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 129 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 131 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {
     yylval=new ParseNode();
     yylval->val="end";
     yylval->token=Token::END;
     yylval->lineNumber = yylineno ;
+    reduceNode.Insert(yylval);
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
     cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
@@ -903,12 +906,13 @@ YY_RULE_SETUP
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 142 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 145 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {
     yylval=new ParseNode();
     yylval->val="array";
     yylval->token=Token::ARRAY;
     yylval->lineNumber = yylineno ;
+    reduceNode.Insert(yylval);
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
     cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
@@ -919,12 +923,13 @@ YY_RULE_SETUP
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 155 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 159 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {
     yylval=new ParseNode();
     yylval->val="of";
     yylval->token=Token::OF;
     yylval->lineNumber = yylineno ;
+    reduceNode.Insert(yylval);
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
     cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
@@ -935,12 +940,13 @@ YY_RULE_SETUP
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 168 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 173 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {
     yylval=new ParseNode();
     yylval->val="integer";
     yylval->token=Token::INTEGER;
     yylval->lineNumber = yylineno ;
+    reduceNode.Insert(yylval);
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
     cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
@@ -951,12 +957,13 @@ YY_RULE_SETUP
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 181 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 187 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {
     yylval=new ParseNode();
     yylval->val="real";
     yylval->token=Token::REAL;
     yylval->lineNumber = yylineno ;
+    reduceNode.Insert(yylval);
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
     cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
@@ -967,12 +974,13 @@ YY_RULE_SETUP
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 194 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 201 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {
     yylval=new ParseNode();
     yylval->val="bollean";
     yylval->token=Token::BOLLEAN;
     yylval->lineNumber = yylineno ;
+    reduceNode.Insert(yylval);
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
     cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
@@ -983,12 +991,13 @@ YY_RULE_SETUP
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 207 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 215 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {
     yylval=new ParseNode();
     yylval->val="char";
     yylval->token=Token::CHAR;
     yylval->lineNumber = yylineno ;
+    reduceNode.Insert(yylval);
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
     cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
@@ -999,12 +1008,13 @@ YY_RULE_SETUP
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 220 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 229 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {
     yylval=new ParseNode();
     yylval->val="var";
     yylval->token=Token::VAR;
     yylval->lineNumber = yylineno ;
+    reduceNode.Insert(yylval);
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
     cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
@@ -1015,12 +1025,13 @@ YY_RULE_SETUP
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 233 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 243 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {
     yylval=new ParseNode();
     yylval->val="function";
     yylval->token=Token::FUNCTION;
     yylval->lineNumber = yylineno ;
+    reduceNode.Insert(yylval);
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
     cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
@@ -1031,12 +1042,13 @@ YY_RULE_SETUP
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 246 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 257 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {
     yylval=new ParseNode();
     yylval->val="procedure";
     yylval->token=Token::PROCEDURE;
     yylval->lineNumber = yylineno ;
+    reduceNode.Insert(yylval);
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
     cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
@@ -1047,12 +1059,13 @@ YY_RULE_SETUP
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 258 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 270 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {
     yylval=new ParseNode();
     yylval->val="begin";
     yylval->token=Token::_BEGIN;
     yylval->lineNumber = yylineno ;
+    reduceNode.Insert(yylval);
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
     cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
@@ -1062,12 +1075,13 @@ YY_RULE_SETUP
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 270 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 283 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {
     yylval=new ParseNode();
     yylval->val="if";
     yylval->token=Token::IF;
     yylval->lineNumber = yylineno ;
+    reduceNode.Insert(yylval);
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
     cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
@@ -1078,12 +1092,13 @@ YY_RULE_SETUP
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 283 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 297 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {
     yylval=new ParseNode();
     yylval->val="then";
     yylval->token=Token::THEN;
     yylval->lineNumber = yylineno ;
+    reduceNode.Insert(yylval);
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
     cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
@@ -1094,12 +1109,13 @@ YY_RULE_SETUP
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 296 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 311 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {
     yylval=new ParseNode();
     yylval->val="else";
     yylval->token=Token::ELSE;
     yylval->lineNumber = yylineno ;
+    reduceNode.Insert(yylval);
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
     cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
@@ -1110,12 +1126,13 @@ YY_RULE_SETUP
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 309 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 325 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {
     yylval=new ParseNode();
     yylval->val="case";
     yylval->token=Token::CASE;
     yylval->lineNumber = yylineno ;
+    reduceNode.Insert(yylval);
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
     cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
@@ -1126,12 +1143,13 @@ YY_RULE_SETUP
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 322 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 339 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {
     yylval=new ParseNode();
     yylval->val="while";
     yylval->token=Token::WHILE;
     yylval->lineNumber = yylineno ;
+    reduceNode.Insert(yylval);
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
     cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
@@ -1142,12 +1160,13 @@ YY_RULE_SETUP
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 335 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 353 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {
     yylval=new ParseNode();
     yylval->val="do";
     yylval->token=Token::DO;
     yylval->lineNumber = yylineno ;
+    reduceNode.Insert(yylval);
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
     cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
@@ -1158,12 +1177,13 @@ YY_RULE_SETUP
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 348 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 367 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {
     yylval=new ParseNode();
     yylval->val="repeat";
     yylval->token=Token::REPEAT;
     yylval->lineNumber = yylineno ;
+    reduceNode.Insert(yylval);
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
     cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
@@ -1174,12 +1194,13 @@ YY_RULE_SETUP
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 361 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 381 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {
     yylval=new ParseNode();
     yylval->val="until";
     yylval->token=Token::UNTIL;
     yylval->lineNumber = yylineno ;
+    reduceNode.Insert(yylval);
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
     cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
@@ -1190,12 +1211,13 @@ YY_RULE_SETUP
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 374 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 395 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {
     yylval=new ParseNode();
     yylval->val="for";
     yylval->token=Token::FOR;
     yylval->lineNumber = yylineno ;
+    reduceNode.Insert(yylval);
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
     cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
@@ -1206,12 +1228,13 @@ YY_RULE_SETUP
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 387 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 409 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {
     yylval=new ParseNode();
     yylval->val="to";
     yylval->token=Token::TO;
     yylval->lineNumber = yylineno ;
+    reduceNode.Insert(yylval);
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
     cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
@@ -1222,12 +1245,13 @@ YY_RULE_SETUP
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 400 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 423 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {
     yylval=new ParseNode();
     yylval->val="downto";
     yylval->token=Token::DOWNTO;
     yylval->lineNumber = yylineno ;
+    reduceNode.Insert(yylval);
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
     cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
@@ -1238,12 +1262,13 @@ YY_RULE_SETUP
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 413 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 437 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {
     yylval=new ParseNode();
     yylval->val="write";
     yylval->token=Token::_WRITE;
     yylval->lineNumber = yylineno ;
+    reduceNode.Insert(yylval);
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
     cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
@@ -1254,12 +1279,13 @@ YY_RULE_SETUP
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 426 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 451 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {
     yylval=new ParseNode();
     yylval->val="read";
     yylval->token=Token::_READ;
     yylval->lineNumber = yylineno ;
+    reduceNode.Insert(yylval);
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
     cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
@@ -1270,12 +1296,13 @@ YY_RULE_SETUP
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 440 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 466 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {
     yylval=new ParseNode();
 	yylval->val="not";
 	yylval->token=Token::NOT;
     yylval->lineNumber = yylineno ;
+    reduceNode.Insert(yylval);
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
     cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
@@ -1285,12 +1312,13 @@ YY_RULE_SETUP
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 452 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 479 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {
     yylval=new ParseNode();
 	yylval->val=yytext;
 	yylval->token=Token::RANGE_DOT;
     yylval->lineNumber = yylineno ;
+    reduceNode.Insert(yylval);
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
     cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
@@ -1300,12 +1328,13 @@ YY_RULE_SETUP
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
-#line 464 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 492 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {
     yylval=new ParseNode();
 	yylval->val=yytext;
 	yylval->token=Token::DOT;
     yylval->lineNumber = yylineno ;
+    reduceNode.Insert(yylval);
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
     cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
@@ -1315,12 +1344,13 @@ YY_RULE_SETUP
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
-#line 476 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 505 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {
     yylval=new ParseNode();
 	yylval->val=yytext;
 	yylval->token=Token::COMMA;
     yylval->lineNumber = yylineno ;
+    reduceNode.Insert(yylval);
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
     cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
@@ -1330,12 +1360,13 @@ YY_RULE_SETUP
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
-#line 488 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 518 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {
     yylval=new ParseNode();
 	yylval->val=yytext;
 	yylval->token=Token::LEFT_PARENTHESES;
     yylval->lineNumber = yylineno ;
+    reduceNode.Insert(yylval);
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
     cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
@@ -1345,12 +1376,13 @@ YY_RULE_SETUP
 	YY_BREAK
 case 35:
 YY_RULE_SETUP
-#line 500 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 531 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {
     yylval=new ParseNode();
 	yylval->val=yytext;
 	yylval->token=Token::RIGHT_PARENTHESES;
     yylval->lineNumber = yylineno ;
+    reduceNode.Insert(yylval);
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
     cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
@@ -1360,12 +1392,13 @@ YY_RULE_SETUP
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
-#line 512 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 544 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {
     yylval=new ParseNode();
 	yylval->val=yytext;
 	yylval->token=Token::LEFT_MEDIUM_PARENTHESES;
     yylval->lineNumber = yylineno ;
+    reduceNode.Insert(yylval);
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
     cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
@@ -1375,12 +1408,13 @@ YY_RULE_SETUP
 	YY_BREAK
 case 37:
 YY_RULE_SETUP
-#line 524 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 557 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {
     yylval=new ParseNode();
 	yylval->val=yytext;
 	yylval->token=Token::RIGHT_MEDIUM_PARENTHESES;
     yylval->lineNumber = yylineno ;
+    reduceNode.Insert(yylval);
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
     cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
@@ -1390,12 +1424,13 @@ YY_RULE_SETUP
 	YY_BREAK
 case 38:
 YY_RULE_SETUP
-#line 536 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 570 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {
     yylval=new ParseNode();
 	yylval->val=yytext;
 	yylval->token=Token::SEMICOLON;
     yylval->lineNumber = yylineno ;
+    reduceNode.Insert(yylval);
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
     cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
@@ -1405,12 +1440,13 @@ YY_RULE_SETUP
 	YY_BREAK
 case 39:
 YY_RULE_SETUP
-#line 548 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 583 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {
     yylval=new ParseNode();
 	yylval->val=yytext;
 	yylval->token=Token::ASSIGNOP;
     yylval->lineNumber = yylineno ;
+    reduceNode.Insert(yylval);
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
     cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
@@ -1420,12 +1456,13 @@ YY_RULE_SETUP
 	YY_BREAK
 case 40:
 YY_RULE_SETUP
-#line 560 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 596 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {
     yylval=new ParseNode();
 	yylval->val=yytext;
 	yylval->token=Token::COLON;
     yylval->lineNumber = yylineno ;
+    reduceNode.Insert(yylval);
     #ifdef LEXDEBUG
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
     cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
@@ -1435,12 +1472,13 @@ YY_RULE_SETUP
 	YY_BREAK
 case 41:
 YY_RULE_SETUP
-#line 572 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 609 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {
     yylval=new ParseNode();
 	yylval->val=yytext;
 	yylval->token=Token::RELOP;
     yylval->lineNumber = yylineno ;
+    reduceNode.Insert(yylval);
     #ifdef LEXDEBUG
     //printf("RELOP: %s  Token: %s\n", yylval->val,yylval->token);
     cout << "RELOP: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
@@ -1450,12 +1488,13 @@ YY_RULE_SETUP
 	YY_BREAK
 case 42:
 YY_RULE_SETUP
-#line 584 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 622 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {
     yylval=new ParseNode();
 	yylval->val=yytext;
 	yylval->token=Token::ADDOP;
     yylval->lineNumber = yylineno ;
+    reduceNode.Insert(yylval);
     #ifdef LEXDEBUG
     //printf("ADDOP: %s  Token: %s\n", yylval->val,yylval->token);
     cout << "ADDOP: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
@@ -1465,12 +1504,13 @@ YY_RULE_SETUP
 	YY_BREAK
 case 43:
 YY_RULE_SETUP
-#line 596 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 635 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {
     yylval=new ParseNode();
 	yylval->val=yytext;
 	yylval->token=Token::MULOP;
     yylval->lineNumber = yylineno ;
+    reduceNode.Insert(yylval);
     #ifdef LEXDEBUG
     //printf("MULOP: %s  Token: %s\n", yylval->val,yylval->token);
     cout << "MULOP: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
@@ -1480,7 +1520,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 44:
 YY_RULE_SETUP
-#line 612 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 652 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {
     if(CheckAndAddLengthTooLargeErrorInformation(yytext, "id", yycolumn-yyleng, yycolumn-1)){
         yytext[100]=0; //截断处理
@@ -1496,6 +1536,7 @@ YY_RULE_SETUP
     yylval->val = lowercaseStr;
 	yylval->token = Token::ID;
     yylval->lineNumber = yylineno ;
+    reduceNode.Insert(yylval);
     #ifdef LEXDEBUG
     //printf("ID: %s  Token: %s\n", yylval->val,yylval->token);
     cout << "ID: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
@@ -1505,12 +1546,13 @@ YY_RULE_SETUP
 	YY_BREAK
 case 45:
 YY_RULE_SETUP
-#line 634 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 675 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {
     yylval=new ParseNode();
 	yylval->val=yytext;
 	yylval->token=Token::INT_NUM;
     yylval->lineNumber = yylineno ;
+    reduceNode.Insert(yylval);
     #ifdef LEXDEBUG
     //printf("INT_NUM: %s  Token: %s\n", yylval->val,yylval->token);
     cout << "INT_NUM: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
@@ -1520,12 +1562,13 @@ YY_RULE_SETUP
 	YY_BREAK
 case 46:
 YY_RULE_SETUP
-#line 646 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 688 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {
     yylval=new ParseNode();
     yylval->val=yytext;
     yylval->token=Token::FLOAT_NUM;
     yylval->lineNumber = yylineno ;
+    reduceNode.Insert(yylval);
     #ifdef LEXDEBUG
     //printf("FLOAT_NUM: %s  Token: %s\n", yylval->val,yylval->token);
     cout << "FLOAT_NUM: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
@@ -1535,7 +1578,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 47:
 YY_RULE_SETUP
-#line 662 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 705 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {//进入字符常量识别
 cout<<"BEGIN CH"<<endl;
     BEGIN CH;
@@ -1544,28 +1587,28 @@ cout<<"BEGIN CH"<<endl;
 	YY_BREAK
 case 48:
 YY_RULE_SETUP
-#line 668 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 711 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {//进入单行注释
     BEGIN SCOM;
 }
 	YY_BREAK
 case 49:
 YY_RULE_SETUP
-#line 672 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 715 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {//进入多行注释
 	BEGIN MCOM;
 }
 	YY_BREAK
 case 50:
 YY_RULE_SETUP
-#line 676 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 719 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {//非法字符 错误3
     addLexicalErrorInformation(yytext, "Invalid character!", yycolumn-yyleng, yycolumn-1);
 	//cout << "error: invalid char" << endl;
 }
 	YY_BREAK
 case YY_STATE_EOF(CH):
-#line 682 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 725 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 { //读取字符常量时遇到文件尾 错误4
     addLexicalErrorInformation(yytext, "Unexpected end of file when reading a char constant", yycolumn-yyleng, yycolumn-1);
     return 0;
@@ -1573,7 +1616,7 @@ case YY_STATE_EOF(CH):
 	YY_BREAK
 case 51:
 YY_RULE_SETUP
-#line 687 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 730 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {//字符常量限定在一行中
     int len = charRec.length();
     
@@ -1584,6 +1627,7 @@ YY_RULE_SETUP
         yylval->val="\0";
         yylval->token=Token::CHAR;
         yylval->lineNumber=yylineno ;
+        reduceNode.Insert(yylval);
         #ifdef LEXDEBUG
         //printf("CHAR: %s  Token: %s\n", yylval->val,yylval->token);
         cout << "CHAR1: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
@@ -1596,6 +1640,7 @@ YY_RULE_SETUP
         yylval->val=charRec[0];
         yylval->token=Token::CHAR;
         yylval->lineNumber=yylineno ;
+        reduceNode.Insert(yylval);
         #ifdef LEXDEBUG
         //printf("CHAR: %s  Token: %s\n", yylval->val,yylval->token);
         cout << "CHAR2: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
@@ -1610,6 +1655,7 @@ YY_RULE_SETUP
         yylval->val=charRec;
         yylval->token=Token::CHAR;
         yylval->lineNumber=yylineno ;
+        reduceNode.Insert(yylval);
         #ifdef LEXDEBUG
         //printf("CHAR: %s  Token: %s\n", yylval->val,yylval->token);
         cout << "CHAR3: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
@@ -1630,6 +1676,7 @@ YY_RULE_SETUP
             yylval->val=charRec;
         yylval->token=Token::CHAR;
         yylval->lineNumber=yylineno ;
+        reduceNode.Insert(yylval);
         #ifdef LEXDEBUG
        // printf("CHAR: %s  Token: %s\n", yylval->val,yylval->token);
        cout << "CHAR4: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
@@ -1641,20 +1688,20 @@ YY_RULE_SETUP
 	YY_BREAK
 case 52:
 YY_RULE_SETUP
-#line 752 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 799 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {
 	charRec+=yytext[0];
 }
 	YY_BREAK
 case YY_STATE_EOF(SCOM):
-#line 756 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 803 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 { //单行注释遇到文件尾
     return 0;
 }
 	YY_BREAK
 case 53:
 YY_RULE_SETUP
-#line 760 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 807 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {
     BEGIN INITIAL;
     yyless(0);//将换行符退回
@@ -1663,11 +1710,11 @@ YY_RULE_SETUP
 	YY_BREAK
 case 54:
 YY_RULE_SETUP
-#line 766 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 813 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {}
 	YY_BREAK
 case YY_STATE_EOF(MCOM):
-#line 768 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 815 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 { //多行注释遇到文件尾 错误8
     addLexicalErrorInformation(yytext, "Unexpected end of file when reading a multiple line comment, lacking of a right brace", yycolumn-yyleng, yycolumn-1);
     return 0;
@@ -1675,7 +1722,7 @@ case YY_STATE_EOF(MCOM):
 	YY_BREAK
 case 55:
 YY_RULE_SETUP
-#line 773 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 820 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {
     if(CheckAndAddLengthTooLargeErrorInformation(yytext, "line", 1, yyleng)) //行长度超过限制
         return 0;
@@ -1686,22 +1733,22 @@ YY_RULE_SETUP
 	YY_BREAK
 case 56:
 YY_RULE_SETUP
-#line 781 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 828 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {
 	BEGIN INITIAL;
 }
 	YY_BREAK
 case 57:
 YY_RULE_SETUP
-#line 785 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 832 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 {}
 	YY_BREAK
 case 58:
 YY_RULE_SETUP
-#line 786 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 833 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 ECHO;
 	YY_BREAK
-#line 1705 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.yy.cc"
+#line 1752 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.yy.cc"
 			case YY_STATE_EOF(INITIAL):
 				yyterminate();
 
@@ -2585,7 +2632,7 @@ int main()
 	return 0;
 	}
 #endif
-#line 786 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
+#line 833 "C:/Users/gllx/Desktop/dasanxia/byyl/work/Pascal-S-Compiler/build/../src/lex.l"
 
 
 
