@@ -16,6 +16,8 @@
 using namespace ParseTree;
 namespace AST
 {
+    //设置一个全局变量用来记录当前是write，设置为1，然后在Expression中进行判断
+    int StatementisWrite = 0;
     ProgramBody *curProgramBody = nullptr;
     SubProgram *curSubProgram = nullptr;
     SubProgram *preSubProgram = nullptr;
@@ -405,7 +407,9 @@ namespace AST
         } else if (node->token == Token::CASE) {
             caseStatement = new CaseStatement(statement_);
         } else if (node->token == Token::_WRITE) {
+            StatementisWrite = 1;
             writeStatement = new WriteStatement(statement_);
+            StatementisWrite = 0;
         } else if (node->token == Token::_READ) {
             readStatement = new ReadStatement(statement_);
         } else {
@@ -580,6 +584,13 @@ namespace AST
                 case Token::LETTER:
                     // FIXME:对类型进行检测 只有是WRITE语句的时候这个长度才可能大于1；
                     // 也就是对value的值的长度进行检测，这里需要知道当前的语句是什么语句。
+                    if (StatementisWrite == 0) {
+                        if (value.length() > 1) {
+                            // 报错，字符长度不对
+                            CompilerError::reportError(expression_->children[0]->lineNumber, CompilerError::ErrorType::CHAR_LENGTH_ERROR);
+                            return;
+                        }
+                    }
                     type = Token::CHAR;
                     break;
                 default:
@@ -697,6 +708,7 @@ namespace AST
                         idType = cur->declaration->subProgramList.find(idName)->second->GetReturnType();
                     } else {
                         // FIXME:报错 当前作用域下的Function才可以作为一个左赋值语句，这里对应的是函数返回语句
+                        CompilerError::reportError(lineNum, CompilerError::ErrorType::FUNCTION_NOT_FOUND, idName);
                     }
                 } else {
                     // 函数只能为左值，右值不可能出现在这里，又出执行call中的语句
@@ -900,6 +912,7 @@ namespace AST
                 if (subprogram->IsVarParameterAtIndex(i) && expression->isId == 0) {
                     // 是引用传参且表达式的值不是单独的ID，那么就要报错
                     // FIXME:报错，引用传参的函数调用必须是一个id类型，不能是表达式
+                    CompilerError::reportError(line, CompilerError::ErrorType::VAR_PARAMETER_NOT_ID, name + "var parameter must be an id");
                 }
                 paraList.emplace_back(expression);
                 i++;

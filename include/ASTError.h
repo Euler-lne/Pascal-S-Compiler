@@ -28,7 +28,9 @@ public:
         REDEFINED_CONSTANT,
         REDEFINED_FUNCTION,
         CONST_NOT_FOUND,
-        UNASSIGNED_VARIABLE
+        UNASSIGNED_VARIABLE,
+        CHAR_LENGTH_ERROR,
+        VAR_PARAMETER_NOT_ID
     };
 
     static void reportError(int lineNum, ErrorType errorType, const std::string &additionalInfo = "")
@@ -97,6 +99,12 @@ public:
             break;
         case ErrorType::UNASSIGNED_VARIABLE:
             errorMessage = "Variable not assigned: " + additionalInfo;
+            break;
+        case ErrorType::CHAR_LENGTH_ERROR:
+            errorMessage = "Char length error";
+            break;
+        case ErrorType::VAR_PARAMETER_NOT_ID:
+            errorMessage = "Var parameter should be an ID";
             break;
         default:
             errorMessage = "Unknown error";
