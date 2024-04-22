@@ -467,18 +467,18 @@ namespace C_GEN
     void C_Code::ProcConstDeclare(AST::Declaration *declaration, const std::string &prefix)
     {
         auto &declarationList = declaration->GetConstList();
-        string prefix;
 
         for (auto it : declaration->GetDeclarationQueue())
         {
-            if (declarationList.end() == declarationList.find(it))
+            auto key = declaration->prefix + it;
+            if (declarationList.end() == declarationList.find(key))
             {
                 break;
             }
 
             targetCode << "const ";
 
-            switch (declarationList[it]->GetConstDeclareType())
+            switch (declarationList[key]->GetConstDeclareType())
             {
             case Token::TokenType::INTEGER:
                 targetCode << "int ";
@@ -495,8 +495,8 @@ namespace C_GEN
                 targetCode << "char ";
                 break;
             }
-            targetCode << it << " = " << declarationList[it]->GetConstVal();
-            if (declarationList[it]->GetConstDeclareType() == Token::TokenType::LETTER)
+            targetCode << key << " = " << declarationList[key]->GetConstVal();
+            if (declarationList[key]->GetConstDeclareType() == Token::TokenType::LETTER)
                 targetCode << "[]";
             targetCode << ";\n";
         }

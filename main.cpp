@@ -41,7 +41,7 @@ int main()
         {
             // --------- 进入代码生成 ---------
             cout << "Now start code generation..." << endl;
-            C_GEN::C_Generater gen(&program, "../../Ccode/");
+            C_GEN::C_Generater gen(&program, "../../Ccode/234.c");
             gen.run();
         }
     }
