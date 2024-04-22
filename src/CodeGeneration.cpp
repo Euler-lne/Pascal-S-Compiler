@@ -351,6 +351,16 @@ namespace C_GEN
                 targetCode << "~";
             else
                 targetCode << "!";
+        else if (expression->opration == "and")
+            if (expression->operand2->GetValueToken() == Token::TokenType::INTEGER)
+                targetCode << "^";
+            else
+                targetCode << "&&";
+        else if (expression->opration == "or")
+            if (expression->operand2->GetValueToken() == Token::TokenType::INTEGER)
+                targetCode << "|";
+            else
+                targetCode << "||";
         else
             targetCode << expression->opration;
         targetCode << " ";
