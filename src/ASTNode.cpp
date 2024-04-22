@@ -623,12 +623,12 @@ namespace AST
                 operationType = expression_->children[0]->token;
                 opration = expression_->children[0]->val;
                 operand2 = new Expression(expression_->children[1]);
-                type = Token::BOLLEAN;
-                // if (type != Token::BOLLEAN) {
-                //     // 报错处理，这里必须是布尔类型
-                //     CompilerError::reportError(expression_->children[0]->lineNumber, CompilerError::ErrorType::CONDITION_NOT_BOOLEAN);
-                //     return;
-                // }
+                type = operand2->type;
+                if (type == Token::CHAR || type == Token::LETTER) {
+                    // FIXME:报错处理，不能是 not 后面不能是字符或者字符串类型
+                    CompilerError::reportError(expression_->children[0]->lineNumber, CompilerError::ErrorType::CONDITION_NOT_BOOLEAN);
+                    return;
+                }
             }
         }
     }

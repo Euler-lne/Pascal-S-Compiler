@@ -19,7 +19,6 @@ int main(int argv, char **argc)
 {
     // blog.csdn.net/cscmaker/article/details/7042718
 
-    string fileName = "00_main.c";
     for(int i=0;i<argv;i++){
         if(i == 2)
             fileName = argc[i];
@@ -38,18 +37,15 @@ int main(int argv, char **argc)
         exit(0);
     }
     yyin = fp;
-    cout << "Now start lex and syntax analyse..." << endl;
     yyparse(); // 调用语法分析程序
     fclose(fp);
     if (ERROR_NUM == 0) {
         // --------- 进入语义分析 ---------
-        cout << "Now start semantic analysis..." << endl;
         AST::Program program(ParseTreeHead);
         reduceNode.Clear();
         delete ParseTreeHead;
         if (ERROR_NUM == 0) {
             // --------- 进入代码生成 ---------
-            cout << "Now start code generation..." << endl;
             C_GEN::C_Generater gen(&program, fileName + "c");
             gen.run();
         }
