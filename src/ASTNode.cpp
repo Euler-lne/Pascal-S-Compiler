@@ -586,15 +586,15 @@ namespace AST
                 case Token::LETTER:
                     // 对类型进行检测 只有是WRITE语句的时候这个长度才可能大于1；
                     // 也就是对value的值的长度进行检测，这里需要知道当前的语句是什么语句。
-                    if (StatementisWrite == 0) {
-                        if (value.length() > 1) {
+                    if (value.length() > 1) {
+                        if (StatementisWrite == 0) {
                             // 报错，字符长度不对
                             CompilerError::reportError(expression_->children[0]->lineNumber, CompilerError::ErrorType::CHAR_LENGTH_ERROR);
                             return;
                         }
+                        type = Token::LETTER;
+                    } else
                         type = Token::CHAR;
-                    }
-                    type = Token::LETTER;
                     break;
                 default:
                     break;
