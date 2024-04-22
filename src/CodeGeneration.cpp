@@ -169,6 +169,9 @@ namespace C_GEN
             case Token::TokenType::_READ:
                 ProcReadStatement(it->readStatement);
                 break;
+
+            case Token::TokenType::_WRITE:
+                ProcWriteStatement(it->writeStatement);
             }
         }
         targetCode << extra;
@@ -284,7 +287,16 @@ namespace C_GEN
             case 0:
                 return;
             case 1:
-                targetCode << expression->value;
+                if (expression->GetValueToken() == Token::TokenType::CHAR)
+                {
+                    targetCode << "\'" << expression->value << "\'";
+                }
+                else if (expression->GetValueToken() == Token::TokenType::LETTER)
+                {
+                    targetCode << "\"" << expression->value << "\"";
+                }
+                else
+                    targetCode << expression->value;
                 break;
 
             case 2:
@@ -459,8 +471,14 @@ namespace C_GEN
             case Token::TokenType::CHAR:
                 targetCode << "char ";
                 break;
+            case Token::TokenType::LETTER:
+                targetCode << "char ";
+                break;
             }
-            targetCode << it << " = " << declarationList[it]->GetConstVal() << ";\n";
+            targetCode << it << " = " << declarationList[it]->GetConstVal();
+            if (declarationList[it]->GetConstDeclareType() == Token::TokenType::LETTER)
+                targetCode << "[]";
+            targetCode << ";\n";
         }
     }
 
@@ -563,6 +581,9 @@ namespace C_GEN
             case Token::TokenType::CHAR:
                 targetCode << "%c";
                 break;
+            case Token::TokenType::LETTER:
+                targetCode << "%s";
+                break;
             }
             isFirst = false;
         }
@@ -572,6 +593,45 @@ namespace C_GEN
             targetCode << ", &(";
             ProcVariantReference(it);
             targetCode << ")";
+        }
+        targetCode << ");\n";
+    }
+
+    void C_Code::ProcWriteStatement(AST::WriteStatement *writeStatement)
+    {
+        targetCode << "printf(\"";
+        bool isFirst = true;
+        for (auto it : writeStatement->expressionList)
+        {
+            if (!isFirst)
+            {
+                targetCode << " ";
+            }
+            switch (it->GetValueToken())
+            {
+            case Token::TokenType::INTEGER:
+                targetCode << "%d";
+                break;
+            case Token::TokenType::BOLLEAN:
+                targetCode << "%d";
+                break;
+            case Token::TokenType::REAL:
+                targetCode << "%f";
+                break;
+            case Token::TokenType::CHAR:
+                targetCode << "%c";
+                break;
+            case Token::TokenType::LETTER:
+                targetCode << "%s";
+                break;
+            }
+            isFirst = false;
+        }
+        targetCode << "\"";
+        for (auto it : writeStatement->expressionList)
+        {
+            targetCode << ", ";
+            ProcExpression(it);
         }
         targetCode << ");\n";
     }

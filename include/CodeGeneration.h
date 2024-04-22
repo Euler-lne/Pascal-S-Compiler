@@ -84,7 +84,9 @@ namespace C_GEN
         void ProcExpression(AST::Expression *expression);
         void ProcIfStateMent(AST::IfStatement *ifStatement);
         void ProcWhileStateMent(AST::WhileStatement *whileStatement);
+
         void ProcReadStatement(AST::ReadStatement *readStatment);
+        void ProcWriteStatement(AST::WriteStatement *writeStatement);
 
         void PreProcDeclaration(AST::ProgramBody *programBody);
         void RePlaceMap(map<string, AST::ConstDeclare *> &constList, std::string before, std::string after);

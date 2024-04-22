@@ -226,7 +226,7 @@ namespace AST
         {
             return valueType;
         }
-        Token::TokenType GetValueToken() { return type; }
+        Token::TokenType &GetValueToken() { return type; }
         Expression(ParseNode *);
         ~Expression();
 
