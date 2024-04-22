@@ -31,7 +31,8 @@ public:
         UNASSIGNED_VARIABLE,
         CHAR_LENGTH_ERROR,
         VAR_PARAMETER_NOT_ID,
-        FUNCTION_PARAMETER_MISMATCH
+        FUNCTION_PARAMETER_MISMATCH,
+        INCOMPATIBLE_OPERAND_TYPES
     };
 
     static void reportError(int lineNum, ErrorType errorType, const std::string &additionalInfo = "")
@@ -109,6 +110,9 @@ public:
             break;
         case ErrorType::FUNCTION_PARAMETER_MISMATCH:
             errorMessage = "A function variable used as r-value cannot accept parameters";
+            break;
+        case ErrorType::INCOMPATIBLE_OPERAND_TYPES:
+            errorMessage = "Incompatible operand types";
             break;
         default:
             errorMessage = "Unknown error";
