@@ -102,12 +102,12 @@ namespace C_GEN
         std::ofstream file(outPutPath);
         file << targetCodeStream;
         file.close();
-        std::cout << targetCodeStream << std::endl;
+        // std::cout << targetCodeStream << std::endl;
     }
 
     std::string C_Code::GenerateTargetCode(std::string &outPutPath, AST::Program *ast)
     {
-        outPutPath += ProcProgramHead(ast->GetProgramHead());
+        ProcProgramHead(ast->GetProgramHead());
         targetCode << "#include <stdio.h>\n";
         targetCode << "#define bool int\n#define true 1\n#define false 0\n";
         return ProcProgramBody(ast->GetProgramBody());
@@ -467,16 +467,18 @@ namespace C_GEN
     void C_Code::ProcConstDeclare(AST::Declaration *declaration, const std::string &prefix)
     {
         auto &declarationList = declaration->GetConstList();
+
         for (auto it : declaration->GetDeclarationQueue())
         {
-            if (declarationList.end() == declarationList.find(it))
+            auto key = declaration->prefix + it;
+            if (declarationList.end() == declarationList.find(key))
             {
                 break;
             }
 
             targetCode << "const ";
 
-            switch (declarationList[it]->GetConstDeclareType())
+            switch (declarationList[key]->GetConstDeclareType())
             {
             case Token::TokenType::INTEGER:
                 targetCode << "int ";
@@ -493,8 +495,8 @@ namespace C_GEN
                 targetCode << "char ";
                 break;
             }
-            targetCode << it << " = " << declarationList[it]->GetConstVal();
-            if (declarationList[it]->GetConstDeclareType() == Token::TokenType::LETTER)
+            targetCode << key << " = " << declarationList[key]->GetConstVal();
+            if (declarationList[key]->GetConstDeclareType() == Token::TokenType::LETTER)
                 targetCode << "[]";
             targetCode << ";\n";
         }
