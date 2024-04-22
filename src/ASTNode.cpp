@@ -1267,7 +1267,10 @@ namespace AST
                     token = Token::REAL;
                     break;
                 case Token::LETTER:
-                    token = Token::CHAR;
+                    if (value.size() == 1)
+                        token = Token::CHAR;
+                    else
+                        token = Token::LETTER;
                     break;
                 default:
                     break;
