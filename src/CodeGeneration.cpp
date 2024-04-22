@@ -520,9 +520,17 @@ namespace C_GEN
                 targetCode << "char ";
                 break;
             }
-            targetCode << key << " = " << declarationList[key]->GetConstVal();
+            targetCode << key;
             if (declarationList[key]->GetConstDeclareType() == Token::TokenType::LETTER)
                 targetCode << "[]";
+
+            targetCode << " = ";
+            if (declarationList[key]->GetConstDeclareType() == Token::TokenType::LETTER)
+                targetCode << "\"" << declarationList[key]->GetConstVal() << "\"";
+            else if (declarationList[key]->GetConstDeclareType() == Token::TokenType::CHAR)
+                targetCode << "\'" << declarationList[key]->GetConstVal() << "\'";
+            else
+                targetCode << declarationList[key]->GetConstVal();
             targetCode << ";\n";
         }
     }
