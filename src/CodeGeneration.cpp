@@ -323,19 +323,37 @@ namespace C_GEN
                 targetCode << ")";
             }
             else
+            {
+                targetCode << "(";
                 ProcExpression(expression->operand1);
+                targetCode << ")";
+            }
+
             return;
         }
 
         if (expression->operand1 == nullptr && expression->operand2)
         {
-            targetCode << " " << expression->opration;
+            targetCode << " ";
+            ProcOpration(expression);
+            targetCode << "(";
             ProcExpression(expression->operand2);
+            targetCode << ")";
             return;
         }
-
+        targetCode << "(";
         ProcExpression(expression->operand1);
+        targetCode << ")";
         targetCode << " ";
+        ProcOpration(expression);
+        targetCode << " ";
+        targetCode << "(";
+        ProcExpression(expression->operand2);
+        targetCode << ")";
+    }
+
+    void C_Code::ProcOpration(AST::Expression *expression)
+    {
         if (expression->opration == "/")
             targetCode << "* 1.0 /";
         else if (expression->opration == "div")
@@ -363,8 +381,6 @@ namespace C_GEN
                 targetCode << "||";
         else
             targetCode << expression->opration;
-        targetCode << " ";
-        ProcExpression(expression->operand2);
     }
 
     void C_Code::ProcVariantReference(AST::VariantReference *variantReference)

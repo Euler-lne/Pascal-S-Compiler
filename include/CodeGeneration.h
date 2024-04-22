@@ -84,6 +84,7 @@ namespace C_GEN
         void ProcExpression(AST::Expression *expression);
         void ProcIfStateMent(AST::IfStatement *ifStatement);
         void ProcWhileStateMent(AST::WhileStatement *whileStatement);
+        void ProcOpration(AST::Expression *opration);
 
         void ProcReadStatement(AST::ReadStatement *readStatment);
         void ProcWriteStatement(AST::WriteStatement *writeStatement);
