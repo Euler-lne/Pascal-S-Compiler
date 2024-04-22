@@ -10,6 +10,7 @@
  */
 
 #include "../include/CodeGeneration.h"
+#include <fstream>
 
 namespace C_GEN
 {
@@ -98,13 +99,15 @@ namespace C_GEN
         }
 
         targetCodeStream = pTargetCodeGen->GenerateTargetCode(outPutPath, ast);
-
+        std::ofstream file(outPutPath);
+        file << targetCodeStream;
+        file.close();
         std::cout << targetCodeStream << std::endl;
     }
 
     std::string C_Code::GenerateTargetCode(std::string &outPutPath, AST::Program *ast)
     {
-        outPutPath = ProcProgramHead(ast->GetProgramHead());
+        outPutPath += ProcProgramHead(ast->GetProgramHead());
         targetCode << "#include <stdio.h>\n";
         targetCode << "#define bool int\n#define true 1\n#define false 0\n";
         return ProcProgramBody(ast->GetProgramBody());
@@ -112,7 +115,7 @@ namespace C_GEN
 
     std::string C_Code::ProcProgramHead(AST::ProgramHead *programHead)
     {
-        return programHead->GetProgramId();
+        return programHead->GetProgramId() + ".c";
     }
 
     // main
