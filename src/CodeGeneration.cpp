@@ -102,12 +102,12 @@ namespace C_GEN
         std::ofstream file(outPutPath);
         file << targetCodeStream;
         file.close();
-        std::cout << targetCodeStream << std::endl;
+        // std::cout << targetCodeStream << std::endl;
     }
 
     std::string C_Code::GenerateTargetCode(std::string &outPutPath, AST::Program *ast)
     {
-        outPutPath += ProcProgramHead(ast->GetProgramHead());
+        ProcProgramHead(ast->GetProgramHead());
         targetCode << "#include <stdio.h>\n";
         targetCode << "#define bool int\n#define true 1\n#define false 0\n";
         return ProcProgramBody(ast->GetProgramBody());
@@ -467,6 +467,8 @@ namespace C_GEN
     void C_Code::ProcConstDeclare(AST::Declaration *declaration, const std::string &prefix)
     {
         auto &declarationList = declaration->GetConstList();
+        string prefix;
+
         for (auto it : declaration->GetDeclarationQueue())
         {
             if (declarationList.end() == declarationList.find(it))
