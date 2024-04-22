@@ -339,6 +339,10 @@ namespace C_GEN
             targetCode << "/";
         else if (expression->opration == "mod")
             targetCode << "%";
+        else if (expression->opration == "=")
+            targetCode << "==";
+        else if (expression->opration == "<>")
+            targetCode << "!=";
         else
             targetCode << expression->opration;
         targetCode << " ";
