@@ -16,7 +16,7 @@ forloopexample3_j <= forloopexample3_i;
 forloopexample3_j++)
 {
 {
-printf("%d %s %d %s %f %s", forloopexample3_j, " * ", forloopexample3_i, " = ", forloopexample3_i * forloopexample3_j, "   ");
+printf("%d %s %d %s %d %s", forloopexample3_j, " * ", forloopexample3_i, " = ", forloopexample3_i * forloopexample3_j, "   ");
 }
 }
 }

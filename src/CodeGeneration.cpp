@@ -356,7 +356,18 @@ namespace C_GEN
     {
         if (variantReference->idType == Token::TokenType::RECORD)
         {
-            /* code */
+            targetCode << variantReference->GetIDToCodeGenerator();
+            for (int i = 0; i < variantReference->recordPart.size(); i++)
+            {
+                targetCode << "." << variantReference->recordPart[i];
+                if (variantReference->isArrayAtRecordEnd)
+                {
+                    targetCode << "[";
+                    ProcExpression(variantReference->arrayPart[i]);
+                    targetCode << "-(" << variantReference->varDeclare->GetDimension()[i].first;
+                    targetCode << ")]";
+                }
+            }
         }
         else if (variantReference->idType == Token::TokenType::ARRAY)
         {
