@@ -38,7 +38,7 @@ int main()
         if (ERROR_NUM == 0) {
             // --------- 进入代码生成 ---------
             cout << "Now start code generation..." << endl;
-            C_GEN::C_Generater gen(&program, "");
+            C_GEN::C_Generater gen(&program, "../../Ccode/");
             gen.run();
         }
     } else {
