@@ -76,6 +76,7 @@ namespace C_GEN
         void ProcConstDeclare(AST::Declaration *declaration, const std::string &prefix);
         void ProcVarDeclare(std::map<string, pair<int, AST::VarDeclare *>> &varList, const std::string &prefix);
         void ProcArray(vector<pair<int, int>> dimension);
+        void ProcSubProgramDeclare(map<string, AST::SubProgram *> &subProgramList, std::string prefix);
         void ProcSubProgram(map<string, AST::SubProgram *> &subProgramList, std::string prefix);
         void ProcStateMent(vector<AST::Statement *> &statementList, std::string extra);
         void ProcAssignStateMent(AST::AssignStatement *assignStatement);

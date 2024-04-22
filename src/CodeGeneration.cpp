@@ -435,6 +435,7 @@ namespace C_GEN
     {
         ProcConstDeclare(declaration, prefix);
         ProcVarDeclare(declaration->GetVarList(), prefix);
+        ProcSubProgramDeclare(declaration->subProgramList, prefix);
 
         if (!declaration->subProgramList.empty())
         {
@@ -534,12 +535,76 @@ namespace C_GEN
         }
     }
 
+    void C_Code::ProcSubProgramDeclare(map<string, AST::SubProgram *> &subProgramList, std::string prefix)
+    {
+        bool IsFirstPara = true; // 判断是否是第一个参数
+        for (auto it : subProgramList)
+        {
+            std::string SubProgramDefine = "";
+            switch (it.second->GetReturnType())
+            {
+            case Token::TokenType::NULL_:
+                SubProgramDefine += "void ";
+                break;
+            case Token::TokenType::INTEGER:
+                SubProgramDefine += "int ";
+                break;
+            case Token::TokenType::BOLLEAN:
+                SubProgramDefine += "bool ";
+                break;
+            case Token::TokenType::REAL:
+                SubProgramDefine += "double ";
+                break;
+
+            case Token::TokenType::CHAR:
+                SubProgramDefine += "char ";
+            }
+            SubProgramDefine += (it.first + "(");
+            for (auto _it : it.second->GetFormalPataList())
+            {
+
+                for (auto __it : _it->paraIdList)
+                {
+                    if (!IsFirstPara) // 不是第一个参数，需要加逗号
+                    {
+                        SubProgramDefine += ", ";
+                    }
+                    else
+                    {
+                        IsFirstPara = false;
+                    }
+                    switch (_it->type)
+                    {
+                        {
+                        case Token::TokenType::INTEGER:
+                        case Token::TokenType::BOLLEAN:
+                            SubProgramDefine += "int ";
+                            break;
+
+                        case Token::TokenType::REAL:
+                            SubProgramDefine += "double ";
+                            break;
+
+                        case Token::TokenType::CHAR:
+                            SubProgramDefine += "char ";
+                        }
+                    }
+
+                    if (_it->flag) // 引用传参
+                        SubProgramDefine += "*";
+                    SubProgramDefine += __it.first;
+                }
+            }
+            SubProgramDefine += ");\n";
+            targetCode << SubProgramDefine;
+            IsFirstPara = true;
+        }
+    }
     void C_Code::ProcSubProgram(map<string, AST::SubProgram *> &subProgramList, std::string prefix)
     {
         bool IsFirstPara = true; // 判断是否是第一个参数
         for (auto it : subProgramList)
         {
-
             std::string SubProgramDefine = "";
             switch (it.second->GetReturnType())
             {
