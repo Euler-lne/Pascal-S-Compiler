@@ -507,12 +507,14 @@ namespace AST
                 opration = expression_->children[1]->val;
                 operand2 = new Expression(expression_->children[2]);
                 if (opration == "or") {
-                    if (operand1->type != Token::BOLLEAN && operand2->type != Token::BOLLEAN) {
-                        // 报错处理，这里必须是布尔类型
+                    if (operand1->type == Token::BOLLEAN && operand2->type == Token::BOLLEAN) {
+                        type = Token::BOLLEAN;
+                    } else if (operand1->type == Token::INTEGER && operand2->type == Token::INTEGER) {
+                        type = Token::INTEGER;
+                    } else {
+                        // FIXME:报错处理，这里必须两边都是布尔或者两边都是int
                         CompilerError::reportError(expression_->children[1]->lineNumber, CompilerError::ErrorType::CONDITION_NOT_BOOLEAN);
                         return;
-                    } else {
-                        type = Token::BOLLEAN;
                     }
                 } else {
                     if (!((operand1->type == Token::INTEGER || operand1->type == Token::REAL) &&
@@ -537,12 +539,14 @@ namespace AST
                 opration = expression_->children[1]->val;
                 operand2 = new Expression(expression_->children[2]);
                 if (opration == "and") {
-                    if (operand1->type != Token::BOLLEAN && operand2->type != Token::BOLLEAN) {
-                        // 报错处理，这里必须是布尔类型
+                    if (operand1->type == Token::BOLLEAN && operand2->type == Token::BOLLEAN) {
+                        type = Token::BOLLEAN;
+                    } else if (operand1->type == Token::INTEGER && operand2->type == Token::INTEGER) {
+                        type = Token::INTEGER;
+                    } else {
+                        // FIXME:报错处理，这里必须两边都是布尔或者两边都是int
                         CompilerError::reportError(expression_->children[1]->lineNumber, CompilerError::ErrorType::CONDITION_NOT_BOOLEAN);
                         return;
-                    } else {
-                        type = Token::BOLLEAN;
                     }
                 } else if (opration == "div" || opration == "mod") {
                     if (!(operand1->type == Token::INTEGER) && (operand2->type == Token::INTEGER)) {
@@ -624,7 +628,7 @@ namespace AST
                 opration = expression_->children[0]->val;
                 operand2 = new Expression(expression_->children[1]);
                 type = operand2->type;
-                if (type == Token::CHAR || type == Token::LETTER) {
+                if (type != Token::INTEGER && type != Token::BOLLEAN) {
                     // FIXME:报错处理，不能是 not 后面不能是字符或者字符串类型
                     CompilerError::reportError(expression_->children[0]->lineNumber, CompilerError::ErrorType::CONDITION_NOT_BOOLEAN);
                     return;
