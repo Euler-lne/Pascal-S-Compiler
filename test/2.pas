@@ -51,4 +51,6 @@ begin
   write(gcd(a, b) + 1);
   swap(a, b);
   write(a, ' ', b);
+  read(a);
+  read(b);
 end.
