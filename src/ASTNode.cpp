@@ -182,6 +182,12 @@ namespace AST
         subProgramList.clear();
     }
 
+    string ConstDeclare::GetConstPrefix()
+    {
+        string prefix = curProgramBody->prefix;
+        return prefix;
+    }
+
     ConstDeclare::ConstDeclare(ParseNode *const_variable_)
     {
         isUsed = 0;

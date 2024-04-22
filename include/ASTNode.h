@@ -110,6 +110,7 @@ namespace AST
         int IsUsed() { return isUsed; }
         Token::TokenType &GetConstDeclareType() { return type; }
         string &GetConstVal() { return constVal; };
+        string GetConstPrefix();
         ConstDeclare(){};
         ConstDeclare(ParseNode *);
         ~ConstDeclare();
