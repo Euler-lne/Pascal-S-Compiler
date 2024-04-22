@@ -625,8 +625,8 @@ namespace AST
                 operand2 = new Expression(expression_->children[1]);
                 type = operand2->type;
                 if (type == Token::CHAR || type == Token::LETTER) {
-                    // FIXME:报错处理，不能是 not 后面不能是字符或者字符串类型
-                    CompilerError::reportError(expression_->children[0]->lineNumber, CompilerError::ErrorType::CONDITION_NOT_BOOLEAN);
+                    // FIXME:报错处理，not 后面不能是字符或者字符串类型
+                    CompilerError::reportError(expression_->children[0]->lineNumber, CompilerError::ErrorType::OPERAND_TYPE_MISMATCH, "INTEGER or REAL ,not CHAR or LETTER");
                     return;
                 }
             }
