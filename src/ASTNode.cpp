@@ -1051,8 +1051,8 @@ namespace AST
         leftVal = new VariantReference(assign_statement_->children[0], 1);
         rightVal = new Expression(assign_statement_->children[2]);
         if (leftVal->GetFinalType() != rightVal->GetValueToken()) {
-            if (!((leftVal->GetFinalType() != Token::REAL) &&
-                  rightVal->GetValueToken() != Token::INTEGER)) { // int 可以 赋值给 real
+            if (!((leftVal->GetFinalType() == Token::REAL) &&
+                  rightVal->GetValueToken() == Token::INTEGER)) { // int 可以 赋值给 real
                 // 类型不同报错处理，这里需要修改
                 CompilerError::reportError(assign_statement_->children[1]->lineNumber, CompilerError::ErrorType::ASSIGNMENT_TYPE_MISMATCH, "left value type and right value type mismatch");
                 return;
