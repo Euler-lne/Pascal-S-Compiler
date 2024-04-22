@@ -100,6 +100,7 @@ namespace AST
         map<string, ConstDeclare *> &GetConstList() { return constList; };
         auto &GetVarList() { return varList; };
         void SetDeclaration(ParseNode *);
+        string GetPrefix();
         Declaration(){};
         ~Declaration();
     };
@@ -110,7 +111,6 @@ namespace AST
         int IsUsed() { return isUsed; }
         Token::TokenType &GetConstDeclareType() { return type; }
         string &GetConstVal() { return constVal; };
-        string GetConstPrefix();
         ConstDeclare(){};
         ConstDeclare(ParseNode *);
         ~ConstDeclare();
