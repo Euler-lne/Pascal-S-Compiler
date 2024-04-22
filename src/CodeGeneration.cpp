@@ -722,7 +722,7 @@ namespace C_GEN
         {
             if (!isFirst)
             {
-                targetCode << " ";
+                targetCode << "";
             }
             switch (it->GetValueToken())
             {
