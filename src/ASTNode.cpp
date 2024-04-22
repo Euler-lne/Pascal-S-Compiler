@@ -184,6 +184,7 @@ namespace AST
 
     ConstDeclare::ConstDeclare(ParseNode *const_variable_)
     {
+        isUsed = 0;
         type = GetConstTypeFromParseTree(const_variable_, constVal);
         lineNum = const_variable_->children[0]->lineNumber; // 都是终极符号，可以直接得到
     }
@@ -622,12 +623,12 @@ namespace AST
                 operationType = expression_->children[0]->token;
                 opration = expression_->children[0]->val;
                 operand2 = new Expression(expression_->children[1]);
-                type = operand2->type;
-                if (type != Token::BOLLEAN) {
-                    // 报错处理，这里必须是布尔类型
-                    CompilerError::reportError(expression_->children[0]->lineNumber, CompilerError::ErrorType::CONDITION_NOT_BOOLEAN);
-                    return;
-                }
+                type = Token::BOLLEAN;
+                // if (type != Token::BOLLEAN) {
+                //     // 报错处理，这里必须是布尔类型
+                //     CompilerError::reportError(expression_->children[0]->lineNumber, CompilerError::ErrorType::CONDITION_NOT_BOOLEAN);
+                //     return;
+                // }
             }
         }
     }
