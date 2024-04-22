@@ -1,6 +1,6 @@
 %{
 
-#define LEXDEBUG
+//#define LEXDEBUG
 
 
 
@@ -37,6 +37,24 @@ std::string toLowercase(const std::string& str) {
     return result;
 }
 
+std::string replaceUnderscoresWithA(const std::string& lowercaseStr) {
+    // 创建一个结果字符串，初始值为 lowercaseStr
+    std::string result = lowercaseStr;
+
+    // 遍历结果字符串的每一个字符
+    for (char& c : result) {
+        // 如果当前字符是下划线 ('_')
+        if (c == '_') {
+            // 将当前字符替换为 'A'
+            c = 'A';
+        }
+    }
+
+    // 返回替换后的结果字符串
+    return result;
+}
+
+
 extern YYSTYPE yylval;
 
 
@@ -62,7 +80,9 @@ line \n.*
 digit [0-9]
 blank_chars [ \f\r\t\v]+
 
-id {letter}({letter}|{digit})*
+
+id ({letter}|_)({letter}|{digit}|_)*  
+
 int_num {digit}+
 float_num {digit}+\.{digit}+
 letter [a-zA-Z]
@@ -660,8 +680,11 @@ mulop (\*|\/|div|mod|and)
     
     std::string lowercaseStr = toLowercase(lowercaseText);   
 
+    // 使用 replaceUnderscoresWithA 函数将 lowercaseStr 中的下划线替换为 'A'
+    std::string modifiedStr = replaceUnderscoresWithA(lowercaseStr);    
+
     // 将小写形式的字符串存储到 yylval->val 中
-    yylval->val = lowercaseStr;
+    yylval->val = modifiedStr;
 	yylval->token = Token::ID;
     yylval->lineNumber = yylineno ;
     reduceNode.Insert(yylval);
