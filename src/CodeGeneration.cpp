@@ -346,6 +346,11 @@ namespace C_GEN
             targetCode << "==";
         else if (expression->opration == "<>")
             targetCode << "!=";
+        else if (expression->opration == "not")
+            if (expression->operand2->GetValueToken() == Token::TokenType::INTEGER)
+                targetCode << "~";
+            else
+                targetCode << "!";
         else
             targetCode << expression->opration;
         targetCode << " ";
