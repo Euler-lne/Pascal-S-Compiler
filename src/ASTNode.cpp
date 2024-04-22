@@ -839,6 +839,8 @@ namespace AST
     {
         isLeft = 1;
         isArrayAtRecordEnd = 0;
+        isFunction = 0;
+        isFormalParameter = 0;
         lineNum = idNode->lineNumber;
         prefix = "";
         string idName = idNode->val;
