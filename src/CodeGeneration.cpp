@@ -324,9 +324,7 @@ namespace C_GEN
             }
             else
             {
-                targetCode << "(";
                 ProcExpression(expression->operand1);
-                targetCode << ")";
             }
 
             return;
@@ -336,20 +334,15 @@ namespace C_GEN
         {
             targetCode << " ";
             ProcOpration(expression);
-            targetCode << "(";
             ProcExpression(expression->operand2);
-            targetCode << ")";
             return;
         }
-        targetCode << "(";
+
         ProcExpression(expression->operand1);
-        targetCode << ")";
         targetCode << " ";
         ProcOpration(expression);
         targetCode << " ";
-        targetCode << "(";
         ProcExpression(expression->operand2);
-        targetCode << ")";
     }
 
     void C_Code::ProcOpration(AST::Expression *expression)
