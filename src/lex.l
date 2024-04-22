@@ -735,7 +735,7 @@ cout<<"BEGIN CH"<<endl;
         // 如果字符常量缺失，则返回空字符常量
         yylval = new ParseNode();
         yylval->val="\0";
-        yylval->token=Token::CHAR;
+        yylval->token=Token::LETTER;
         yylval->lineNumber=yylineno ;
         reduceNode.Insert(yylval);
         #ifdef LEXDEBUG
@@ -748,7 +748,7 @@ cout<<"BEGIN CH"<<endl;
         // 如果字符常量长度为1，则返回字符常量
         yylval = new ParseNode();
         yylval->val=charRec[0];
-        yylval->token=Token::CHAR;
+        yylval->token=Token::LETTER;
         yylval->lineNumber=yylineno ;
         reduceNode.Insert(yylval);
         #ifdef LEXDEBUG
@@ -763,7 +763,7 @@ cout<<"BEGIN CH"<<endl;
         // 如果字符常量长度不为0或1，则返回字符常量
         yylval = new ParseNode();
         yylval->val=charRec;
-        yylval->token=Token::CHAR;
+        yylval->token=Token::LETTER;
         yylval->lineNumber=yylineno ;
         reduceNode.Insert(yylval);
         #ifdef LEXDEBUG
@@ -784,7 +784,7 @@ cout<<"BEGIN CH"<<endl;
             yylval->val="\0";
         else
             yylval->val=charRec;
-        yylval->token=Token::CHAR;
+        yylval->token=Token::LETTER;
         yylval->lineNumber=yylineno ;
         reduceNode.Insert(yylval);
         #ifdef LEXDEBUG

@@ -590,8 +590,9 @@ namespace AST
                             CompilerError::reportError(expression_->children[0]->lineNumber, CompilerError::ErrorType::CHAR_LENGTH_ERROR);
                             return;
                         }
+                        type = Token::CHAR;
                     }
-                    type = Token::CHAR;
+                    type = Token::LETTER;
                     break;
                 default:
                     break;
