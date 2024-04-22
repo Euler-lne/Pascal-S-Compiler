@@ -95,12 +95,12 @@ namespace AST
         map<string, SubProgram *> subProgramList;
         map<string, Token::TokenType> declarationList; // 用于快速检查是否重定义
         vector<string> declarationQueue;               // 用于记录变量顺序，因为map会改变插入顺序
+        string prefix;
         // 这里的Token::TokenType取值为 VAR CONST FUNCTION（包括过程）
         vector<string> GetDeclarationQueue() { return declarationQueue; };
         map<string, ConstDeclare *> &GetConstList() { return constList; };
         auto &GetVarList() { return varList; };
         void SetDeclaration(ParseNode *);
-        string GetPrefix();
         Declaration(){};
         ~Declaration();
     };

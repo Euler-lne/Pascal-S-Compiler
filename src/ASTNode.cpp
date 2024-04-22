@@ -144,6 +144,7 @@ namespace AST
 
     void Declaration::SetDeclaration(ParseNode *program_body_)
     {
+        prefix = curProgramBody->prefix;
         // 只可以使用children的前三个，首先获得头，然后分别遍历
         ParseNode *const_declarations_ = program_body_->children[0];
         ParseNode *var_declarations_ = program_body_->children[1];
@@ -155,10 +156,6 @@ namespace AST
         ReadVarDeclarations(var_declarations_, varList, declarationList, declarationQueue);
         // 遍历过程声明部分
         ReadSubProgramDeclarations(subprogram_declarations_, subProgramList, declarationList, declarationQueue);
-    }
-    string Declaration::GetPrefix()
-    {
-        return curProgramBody->prefix;
     }
     Declaration::~Declaration()
     {
