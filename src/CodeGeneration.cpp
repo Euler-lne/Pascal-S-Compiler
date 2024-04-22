@@ -684,7 +684,7 @@ namespace C_GEN
             {
                 targetCode << " ";
             }
-            switch (it->idType)
+            switch (it->GetFinalType())
             {
             case Token::TokenType::INTEGER:
                 targetCode << "%d";
