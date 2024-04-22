@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.1)
-project(PASCC)
+project(pascc)
 
 # 查找 Flex 和 Bison
 find_package(FLEX)
