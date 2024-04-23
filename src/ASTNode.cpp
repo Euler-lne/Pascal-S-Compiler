@@ -370,6 +370,8 @@ namespace AST
             assignStatement == nullptr &&
             subProgramCall == nullptr &&
             caseStatement == nullptr &&
+            writeStatement == nullptr &&
+            readStatement == nullptr &&
             statementList.size() == 0)
             return 1;
         return 0;
