@@ -21,6 +21,7 @@ namespace AST
     ProgramBody *curProgramBody = nullptr;
     SubProgram *curSubProgram = nullptr;
     SubProgram *preSubProgram = nullptr;
+    FunctionDeclaration *functionDeclare = nullptr;
 
     void ReadVarDeclarations(ParseNode *var_declarations_, map<string, pair<int, VarDeclare *>> &varList, map<string, Token::TokenType> &declarationList, vector<string> &declarationQueue);
     void ReadConstDeclarations(ParseNode *const_declarations_, map<string, ConstDeclare *> &constList, map<string, Token::TokenType> &declarationList, vector<string> &declarationQueue);
@@ -35,6 +36,8 @@ namespace AST
     {
         programHead = new ProgramHead(program_->children[0]);
         string name = programHead->GetProgramId();
+        totalStruct = new FunctionDeclaration();
+        functionDeclare = totalStruct;
         programBody = new ProgramBody(name, program_->children[1], nullptr);
     }
     Program::~Program()
@@ -43,6 +46,8 @@ namespace AST
             delete programHead;
         if (programBody != nullptr)
             delete programBody;
+        if (totalStruct != nullptr)
+            delete totalStruct;
     }
     // program_head->program id
     ProgramHead::ProgramHead(ParseNode *program_head_)
@@ -68,7 +73,10 @@ namespace AST
         parent = curProgramBody;
         prefix = (parent ? parent->prefix : "") + name + "_";
         curProgramBody = this;
-
+        if (parent == nullptr)
+            programLayer = 0;
+        else
+            programLayer += parent->programLayer;
         declaration = new Declaration();
         declaration->SetDeclaration(program_body_);
         curSubProgram = preSubProgram;
@@ -156,6 +164,21 @@ namespace AST
         ReadVarDeclarations(var_declarations_, varList, declarationList, declarationQueue);
         // 遍历过程声明部分
         ReadSubProgramDeclarations(subprogram_declarations_, subProgramList, declarationList, declarationQueue);
+        vector<ConstDeclare *> temp1;
+        vector<VarDeclare *> temp2;
+        for (int i = 0; i < declarationQueue.size(); i++) {
+            Token::TokenType _type = declarationList.at(declarationQueue[i]);
+            if (_type == Token::VAR) {
+                temp2.emplace_back(varList.at(declarationQueue[i]).second);
+            } else if (_type == Token::CONST) {
+                temp1.emplace_back(constList.at(declarationQueue[i]));
+            } else
+                break;
+        }
+        if (curProgramBody->parent != nullptr && (temp1.size() != 0 || temp2.size() != 0)) {
+            pair<vector<ConstDeclare *>, vector<VarDeclare *>> temp = pair<vector<ConstDeclare *>, vector<VarDeclare *>>(temp1, temp2);
+            functionDeclare->InSert("_" + prefix, temp);
+        }
     }
     Declaration::~Declaration()
     {
@@ -183,8 +206,9 @@ namespace AST
         subProgramList.clear();
     }
 
-    ConstDeclare::ConstDeclare(ParseNode *const_variable_)
+    ConstDeclare::ConstDeclare(ParseNode *const_variable_, string _idVal)
     {
+        idVal = _idVal;
         isUsed = 0;
         type = GetConstTypeFromParseTree(const_variable_, constVal);
         lineNum = const_variable_->children[0]->lineNumber; // 都是终极符号，可以直接得到
@@ -203,8 +227,9 @@ namespace AST
         return recordList.find(name)->second.second;
     }
 
-    VarDeclare::VarDeclare(ParseNode *type_)
+    VarDeclare::VarDeclare(ParseNode *type_, string _idVal)
     {
+        idVal = _idVal;
         type = GetVarTypeFromTypeNode(type_);
         isAssignment = 0;
         isUsed = 0;
@@ -263,6 +288,12 @@ namespace AST
     {
         ParseNode *subprogram_head_ = subprogram_declaration_->children[0];
         isUsed = 0;
+        nestNum = curProgramBody->GetProgramLayer(); // 这里可以得到嵌套的层数
+        ProgramBody *cur = curProgramBody;
+        while (cur != nullptr && cur->parent != nullptr) {
+            nestParList.emplace_back("_" + cur->prefix);
+            cur = cur->parent;
+        }
         Token::TokenType type = subprogram_head_->children[0]->token; // 判断是函数/过程
         subProgramId = subprogram_head_->children[1]->val;            // 得到函数名字
         lineNum = subprogram_head_->children[0]->lineNumber;
@@ -663,14 +694,17 @@ namespace AST
         isFunction = 0;
         isArrayAtRecordEnd = 0;
         prefix = "";
+        isCurId = 0;
+        isGlobal = 0;
         lineNum = variable_->children[0]->lineNumber;
+        structName = "";
         varDeclare = nullptr;
         string idName = variable_->children[0]->val;
         isFormalParameter = FindDeclarationInSubProgram(idName, idType);
-        ProgramBody *cur = nullptr;
         if (isFormalParameter) {
             id = idName;
         } else {
+            ProgramBody *cur = nullptr;
             cur = FindDeclaration(idName, lineNum);
             if (cur == nullptr) {
                 // 报错 使用了没有声明的变量，并返回，不执行下面的语句
@@ -729,6 +763,13 @@ namespace AST
             default:
                 break;
             }
+            if (isFunction == 1) {
+            } else if (cur->parent == nullptr)
+                isGlobal = 1;
+            else if (cur == curProgramBody)
+                isCurId = 1;
+            else
+                structName = "_" + cur->prefix;
         }
         finalType = idType;
 
@@ -842,7 +883,7 @@ namespace AST
                 delete arrayPart[i];
         }
     }
-    /// @brief 由一个id推到出的，吹出现再for语句中
+    /// @brief 由一个id推到出的，出现再for语句中
     /// @param idNode
     VariantReference::VariantReference(ParseNode *idNode)
     {
@@ -850,7 +891,10 @@ namespace AST
         isArrayAtRecordEnd = 0;
         isFunction = 0;
         isFormalParameter = 0;
+        isCurId = 0;
+        isGlobal = 0;
         lineNum = idNode->lineNumber;
+        structName = "";
         prefix = "";
         string idName = idNode->val;
         isFormalParameter = FindDeclarationInSubProgram(idName, idType);
@@ -863,6 +907,13 @@ namespace AST
         if (cur == nullptr) {
             return;
         }
+        if (cur->parent == nullptr)
+            isGlobal = 1;
+        else if (cur == curProgramBody)
+            isCurId = 1;
+        else
+            structName = "_" + cur->prefix;
+
         map<string, Token::TokenType> list = cur->declaration->declarationList;
 
         idType = list.find(idName)->second;
@@ -1093,7 +1144,7 @@ namespace AST
         ParseNode *const_ = constListStack.Pop();
         while (const_ != nullptr) {
             // ConstDeclare::ConstDeclare(ParseNode *const_variable_)
-            ConstDeclare *const_val = new ConstDeclare(const_);
+            ConstDeclare *const_val = new ConstDeclare(const_, "");
             constList.emplace_back(const_val);
             const_ = constListStack.Pop();
         }
@@ -1189,7 +1240,7 @@ namespace AST
                         CompilerError::reportError(idNode->lineNumber, CompilerError::ErrorType::REDEFINED_VARIABLE, idNode->val);
                         return;
                     }
-                    VarDeclare *varDeclare = new VarDeclare(type_);
+                    VarDeclare *varDeclare = new VarDeclare(type_, idNode->val);
                     pair<int, VarDeclare *> temp = pair<int, VarDeclare *>(idNode->lineNumber, varDeclare);
                     varList.insert(pair<string, pair<int, VarDeclare *>>(idNode->val, temp));
                     declarationList.insert(pair<string, Token::TokenType>(idNode->val, Token::VAR));
@@ -1216,7 +1267,7 @@ namespace AST
                     CompilerError::reportError(idNode->lineNumber, CompilerError::ErrorType::REDEFINED_VARIABLE, idNode->val);
                     return;
                 }
-                ConstDeclare *constDeclare = new ConstDeclare(const_variable);
+                ConstDeclare *constDeclare = new ConstDeclare(const_variable, idNode->val);
                 constList.insert(pair<string, ConstDeclare *>(idNode->val, constDeclare));
                 declarationList.insert(pair<string, Token::TokenType>(idNode->val, Token::CONST));
                 declarationQueue.emplace_back(idNode->val);

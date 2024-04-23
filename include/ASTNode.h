@@ -39,13 +39,14 @@ namespace AST
     class CaseStatement;
     class WriteStatement;
     class ReadStatement;
+    class FunctionDeclaration;
 
     class Program // 程序
     {
     public:
         ProgramHead *programHead;
         ProgramBody *programBody;
-
+        FunctionDeclaration *totalStruct;
         Program()
         {
             programHead = nullptr;
@@ -84,6 +85,10 @@ namespace AST
         void *GetDeclarationAtIndex(int index, Token::TokenType &_type);
         string GetPrefix() { return prefix; };
         Declaration *GetDeclaration() { return declaration; };
+        int GetProgramLayer() { return programLayer; }
+
+    private:
+        int programLayer; // 代表位于第几层，主函数位于0层
     };
 #pragma region 定义
 
@@ -112,10 +117,11 @@ namespace AST
         Token::TokenType &GetConstDeclareType() { return type; }
         string &GetConstVal() { return constVal; };
         ConstDeclare(){};
-        ConstDeclare(ParseNode *);
+        ConstDeclare(ParseNode *, string);
         ~ConstDeclare();
 
     private:
+        string idVal;
         string constVal; // 得到的num都是无符号的数
         int lineNum;
         Token::TokenType type; // INTEGER REAL CHAR
@@ -141,7 +147,7 @@ namespace AST
         vector<string> declarationQueue;               // 用于记录变量顺序，因为map会改变插入顺序
 
         VarDeclare(){};
-        VarDeclare(ParseNode *);
+        VarDeclare(ParseNode *, string);
         ~VarDeclare();
 
     private:
@@ -153,6 +159,7 @@ namespace AST
         vector<pair<int, int>> dimension;
         int isAssignment; // 如果赋值了就为1，没有就为0，用于报错
         int isUsed;       // 这个变量是否被使用
+        string idVal;
     };
     class SubProgram
     { // 传入 subprogram_declaration_
@@ -168,8 +175,22 @@ namespace AST
         int IsVarParameterAtIndex(int index);
         SubProgram(ParseNode *);
         ~SubProgram();
+        int GetExpendParNum() { return nestNum; }
+        /// @brief 通过这个参数去寻找结构体中的内容
+        /// @param i
+        /// @return
+        string GetExpendParNameAtIndex(int i)
+        {
+            if (i >= nestNum || i < 0) {
+                cout << "AST SubProgram nestParList" << endl;
+                return "";
+            } else
+                return nestParList[i];
+        }
 
     private:
+        int nestNum; // 嵌套数量这里代表了，需要添加的参数个数
+        vector<string> nestParList;
         string subProgramId;
         int lineNum; // 函数/过程行号
         Token::TokenType returnType;
@@ -256,9 +277,19 @@ namespace AST
         {
             if (isFunction)
                 return prefix + id + "_";
-            else
+            else if (isGlobal)
                 return prefix + id;
+            else
+                return id;
         }
+        int IsNest()
+        {
+            if (isGlobal || isCurId || isFunction)
+                return 0;
+            else
+                return 1;
+        }
+        string GetStructName() { return structName; }
         Token::TokenType GetFinalType() { return finalType; }
         VariantReference(ParseNode *, int);
         VariantReference(ParseNode *idNode);
@@ -267,10 +298,13 @@ namespace AST
     private:
         Token::TokenType finalType; // 最终这个值是一个标准类型，不能从该值判断除是否为Array和record
         // INTEGER BOOLEAN REAL CHAR
-        string prefix; // 对应的前缀
-        string id;     // id值
-        int lineNum;   // 行号
-        int isLeft;    // 是否为左值，左值不可以为函数，1代表为左值，0则不是
+        string prefix;     // 对应的前缀
+        string id;         // id值
+        int lineNum;       // 行号
+        int isLeft;        // 是否为左值，左值不可以为函数，1代表为左值，0则不是
+        int isCurId;       // 1代表这个id为当前作用域下，0代表不是
+        int isGlobal;      // 1代表全局，0代表不是
+        string structName; // 结构体的名字
     };
     class SubProgramCall
     {
@@ -351,6 +385,80 @@ namespace AST
         vector<VariantReference *> variantList;
         ReadStatement(ParseNode *);
         ~ReadStatement();
+    };
+
+    class FunctionDeclaration
+    {
+    public:
+        /// @brief 向容器中插入数据
+        /// @param name 名字
+        /// @param temp 内容
+        void InSert(string name, pair<vector<ConstDeclare *>, vector<VarDeclare *>> temp)
+        {
+            declarationMap.insert(pair<string, pair<vector<ConstDeclare *>, vector<VarDeclare *>>>(name, temp));
+            declarationList.emplace_back(name);
+        }
+        /// @brief 获取容器长度
+        /// @return 长度
+        int GetLen() { return declarationList.size(); }
+        /// @brief 在指定下标得到容器中的常量声明
+        /// @param i 位置
+        /// @return 变量声明
+        vector<ConstDeclare *> GetConstDeclareAtIndex(int i)
+        {
+            if (i >= GetLen() || i <= 0) {
+                cout << "AST FunctionDeclaration Len Error" << endl;
+                return vector<ConstDeclare *>();
+            } else {
+                return declarationMap.at(declarationList[i]).first;
+            }
+        }
+        /// @brief 在指定下标得到容器中的变量声明
+        /// @param i 位置
+        /// @return 变量声明
+        vector<VarDeclare *> GetVarDeclareAtIndex(int i)
+        {
+            if (i >= GetLen() || i <= 0) {
+                cout << "AST FunctionDeclaration Len Error" << endl;
+                return vector<VarDeclare *>();
+            } else {
+                return declarationMap.at(declarationList[i]).second;
+            }
+        }
+        /// @brief 通过名字得到常量
+        /// @param name 名字
+        /// @return 变量
+        vector<ConstDeclare *> GetConstDeclareOfName(string name)
+        {
+            if (declarationMap.find(name) != declarationMap.end()) {
+                return declarationMap.at(name).first;
+            } else {
+                cout << "AST FunctionDeclaration name Error" << endl;
+                return vector<ConstDeclare *>();
+            }
+        }
+        /// @brief 通过名字得到变量
+        /// @param name 名字
+        /// @return 变量
+        vector<VarDeclare *> GetVarDeclareOfName(string name)
+        {
+            if (declarationMap.find(name) != declarationMap.end()) {
+                return declarationMap.at(name).second;
+            } else {
+                cout << "AST FunctionDeclaration name Error" << endl;
+                return vector<VarDeclare *>();
+            }
+        }
+        FunctionDeclaration(){};
+        ~FunctionDeclaration()
+        {
+            declarationMap.clear();
+            declarationList.clear();
+        };
+
+    private:
+        map<string, pair<vector<ConstDeclare *>, vector<VarDeclare *>>> declarationMap;
+        vector<string> declarationList;
     };
 } // namespace AST
 
