@@ -341,12 +341,10 @@ namespace AST
      */
     int SubProgram::IsVarParameterAtIndex(int index)
     {
-        for (int i = 0; i < formalParameterList.size(); i++) {
-            for (int j = 0; j < formalParameterList[i]->paraIdList.size(); j++) {
-                if (formalParameterList[i]->flag == 1) // 引用传递
-                    return 1;
-                else
-                    return 0;
+        for (int i = 0, t = 0; i < formalParameterList.size(); i++) {
+            for (int j = 0; j < formalParameterList[i]->paraIdList.size(); j++, t++) {
+                if (index == t) // 引用传递
+                    return formalParameterList[i]->flag;
             }
         }
         return 0;
