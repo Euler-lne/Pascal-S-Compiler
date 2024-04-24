@@ -149,7 +149,6 @@ namespace C_GEN
         targetCode << string("{\n");
         if (isFuntion)
         {
-            ProcConstDeclare(programBody->declaration, "");
             ProcVarDeclare(programBody->declaration->GetVarList(), "");
         }
 
@@ -445,6 +444,7 @@ namespace C_GEN
 
     void C_Code::ProcDeclaration(AST::Declaration *declaration, std::string prefix)
     {
+        ProcConstDeclare(declaration, prefix);
         ProcSubProgramDeclare(declaration->subProgramList, prefix);
 
         if (!declaration->subProgramList.empty())
