@@ -495,14 +495,22 @@ namespace AST
                 operationType = expression_->children[1]->token;
                 opration = expression_->children[1]->val;
                 operand2 = new Expression(expression_->children[2]);
-                if (!((operand1->type == Token::INTEGER || operand1->type == Token::REAL) &&
-                      (operand2->type == Token::INTEGER || operand2->type == Token::REAL))) {
-                    // 报错处理，这里必须是整数或者实数
-                    CompilerError::reportError(expression_->children[1]->lineNumber, CompilerError::ErrorType::OPERAND_TYPE_MISMATCH, "INTEGER or REAL");
-                    return;
+                if (opration != "=" && opration != "<>") {
+                    if (!((operand1->type == Token::INTEGER || operand1->type == Token::REAL) &&
+                          (operand2->type == Token::INTEGER || operand2->type == Token::REAL))) {
+                        // 报错处理，这里必须是整数或者实数
+                        CompilerError::reportError(expression_->children[1]->lineNumber, CompilerError::ErrorType::OPERAND_TYPE_MISMATCH, "INTEGER or REAL");
+                        return;
+                    }
                 } else {
-                    type = Token::BOLLEAN;
+                    if (operand1->type != operand2->type) {
+                        // 报错处理，这里必须是整数或者实数
+                        CompilerError::reportError(expression_->children[1]->lineNumber, CompilerError::ErrorType::ASSIGNMENT_TYPE_MISMATCH, "left value type and right value type mismatch");
+                        return;
+                    }
                 }
+                type = Token::BOLLEAN;
+
             } else {
                 operand1 = new Expression(expression_->children[0]);
                 operand2 = nullptr;
