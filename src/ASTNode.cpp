@@ -698,8 +698,10 @@ namespace AST
             id = idName;
         } else if (idName == "true") {
             idType = Token::TRUE_;
+            id = idName;
         } else if (idName == "false") {
             idType = Token::FALSE_;
+            id = idName;
         } else {
             ProgramBody *cur = nullptr;
             cur = FindDeclaration(idName, lineNum);
@@ -767,7 +769,10 @@ namespace AST
             else
                 structName = "_" + cur->prefix;
         }
-        finalType = idType;
+        if (idType == Token::TRUE_ || idType == Token::FALSE_)
+            finalType = Token::BOLLEAN;
+        else
+            finalType = idType;
 
         ParseNode *id_varparts_ = variable_->children[1];
         Stack idVarpartsStack(id_varparts_, 0, 1, 0, -1, Token::ID_VARPART_);
@@ -902,8 +907,10 @@ namespace AST
         ProgramBody *cur = nullptr;
         if (idName == "true") {
             idType = Token::TRUE_;
+            id = idName;
         } else if (idName == "false") {
             idType = Token::FALSE_;
+            id = idName;
         } else {
             cur = FindDeclaration(idName, lineNum);
             if (cur == nullptr) {
@@ -936,7 +943,10 @@ namespace AST
             varDeclare->SetUsed();
             varDeclare->SetAssignment();
         }
-        finalType = idType;
+        if (idType == Token::TRUE_ || idType == Token::FALSE_)
+            finalType = Token::BOLLEAN;
+        else
+            finalType = idType;
     }
 
     SubProgramCall::SubProgramCall(ParseNode *call_subprogram_statement_)
