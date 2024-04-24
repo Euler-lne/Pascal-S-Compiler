@@ -218,7 +218,7 @@ mulop (\*|\/|div|mod|and)
 
 }
 
-[Bb][Oo][Ll][Ll][Ee][Aa][Nn] {
+[Bb][Oo][Oo][Ll][Ee][Aa][Nn] {
     yylval=new ParseNode();
     yylval->val="bollean";
     yylval->token=Token::BOLLEAN;
