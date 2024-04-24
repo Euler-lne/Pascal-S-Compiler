@@ -122,6 +122,9 @@ namespace Token
 
         // 一下类型供构建抽象语法树以及之后的步骤使用
         NULL_, // 添加一个返回值类型，代表这个为一个记录类型
+
+        TRUE_,
+        FALSE_,
     };
 
     enum GenerationType {

@@ -696,6 +696,10 @@ namespace AST
         isFormalParameter = FindDeclarationInSubProgram(idName, idType);
         if (isFormalParameter) {
             id = idName;
+        } else if (idName == "true") {
+            idType = Token::TRUE_;
+        } else if (idName == "false") {
+            idType = Token::FALSE_;
         } else {
             ProgramBody *cur = nullptr;
             cur = FindDeclaration(idName, lineNum);
@@ -895,34 +899,43 @@ namespace AST
             finalType = idType;
             return;
         }
-        ProgramBody *cur = FindDeclaration(idName, lineNum);
-        if (cur == nullptr) {
-            return;
+        ProgramBody *cur = nullptr;
+        if (idName == "true") {
+            idType = Token::TRUE_;
+        } else if (idName == "false") {
+            idType = Token::FALSE_;
+        } else {
+            cur = FindDeclaration(idName, lineNum);
+            if (cur == nullptr) {
+                return;
+            }
         }
-        if (cur == curProgramBody)
-            isCurId = 1;
-        else
-            structName = "_" + cur->prefix;
+        if (cur != nullptr) {
+            if (cur == curProgramBody)
+                isCurId = 1;
+            else
+                structName = "_" + cur->prefix;
 
-        map<string, Token::TokenType> list = cur->declaration->declarationList;
+            map<string, Token::TokenType> list = cur->declaration->declarationList;
 
-        idType = list.find(idName)->second;
-        id = idName;
-        prefix = cur->prefix;
-        if (idType != Token::VAR) {
-            // 报错，只能是变量
-            CompilerError::reportError(lineNum, CompilerError::ErrorType::VARIABLE_NOT_ALLOWED, idName + " is not a variable");
-            return;
+            idType = list.find(idName)->second;
+            id = idName;
+            prefix = cur->prefix;
+            if (idType != Token::VAR) {
+                // 报错，只能是变量
+                CompilerError::reportError(lineNum, CompilerError::ErrorType::VARIABLE_NOT_ALLOWED, idName + " is not a variable");
+                return;
+            }
+            VarDeclare *varDeclare = cur->declaration->varList.find(idName)->second.second;
+            if (varDeclare->IsArray() || varDeclare->GetVarDeclareType() == Token::RECORD) {
+                // 报错，只能是普通类型
+                CompilerError::reportError(lineNum, CompilerError::ErrorType::VARIABLE_NOT_ALLOWED, idName + " shouldn't be an array or record");
+                return;
+            }
+            idType = varDeclare->GetVarDeclareType();
+            varDeclare->SetUsed();
+            varDeclare->SetAssignment();
         }
-        VarDeclare *varDeclare = cur->declaration->varList.find(idName)->second.second;
-        if (varDeclare->IsArray() || varDeclare->GetVarDeclareType() == Token::RECORD) {
-            // 报错，只能是普通类型
-            CompilerError::reportError(lineNum, CompilerError::ErrorType::VARIABLE_NOT_ALLOWED, idName + " shouldn't be an array or record");
-            return;
-        }
-        idType = varDeclare->GetVarDeclareType();
-        varDeclare->SetUsed();
-        varDeclare->SetAssignment();
         finalType = idType;
     }
 
