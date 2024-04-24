@@ -170,7 +170,6 @@ namespace AST
             if (_type == Token::VAR) {
                 temp1.emplace_back(varList.at(declarationQueue[i]).second);
             }
-            break;
         }
         if (curProgramBody->parent != nullptr && (temp1.size() != 0)) {
             functionDeclare->InSert("_" + prefix, temp1);
