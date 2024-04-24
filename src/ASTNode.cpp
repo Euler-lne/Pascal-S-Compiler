@@ -164,20 +164,16 @@ namespace AST
         ReadVarDeclarations(var_declarations_, varList, declarationList, declarationQueue);
         // 遍历过程声明部分
         ReadSubProgramDeclarations(subprogram_declarations_, subProgramList, declarationList, declarationQueue);
-        vector<ConstDeclare *> temp1;
-        vector<VarDeclare *> temp2;
+        vector<VarDeclare *> temp1;
         for (int i = 0; i < declarationQueue.size(); i++) {
             Token::TokenType _type = declarationList.at(declarationQueue[i]);
             if (_type == Token::VAR) {
-                temp2.emplace_back(varList.at(declarationQueue[i]).second);
-            } else if (_type == Token::CONST) {
-                temp1.emplace_back(constList.at(declarationQueue[i]));
-            } else
-                break;
+                temp1.emplace_back(varList.at(declarationQueue[i]).second);
+            }
+            break;
         }
-        if (curProgramBody->parent != nullptr && (temp1.size() != 0 || temp2.size() != 0)) {
-            pair<vector<ConstDeclare *>, vector<VarDeclare *>> temp = pair<vector<ConstDeclare *>, vector<VarDeclare *>>(temp1, temp2);
-            functionDeclare->InSert("_" + prefix, temp);
+        if (curProgramBody->parent != nullptr && (temp1.size() != 0)) {
+            functionDeclare->InSert("_" + prefix, temp1);
         }
     }
     Declaration::~Declaration()
@@ -744,6 +740,7 @@ namespace AST
                     ConstDeclare *constDeclare = cur->declaration->constList.find(idName)->second;
                     constDeclare->SetUsed();
                     idType = constDeclare->GetConstDeclareType();
+                    isGlobal = 1;
                 }
                 break;
             case Token::FUNCTION:
@@ -764,9 +761,7 @@ namespace AST
                 break;
             }
             if (isFunction == 1) {
-            } else if (cur->parent == nullptr)
-                isGlobal = 1;
-            else if (cur == curProgramBody)
+            } else if (cur == curProgramBody)
                 isCurId = 1;
             else
                 structName = "_" + cur->prefix;
@@ -907,9 +902,7 @@ namespace AST
         if (cur == nullptr) {
             return;
         }
-        if (cur->parent == nullptr)
-            isGlobal = 1;
-        else if (cur == curProgramBody)
+        if (cur == curProgramBody)
             isCurId = 1;
         else
             structName = "_" + cur->prefix;

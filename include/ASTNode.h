@@ -393,26 +393,14 @@ namespace AST
         /// @brief 向容器中插入数据
         /// @param name 名字
         /// @param temp 内容
-        void InSert(string name, pair<vector<ConstDeclare *>, vector<VarDeclare *>> temp)
+        void InSert(string name, vector<VarDeclare *> temp)
         {
-            declarationMap.insert(pair<string, pair<vector<ConstDeclare *>, vector<VarDeclare *>>>(name, temp));
+            declarationMap.insert(pair<string, vector<VarDeclare *>>(name, temp));
             declarationList.emplace_back(name);
         }
         /// @brief 获取容器长度
         /// @return 长度
         int GetLen() { return declarationList.size(); }
-        /// @brief 在指定下标得到容器中的常量声明
-        /// @param i 位置
-        /// @return 变量声明
-        vector<ConstDeclare *> GetConstDeclareAtIndex(int i)
-        {
-            if (i >= GetLen() || i <= 0) {
-                cout << "AST FunctionDeclaration Len Error" << endl;
-                return vector<ConstDeclare *>();
-            } else {
-                return declarationMap.at(declarationList[i]).first;
-            }
-        }
         /// @brief 在指定下标得到容器中的变量声明
         /// @param i 位置
         /// @return 变量声明
@@ -422,19 +410,7 @@ namespace AST
                 cout << "AST FunctionDeclaration Len Error" << endl;
                 return vector<VarDeclare *>();
             } else {
-                return declarationMap.at(declarationList[i]).second;
-            }
-        }
-        /// @brief 通过名字得到常量
-        /// @param name 名字
-        /// @return 变量
-        vector<ConstDeclare *> GetConstDeclareOfName(string name)
-        {
-            if (declarationMap.find(name) != declarationMap.end()) {
-                return declarationMap.at(name).first;
-            } else {
-                cout << "AST FunctionDeclaration name Error" << endl;
-                return vector<ConstDeclare *>();
+                return declarationMap.at(declarationList[i]);
             }
         }
         /// @brief 通过名字得到变量
@@ -443,7 +419,7 @@ namespace AST
         vector<VarDeclare *> GetVarDeclareOfName(string name)
         {
             if (declarationMap.find(name) != declarationMap.end()) {
-                return declarationMap.at(name).second;
+                return declarationMap.at(name);
             } else {
                 cout << "AST FunctionDeclaration name Error" << endl;
                 return vector<VarDeclare *>();
@@ -457,7 +433,7 @@ namespace AST
         };
 
     private:
-        map<string, pair<vector<ConstDeclare *>, vector<VarDeclare *>>> declarationMap;
+        map<string, vector<VarDeclare *>> declarationMap;
         vector<string> declarationList;
     };
 } // namespace AST
