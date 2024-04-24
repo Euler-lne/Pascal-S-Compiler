@@ -94,7 +94,7 @@ void yyerror(const char *s, int startLine, int startCol, int endLine, int endCol
 
 extern int yylineno;
 extern char* yytext;
-extern char lineBuffer[500];
+extern char lineBuffer[6000];
 extern int yyleng;
 extern int yycolumn;
 extern string itos(int num);
