@@ -18,7 +18,7 @@ string itos(int num)
 int main()
 {
     // blog.csdn.net/cscmaker/article/details/7042718
-    string inName = "../../open_set/60_many_locals.pas"; // 默认输入文件名
+    string inName = "../../open_set/46_full_conn.pas"; // 默认输入文件名
     FILE *fp = NULL;
     fp = fopen(inName.c_str(), "r");
     if (fp == NULL) {
