@@ -946,7 +946,7 @@ namespace AST
         subprogram = subList.find(name)->second;
         returnType = subprogram->GetReturnType();
         subprogram->SetUsed();
-        if (call_subprogram_statement_->children.size() == 1)
+        if (call_subprogram_statement_->children.size() == 1 || call_subprogram_statement_->children.size() == 3)
             return;
         ParseNode *expression_list_ = call_subprogram_statement_->children[2];
         Stack expressionListStack(expression_list_, 0, 2, 1, 0, Token::EXPRESSION_);
