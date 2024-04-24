@@ -24,7 +24,7 @@ namespace C_GEN
             switch (type)
             {
             case Token::TokenType::VAR:
-                RePlaceMap(programBody->declaration->varList, programBody->declaration->declarationQueue[i], programBody->GetDeclarationNameAtIndex(i));
+                // RePlaceMap(programBody->declaration->varList, programBody->declaration->declarationQueue[i], programBody->GetDeclarationNameAtIndex(i));
                 break;
 
             case Token::TokenType::CONST:
@@ -122,9 +122,16 @@ namespace C_GEN
     std::string C_Code::ProcProgramBody(AST::ProgramBody *programBody)
     {
         PreProcDeclaration(programBody);
-        ProcDeclaration(programBody->GetDeclaration(), programBody->GetPrefix());
+        ProcConstDeclare(programBody->declaration, programBody->GetPrefix());
+        ProcVarDeclare(programBody->declaration->GetVarList(), programBody->GetPrefix());
+        ProcSubProgramDeclare(programBody->declaration->subProgramList, programBody->GetPrefix());
+
+        if (!programBody->declaration->subProgramList.empty())
+        {
+            ProcSubProgram(programBody->declaration->subProgramList, programBody->GetPrefix());
+        }
         targetCode << string("int main()\n");
-        ProcStateMent(programBody->statementList, "");
+        ProcStateMent(programBody->statementList, false, NULL);
         return targetCode.str();
     }
 
@@ -134,12 +141,18 @@ namespace C_GEN
         PreProcDeclaration(programBody);
         ProcDeclaration(programBody->GetDeclaration(), programBody->GetPrefix());
         targetCode << SubProgramDefine;
-        ProcStateMent(programBody->statementList, "");
+        ProcStateMent(programBody->statementList, true, programBody);
     }
 
-    void C_Code::ProcStateMent(vector<AST::Statement *> &statementList, std::string extra)
+    void C_Code::ProcStateMent(vector<AST::Statement *> &statementList, bool isFuntion, AST::ProgramBody *programBody)
     {
         targetCode << string("{\n");
+        if (isFuntion)
+        {
+            ProcConstDeclare(programBody->declaration, "");
+            ProcVarDeclare(programBody->declaration->GetVarList(), "");
+        }
+
         for (auto it : statementList)
         {
             switch (it->statementType)
@@ -166,7 +179,7 @@ namespace C_GEN
                 break;
 
             case Token::TokenType::COMPOUND_STATEMENT_:
-                ProcStateMent(it->statementList, "");
+                ProcStateMent(it->statementList, false, NULL);
                 break;
 
             case Token::TokenType::_READ:
@@ -177,7 +190,6 @@ namespace C_GEN
                 ProcWriteStatement(it->writeStatement);
             }
         }
-        targetCode << extra;
         targetCode << "}\n";
     }
 
@@ -210,19 +222,19 @@ namespace C_GEN
             {
                 targetCode << "--)\n";
             }
-            ProcStateMent(whileStatement->statementList, "");
+            ProcStateMent(whileStatement->statementList, false, NULL);
             break;
 
         case Token::TokenType::WHILE:
             targetCode << "while(";
             ProcExpression(whileStatement->condition);
             targetCode << ")\n";
-            ProcStateMent(whileStatement->statementList, "");
+            ProcStateMent(whileStatement->statementList, false, NULL);
             break;
 
         case Token::TokenType::REPEAT:
             targetCode << "do\n";
-            ProcStateMent(whileStatement->statementList, "");
+            ProcStateMent(whileStatement->statementList, false, NULL);
             targetCode << "while(!(";
             ProcExpression(whileStatement->condition);
             targetCode << "));\n";
@@ -241,13 +253,13 @@ namespace C_GEN
             return;
         }
         vector<AST::Statement *> temp = {ifStatement->thenStatement};
-        ProcStateMent(temp, "");
+        ProcStateMent(temp, false, NULL);
 
         if (!ifStatement->elseStatement)
             return;
         targetCode << "else\n";
         temp = {ifStatement->elseStatement};
-        ProcStateMent(temp, "");
+        ProcStateMent(temp, false, NULL);
     }
 
     void C_Code::ProcSubProgramCallStateMent(AST::SubProgramCall *subProgramCall)
@@ -433,8 +445,6 @@ namespace C_GEN
 
     void C_Code::ProcDeclaration(AST::Declaration *declaration, std::string prefix)
     {
-        ProcConstDeclare(declaration, prefix);
-        ProcVarDeclare(declaration->GetVarList(), prefix);
         ProcSubProgramDeclare(declaration->subProgramList, prefix);
 
         if (!declaration->subProgramList.empty())
