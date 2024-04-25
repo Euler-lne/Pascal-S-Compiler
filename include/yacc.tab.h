@@ -1,8 +1,8 @@
-/* A Bison parser, made by GNU Bison 3.8.2.  */
+/* A Bison parser, made by GNU Bison 3.5.1.  */
 
 /* Bison interface for Yacc-like parsers in C
 
-   Copyright (C) 1984, 1989-1990, 2000-2015, 2018-2021 Free Software Foundation,
+   Copyright (C) 1984, 1989-1990, 2000-2015, 2018-2020 Free Software Foundation,
    Inc.
 
    This program is free software: you can redistribute it and/or modify
@@ -16,7 +16,7 @@
    GNU General Public License for more details.
 
    You should have received a copy of the GNU General Public License
-   along with this program.  If not, see <https://www.gnu.org/licenses/>.  */
+   along with this program.  If not, see <http://www.gnu.org/licenses/>.  */
 
 /* As a special exception, you may create a larger work that contains
    part or all of the Bison parser skeleton and distribute that work
@@ -31,12 +31,11 @@
    This special exception was added by the Free Software Foundation in
    version 2.2 of Bison.  */
 
-/* DO NOT RELY ON FEATURES THAT ARE NOT DOCUMENTED in the manual,
-   especially those whose name start with YY_ or yy_.  They are
-   private implementation details that can be changed or removed.  */
+/* Undocumented macros, especially those whose name start with YY_,
+   are private implementation details.  Do not rely on them.  */
 
-#ifndef YY_YY_HOME_CQ_PASCAL_S_COMPILER_1_BUILD_INCLUDE_YACC_TAB_H_INCLUDED
-# define YY_YY_HOME_CQ_PASCAL_S_COMPILER_1_BUILD_INCLUDE_YACC_TAB_H_INCLUDED
+#ifndef YY_YY_DATA_WORKSPACE_PC_BUILD_INCLUDE_YACC_TAB_H_INCLUDED
+# define YY_YY_DATA_WORKSPACE_PC_BUILD_INCLUDE_YACC_TAB_H_INCLUDED
 /* Debug traces.  */
 #ifndef YYDEBUG
 # define YYDEBUG 1
@@ -45,69 +44,64 @@
 extern int yydebug;
 #endif
 
-/* Token kinds.  */
+/* Token type.  */
 #ifndef YYTOKENTYPE
 # define YYTOKENTYPE
   enum yytokentype
   {
-    YYEMPTY = -2,
-    YYEOF = 0,                     /* "end of file"  */
-    YYerror = 256,                 /* error  */
-    YYUNDEF = 257,                 /* "invalid token"  */
-    PROGRAM = 258,                 /* PROGRAM  */
-    CONST = 259,                   /* CONST  */
-    TYPE = 260,                    /* TYPE  */
-    RECORD = 261,                  /* RECORD  */
-    END = 262,                     /* END  */
-    ARRAY = 263,                   /* ARRAY  */
-    OF = 264,                      /* OF  */
-    INTEGER = 265,                 /* INTEGER  */
-    REAL = 266,                    /* REAL  */
-    BOLLEAN = 267,                 /* BOLLEAN  */
-    CHAR = 268,                    /* CHAR  */
-    VAR = 269,                     /* VAR  */
-    FUNCTION = 270,                /* FUNCTION  */
-    PROCEDURE = 271,               /* PROCEDURE  */
-    _BEGIN = 272,                  /* _BEGIN  */
-    IF = 273,                      /* IF  */
-    THEN = 274,                    /* THEN  */
-    ELSE = 275,                    /* ELSE  */
-    CASE = 276,                    /* CASE  */
-    WHILE = 277,                   /* WHILE  */
-    DO = 278,                      /* DO  */
-    REPEAT = 279,                  /* REPEAT  */
-    UNTIL = 280,                   /* UNTIL  */
-    FOR = 281,                     /* FOR  */
-    TO = 282,                      /* TO  */
-    DOWNTO = 283,                  /* DOWNTO  */
-    NOT = 284,                     /* NOT  */
-    DOT = 285,                     /* DOT  */
-    RANGE_DOT = 286,               /* RANGE_DOT  */
-    COMMA = 287,                   /* COMMA  */
-    LEFT_PARENTHESES = 288,        /* LEFT_PARENTHESES  */
-    RIGHT_PARENTHESES = 289,       /* RIGHT_PARENTHESES  */
-    LEFT_MEDIUM_PARENTHESES = 290, /* LEFT_MEDIUM_PARENTHESES  */
-    RIGHT_MEDIUM_PARENTHESES = 291, /* RIGHT_MEDIUM_PARENTHESES  */
-    SEMICOLON = 292,               /* SEMICOLON  */
-    ASSIGNOP = 293,                /* ASSIGNOP  */
-    COLON = 294,                   /* COLON  */
-    RELOP = 295,                   /* RELOP  */
-    ADDOP = 296,                   /* ADDOP  */
-    MULOP = 297,                   /* MULOP  */
-    ID = 298,                      /* ID  */
-    NUM = 299,                     /* NUM  */
-    INT_NUM = 300,                 /* INT_NUM  */
-    FLOAT_NUM = 301,               /* FLOAT_NUM  */
-    LETTER = 302,                  /* LETTER  */
-    _WRITE = 303,                  /* _WRITE  */
-    _READ = 304,                   /* _READ  */
-    UMINUS = 305,                  /* UMINUS  */
-    LOWER_THAN_ELSE = 306,         /* LOWER_THAN_ELSE  */
-    ONE = 307,                     /* ONE  */
-    TWO = 308,                     /* TWO  */
-    THREE = 309                    /* THREE  */
+    PROGRAM = 258,
+    CONST = 259,
+    TYPE = 260,
+    RECORD = 261,
+    END = 262,
+    ARRAY = 263,
+    OF = 264,
+    INTEGER = 265,
+    REAL = 266,
+    BOLLEAN = 267,
+    CHAR = 268,
+    VAR = 269,
+    FUNCTION = 270,
+    PROCEDURE = 271,
+    _BEGIN = 272,
+    IF = 273,
+    THEN = 274,
+    ELSE = 275,
+    CASE = 276,
+    WHILE = 277,
+    DO = 278,
+    REPEAT = 279,
+    UNTIL = 280,
+    FOR = 281,
+    TO = 282,
+    DOWNTO = 283,
+    NOT = 284,
+    DOT = 285,
+    RANGE_DOT = 286,
+    COMMA = 287,
+    LEFT_PARENTHESES = 288,
+    RIGHT_PARENTHESES = 289,
+    LEFT_MEDIUM_PARENTHESES = 290,
+    RIGHT_MEDIUM_PARENTHESES = 291,
+    SEMICOLON = 292,
+    ASSIGNOP = 293,
+    COLON = 294,
+    RELOP = 295,
+    ADDOP = 296,
+    MULOP = 297,
+    ID = 298,
+    NUM = 299,
+    INT_NUM = 300,
+    FLOAT_NUM = 301,
+    LETTER = 302,
+    _WRITE = 303,
+    _READ = 304,
+    UMINUS = 305,
+    LOWER_THAN_ELSE = 306,
+    ONE = 307,
+    TWO = 308,
+    THREE = 309
   };
-  typedef enum yytokentype yytoken_kind_t;
 #endif
 
 /* Value type.  */
@@ -134,8 +128,6 @@ struct YYLTYPE
 
 extern YYSTYPE yylval;
 extern YYLTYPE yylloc;
-
 int yyparse (void);
 
-
-#endif /* !YY_YY_HOME_CQ_PASCAL_S_COMPILER_1_BUILD_INCLUDE_YACC_TAB_H_INCLUDED  */
+#endif /* !YY_YY_DATA_WORKSPACE_PC_BUILD_INCLUDE_YACC_TAB_H_INCLUDED  */
