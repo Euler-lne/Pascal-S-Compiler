@@ -270,6 +270,7 @@ namespace C_GEN
             {
                 targetCode << ", ";
             }
+            // cout << subProgramCall->subprogram->IsVarParameterAtIndex(i) << " " << endl;
             if (subProgramCall->subprogram->IsVarParameterAtIndex(i)) // 引用
             {
                 targetCode << "&(";
@@ -556,8 +557,10 @@ namespace C_GEN
     void C_Code::ProcSubProgramDeclare(map<string, AST::SubProgram *> &subProgramList, std::string prefix)
     {
         bool IsFirstPara = true; // 判断是否是第一个参数
+
         for (auto it : subProgramList)
         {
+
             std::string SubProgramDefine = "";
             switch (it.second->GetReturnType())
             {
