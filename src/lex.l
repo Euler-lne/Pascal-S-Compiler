@@ -218,7 +218,7 @@ mulop (\*|\/|div|mod|and)
 
 }
 
-[Bb][Oo][Ll][Ll][Ee][Aa][Nn] {
+[Bb][Oo][Oo][Ll][Ee][Aa][Nn] {
     yylval=new ParseNode();
     yylval->val="bollean";
     yylval->token=Token::BOLLEAN;
@@ -671,8 +671,8 @@ mulop (\*|\/|div|mod|and)
 
 {id} {
     if(CheckAndAddLengthTooLargeErrorInformation(yytext, "id", yycolumn-yyleng, yycolumn-1)){
-        yytext[100]=0; //截断处理
-        yyleng=100;
+        yytext[300]=0; //截断处理
+        yyleng=300;
     }
     yylval=new ParseNode();
 
@@ -880,8 +880,8 @@ bool CheckAndAddLengthTooLargeErrorInformation(char *text, string type, int l, i
     string errorInformation;
     int len=strlen(text);
     if(type=="line"){
-        if(len>500){ //错误1
-            errorInformation = "FLEX error :[Line length too large, exceed 500] " + itos(yylineno-1) + "." + itos(l) + "-" + itos(yylineno-1) + "." +itos(r); 
+        if(len>6000){ //错误1
+            errorInformation = "FLEX error :[Line length too large, exceed 6000] " + itos(yylineno-1) + "." + itos(l) + "-" + itos(yylineno-1) + "." +itos(r); 
             errorInformation += "\nLex analyse abort!";
             ERROR_NUM+=1;
             cout<<"111111ERROR_NUM= "<<ERROR_NUM<<endl<<endl<<endl<<endl<<endl<<endl;
@@ -892,9 +892,9 @@ bool CheckAndAddLengthTooLargeErrorInformation(char *text, string type, int l, i
         return false;
     }
     else if(type=="id"){
-        if(len>100){ //错误2
+        if(len>300){ //错误2
             string id = string(text);
-            errorInformation = "FLEX error :[Identifier length too large, exceed 100] " + itos(yylineno-1) + "." + itos(l) + "-" + itos(yylineno-1) + "." + itos(r);
+            errorInformation = "FLEX error :[Identifier length too large, exceed 300] " + itos(yylineno-1) + "." + itos(l) + "-" + itos(yylineno-1) + "." + itos(r);
             cout << errorInformation << endl;
             ERROR_NUM+=1;
             cout<<"22222ERROR_NUM= "<<ERROR_NUM<<endl<<endl<<endl<<endl<<endl<<endl;

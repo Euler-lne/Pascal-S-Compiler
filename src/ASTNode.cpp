@@ -170,7 +170,6 @@ namespace AST
             if (_type == Token::VAR) {
                 temp1.emplace_back(varList.at(declarationQueue[i]).second);
             }
-            break;
         }
         if (curProgramBody->parent != nullptr && (temp1.size() != 0)) {
             functionDeclare->InSert("_" + prefix, temp1);
@@ -342,12 +341,10 @@ namespace AST
      */
     int SubProgram::IsVarParameterAtIndex(int index)
     {
-        for (int i = 0; i < formalParameterList.size(); i++) {
-            for (int j = 0; j < formalParameterList[i]->paraIdList.size(); j++) {
-                if (formalParameterList[i]->flag == 1) // 引用传递
-                    return 1;
-                else
-                    return 0;
+        for (int i = 0, t = 0; i < formalParameterList.size(); i++) {
+            for (int j = 0; j < formalParameterList[i]->paraIdList.size(); j++, t++) {
+                if (index == t) // 引用传递
+                    return formalParameterList[i]->flag;
             }
         }
         return 0;
@@ -498,14 +495,22 @@ namespace AST
                 operationType = expression_->children[1]->token;
                 opration = expression_->children[1]->val;
                 operand2 = new Expression(expression_->children[2]);
-                if (!((operand1->type == Token::INTEGER || operand1->type == Token::REAL) &&
-                      (operand2->type == Token::INTEGER || operand2->type == Token::REAL))) {
-                    // 报错处理，这里必须是整数或者实数
-                    CompilerError::reportError(expression_->children[1]->lineNumber, CompilerError::ErrorType::OPERAND_TYPE_MISMATCH, "INTEGER or REAL");
-                    return;
+                if (opration != "=" && opration != "<>") {
+                    if (!((operand1->type == Token::INTEGER || operand1->type == Token::REAL) &&
+                          (operand2->type == Token::INTEGER || operand2->type == Token::REAL))) {
+                        // 报错处理，这里必须是整数或者实数
+                        CompilerError::reportError(expression_->children[1]->lineNumber, CompilerError::ErrorType::OPERAND_TYPE_MISMATCH, "INTEGER or REAL");
+                        return;
+                    }
                 } else {
-                    type = Token::BOLLEAN;
+                    if (operand1->type != operand2->type) {
+                        // 报错处理，这里必须是整数或者实数
+                        CompilerError::reportError(expression_->children[1]->lineNumber, CompilerError::ErrorType::ASSIGNMENT_TYPE_MISMATCH, "left value type and right value type mismatch");
+                        return;
+                    }
                 }
+                type = Token::BOLLEAN;
+
             } else {
                 operand1 = new Expression(expression_->children[0]);
                 operand2 = nullptr;
@@ -699,6 +704,12 @@ namespace AST
         isFormalParameter = FindDeclarationInSubProgram(idName, idType);
         if (isFormalParameter) {
             id = idName;
+        } else if (idName == "true") {
+            idType = Token::TRUE_;
+            id = idName;
+        } else if (idName == "false") {
+            idType = Token::FALSE_;
+            id = idName;
         } else {
             ProgramBody *cur = nullptr;
             cur = FindDeclaration(idName, lineNum);
@@ -766,7 +777,10 @@ namespace AST
             else
                 structName = "_" + cur->prefix;
         }
-        finalType = idType;
+        if (idType == Token::TRUE_ || idType == Token::FALSE_)
+            finalType = Token::BOLLEAN;
+        else
+            finalType = idType;
 
         ParseNode *id_varparts_ = variable_->children[1];
         Stack idVarpartsStack(id_varparts_, 0, 1, 0, -1, Token::ID_VARPART_);
@@ -898,35 +912,49 @@ namespace AST
             finalType = idType;
             return;
         }
-        ProgramBody *cur = FindDeclaration(idName, lineNum);
-        if (cur == nullptr) {
-            return;
+        ProgramBody *cur = nullptr;
+        if (idName == "true") {
+            idType = Token::TRUE_;
+            id = idName;
+        } else if (idName == "false") {
+            idType = Token::FALSE_;
+            id = idName;
+        } else {
+            cur = FindDeclaration(idName, lineNum);
+            if (cur == nullptr) {
+                return;
+            }
         }
-        if (cur == curProgramBody)
-            isCurId = 1;
+        if (cur != nullptr) {
+            if (cur == curProgramBody)
+                isCurId = 1;
+            else
+                structName = "_" + cur->prefix;
+
+            map<string, Token::TokenType> list = cur->declaration->declarationList;
+
+            idType = list.find(idName)->second;
+            id = idName;
+            prefix = cur->prefix;
+            if (idType != Token::VAR) {
+                // 报错，只能是变量
+                CompilerError::reportError(lineNum, CompilerError::ErrorType::VARIABLE_NOT_ALLOWED, idName + " is not a variable");
+                return;
+            }
+            VarDeclare *varDeclare = cur->declaration->varList.find(idName)->second.second;
+            if (varDeclare->IsArray() || varDeclare->GetVarDeclareType() == Token::RECORD) {
+                // 报错，只能是普通类型
+                CompilerError::reportError(lineNum, CompilerError::ErrorType::VARIABLE_NOT_ALLOWED, idName + " shouldn't be an array or record");
+                return;
+            }
+            idType = varDeclare->GetVarDeclareType();
+            varDeclare->SetUsed();
+            varDeclare->SetAssignment();
+        }
+        if (idType == Token::TRUE_ || idType == Token::FALSE_)
+            finalType = Token::BOLLEAN;
         else
-            structName = "_" + cur->prefix;
-
-        map<string, Token::TokenType> list = cur->declaration->declarationList;
-
-        idType = list.find(idName)->second;
-        id = idName;
-        prefix = cur->prefix;
-        if (idType != Token::VAR) {
-            // 报错，只能是变量
-            CompilerError::reportError(lineNum, CompilerError::ErrorType::VARIABLE_NOT_ALLOWED, idName + " is not a variable");
-            return;
-        }
-        VarDeclare *varDeclare = cur->declaration->varList.find(idName)->second.second;
-        if (varDeclare->IsArray() || varDeclare->GetVarDeclareType() == Token::RECORD) {
-            // 报错，只能是普通类型
-            CompilerError::reportError(lineNum, CompilerError::ErrorType::VARIABLE_NOT_ALLOWED, idName + " shouldn't be an array or record");
-            return;
-        }
-        idType = varDeclare->GetVarDeclareType();
-        varDeclare->SetUsed();
-        varDeclare->SetAssignment();
-        finalType = idType;
+            finalType = idType;
     }
 
     SubProgramCall::SubProgramCall(ParseNode *call_subprogram_statement_)
@@ -949,7 +977,7 @@ namespace AST
         subprogram = subList.find(name)->second;
         returnType = subprogram->GetReturnType();
         subprogram->SetUsed();
-        if (call_subprogram_statement_->children.size() == 1)
+        if (call_subprogram_statement_->children.size() == 1 || call_subprogram_statement_->children.size() == 3)
             return;
         ParseNode *expression_list_ = call_subprogram_statement_->children[2];
         Stack expressionListStack(expression_list_, 0, 2, 1, 0, Token::EXPRESSION_);
