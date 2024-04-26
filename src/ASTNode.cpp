@@ -518,19 +518,7 @@ namespace AST
                 isId = operand1->isId;
             }
         } else if (nodeType == Token::SIMPLE_EXPRESSION_) {
-            if (expression_->children.size() == 2) {
-                operand1 = nullptr;
-                operationType = Token::ADDOP;
-                opration = expression_->children[0]->val;
-                operand2 = new Expression(expression_->children[1]);
-                if (!(operand2->type == Token::INTEGER || operand2->type == Token::REAL)) {
-                    // 报错处理，这里必须是整数或者实数
-                    CompilerError::reportError(expression_->children[0]->lineNumber, CompilerError::ErrorType::OPERAND_TYPE_MISMATCH, "INTEGER or REAL");
-                    return;
-                } else {
-                    type = operand2->type;
-                }
-            } else if (expression_->children.size() == 1) {
+            if (expression_->children.size() == 1) {
                 operand1 = new Expression(expression_->children[0]);
                 operand2 = nullptr;
                 type = operand1->type;
@@ -668,6 +656,18 @@ namespace AST
                     // FIXME:报错处理，not 后面不能是字符或者字符串类型
                     CompilerError::reportError(expression_->children[0]->lineNumber, CompilerError::ErrorType::OPERAND_TYPE_MISMATCH, "INTEGER or BOOLEAN");
                     return;
+                }
+            } else if (factorType == Token::ADDOP) {
+                operand1 = nullptr;
+                operationType = Token::ADDOP;
+                opration = expression_->children[0]->val;
+                operand2 = new Expression(expression_->children[1]);
+                if (!(operand2->type == Token::INTEGER || operand2->type == Token::REAL)) {
+                    // 报错处理，这里必须是整数或者实数
+                    CompilerError::reportError(expression_->children[0]->lineNumber, CompilerError::ErrorType::OPERAND_TYPE_MISMATCH, "INTEGER or REAL");
+                    return;
+                } else {
+                    type = operand2->type;
                 }
             }
         }
