@@ -293,7 +293,7 @@ namespace AST
         subProgramId = subprogram_head_->children[1]->val;            // 得到函数名字
         lineNum = subprogram_head_->children[0]->lineNumber;
         ParseNode *formal_parameter_ = subprogram_head_->children[2];
-        if (formal_parameter_->children.size() != 0) {
+        if (formal_parameter_->children.size() != 0 && formal_parameter_->children.size() != 2) {
             ParseNode *parameter_lists_ = formal_parameter_->children[1];
             Stack parameterListStack(parameter_lists_, 0, 2, 1, 0, Token::PARAMETER_LIST_);
             ParseNode *parameter_list_ = parameterListStack.Pop();

@@ -18,11 +18,7 @@ string itos(int num)
 int main()
 {
     // blog.csdn.net/cscmaker/article/details/7042718
-<<<<<<< HEAD
-    string inName = "../../open_set/43_exgcd.pas"; // 默认输入文件名
-=======
     string inName = "../../open_set/46_full_conn.pas"; // 默认输入文件名
->>>>>>> 8704801deb144ed5cc6329a39495ff80df4b7bfc
     FILE *fp = NULL;
     fp = fopen(inName.c_str(), "r");
     if (fp == NULL) {
