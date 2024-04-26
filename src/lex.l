@@ -726,7 +726,6 @@ mulop (\*|\/|div|mod|and)
 
 
 "'" {//进入字符常量识别
-cout<<"BEGIN CH"<<endl;
     BEGIN CH;
 	charRec="";
 }
