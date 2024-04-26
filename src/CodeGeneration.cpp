@@ -687,10 +687,50 @@ namespace C_GEN
         }
     }
 
+    void C_Code::ProcReadFunction(AST::ReadStatement *readStatment)
+    {
+    }
+
     void C_Code::ProcReadStatement(AST::ReadStatement *readStatment)
     {
+        /* if (readStatment->variantList[0]->isFunction && readStatment->variantList[0]->GetIsLeft())
+        {
+            ProcReadFunction(readStatment);
+            return;
+        } */
+        string returnString = "";
+        bool isReturn = false;
+        for (auto it : readStatment->variantList)
+        {
+            if (it->isFunction && it->GetIsLeft())
+            {
+                isReturn = true;
+                switch (it->GetFinalType())
+                {
+                case Token::TokenType::INTEGER:
+                    targetCode << "int ";
+                    break;
+                case Token::TokenType::BOLLEAN:
+                    targetCode << "bool ";
+                    break;
+                case Token::TokenType::REAL:
+                    targetCode << "float ";
+                    break;
+                case Token::TokenType::CHAR:
+                    targetCode << "char ";
+                    break;
+                case Token::TokenType::LETTER:
+                    targetCode << "char* ";
+                    break;
+                }
+                targetCode << "__" + it->GetIDToCodeGenerator() + "__;\n";
+                returnString = "__" + it->GetIDToCodeGenerator() + "__";
+            }
+        }
+
         targetCode << "scanf(\"";
         bool isFirst = true;
+
         for (auto it : readStatment->variantList)
         {
             if (!isFirst)
@@ -720,11 +760,31 @@ namespace C_GEN
         targetCode << "\"";
         for (auto it : readStatment->variantList)
         {
-            targetCode << ", &(";
-            ProcVariantReference(it);
-            targetCode << ")";
+            if (it->isFunction && it->GetIsLeft())
+            {
+                if (it->GetFinalType() == Token::TokenType::LETTER)
+                {
+                    targetCode << ", __" + it->GetIDToCodeGenerator() + "__";
+                }
+                else
+                {
+                    targetCode << ", &(";
+                    targetCode << "__" + it->GetIDToCodeGenerator() + "__";
+                    targetCode << ")";
+                }
+            }
+            else
+            {
+                targetCode << ", &(";
+                ProcVariantReference(it);
+                targetCode << ")";
+            }
         }
         targetCode << ");\n";
+        if (isReturn)
+        {
+            targetCode << "return " + returnString + ";";
+        }
     }
 
     void C_Code::ProcWriteStatement(AST::WriteStatement *writeStatement)

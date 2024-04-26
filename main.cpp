@@ -18,14 +18,6 @@ string itos(int num)
 int main()
 {
     // blog.csdn.net/cscmaker/article/details/7042718
-<<<<<<< HEAD
-    string inName = "../../open_set/46_full_conn.pas"; // 默认输入文件名
-    FILE *fp = NULL;
-    fp = fopen(inName.c_str(), "r");
-    if (fp == NULL)
-    {
-        cout << "Cannot open PASCAL-S file " << inName.c_str() << " , please check it." << endl;
-=======
     cout << "file name: ";
     string fileName;
     cin >> fileName;
@@ -35,9 +27,9 @@ int main()
     outputPath = outputPath + fileName + ".c";
     FILE *fp = NULL;
     fp = fopen(inputPath.c_str(), "r");
-    if (fp == NULL) {
+    if (fp == NULL)
+    {
         cout << "Cannot open PASCAL-S file " << inputPath.c_str() << " , please check it." << endl;
->>>>>>> a76d5183554457ddaa68db233116e6646afb7ad9
         exit(0);
     }
     yyin = fp;

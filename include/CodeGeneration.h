@@ -89,6 +89,7 @@ namespace C_GEN
 
         void ProcReadStatement(AST::ReadStatement *readStatment);
         void ProcWriteStatement(AST::WriteStatement *writeStatement);
+        void ProcReadFunction(AST::ReadStatement *readStatment);
 
         void PreProcDeclaration(AST::ProgramBody *programBody);
         void RePlaceMap(map<string, AST::ConstDeclare *> &constList, std::string before, std::string after);
