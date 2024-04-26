@@ -18,11 +18,17 @@ string itos(int num)
 int main()
 {
     // blog.csdn.net/cscmaker/article/details/7042718
-    string inName = "../../open_set/46_full_conn.pas"; // 默认输入文件名
+    cout << "file name: ";
+    string fileName;
+    cin >> fileName;
+    string inputPath = "../../normal_set/";
+    string outputPath = "../../normal_c_code/";
+    inputPath = inputPath + fileName + ".pas"; // 默认输入文件名
+    outputPath = outputPath + fileName + ".c";
     FILE *fp = NULL;
-    fp = fopen(inName.c_str(), "r");
+    fp = fopen(inputPath.c_str(), "r");
     if (fp == NULL) {
-        cout << "Cannot open PASCAL-S file " << inName.c_str() << " , please check it." << endl;
+        cout << "Cannot open PASCAL-S file " << inputPath.c_str() << " , please check it." << endl;
         exit(0);
     }
     yyin = fp;
@@ -38,7 +44,7 @@ int main()
         if (ERROR_NUM == 0) {
             // --------- 进入代码生成 ---------
             cout << "Now start code generation..." << endl;
-            C_GEN::C_Generater gen(&program, "../../Ccode/234.cpp");
+            C_GEN::C_Generater gen(&program, outputPath);
             gen.run();
         }
     } else {
