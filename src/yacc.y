@@ -1128,20 +1128,6 @@ SIMPLE_EXPRESSION_:  TERM_{
 					   $$->token=Token::SIMPLE_EXPRESSION_;
 					   $$->children.push_back($1);
 					   reduceNode.Clear();
-                    }|ADDOP TERM_{
-						if($$->val != "+" && $$->val != "-"){
-						$$=new ParseNode;
-						$$->token =Token::SIMPLE_EXPRESSION_;
-						yyerror("fatal error in const variable", @1.first_line, @1.first_column, @1.last_line, @1.last_column);
-						reduceNode.Delete();
-					}else{
-						
-						//printf("SIMPLE_EXPRESSION_:  ADDOP TERM_\n");
-						$$=new ParseNode;
-						$$->token =Token::SIMPLE_EXPRESSION_;
-						$$->children.push_back($1); $$->children.push_back($2);
-						reduceNode.Clear();
-					}
                     }|SIMPLE_EXPRESSION_ ADDOP TERM_{
 						
 						//printf("SIMPLE_EXPRESSION_:  SIMPLE_EXPRESSION_ ADDOP TERM_\n");
@@ -1184,7 +1170,21 @@ FACTOR_:  UNSIGN_CONST_VARIABLE_{
 			 $$->token=Token::FACTOR_;
 			 $$->children.push_back($1);
 			 reduceNode.Clear();
-          }|VARIABLE_{
+          }|ADDOP FACTOR_{
+				if($$->val != "+" && $$->val != "-"){
+					$$=new ParseNode;
+					$$->token =Token::FACTOR_;
+					yyerror("fatal error in const variable", @1.first_line, @1.first_column, @1.last_line, @1.last_column);
+					reduceNode.Delete();
+				}else{
+					
+					//printf("SIMPLE_EXPRESSION_:  ADDOP TERM_\n");
+					$$=new ParseNode;
+					$$->token =Token::FACTOR_;
+					$$->children.push_back($1); $$->children.push_back($2);
+					reduceNode.Clear();
+				}
+                    }|VARIABLE_{
 			 
 						//printf("FACTOR_:  VARIABLE_\n");
              $$=new ParseNode;
