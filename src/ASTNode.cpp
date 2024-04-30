@@ -495,7 +495,7 @@ namespace AST
                 operationType = expression_->children[1]->token;
                 opration = expression_->children[1]->val;
                 operand2 = new Expression(expression_->children[2]);
-                if (opration != "=" && opration != "<>") {
+                if (opration == "=" || opration == "<>") {
                     if (!((operand1->type == Token::INTEGER || operand1->type == Token::REAL) &&
                           (operand2->type == Token::INTEGER || operand2->type == Token::REAL))) {
                         // 报错处理，这里必须是整数或者实数
