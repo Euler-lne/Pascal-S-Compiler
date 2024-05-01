@@ -746,7 +746,7 @@ namespace C_GEN
                 targetCode << "%d";
                 break;
             case Token::TokenType::REAL:
-                targetCode << "%f";
+                targetCode << "%lf";
                 break;
             case Token::TokenType::CHAR:
                 targetCode << "%c";
@@ -806,7 +806,7 @@ namespace C_GEN
                 targetCode << "%d";
                 break;
             case Token::TokenType::REAL:
-                targetCode << "%f";
+                targetCode << "%lf";
                 break;
             case Token::TokenType::CHAR:
                 targetCode << "%c";
