@@ -675,6 +675,13 @@ FORMAL_PARAMETER_: 	LEFT_PARENTHESES PARAMETER_LISTS_ RIGHT_PARENTHESES{ //正�
 						$$->token=Token::FORMAL_PARAMETER_;
 						$$->children.push_back($1);$$->children.push_back($2);$$->children.push_back($3);
 						reduceNode.Clear();
+					}|LEFT_PARENTHESES RIGHT_PARENTHESES{ //正常
+                        
+						//printf("FORMAL_PARAMETER_: 	LEFT_PARENTHESES RIGHT_PARENTHESES\n");
+						$$=new ParseNode;
+						$$->token=Token::FORMAL_PARAMETER_;
+						$$->children.push_back($1);$$->children.push_back($2);
+						reduceNode.Clear();
 					}|{ //正常
 					    
 						//printf("FORMAL_PARAMETER_: 	null\n");
