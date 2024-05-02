@@ -163,12 +163,12 @@ void main_writeAmat2_(int n, int m)
          i++)
     {
         {
-            printf("%f", testAidct[i - (0)][0 - (0)]);
+            printf("%lf", testAidct[i - (0)][0 - (0)]);
             for (j = 1;
                  j <= m - 1;
                  j++)
             {
-                printf("%f", testAidct[i - (0)][j - (0)]);
+                printf("%lf", testAidct[i - (0)][j - (0)]);
             }
         }
     }
@@ -182,12 +182,12 @@ void main_writeAmat_(int n, int m)
          i++)
     {
         {
-            printf("%f", testAdct[i - (0)][0 - (0)]);
+            printf("%lf", testAdct[i - (0)][0 - (0)]);
             for (j = 1;
                  j <= m - 1;
                  j++)
             {
-                printf("%f", testAdct[i - (0)][j - (0)]);
+                printf("%lf", testAdct[i - (0)][j - (0)]);
             }
         }
     }
@@ -206,7 +206,7 @@ int main()
              j <= dimAy - 1;
              j++)
         {
-            scanf("%f", &(testAblock[i - (0)][j - (0)]));
+            scanf("%lf", &(testAblock[i - (0)][j - (0)]));
         }
     }
     main_dct_(dimAx, dimAy);

@@ -714,7 +714,7 @@ namespace C_GEN
                     targetCode << "bool ";
                     break;
                 case Token::TokenType::REAL:
-                    targetCode << "float ";
+                    targetCode << "double ";
                     break;
                 case Token::TokenType::CHAR:
                     targetCode << "char ";
