@@ -999,9 +999,11 @@ namespace AST
             while (expression_ != nullptr) {
                 Expression *expression = new Expression(expression_);
                 if (expression->GetValueToken() != subprogram->GetParameterType(i)) {
-                    // 报错，参数类不匹配
-                    CompilerError::reportError(line, CompilerError::ErrorType::PARAMETER_TYPE_MISMATCH, name + "parameter type mismatch");
-                    return;
+                    if (!(expression->GetValueToken() == Token::INTEGER && subprogram->GetParameterType(i) == Token::REAL)) {
+                        // 报错，参数类不匹配
+                        CompilerError::reportError(line, CompilerError::ErrorType::PARAMETER_TYPE_MISMATCH, name + "parameter type mismatch");
+                        return;
+                    }
                 }
                 if (subprogram->IsVarParameterAtIndex(i) && expression->isId == 0) {
                     // 是引用传参且表达式的值不是单独的ID，那么就要报错
