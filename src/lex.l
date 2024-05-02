@@ -482,20 +482,6 @@ mulop (\*|\/|div|mod|and)
 
 }
 
-[Bb][Rr][Ee][Aa][Kk] {
-    yylval=new ParseNode();
-    yylval->val="break";
-    yylval->token=Token::_BREAK;
-    yylval->lineNumber = yylineno ;
-    reduceNode.Insert(yylval);
-    #ifdef LEXDEBUG
-    //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
-    cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
-    #endif
-    return Token::_BREAK;
-
-}
-
 
 [Nn][Oo][Tt] {
     yylval=new ParseNode();

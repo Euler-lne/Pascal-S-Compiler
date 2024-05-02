@@ -969,6 +969,10 @@ namespace AST
     {
         subprogram = nullptr;
         string name = call_subprogram_statement_->children[0]->val;
+        if (name == "break" && call_subprogram_statement_->children.size() == 1) {
+            returnType = Token::_BREAK;
+            return;
+        }
         int line = call_subprogram_statement_->children[0]->lineNumber;
         subProgramId = pair<string, int>(name, line);
         ProgramBody *cur = FindDeclaration(name, line);
