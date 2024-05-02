@@ -469,7 +469,7 @@ namespace C_GEN
                 break;
 
             case Token::TokenType::REAL:
-                targetCode << "double " << it.first;
+                targetCode << "float " << it.first;
                 if (it.second.second->IsArray())
                 {
                     ProcArray(it.second.second->GetDimension());
@@ -521,7 +521,7 @@ namespace C_GEN
                 break;
 
             case Token::TokenType::REAL:
-                targetCode << "double ";
+                targetCode << "float ";
                 break;
 
             case Token::TokenType::CHAR:
@@ -574,7 +574,7 @@ namespace C_GEN
                 SubProgramDefine += "bool ";
                 break;
             case Token::TokenType::REAL:
-                SubProgramDefine += "double ";
+                SubProgramDefine += "float ";
                 break;
 
             case Token::TokenType::CHAR:
@@ -603,7 +603,7 @@ namespace C_GEN
                             break;
 
                         case Token::TokenType::REAL:
-                            SubProgramDefine += "double ";
+                            SubProgramDefine += "float ";
                             break;
 
                         case Token::TokenType::CHAR:
@@ -639,7 +639,7 @@ namespace C_GEN
                 SubProgramDefine += "bool ";
                 break;
             case Token::TokenType::REAL:
-                SubProgramDefine += "double ";
+                SubProgramDefine += "float ";
                 break;
 
             case Token::TokenType::CHAR:
@@ -668,7 +668,7 @@ namespace C_GEN
                             break;
 
                         case Token::TokenType::REAL:
-                            SubProgramDefine += "double ";
+                            SubProgramDefine += "float ";
                             break;
 
                         case Token::TokenType::CHAR:
@@ -714,7 +714,7 @@ namespace C_GEN
                     targetCode << "bool ";
                     break;
                 case Token::TokenType::REAL:
-                    targetCode << "double ";
+                    targetCode << "float ";
                     break;
                 case Token::TokenType::CHAR:
                     targetCode << "char ";
@@ -746,7 +746,7 @@ namespace C_GEN
                 targetCode << "%d";
                 break;
             case Token::TokenType::REAL:
-                targetCode << "%lf";
+                targetCode << "%f";
                 break;
             case Token::TokenType::CHAR:
                 targetCode << "%c";
@@ -806,7 +806,7 @@ namespace C_GEN
                 targetCode << "%d";
                 break;
             case Token::TokenType::REAL:
-                targetCode << "%lf";
+                targetCode << "%f";
                 break;
             case Token::TokenType::CHAR:
                 targetCode << "%c";
