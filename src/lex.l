@@ -492,7 +492,7 @@ mulop (\*|\/|div|mod|and)
     //printf("keyword: %s  Token: %s\n", yylval->val,yylval->token);
     cout << "keyword: " << yylval->val << " Token: "<< yylval->token<<" lineNumber: "<<yylval->lineNumber<<endl;
     #endif
-    return _BREAK;
+    return Token::_BREAK;
 
 }
 
