@@ -65,13 +65,17 @@ namespace C_GEN
 
     class C_Code : public TargetCode
     {
+    private:
+        std::string subProgramID;
+        Token::TokenType subProgramReturnType;
+
     public:
         std::string GenerateTargetCode(std::string &outPutPath, AST::Program *ast);
 
     private:
         std::string ProcProgramHead(AST::ProgramHead *programHead);
         std::string ProcProgramBody(AST::ProgramBody *programBody);
-        void ProcProgramBody(AST::ProgramBody *programBody, std::string programBodyId);
+        void ProcProgramBody(AST::ProgramBody *programBody, std::string programDefine);
         void ProcDeclaration(AST::Declaration *declaration, std::string prefix);
         void ProcConstDeclare(AST::Declaration *declaration, const std::string &prefix);
         void ProcVarDeclare(std::map<string, pair<int, AST::VarDeclare *>> &varList, const std::string &prefix);

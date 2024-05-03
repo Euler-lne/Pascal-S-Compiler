@@ -150,6 +150,24 @@ namespace C_GEN
         if (isFuntion)
         {
             ProcVarDeclare(programBody->declaration->GetVarList(), "");
+            switch (subProgramReturnType)
+            {
+            case Token::TokenType::NULL_:
+                break;
+            case Token::TokenType::INTEGER:
+                targetCode << "int " << subProgramID << ";\n";
+                break;
+            case Token::TokenType::BOLLEAN:
+                targetCode << "bool " << subProgramID << ";\n";
+                break;
+            case Token::TokenType::REAL:
+                targetCode << "float " << subProgramID << ";\n";
+                break;
+
+            case Token::TokenType::CHAR:
+                targetCode << "char " << subProgramID << ";\n";
+                break;
+            }
         }
 
         for (auto it : statementList)
@@ -189,6 +207,14 @@ namespace C_GEN
                 ProcWriteStatement(it->writeStatement);
             }
         }
+        if (isFuntion)
+        {
+            if (subProgramReturnType != Token::TokenType::NULL_)
+            {
+                targetCode << "return " << subProgramID << ";\n";
+            }
+        }
+
         targetCode << "}\n";
     }
 
@@ -263,6 +289,11 @@ namespace C_GEN
 
     void C_Code::ProcSubProgramCallStateMent(AST::SubProgramCall *subProgramCall)
     {
+        if (subProgramCall->GetReturnType() == Token::_BREAK)
+        {
+            targetCode << "break";
+            return;
+        }
         targetCode << subProgramCall->GetPrefixId() << "(";
         for (int i = 0; i < subProgramCall->paraList.size(); i++)
         {
@@ -286,8 +317,7 @@ namespace C_GEN
     void C_Code::ProcAssignStateMent(AST::AssignStatement *assignStatement)
     {
         ProcVariantReference(assignStatement->leftVal);
-        if (!(assignStatement->leftVal->isFunction))
-            targetCode << " = ";
+        targetCode << " = ";
         ProcExpression(assignStatement->rightVal);
         targetCode << ";\n";
     }
@@ -420,7 +450,7 @@ namespace C_GEN
         {
             if (variantReference->isFunction && variantReference->GetIsLeft())
             {
-                targetCode << "return ";
+                targetCode << subProgramID;
                 return;
             }
             else if (variantReference->isFunction && !variantReference->GetIsLeft())
@@ -627,7 +657,7 @@ namespace C_GEN
         for (auto it : subProgramList)
         {
             std::string SubProgramDefine = "";
-            switch (it.second->GetReturnType())
+            switch (subProgramReturnType = it.second->GetReturnType())
             {
             case Token::TokenType::NULL_:
                 SubProgramDefine += "void ";
@@ -646,6 +676,7 @@ namespace C_GEN
                 SubProgramDefine += "char ";
             }
             SubProgramDefine += (it.first + "(");
+            subProgramID = "__" + it.first + "__";
             for (auto _it : it.second->GetFormalPataList())
             {
 
@@ -705,25 +736,6 @@ namespace C_GEN
             if (it->isFunction && it->GetIsLeft())
             {
                 isReturn = true;
-                switch (it->GetFinalType())
-                {
-                case Token::TokenType::INTEGER:
-                    targetCode << "int ";
-                    break;
-                case Token::TokenType::BOLLEAN:
-                    targetCode << "bool ";
-                    break;
-                case Token::TokenType::REAL:
-                    targetCode << "float ";
-                    break;
-                case Token::TokenType::CHAR:
-                    targetCode << "char ";
-                    break;
-                case Token::TokenType::LETTER:
-                    targetCode << "char* ";
-                    break;
-                }
-                targetCode << "__" + it->GetIDToCodeGenerator() + "__;\n";
                 returnString = "__" + it->GetIDToCodeGenerator() + "__";
             }
         }
@@ -781,10 +793,10 @@ namespace C_GEN
             }
         }
         targetCode << ");\n";
-        if (isReturn)
+        /* if (isReturn)
         {
             targetCode << "return " + returnString + ";";
-        }
+        } */
     }
 
     void C_Code::ProcWriteStatement(AST::WriteStatement *writeStatement)
