@@ -612,7 +612,7 @@ extern string itos(int num);
 
 
 string charRec; //保存字符常量
-char lineBuffer[500]; //保存当前行的所有内容
+char lineBuffer[10000]; //保存当前行的所有内容
 vector<string> lexicalErrorInformation;
 void addLexicalErrorInformation(char *word, string info, int l, int r);
 bool CheckAndAddLengthTooLargeErrorInformation(char *text, string type, int l, int r);
