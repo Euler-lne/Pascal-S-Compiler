@@ -19,11 +19,12 @@ int main(int argv, char **argc)
 {
     // blog.csdn.net/cscmaker/article/details/7042718
     string fileName;
-    for(int i=0;i<argv;i++){
-        if(i == 2)
+    for (int i = 0; i < argv; i++)
+    {
+        if (i == 2)
             fileName = argc[i];
     }
-    cout << fileName << endl;
+    // cout << fileName << endl;
     string inName = fileName; // 默认输入文件名
 
     fileName.pop_back();
@@ -32,24 +33,29 @@ int main(int argv, char **argc)
 
     FILE *fp = NULL;
     fp = fopen(inName.c_str(), "r");
-    if (fp == NULL) {
+    if (fp == NULL)
+    {
         cout << "Cannot open PASCAL-S file " << inName.c_str() << " , please check it." << endl;
         exit(0);
     }
     yyin = fp;
     yyparse(); // 调用语法分析程序
     fclose(fp);
-    if (ERROR_NUM == 0) {
+    if (ERROR_NUM == 0)
+    {
         // --------- 进入语义分析 ---------
         AST::Program program(ParseTreeHead);
         reduceNode.Clear();
         delete ParseTreeHead;
-        if (ERROR_NUM == 0) {
+        if (ERROR_NUM == 0)
+        {
             // --------- 进入代码生成 ---------
             C_GEN::C_Generater gen(&program, fileName + "c");
             gen.run();
         }
-    } else {
+    }
+    else
+    {
         reduceNode.Clear();
         delete ParseTreeHead;
     }
