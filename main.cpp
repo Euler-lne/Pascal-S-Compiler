@@ -27,32 +27,27 @@ int main()
     outputPath = outputPath + fileName + ".c";
     FILE *fp = NULL;
     fp = fopen(inputPath.c_str(), "r");
-    if (fp == NULL)
-    {
+    if (fp == NULL) {
         cout << "Cannot open PASCAL-S file " << inputPath.c_str() << " , please check it." << endl;
         exit(0);
     }
     yyin = fp;
-    cout << "Now start lex and syntax analyse..." << endl;
+    // cout << "Now start lex and syntax analyse..." << endl;
     yyparse(); // 调用语法分析程序
     fclose(fp);
-    if (ERROR_NUM == 0)
-    {
+    if (ERROR_NUM == 0) {
         // --------- 进入语义分析 ---------
-        cout << "Now start semantic analysis..." << endl;
+        // cout << "Now start semantic analysis..." << endl;
         AST::Program program(ParseTreeHead);
         reduceNode.Clear();
         delete ParseTreeHead;
-        if (ERROR_NUM == 0)
-        {
+        if (ERROR_NUM == 0) {
             // --------- 进入代码生成 ---------
-            cout << "Now start code generation..." << endl;
+            // cout << "Now start code generation..." << endl;
             C_GEN::C_Generater gen(&program, outputPath);
             gen.run();
         }
-    }
-    else
-    {
+    } else {
         reduceNode.Clear();
         delete ParseTreeHead;
     }

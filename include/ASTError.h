@@ -119,7 +119,7 @@ public:
             break;
         }
 
-        std::cerr << "Error at line " << lineNum << ": " << errorMessage << std::endl;
+        std::cerr << "SEMANRICS Error at line " << lineNum << ": " << errorMessage << std::endl;
         ERROR_NUM++;
     }
 };
