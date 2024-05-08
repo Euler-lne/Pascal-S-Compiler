@@ -19,7 +19,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 # 包含头文件目录
 include_directories("include")
 
-# 设置C14标准
+# 设置C17标准
 set(CMAKE_CXX_STANDARD 17)
 
 # Windows 下的编译指令
