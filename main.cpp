@@ -36,6 +36,13 @@ struct Parameters
     int hasDfOption; // 0: not selected, 1: selected 文件
 };
 
+string itos(int num)
+{
+    stringstream sin;
+    sin << num;
+    return sin.str();
+}
+
 Parameters parseArguments(int argc, char *argv[]);
 vector<string> getAllFilePaths(const string &path);
 string getFileNameFromPath(const string &filePath);
