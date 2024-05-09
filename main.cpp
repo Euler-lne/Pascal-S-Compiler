@@ -12,7 +12,6 @@
 #include <sstream>
 #include <string>
 #include <vector>
-#include <windows.h>
 
 #ifdef _WIN32
 #include <windows.h>
