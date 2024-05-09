@@ -7,17 +7,8 @@
 #include "ASTError.h"
 #include "ASTNode.h"
 #include "CodeGeneration.h"
-#include <fstream>
-#include <iostream>
-#include <sstream>
-#include <string>
-#include <vector>
-
-#ifdef _WIN32
-#include <windows.h>
-#else
-#include <dirent.h>
-#endif
+#include <filesystem>
+namespace fs = std::filesystem;
 
 CompilerError complierError;
 int ERROR_NUM = 0;
@@ -26,8 +17,7 @@ extern ParseNode *ParseTreeHead;
 extern FILE *yyin;
 extern int yyparse();
 
-struct Parameters
-{
+struct Parameters {
     string inputPath;
     string outputPath;
     int mode;        // 0: -i, 1: -a
@@ -44,28 +34,24 @@ string itos(int num)
 
 Parameters parseArguments(int argc, char *argv[]);
 vector<string> getAllFilePaths(const string &path);
-string getFileNameFromPath(const string &filePath);
 int Complier(string inputFile, string outputFile);
 
 int main(int argc, char *argv[])
 {
     Parameters parameters = parseArguments(argc, argv);
-    if (parameters.mode == 1)
-    {
+    if (parameters.mode == 1) {
         vector<string> files = getAllFilePaths(parameters.inputPath);
-        for (int i = 0; i < files.size(); i++)
-        {
-            string inFile = getFileNameFromPath(files[i]);
+        for (int i = 0; i < files.size(); i++) {
+            string inFile = files[i];
             string outFile = inFile;
             outFile.replace(outFile.end() - 4, outFile.end(), ".c");
             string errorFile = inFile;
             errorFile.replace(errorFile.end() - 4, errorFile.end(), "_error.txt");
             complierError.setOutputMode(parameters.hasDtOption, parameters.hasDfOption, errorFile);
+            cout << i << endl;
             Complier(inFile, outFile);
         }
-    }
-    else
-    {
+    } else {
         string inFile = parameters.inputPath;
         string outFile = parameters.outputPath;
         string errorFile = inFile;
@@ -87,69 +73,55 @@ Parameters parseArguments(int argc, char *argv[])
 {
     Parameters params;
 
-    if (argc < 3)
-    {
+    if (argc < 3) {
         cerr << "Usage: " << argv[0] << " <input_file> <output_file>" << endl;
         exit(1);
     }
+    params.hasDfOption = 0;
+    params.hasDtOption = 0;
 
     string flag = argv[1];
 
-    if (flag == "-i" || flag == "-a")
-    {
+    if (flag == "-i" || flag == "-a") {
         params.mode = (flag == "-i") ? 0 : 1;
 
         int index = 2;
-        while (index < argc && argv[index][0] == '-')
-        {
+        while (index < argc && argv[index][0] == '-') {
             string option = argv[index];
-            if (option == "-dt")
-            {
+            if (option == "-dt") {
                 params.hasDtOption = 1;
-            }
-            else if (option == "-df")
-            {
+            } else if (option == "-df") {
                 params.hasDfOption = 1;
-            }
-            else
-            {
+            } else {
                 cerr << "Invalid option: " << option << endl;
                 exit(1);
             }
             index++;
         }
 
-        if (argc - index < 1 || argc - index > 2)
-        {
+        if (argc - index < 1 || argc - index > 2) {
             cerr << "Usage: " << argv[0] << " " << flag << " [-dt] [-df] <input_file> [<output_file>]" << endl;
             exit(1);
         }
 
         params.inputPath = argv[index++];
-        if (params.mode == 0 && params.inputPath.substr(params.inputPath.size() - 4) != ".pas")
-        {
+        if (params.mode == 0 && params.inputPath.substr(params.inputPath.size() - 4) != ".pas") {
             cerr << "Usage: " << argv[0] << " " << flag << " the input_file must be Pascal file, whilch means input_fils must end with .pas " << endl;
             exit(1);
         }
-        if (index < argc)
-        {
+        if (index < argc) {
             params.outputPath = argv[index];
-        }
-        else
-        {
+        } else {
             // If output path not provided, use input path
             params.outputPath = params.inputPath;
-            if (params.mode == 0)
-            {
+            if (params.mode == 0) {
                 params.outputPath.pop_back();
                 params.outputPath.pop_back();
                 params.outputPath.pop_back();
                 params.outputPath += "c";
             }
         }
-    }
-    else
-    {
+    } else {
         cerr << "Invalid flag: " << flag << endl;
         exit(1);
     }
@@ -161,60 +133,16 @@ vector<string> getAllFilePaths(const string &path)
 {
     vector<string> files;
 
-#ifdef _WIN32
-    WIN32_FIND_DATAA fileData;
-    HANDLE hFind = FindFirstFileA((path + "/*").c_str(), &fileData);
-    if (hFind != INVALID_HANDLE_VALUE)
-    {
-        do
-        {
-            if (!(fileData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY))
-            {
-                string filename = fileData.cFileName;
-                if (filename.size() >= 4 && filename.substr(filename.size() - 4) == ".pas")
-                {
-                    string filepath = path + "/" + filename;
-                    files.push_back(filepath);
-                }
-            }
-        } while (FindNextFileA(hFind, &fileData));
-        FindClose(hFind);
-    }
-#else
-    DIR *directory = opendir(path.c_str());
-    if (directory != nullptr)
-    {
-        struct dirent *entry;
-        while ((entry = readdir(directory)) != nullptr)
-        {
-            if (entry->d_type == DT_REG)
-            { // Check if it's a regular file
-                string filename = entry->d_name;
-                if (filename.size() >= 4 && filename.substr(filename.size() - 4) == ".pas")
-                {
-                    string filepath = path + "/" + filename;
-                    files.push_back(filepath);
-                }
+    for (const auto &entry : fs::directory_iterator(path)) {
+        if (entry.is_regular_file()) {
+            string filename = entry.path().filename().string();
+            if (filename.size() >= 4 && filename.substr(filename.size() - 4) == ".pas") {
+                files.push_back(entry.path().string());
             }
         }
-        closedir(directory);
     }
-#endif
 
     return files;
-}
-
-string getFileNameFromPath(const string &filePath)
-{
-    size_t found = filePath.find_last_of("/\\");
-    if (found != string::npos)
-    {
-        return filePath.substr(found + 1);
-    }
-    else
-    {
-        return filePath;
-    }
 }
 
 /// @brief 编译函数
@@ -222,8 +150,7 @@ string getFileNameFromPath(const string &filePath)
 int Complier(string inputFile, string outputFile)
 {
     FILE *fp = fopen(inputFile.c_str(), "r");
-    if (fp == NULL)
-    {
+    if (fp == NULL) {
         cout << "Cannot open PASCAL-S file " << inputFile << ", please check it." << endl;
         return -1;
     }
@@ -233,21 +160,18 @@ int Complier(string inputFile, string outputFile)
 
     fclose(fp);
 
-    if (ERROR_NUM == 0)
-    {
+    if (ERROR_NUM == 0) {
         // 进入语义分析
         AST::Program program(ParseTreeHead);
         reduceNode.Clear();
         delete ParseTreeHead;
-        if (ERROR_NUM == 0)
-        {
+        ParseTreeHead = nullptr;
+        if (ERROR_NUM == 0) {
             // 进入代码生成
             C_GEN::C_Generater gen(&program, outputFile);
             gen.run();
         }
-    }
-    else
-    {
+    } else {
         reduceNode.Clear();
         delete ParseTreeHead;
     }
