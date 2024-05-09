@@ -67,7 +67,7 @@
 
 
 /* First part of user prologue.  */
-#line 6 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 6 "/home/z838/bianyi/build/../src/yacc.y"
 
 
 
@@ -107,7 +107,7 @@ ParseNode* ParseTreeHead=NULL;
 vector<string> syntaxErrorInformation; //存放语法错误信息
 
 
-#line 111 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 111 "/home/z838/bianyi/build/../src/yacc.tab.cc"
 
 # ifndef YY_CAST
 #  ifdef __cplusplus
@@ -1545,7 +1545,7 @@ yyreduce:
   switch (yyn)
     {
   case 2: /* programstruct: PROGRAM_HEAD_ PROGTAM_BODY_ DOT  */
-#line 132 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 132 "/home/z838/bianyi/build/../src/yacc.y"
                                                { //正常
 					
 					//printf("programstruct: 	PROGRAM_HEAD_ PROGTAM_BODY_ DOT\n");
@@ -1559,55 +1559,55 @@ yyreduce:
 					YYACCEPT;
 					
 			   	}
-#line 1563 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 1563 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 3: /* programstruct: PROGRAM_HEAD_ PROGTAM_BODY_ error  */
-#line 144 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 144 "/home/z838/bianyi/build/../src/yacc.y"
                                                                    { //ERROR 缺少点号 checked
 			   		ParseTreeHead=yyval=new ParseNode;
 			   		yyval->token =Token::PROGRAM_;
 					yyerror("missing a dot here", (yylsp[-1]).last_line, (yylsp[-1]).last_column+1);
 					reduceNode.Delete();
 			   	}
-#line 1574 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 1574 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 4: /* programstruct: error PROGTAM_BODY_ DOT  */
-#line 149 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 149 "/home/z838/bianyi/build/../src/yacc.y"
                                                          { //ERROR PROGRAM_HEAD_识别失败 checked
 			   		ParseTreeHead=yyval=new ParseNode;
 			   		yyval->token =Token::PROGRAM_;
 					yyerror("fatal error in program head, maybe missing keyword \"program\"",(yylsp[-2]).first_line, (yylsp[-2]).first_column, (yylsp[-2]).last_line, (yylsp[-2]).last_column);
 			   		reduceNode.Delete();
 				}
-#line 1585 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 1585 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 5: /* programstruct: PROGRAM_HEAD_ error DOT  */
-#line 154 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 154 "/home/z838/bianyi/build/../src/yacc.y"
                                                          { //ERROR PROGTAM_BODY_识别失败 unchecked
 			   		ParseTreeHead=yyval=new ParseNode;
 			   		yyval->token =Token::PROGRAM_;
 					yyerror("fatal error in program body\n");
 					reduceNode.Delete();
 			   	}
-#line 1596 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 1596 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 6: /* programstruct: error PROGRAM_HEAD_ PROGTAM_BODY_ DOT  */
-#line 159 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 159 "/home/z838/bianyi/build/../src/yacc.y"
                                                                        { //ERROR PROGRAM_HEAD_前包含非法字符 checked
 					ParseTreeHead=yyval=new ParseNode;
 					yyval->token =Token::PROGRAM_;
 					yyerror("invalid symbol before program head", (yyloc).first_line, (yyloc).first_column, (yylsp[-2]).first_line, (yylsp[-2]).first_column-1);
 					reduceNode.Delete();
 				}
-#line 1607 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 1607 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 7: /* programstruct: error PROGRAM_HEAD_ error PROGTAM_BODY_ DOT  */
-#line 164 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 164 "/home/z838/bianyi/build/../src/yacc.y"
                                                                              { //ERROR PROGRAM_HEAD_前包含非法记号、缺失分号 checked
 					ParseTreeHead=yyval=new ParseNode;
 					yyval->token =Token::PROGRAM_;
@@ -1615,11 +1615,11 @@ yyreduce:
 					yyerror("missing a semicolon here", (yylsp[-3]).last_line, (yylsp[-3]).last_column+1);
 					reduceNode.Delete();
 				}
-#line 1619 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 1619 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 8: /* programstruct: error PROGRAM_HEAD_ PROGTAM_BODY_ error  */
-#line 170 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 170 "/home/z838/bianyi/build/../src/yacc.y"
                                                                          { //ERROR PROGRAM_HEAD_前包含非法记号、缺失点号 checked
 					ParseTreeHead=yyval=new ParseNode;
 					yyval->token =Token::PROGRAM_;
@@ -1627,11 +1627,11 @@ yyreduce:
 					yyerror("missing a dot here", (yylsp[0]).last_line, (yylsp[0]).last_column+1);
 					reduceNode.Delete();
 				}
-#line 1631 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 1631 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 9: /* programstruct: error PROGRAM_HEAD_ error DOT  */
-#line 176 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 176 "/home/z838/bianyi/build/../src/yacc.y"
                                                                { //ERROR PROGRAM_HEAD_前包含非法记号、PROGTAM_BODY_识别失败 unchecked
 					ParseTreeHead=yyval=new ParseNode;
 					yyval->token =Token::PROGRAM_;
@@ -1639,11 +1639,11 @@ yyreduce:
 					yyerror("fatal error in program body", (yylsp[-2]).last_line, (yylsp[-2]).last_column+1, (yylsp[0]).first_line, (yylsp[0]).first_column-1);
 					reduceNode.Delete();
 				}
-#line 1643 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 1643 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 10: /* PROGRAM_HEAD_: PROGRAM ID LEFT_PARENTHESES IDENTIFIER_LIST_ RIGHT_PARENTHESES SEMICOLON  */
-#line 184 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 184 "/home/z838/bianyi/build/../src/yacc.y"
                                                                                         { //正常
 					
 					//printf("PROGRAM_HEAD_: 	PROGRAM ID LEFT_PARENTHESES IDENTIFIER_LIST_ RIGHT_PARENTHESES SEMICOLON\n");
@@ -1654,11 +1654,11 @@ yyreduce:
 					yyval->children.push_back(yyvsp[-1]);	yyval->children.push_back(yyvsp[0]);
 					reduceNode.Clear();
 				}
-#line 1658 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 1658 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 11: /* PROGRAM_HEAD_: PROGRAM ID SEMICOLON  */
-#line 193 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 193 "/home/z838/bianyi/build/../src/yacc.y"
                                                       { //正常
 	
 					//printf("PROGRAM_HEAD_: 	PROGRAM ID \n");
@@ -1668,99 +1668,99 @@ yyreduce:
 					yyval->children.push_back(yyvsp[0]);
 					reduceNode.Clear();
 				}
-#line 1672 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 1672 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 12: /* PROGRAM_HEAD_: PROGRAM ID LEFT_PARENTHESES IDENTIFIER_LIST_ RIGHT_PARENTHESES error  */
-#line 201 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 201 "/home/z838/bianyi/build/../src/yacc.y"
                                                                                                       { //ERROR 缺少; checked
 					yyval=new ParseNode;
 					yyval->token =Token::PROGRAM_HEAD_;
 					yyerror("missing a semicolon here", (yylsp[-1]).last_line, (yylsp[-1]).last_column+1);
 					reduceNode.Delete();
 				}
-#line 1683 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 1683 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 13: /* PROGRAM_HEAD_: PROGRAM error LEFT_PARENTHESES IDENTIFIER_LIST_ RIGHT_PARENTHESES SEMICOLON  */
-#line 206 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 206 "/home/z838/bianyi/build/../src/yacc.y"
                                                                                                               { //ERROR 缺少主程序名 checked
 					yyval=new ParseNode;
 					yyval->token =Token::PROGRAM_HEAD_;
 					yyerror("missing program name here", (yylsp[-5]).last_line, (yylsp[-5]).last_column+1);
 					reduceNode.Delete();
 				}
-#line 1694 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 1694 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 14: /* PROGRAM_HEAD_: PROGRAM ID error IDENTIFIER_LIST_ RIGHT_PARENTHESES SEMICOLON  */
-#line 211 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 211 "/home/z838/bianyi/build/../src/yacc.y"
                                                                                                { //ERROR 缺少左括号 checked
 					yyval=new ParseNode;
 					yyval->token =Token::PROGRAM_HEAD_;
 					yyerror("missing a left bracket here", (yylsp[-2]).first_line, (yylsp[-2]).first_column-1);
 					reduceNode.Delete();
 				}
-#line 1705 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 1705 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 15: /* PROGRAM_HEAD_: PROGRAM ID LEFT_PARENTHESES error RIGHT_PARENTHESES SEMICOLON  */
-#line 216 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 216 "/home/z838/bianyi/build/../src/yacc.y"
                                                                                                { //ERROR  IDENTIFIER_LIST_识别失败 checked
 					yyval=new ParseNode;
 					yyval->token =Token::PROGRAM_HEAD_;
 					yyerror("program ID list missing or imcomplete", (yylsp[-2]).first_line, (yylsp[-2]).first_column, (yylsp[-2]).last_line, (yylsp[-2]).last_column);
 					reduceNode.Delete();
 				}
-#line 1716 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 1716 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 16: /* PROGRAM_HEAD_: PROGRAM ID LEFT_PARENTHESES IDENTIFIER_LIST_ error SEMICOLON  */
-#line 221 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 221 "/home/z838/bianyi/build/../src/yacc.y"
                                                                                                { //ERROR 缺少右括号 checked
 					yyval=new ParseNode;
 					yyval->token =Token::PROGRAM_HEAD_;
 					yyerror("missing a right bracket here", (yylsp[-2]).last_line, (yylsp[-2]).last_column+1);
 					reduceNode.Delete();
 				}
-#line 1727 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 1727 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 17: /* PROGRAM_HEAD_: PROGRAM error  */
-#line 226 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 226 "/home/z838/bianyi/build/../src/yacc.y"
                                                { //ERROR program head checked
 					yyval=new ParseNode;
 					yyval->token =Token::PROGRAM_HEAD_;
 					yyerror("program head imcomplete", (yylsp[-1]).first_line, (yylsp[-1]).first_column, (yylsp[-1]).last_line, (yylsp[-1]).last_column);
 					reduceNode.Delete();
 				}
-#line 1738 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 1738 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 18: /* PROGRAM_HEAD_: PROGRAM ID error  */
-#line 231 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 231 "/home/z838/bianyi/build/../src/yacc.y"
                                                   { //ERROR  IDENTIFIER_LIST_缺失 checked
 					yyval=new ParseNode;
 					yyval->token =Token::PROGRAM_HEAD_;
 					yyerror("program ID list missing or imcomplete", (yylsp[-2]).first_line, (yylsp[-2]).first_column, (yylsp[-1]).last_line, (yylsp[-1]).last_column);
 					reduceNode.Delete();
 				}
-#line 1749 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 1749 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 19: /* PROGRAM_HEAD_: PROGRAM ID LEFT_PARENTHESES error  */
-#line 236 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 236 "/home/z838/bianyi/build/../src/yacc.y"
                                                                    { //ERROR  IDENTIFIER_LIST_缺失 checked
 					yyval=new ParseNode;
 					yyval->token =Token::PROGRAM_HEAD_;
 					yyerror("program ID list missing or imcomplete", (yylsp[-3]).first_line, (yylsp[-3]).first_column, (yylsp[-2]).last_line, (yylsp[-2]).last_column);
 					reduceNode.Delete();
 				}
-#line 1760 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 1760 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 20: /* PROGTAM_BODY_: CONST_DECLARATIONS_ VAR_DECLARATIONS_ SUBPROGRAM_DECLARATIONS_ COMPOUND_STATEMENT_  */
-#line 243 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 243 "/home/z838/bianyi/build/../src/yacc.y"
                                                                                                   { //正常
 					
 					//printf("PROGTAM_BODY_: 	CONST_DECLARATIONS_ VAR_DECLARATIONS_ SUBPROGRAM_DECLARATIONS_ COMPOUND_STATEMENT_\n");
@@ -1770,11 +1770,11 @@ yyreduce:
 					yyval->children.push_back(yyvsp[-1]); yyval->children.push_back(yyvsp[0]);
 					reduceNode.Clear();
 				}
-#line 1774 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 1774 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 21: /* IDENTIFIER_LIST_: IDENTIFIER_LIST_ COMMA ID  */
-#line 253 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 253 "/home/z838/bianyi/build/../src/yacc.y"
                                              { //正常  IDENTIFIER_LIST_的产生式不打算加入error
 			
 						//printf("IDENTIFIER_LIST_:  IDENTIFIER_LIST_ COMMA ID\n");
@@ -1783,11 +1783,11 @@ yyreduce:
 			yyval->children.push_back(yyvsp[-2]); yyval->children.push_back(yyvsp[-1]); yyval->children.push_back(yyvsp[0]);
 			reduceNode.Clear();
 		}
-#line 1787 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 1787 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 22: /* IDENTIFIER_LIST_: ID  */
-#line 260 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 260 "/home/z838/bianyi/build/../src/yacc.y"
                     { //正常
 			
 						//printf("IDENTIFIER_LIST_:  ID\n");
@@ -1796,11 +1796,11 @@ yyreduce:
 			yyval->children.push_back(yyvsp[0]);
 			reduceNode.Clear();
 		}
-#line 1800 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 1800 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 23: /* CONST_DECLARATIONS_: CONST CONST_DECLARATION_ SEMICOLON  */
-#line 269 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 269 "/home/z838/bianyi/build/../src/yacc.y"
                                                         { //正常
 						
 						//printf("CONST_DECLARATIONS_: CONST CONST_DECLARATION_ SEMICOLON\n");
@@ -1809,11 +1809,11 @@ yyreduce:
 						yyval->children.push_back(yyvsp[-2]); yyval->children.push_back(yyvsp[-1]); yyval->children.push_back(yyvsp[0]);
 						reduceNode.Clear();
 					}
-#line 1813 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 1813 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 24: /* CONST_DECLARATIONS_: %empty  */
-#line 276 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 276 "/home/z838/bianyi/build/../src/yacc.y"
                                           { //正常
 						
 						//printf("CONST_DECLARATIONS_: null\n");
@@ -1821,33 +1821,33 @@ yyreduce:
 						yyval->token =Token::CONST_DECLARATIONS_;
 						reduceNode.Clear();
 					}
-#line 1825 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 1825 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 25: /* CONST_DECLARATIONS_: CONST error SEMICOLON  */
-#line 282 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 282 "/home/z838/bianyi/build/../src/yacc.y"
                                                                 { //ERROR 常量定义出现错误 checked
 						yyval=new ParseNode;
 						yyval->token =Token::CONST_DECLARATIONS_;
 						yyerror("fatal error in const declarations", (yylsp[-1]).first_line, (yylsp[-1]).first_column, (yylsp[-1]).last_line, (yylsp[-1]).last_column);
 						reduceNode.Delete();
 					}
-#line 1836 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 1836 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 26: /* CONST_DECLARATIONS_: CONST CONST_DECLARATION_ error  */
-#line 287 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 287 "/home/z838/bianyi/build/../src/yacc.y"
                                                                          { //ERROR 缺少分号 checked
 						yyval=new ParseNode;
 						yyval->token =Token::CONST_DECLARATIONS_;
 						yyerror("missing a semicolon here", (yylsp[-1]).first_line, (yylsp[-1]).first_column, (yylsp[-1]).last_line, (yylsp[-1]).last_column);
 						reduceNode.Delete();
 					}
-#line 1847 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 1847 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 27: /* CONST_DECLARATION_: CONST_DECLARATION_ SEMICOLON ID RELOP CONST_VARIABLE_  */
-#line 294 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 294 "/home/z838/bianyi/build/../src/yacc.y"
                                                                              { //正常
 						
 						//printf("CONST_DECLARATION_: 	CONST_DECLARATION_ SEMICOLON ID RELOP CONST_VARIABLE_\n");
@@ -1857,22 +1857,22 @@ yyreduce:
 						yyval->children.push_back(yyvsp[-2]); yyval->children.push_back(yyvsp[-1]); yyval->children.push_back(yyvsp[0]);
 						reduceNode.Clear();
 					}
-#line 1861 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 1861 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 28: /* CONST_DECLARATION_: CONST_DECLARATION_ SEMICOLON ID RELOP error  */
-#line 302 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 302 "/home/z838/bianyi/build/../src/yacc.y"
                                                                                      { //常数初始化右值缺失 checked
 						yyval=new ParseNode;
 						yyval->token =Token::CONST_DECLARATION_;
 						yyerror("constant definition missing initial r-value", (yylsp[-1]).first_line, (yylsp[-1]).first_column, (yylsp[-1]).last_line, (yylsp[-1]).last_column);
 						reduceNode.Delete();
 					}
-#line 1872 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 1872 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 29: /* CONST_DECLARATION_: ID RELOP CONST_VARIABLE_  */
-#line 307 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 307 "/home/z838/bianyi/build/../src/yacc.y"
                                                                   { //正常
 						
 						//printf("CONST_DECLARATION_:     ID RELOP CONST_VARIABLE_\n");
@@ -1881,55 +1881,55 @@ yyreduce:
 						yyval->children.push_back(yyvsp[-2]); yyval->children.push_back(yyvsp[-1]); yyval->children.push_back(yyvsp[0]);
 						reduceNode.Clear();
 					}
-#line 1885 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 1885 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 30: /* CONST_DECLARATION_: ID RELOP error  */
-#line 314 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 314 "/home/z838/bianyi/build/../src/yacc.y"
                                                         { //常数初始化右值缺失 checked
 						yyval=new ParseNode;
 						yyval->token =Token::CONST_DECLARATION_;
 						yyerror("constant definition missing initial r-value", (yylsp[0]).first_line, (yylsp[0]).first_column, (yylsp[0]).last_line, (yylsp[0]).last_column);
 						reduceNode.Delete();
 					}
-#line 1896 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 1896 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 31: /* CONST_DECLARATION_: CONST_DECLARATION_ error ID RELOP CONST_VARIABLE_  */
-#line 319 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 319 "/home/z838/bianyi/build/../src/yacc.y"
                                                                                            { //ERROR 缺少分号 checked
 						yyval=new ParseNode;
 						yyval->token =Token::CONST_DECLARATION_;
 						yyerror("missing a semicolon here", (yylsp[-4]).first_line, (yylsp[-4]).first_column, (yylsp[-4]).last_line, (yylsp[-4]).last_column+1);
 						reduceNode.Delete();
 					}
-#line 1907 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 1907 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 32: /* CONST_DECLARATION_: CONST_DECLARATION_ SEMICOLON ID error CONST_VARIABLE_  */
-#line 324 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 324 "/home/z838/bianyi/build/../src/yacc.y"
                                                                                                { //ERROR 缺少等号（常量的初始化用的是等号，而不是赋值号） checked
 						yyval=new ParseNode;
 						yyval->token =Token::CONST_DECLARATION_;
 						yyerror("missing a equal sign here",(yylsp[-2]).first_line, (yylsp[-2]).first_column, (yylsp[-2]).last_line, (yylsp[-2]).last_column);
 						reduceNode.Delete();
 					}
-#line 1918 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 1918 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 33: /* CONST_DECLARATION_: ID error CONST_VARIABLE_  */
-#line 329 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 329 "/home/z838/bianyi/build/../src/yacc.y"
                                                                   { //ERROR 缺少等号（常量的初始化用的是等号，而不是赋值号） checked
 						yyval=new ParseNode;
 						yyval->token =Token::CONST_DECLARATION_;
 						yyerror("missing a equal sign here", (yylsp[-1]).first_line, (yylsp[-1]).first_column, (yylsp[-1]).last_line, (yylsp[-1]).last_column);
 						reduceNode.Delete();
 					}
-#line 1929 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 1929 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 34: /* CONST_VARIABLE_: ADDOP ID  */
-#line 336 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 336 "/home/z838/bianyi/build/../src/yacc.y"
                                  { //正常
 					if(yyval->val != "+" && yyval->val != "-"){
 						
@@ -1948,11 +1948,11 @@ yyreduce:
 					}
 					
 				}
-#line 1952 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 1952 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 35: /* CONST_VARIABLE_: ID  */
-#line 353 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 353 "/home/z838/bianyi/build/../src/yacc.y"
                                      { //正常
 				    
 						//printf("CONST_VARIABLE_: 	ID\n");
@@ -1961,11 +1961,11 @@ yyreduce:
 					yyval->children.push_back(yyvsp[0]);
 					reduceNode.Clear();
 				}
-#line 1965 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 1965 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 36: /* CONST_VARIABLE_: ADDOP NUM  */
-#line 360 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 360 "/home/z838/bianyi/build/../src/yacc.y"
                                             { //正常
 					if(yyval->val != "+" && yyval->val != "-"){
 						
@@ -1983,11 +1983,11 @@ yyreduce:
 						reduceNode.Clear();
 					}
 				}
-#line 1987 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 1987 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 37: /* CONST_VARIABLE_: NUM  */
-#line 376 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 376 "/home/z838/bianyi/build/../src/yacc.y"
                                       { //正常
 				    
 						//printf("CONST_VARIABLE_: 	NUM\n");
@@ -1996,11 +1996,11 @@ yyreduce:
 					yyval->children.push_back(yyvsp[0]);
 					reduceNode.Clear();
 				}
-#line 2000 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 2000 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 38: /* CONST_VARIABLE_: LETTER  */
-#line 383 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 383 "/home/z838/bianyi/build/../src/yacc.y"
                                         { //正常
 				    
 						//printf("CONST_VARIABLE_: 	LETTER\n");
@@ -2009,11 +2009,11 @@ yyreduce:
 					yyval->children.push_back(yyvsp[0]);
 					reduceNode.Clear();
 				}
-#line 2013 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 2013 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 39: /* TYPE_: STANDRAD_TYPE_  */
-#line 393 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 393 "/home/z838/bianyi/build/../src/yacc.y"
                       { //正常
             
 						//printf("TYPE_: 	STANDRAD_TYPE_\n");
@@ -2022,11 +2022,11 @@ yyreduce:
 			yyval->children.push_back(yyvsp[0]);
 			reduceNode.Clear();
 		}
-#line 2026 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 2026 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 40: /* TYPE_: RECORD VAR_DECLARATION_ SEMICOLON END  */
-#line 400 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 400 "/home/z838/bianyi/build/../src/yacc.y"
                                                        { //正常
 		    
 						//printf("TYPE_: 	RECORD VAR_DECLARATION_ SEMICOLON END\n");
@@ -2036,11 +2036,11 @@ yyreduce:
 			yyval->children.push_back(yyvsp[-1]); yyval->children.push_back(yyvsp[0]);
 			reduceNode.Clear();
 		}
-#line 2040 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 2040 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 41: /* TYPE_: ARRAY LEFT_MEDIUM_PARENTHESES PERIODS_ RIGHT_MEDIUM_PARENTHESES OF STANDRAD_TYPE_  */
-#line 408 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 408 "/home/z838/bianyi/build/../src/yacc.y"
                                                                                                    { //正常
 			
 			//printf("TYPE_: 	ARRAY LEFT_MEDIUM_PARENTHESES PERIODS_ RIGHT_MEDIUM_PARENTHESES OF STANDRAD_TYPE_\n");
@@ -2051,77 +2051,77 @@ yyreduce:
 			yyval->children.push_back(yyvsp[-1]);yyval->children.push_back(yyvsp[0]);
 			reduceNode.Clear();
 		}
-#line 2055 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 2055 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 42: /* TYPE_: ARRAY error PERIODS_ RIGHT_MEDIUM_PARENTHESES OF TYPE_  */
-#line 417 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 417 "/home/z838/bianyi/build/../src/yacc.y"
                                                                         { //ERROR 缺少左中括号 checked
 			yyval=new ParseNode;
 			yyval->token = Token::TYPE_;
 			yyerror("missing a left square bracket here", (yylsp[-5]).last_line, (yylsp[-5]).last_column+1);
 			reduceNode.Delete();
 		}
-#line 2066 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 2066 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 43: /* TYPE_: ARRAY LEFT_MEDIUM_PARENTHESES PERIODS_ RIGHT_MEDIUM_PARENTHESES error TYPE_  */
-#line 422 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 422 "/home/z838/bianyi/build/../src/yacc.y"
                                                                                              { //ERROR 缺少OF关键字 checked
 			yyval=new ParseNode;
 			yyval->token = Token::TYPE_;
 			yyerror("missing keyword \"OF\" here", (yylsp[-2]).last_line, (yylsp[-2]).last_column+1, (yylsp[0]).first_line, (yylsp[0]).first_column-1);
 			reduceNode.Delete();
 		}
-#line 2077 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 2077 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 44: /* TYPE_: ARRAY LEFT_MEDIUM_PARENTHESES PERIODS_ RIGHT_MEDIUM_PARENTHESES OF error  */
-#line 427 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 427 "/home/z838/bianyi/build/../src/yacc.y"
                                                                                           { //ERROR 数组元素类型识别失败 checked
 			yyval=new ParseNode;
 			yyval->token = Token::TYPE_;
 			yyerror("missing a base TYPE_ keyword here", (yylsp[-1]).last_line, (yylsp[-1]).last_column+1);
 			reduceNode.Delete();
 		}
-#line 2088 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 2088 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 45: /* TYPE_: ARRAY error  */
-#line 432 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 432 "/home/z838/bianyi/build/../src/yacc.y"
                              { //ERROR 不完整的数组类型 checked
 			yyval=new ParseNode;
 			yyval->token = Token::TYPE_;
 			yyerror("incomplete array TYPE_", &(yyloc));
 			reduceNode.Delete();
 		}
-#line 2099 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 2099 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 46: /* TYPE_: ARRAY LEFT_MEDIUM_PARENTHESES error  */
-#line 437 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 437 "/home/z838/bianyi/build/../src/yacc.y"
                                                      { //ERROR 不完整的数组类型 checked
 			yyval=new ParseNode;
 			yyval->token = Token::TYPE_;
 			yyerror("incomplete array TYPE_", &(yyloc));
 			reduceNode.Delete();
 		}
-#line 2110 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 2110 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 47: /* TYPE_: ARRAY LEFT_MEDIUM_PARENTHESES PERIODS_ error  */
-#line 442 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 442 "/home/z838/bianyi/build/../src/yacc.y"
                                                               { //ERROR 不完整的数组类型 checked
 			yyval=new ParseNode;
 			yyval->token = Token::TYPE_;
 			yyerror("incomplete array TYPE_", &(yyloc));
 			reduceNode.Delete();
 		}
-#line 2121 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 2121 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 48: /* STANDRAD_TYPE_: INTEGER  */
-#line 449 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 449 "/home/z838/bianyi/build/../src/yacc.y"
                            { //正常
                         
 						//printf("STANDRAD_TYPE_:     INTEGER\n");
@@ -2130,11 +2130,11 @@ yyreduce:
 						yyval->children.push_back(yyvsp[0]);
 						reduceNode.Clear();
 					}
-#line 2134 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 2134 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 49: /* STANDRAD_TYPE_: REAL  */
-#line 456 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 456 "/home/z838/bianyi/build/../src/yacc.y"
                                               { //正常
 						
 						//printf("STANDRAD_TYPE_:     REAL\n");
@@ -2143,11 +2143,11 @@ yyreduce:
 						yyval->children.push_back(yyvsp[0]);
 						reduceNode.Clear();
 					}
-#line 2147 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 2147 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 50: /* STANDRAD_TYPE_: CHAR  */
-#line 463 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 463 "/home/z838/bianyi/build/../src/yacc.y"
                                               { //正常
 					    
 						//printf("STANDRAD_TYPE_:     CHAR\n");
@@ -2156,11 +2156,11 @@ yyreduce:
 						yyval->children.push_back(yyvsp[0]);
 						reduceNode.Clear();
 					}
-#line 2160 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 2160 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 51: /* STANDRAD_TYPE_: BOLLEAN  */
-#line 470 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 470 "/home/z838/bianyi/build/../src/yacc.y"
                                                  { //正常
 					    
 						//printf("STANDRAD_TYPE_:     BOLLEAN\n");
@@ -2169,11 +2169,11 @@ yyreduce:
                         yyval->children.push_back(yyvsp[0]);
 						reduceNode.Clear();
 					}
-#line 2173 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 2173 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 52: /* PERIODS_: PERIODS_ COMMA PERIOD_  */
-#line 479 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 479 "/home/z838/bianyi/build/../src/yacc.y"
                                 { //正常
             
 						//printf("PERIODS_: PERIODS_ COMMA PERIOD_\n");
@@ -2183,22 +2183,22 @@ yyreduce:
 			yyval->children.push_back(yyvsp[0]);
 			reduceNode.Clear();
 		}
-#line 2187 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 2187 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 53: /* PERIODS_: PERIODS_ error PERIOD_  */
-#line 487 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 487 "/home/z838/bianyi/build/../src/yacc.y"
                                         { //ERROR 缺少逗号 checked
 			yyval=new ParseNode;
 			yyval->token=Token::PERIODS_;
 			yyerror("missing a comma here", (yylsp[-2]).last_line, (yylsp[-2]).last_column+1);
 			reduceNode.Delete();
 		}
-#line 2198 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 2198 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 54: /* PERIODS_: PERIOD_  */
-#line 492 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 492 "/home/z838/bianyi/build/../src/yacc.y"
                          { //正常
 		    
 						//printf("PERIODS_: PERIOD_\n");
@@ -2207,11 +2207,11 @@ yyreduce:
 			yyval->children.push_back(yyvsp[0]);
 			reduceNode.Clear();
 		}
-#line 2211 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 2211 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 55: /* PERIOD_: CONST_VARIABLE_ RANGE_DOT CONST_VARIABLE_  */
-#line 501 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 501 "/home/z838/bianyi/build/../src/yacc.y"
                                                   { //正常
             
 						//printf("PERIOD_: CONST_VARIABLE_ RANGE_DOT CONST_VARIABLE_\n");
@@ -2221,22 +2221,22 @@ yyreduce:
 			yyval->children.push_back(yyvsp[0]);
 			reduceNode.Clear();
 		}
-#line 2225 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 2225 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 56: /* PERIOD_: CONST_VARIABLE_ error CONST_VARIABLE_  */
-#line 509 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 509 "/home/z838/bianyi/build/../src/yacc.y"
                                                        { //ERROR 缺少.. checked
 			yyval=new ParseNode;
 			yyval->token=Token::PERIOD_;
 			yyerror("missing a comma here", (yylsp[-2]).last_line, (yylsp[-2]).last_column+1);
 			reduceNode.Delete();
 		}
-#line 2236 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 2236 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 57: /* VAR_DECLARATIONS_: VAR VAR_DECLARATION_ SEMICOLON  */
-#line 518 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 518 "/home/z838/bianyi/build/../src/yacc.y"
                                                       { //正常
                         
 						//printf("VAR_DECLARATIONS_: 	VAR VAR_DECLARATION_ SEMICOLON\n");
@@ -2245,11 +2245,11 @@ yyreduce:
 						yyval->children.push_back(yyvsp[-2]); yyval->children.push_back(yyvsp[-1]); yyval->children.push_back(yyvsp[0]);
 						reduceNode.Clear();
 					}
-#line 2249 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 2249 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 58: /* VAR_DECLARATIONS_: %empty  */
-#line 525 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 525 "/home/z838/bianyi/build/../src/yacc.y"
                                           { //正常
 						
 						//printf("VAR_DECLARATIONS_: 	null\n");
@@ -2257,33 +2257,33 @@ yyreduce:
 						yyval->token = Token::VAR_DECLARATIONS_;
 						reduceNode.Clear();
 					}
-#line 2261 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 2261 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 59: /* VAR_DECLARATIONS_: VAR error SEMICOLON  */
-#line 531 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 531 "/home/z838/bianyi/build/../src/yacc.y"
                                                              { //ERROR 变量定义出现错误 checked
 						yyval=new ParseNode;
 						yyval->token = Token::VAR_DECLARATIONS_;
 						yyerror("fatal error in variant declarations", (yylsp[-2]).first_line, (yylsp[-2]).first_column, (yylsp[-2]).last_line, (yylsp[-2]).last_column);
 						reduceNode.Delete();
 					}
-#line 2272 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 2272 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 60: /* VAR_DECLARATIONS_: VAR VAR_DECLARATION_ error  */
-#line 536 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 536 "/home/z838/bianyi/build/../src/yacc.y"
                                                                     { //ERROR 缺少分号 checked
 						yyval=new ParseNode;
 						yyval->token = Token::VAR_DECLARATIONS_;
 						yyerror("missing a semicolon here", (yylsp[-1]).last_line, (yylsp[-1]).last_column+1);
 						reduceNode.Delete();
 					}
-#line 2283 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 2283 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 61: /* VAR_DECLARATION_: VAR_DECLARATION_ SEMICOLON IDENTIFIER_LIST_ COLON TYPE_  */
-#line 543 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 543 "/home/z838/bianyi/build/../src/yacc.y"
                                                                                 { //正常
 						
 						//printf("VAR_DECLARATION_: 	VAR_DECLARATION_ SEMICOLON IDENTIFIER_LIST_ COLON TYPE_\n");
@@ -2293,11 +2293,11 @@ yyreduce:
 						yyval->children.push_back(yyvsp[-2]); yyval->children.push_back(yyvsp[-1]); yyval->children.push_back(yyvsp[0]);
 						reduceNode.Clear();
 					}
-#line 2297 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 2297 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 62: /* VAR_DECLARATION_: IDENTIFIER_LIST_ COLON TYPE_  */
-#line 551 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 551 "/home/z838/bianyi/build/../src/yacc.y"
                                                                         { //正常
 					    
 						//printf("VAR_DECLARATION_: 	IDENTIFIER_LIST_ COLON TYPE_\n");
@@ -2306,66 +2306,66 @@ yyreduce:
 						yyval->children.push_back(yyvsp[-2]);yyval->children.push_back(yyvsp[-1]); yyval->children.push_back(yyvsp[0]);
 						reduceNode.Clear();
 					}
-#line 2310 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 2310 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 63: /* VAR_DECLARATION_: VAR_DECLARATION_ error IDENTIFIER_LIST_ COLON TYPE_  */
-#line 558 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 558 "/home/z838/bianyi/build/../src/yacc.y"
                                                                                               { //ERROR 缺少分号 checked
 						yyval=new ParseNode;
 						yyval->token = Token::VAR_DECLARATION_;
 						yyerror("missing a semicolon here", (yylsp[-4]).last_line, (yylsp[-4]).last_column+1);
 						reduceNode.Delete();
 					}
-#line 2321 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 2321 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 64: /* VAR_DECLARATION_: VAR_DECLARATION_ SEMICOLON IDENTIFIER_LIST_ error TYPE_  */
-#line 563 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 563 "/home/z838/bianyi/build/../src/yacc.y"
                                                                                                   { //ERROR 缺少冒号 checked
 						yyval=new ParseNode;
 						yyval->token = Token::VAR_DECLARATION_;
 						yyerror("missing a colon here", (yylsp[-2]).last_line, (yylsp[-2]).last_column+1);
 						reduceNode.Delete();
 					}
-#line 2332 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 2332 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 65: /* VAR_DECLARATION_: VAR_DECLARATION_ SEMICOLON IDENTIFIER_LIST_ COLON error  */
-#line 568 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 568 "/home/z838/bianyi/build/../src/yacc.y"
                                                                                                   { //ERROR TYPE_识别失败 checked
 						yyval=new ParseNode;
 						yyval->token = Token::VAR_DECLARATION_;
 						yyerror("missing a TYPE_ here", (yylsp[-1]).last_line, (yylsp[-1]).last_column+1);
 						reduceNode.Delete();
 					}
-#line 2343 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 2343 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 66: /* VAR_DECLARATION_: IDENTIFIER_LIST_ COLON error  */
-#line 573 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 573 "/home/z838/bianyi/build/../src/yacc.y"
                                                                         { //ERROR TYPE_识别失败 checked
 						yyval=new ParseNode;
 						yyval->token =Token::VAR_DECLARATION_;
 						yyerror("missing a TYPE_ here", (yylsp[0]).last_line, (yylsp[0]).last_column+1);
 						reduceNode.Delete();
 					}
-#line 2354 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 2354 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 67: /* VAR_DECLARATION_: IDENTIFIER_LIST_ error TYPE_  */
-#line 578 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 578 "/home/z838/bianyi/build/../src/yacc.y"
                                                                         { //ERROR 缺少分号 checked
 						yyval=new ParseNode;
 						yyval->token =Token::VAR_DECLARATION_;
 						yyerror("missing a colon here", (yylsp[-2]).last_line, (yylsp[-2]).last_column+1);
 						reduceNode.Delete();
 					}
-#line 2365 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 2365 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 68: /* SUBPROGRAM_DECLARATIONS_: SUBPROGRAM_DECLARATIONS_ SUBPROGRAM_DECLARATION_ SEMICOLON  */
-#line 585 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 585 "/home/z838/bianyi/build/../src/yacc.y"
                                                                                           { //正常
 								
 						//printf("SUBPROGRAM_DECLARATIONS_: 	SUBPROGRAM_DECLARATIONS_ SUBPROGRAM_DECLARATION_ SEMICOLON\n");
@@ -2374,22 +2374,22 @@ yyreduce:
 								yyval->children.push_back(yyvsp[-2]);yyval->children.push_back(yyvsp[-1]);yyval->children.push_back(yyvsp[0]);
 								reduceNode.Clear();
 							}
-#line 2378 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 2378 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 69: /* SUBPROGRAM_DECLARATIONS_: SUBPROGRAM_DECLARATIONS_ SUBPROGRAM_DECLARATION_ error  */
-#line 592 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 592 "/home/z838/bianyi/build/../src/yacc.y"
                                                                                                                 { //ERROR 缺少分号 checked
 								yyval=new ParseNode;
 								yyval->token=Token::SUBPROGRAM_DECLARATIONS_;
 								yyerror("missing a semicolon here", (yylsp[-1]).last_line, (yylsp[-1]).last_column+1);
 								reduceNode.Delete();
 							}
-#line 2389 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 2389 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 70: /* SUBPROGRAM_DECLARATIONS_: %empty  */
-#line 597 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 597 "/home/z838/bianyi/build/../src/yacc.y"
                                                           { //正常
 							    
 						//printf("SUBPROGRAM_DECLARATIONS_: 	null\n");
@@ -2397,11 +2397,11 @@ yyreduce:
 								yyval->token =Token::SUBPROGRAM_DECLARATIONS_;
 								reduceNode.Clear();
 							}
-#line 2401 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 2401 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 71: /* SUBPROGRAM_DECLARATION_: SUBPROGRAM_HEAD_ PROGTAM_BODY_  */
-#line 605 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 605 "/home/z838/bianyi/build/../src/yacc.y"
                                                        { //正常
                 
 						//printf("SUBPROGRAM_DECLARATION_: SUBPROGRAM_HEAD_ PROGTAM_BODY_\n");
@@ -2410,11 +2410,11 @@ yyreduce:
 				yyval->children.push_back(yyvsp[-1]);yyval->children.push_back(yyvsp[0]);
 				reduceNode.Clear();
 			}
-#line 2414 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 2414 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 72: /* SUBPROGRAM_HEAD_: FUNCTION ID FORMAL_PARAMETER_ COLON STANDRAD_TYPE_ SEMICOLON  */
-#line 614 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 614 "/home/z838/bianyi/build/../src/yacc.y"
                                                                                     { //正常
 					    
 						//printf("SUBPROGRAM_HEAD_: 	FUNCTION ID FORMAL_PARAMETER_ COLON STANDRAD_TYPE_ SEMICOLON\n");
@@ -2425,11 +2425,11 @@ yyreduce:
 						yyval->children.push_back(yyvsp[-1]);yyval->children.push_back(yyvsp[0]);
 						reduceNode.Clear();
 					}
-#line 2429 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 2429 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 73: /* SUBPROGRAM_HEAD_: PROCEDURE ID FORMAL_PARAMETER_ SEMICOLON  */
-#line 623 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 623 "/home/z838/bianyi/build/../src/yacc.y"
                                                                                    { //正常
                         
 						//printf("SUBPROGRAM_HEAD_: 	PROCEDURE ID FORMAL_PARAMETER_ SEMICOLON\n");
@@ -2439,11 +2439,11 @@ yyreduce:
 						yyval->children.push_back(yyvsp[-1]);yyval->children.push_back(yyvsp[0]);
 						reduceNode.Clear();
 					}
-#line 2443 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 2443 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 74: /* SUBPROGRAM_HEAD_: PROCEDURE ID SEMICOLON  */
-#line 631 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 631 "/home/z838/bianyi/build/../src/yacc.y"
                                                                  { //正常
                         
 						//printf("SUBPROGRAM_HEAD_: 	PROCEDURE ID SEMICOLON\n");
@@ -2453,77 +2453,77 @@ yyreduce:
 						yyval->children.push_back(yyvsp[0]);
 						reduceNode.Clear();
 					}
-#line 2457 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 2457 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 75: /* SUBPROGRAM_HEAD_: FUNCTION error FORMAL_PARAMETER_ COLON TYPE_  */
-#line 639 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 639 "/home/z838/bianyi/build/../src/yacc.y"
                                                                                       { //ERROR 函数名缺失 checked
 						yyval=new ParseNode;
 						yyval->token=Token::SUBPROGRAM_HEAD_;
 						yyerror("missing function name", (yylsp[-4]).last_line, (yylsp[-4]).last_column+1);
 						reduceNode.Delete();
 					}
-#line 2468 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 2468 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 76: /* SUBPROGRAM_HEAD_: FUNCTION ID FORMAL_PARAMETER_ error TYPE_  */
-#line 644 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 644 "/home/z838/bianyi/build/../src/yacc.y"
                                                                                    { //ERROR 缺少冒号 checked
 						yyval=new ParseNode;
 						yyval->token=Token::SUBPROGRAM_HEAD_;
 						yyerror("missing a colon here", (yylsp[-2]).last_line, (yylsp[-2]).last_column);
 						reduceNode.Delete();
 					}
-#line 2479 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 2479 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 77: /* SUBPROGRAM_HEAD_: FUNCTION ID FORMAL_PARAMETER_ COLON error  */
-#line 649 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 649 "/home/z838/bianyi/build/../src/yacc.y"
                                                                                    { //ERROR 缺少基本类型关键字 checked
 						yyval=new ParseNode;
 						yyval->token=Token::SUBPROGRAM_HEAD_;
 						yyerror("missing a base TYPE_ keyword here", (yylsp[-1]).last_line, (yylsp[-1]).last_column+1);
 						reduceNode.Delete();
 					}
-#line 2490 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 2490 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 78: /* SUBPROGRAM_HEAD_: FUNCTION ID FORMAL_PARAMETER_ error  */
-#line 654 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 654 "/home/z838/bianyi/build/../src/yacc.y"
                                                                              { //ERROR 缺少基本类型关键字 checked
 						yyval=new ParseNode;
 						yyval->token=Token::SUBPROGRAM_HEAD_;
 						yyerror("missing a base TYPE_ keyword here", (yylsp[-1]).last_line, (yylsp[-1]).last_column+1);
 						reduceNode.Delete();
 					}
-#line 2501 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 2501 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 79: /* SUBPROGRAM_HEAD_: FUNCTION error  */
-#line 659 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 659 "/home/z838/bianyi/build/../src/yacc.y"
                                                         { //ERROR 不完整的函数头 checked
 						yyval=new ParseNode;
 						yyval->token=Token::SUBPROGRAM_HEAD_;
 						yyerror("incomplete function head", &(yyloc));
 						reduceNode.Delete();
 					}
-#line 2512 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 2512 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 80: /* SUBPROGRAM_HEAD_: PROCEDURE error  */
-#line 664 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 664 "/home/z838/bianyi/build/../src/yacc.y"
                                                          { //ERROR 不完整的过程头 checked
 						yyval=new ParseNode;
 						yyval->token=Token::SUBPROGRAM_HEAD_;
 						yyerror("incomplete procedure head", &(yyloc));
 						reduceNode.Delete();
 					}
-#line 2523 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 2523 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 81: /* FORMAL_PARAMETER_: LEFT_PARENTHESES PARAMETER_LISTS_ RIGHT_PARENTHESES  */
-#line 671 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 671 "/home/z838/bianyi/build/../src/yacc.y"
                                                                            { //正常
                         
 						//printf("FORMAL_PARAMETER_: 	LEFT_PARENTHESES PARAMETER_LISTS_ RIGHT_PARENTHESES\n");
@@ -2532,11 +2532,11 @@ yyreduce:
 						yyval->children.push_back(yyvsp[-2]);yyval->children.push_back(yyvsp[-1]);yyval->children.push_back(yyvsp[0]);
 						reduceNode.Clear();
 					}
-#line 2536 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 2536 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 82: /* FORMAL_PARAMETER_: LEFT_PARENTHESES RIGHT_PARENTHESES  */
-#line 678 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 678 "/home/z838/bianyi/build/../src/yacc.y"
                                                                             { //正常
                         
 						//printf("FORMAL_PARAMETER_: 	LEFT_PARENTHESES RIGHT_PARENTHESES\n");
@@ -2545,11 +2545,11 @@ yyreduce:
 						yyval->children.push_back(yyvsp[-1]);yyval->children.push_back(yyvsp[0]);
 						reduceNode.Clear();
 					}
-#line 2549 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 2549 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 83: /* FORMAL_PARAMETER_: %empty  */
-#line 685 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 685 "/home/z838/bianyi/build/../src/yacc.y"
                                           { //正常
 					    
 						//printf("FORMAL_PARAMETER_: 	null\n");
@@ -2557,33 +2557,33 @@ yyreduce:
 						yyval->token=Token::FORMAL_PARAMETER_;
 						reduceNode.Clear();
 					}
-#line 2561 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 2561 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 84: /* FORMAL_PARAMETER_: LEFT_PARENTHESES error  */
-#line 691 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 691 "/home/z838/bianyi/build/../src/yacc.y"
                                                                 { //ERROR 不完整的形参列表
 						yyval=new ParseNode;
 						yyval->token=Token::FORMAL_PARAMETER_;
 						yyerror("incomplete formal PARAMETER_LIST_ list", &(yyloc));
 						reduceNode.Delete();
 					}
-#line 2572 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 2572 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 85: /* FORMAL_PARAMETER_: LEFT_PARENTHESES PARAMETER_LISTS_ error  */
-#line 696 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 696 "/home/z838/bianyi/build/../src/yacc.y"
                                                                                  { //ERROR 右括号缺失
 						yyval=new ParseNode;
 						yyval->token=Token::FORMAL_PARAMETER_;
 						yyerror("missing a right bracket here", (yylsp[-1]).last_line, (yylsp[-1]).last_column+1);
 						reduceNode.Delete();
 					}
-#line 2583 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 2583 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 86: /* PARAMETER_LISTS_: PARAMETER_LISTS_ SEMICOLON PARAMETER_LIST_  */
-#line 703 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 703 "/home/z838/bianyi/build/../src/yacc.y"
                                                             { //正常
 										
 						//printf("PARAMETER_LISTS_: PARAMETER_LISTS_ SEMICOLON PARAMETER_LIST_\n");
@@ -2592,22 +2592,22 @@ yyreduce:
                                         yyval->children.push_back(yyvsp[-2]);yyval->children.push_back(yyvsp[-1]);yyval->children.push_back(yyvsp[0]);
 										reduceNode.Clear();
                                 }
-#line 2596 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 2596 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 87: /* PARAMETER_LISTS_: PARAMETER_LISTS_ error PARAMETER_LIST_  */
-#line 710 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 710 "/home/z838/bianyi/build/../src/yacc.y"
                                                                         { //ERROR 缺少分号 checked
                                         yyval=new ParseNode;
                                         yyval->token=Token::PARAMETER_LISTS_;
                                         yyerror("missing a semicolon here", (yylsp[-2]).last_line, (yylsp[-2]).last_column+1);
 										reduceNode.Delete();
                                 }
-#line 2607 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 2607 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 88: /* PARAMETER_LISTS_: PARAMETER_LIST_  */
-#line 715 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 715 "/home/z838/bianyi/build/../src/yacc.y"
                                                  { //正常
 										
 						//printf("PARAMETER_LISTS_: PARAMETER_LIST_\n");
@@ -2616,11 +2616,11 @@ yyreduce:
                                         yyval->children.push_back(yyvsp[0]);
 										reduceNode.Clear();
                                 }
-#line 2620 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 2620 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 89: /* PARAMETER_LIST_: VAR_PARAMETER_  */
-#line 724 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 724 "/home/z838/bianyi/build/../src/yacc.y"
                                         { //正常，非终结符PARAMETER_LIST_的产生式不打算加入error
                                 
 						//printf("PARAMETER_LIST_:         VAR_PARAMETER_ \n");
@@ -2629,11 +2629,11 @@ yyreduce:
                                 yyval->children.push_back(yyvsp[0]);
 								reduceNode.Clear();
                         }
-#line 2633 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 2633 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 90: /* PARAMETER_LIST_: VALUE_PARAMETER_  */
-#line 731 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 731 "/home/z838/bianyi/build/../src/yacc.y"
                                           { //正常
 								
 						//printf("PARAMETER_LIST_:         VALUE_PARAMETER_ \n");
@@ -2642,11 +2642,11 @@ yyreduce:
                                 yyval->children.push_back(yyvsp[0]);
 								reduceNode.Clear();
                         }
-#line 2646 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 2646 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 91: /* VAR_PARAMETER_: VAR VALUE_PARAMETER_  */
-#line 740 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 740 "/home/z838/bianyi/build/../src/yacc.y"
                                             { //正常
 										
 						//printf("VAR_PARAMETER_:         VAR VALUE_PARAMETER_\n");
@@ -2655,22 +2655,22 @@ yyreduce:
                                         yyval->children.push_back(yyvsp[-1]);yyval->children.push_back(yyvsp[0]);
 										reduceNode.Clear();
                                 }
-#line 2659 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 2659 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 92: /* VAR_PARAMETER_: VAR error  */
-#line 747 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 747 "/home/z838/bianyi/build/../src/yacc.y"
                                            { //ERROR 不完整的引用参数列表 checked
                                         yyval=new ParseNode;
                                         yyval->token=Token::VAR_PARAMETER_;
                                         yyerror("incomplete refereced PARAMETER_LIST_ list", &(yyloc));
 										reduceNode.Delete();
                                 }
-#line 2670 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 2670 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 93: /* VALUE_PARAMETER_: IDENTIFIER_LIST_ COLON STANDRAD_TYPE_  */
-#line 754 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 754 "/home/z838/bianyi/build/../src/yacc.y"
                                                                 { //正常
                                                 
 						//printf("VALUE_PARAMETER_:          IDENTIFIER_LIST_ COLON STANDRAD_TYPE_\n");
@@ -2680,44 +2680,44 @@ yyreduce:
 												yyval->children.push_back(yyvsp[0]);
 												reduceNode.Clear();
                                         }
-#line 2684 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 2684 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 94: /* VALUE_PARAMETER_: IDENTIFIER_LIST_ error STANDRAD_TYPE_  */
-#line 762 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 762 "/home/z838/bianyi/build/../src/yacc.y"
                                                                                 { //ERROR 缺少分号 checked
                                                 yyval=new ParseNode;
                                                 yyval->token=Token::VALUE_PARAMETER_;
                                                 yyerror("missing a colon here", (yylsp[-2]).first_line, (yylsp[-2]).last_column+1);
 												reduceNode.Delete();
                                         }
-#line 2695 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 2695 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 95: /* VALUE_PARAMETER_: IDENTIFIER_LIST_ COLON error  */
-#line 767 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 767 "/home/z838/bianyi/build/../src/yacc.y"
                                                                        { //ERROR 缺少基本类型关键字 checked
                                                 yyval=new ParseNode;
                                                 yyval->token=Token::VALUE_PARAMETER_;
                                                 yyerror("missing a base TYPE_ keyword here", (yylsp[-1]).last_line, (yylsp[-1]).last_column+1);
 												reduceNode.Delete();
                                         }
-#line 2706 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 2706 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 96: /* VALUE_PARAMETER_: IDENTIFIER_LIST_ error  */
-#line 772 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 772 "/home/z838/bianyi/build/../src/yacc.y"
                                                                  { //ERROR 缺少基本类型关键字 checked
                                                 yyval=new ParseNode;
                                                 yyval->token=Token::VALUE_PARAMETER_;
                                                 yyerror("missing a base TYPE_ keyword here", (yylsp[-1]).last_line, (yylsp[-1]).last_column+1);
 												reduceNode.Delete();
                                         }
-#line 2717 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 2717 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 97: /* COMPOUND_STATEMENT_: _BEGIN STATEMENT_LIST_ END  */
-#line 780 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 780 "/home/z838/bianyi/build/../src/yacc.y"
                                                { //正常
                                                 
 						//printf("COMPOUND_STATEMENT_: _BEGIN STATEMENT_LIST END\n");
@@ -2726,22 +2726,22 @@ yyreduce:
                                                 yyval->children.push_back(yyvsp[-2]);yyval->children.push_back(yyvsp[-1]);yyval->children.push_back(yyvsp[0]);
 												reduceNode.Clear();
                                         }
-#line 2730 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 2730 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 98: /* COMPOUND_STATEMENT_: _BEGIN STATEMENT_LIST_ error  */
-#line 787 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 787 "/home/z838/bianyi/build/../src/yacc.y"
                                                                       { //ERROR 缺少END关键字 checked
                                                 yyval=new ParseNode;
                                                 yyval->token=Token::COMPOUND_STATEMENT_;
                                                 yyerror("missing keyword \"end\"", (yylsp[-1]).last_line, (yylsp[-1]).last_column+1);
 												reduceNode.Delete();
                                         }
-#line 2741 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 2741 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 99: /* STATEMENT_LIST_: STATEMENT_LIST_ SEMICOLON STATEMENT_  */
-#line 794 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 794 "/home/z838/bianyi/build/../src/yacc.y"
                                                      { //正常
 										
 						//printf("STATEMENT_LIST_: STATEMENT_LIST_ SEMICOLON STATEMENT_\n");
@@ -2750,11 +2750,11 @@ yyreduce:
                                         yyval->children.push_back(yyvsp[-2]);yyval->children.push_back(yyvsp[-1]); yyval->children.push_back(yyvsp[0]);
 										reduceNode.Clear();
                                 }
-#line 2754 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 2754 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 100: /* STATEMENT_LIST_: STATEMENT_LIST_ error STATEMENT_  */
-#line 801 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 801 "/home/z838/bianyi/build/../src/yacc.y"
                                                                   { //ERROR 缺失分号 这里引发了3个规约规约冲突 checked
 										
                                         yyval=new ParseNode;
@@ -2762,11 +2762,11 @@ yyreduce:
                                         yyerror("missing a semicolon here", (yylsp[-2]).last_line, (yylsp[-2]).last_column+1);
 										reduceNode.Delete();
                                 }
-#line 2766 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 2766 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 101: /* STATEMENT_LIST_: STATEMENT_  */
-#line 807 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 807 "/home/z838/bianyi/build/../src/yacc.y"
                                             { //正常
                                         
 						//printf("STATEMENT_LIST_: STATEMENT_\n");
@@ -2775,11 +2775,11 @@ yyreduce:
                                         yyval->children.push_back(yyvsp[0]);
 										reduceNode.Clear();
                                 }
-#line 2779 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 2779 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 102: /* STATEMENT_: VARIABLE_ ASSIGNOP EXPRESSION_  */
-#line 816 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 816 "/home/z838/bianyi/build/../src/yacc.y"
                                            {//正常
 						
 						
@@ -2790,11 +2790,11 @@ yyreduce:
 						yyval->children.push_back(yyvsp[0]);
 						reduceNode.Clear();
             }
-#line 2794 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 2794 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 103: /* STATEMENT_: CALL_PROCEDURE_STATEMENT_  */
-#line 825 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 825 "/home/z838/bianyi/build/../src/yacc.y"
                                        {//正常
 						
 						//printf("STATEMENT_: CALL_PROCEDURE_STATEMENT_\n");
@@ -2803,11 +2803,11 @@ yyreduce:
 						yyval->children.push_back(yyvsp[0]);
 						reduceNode.Clear();
             }
-#line 2807 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 2807 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 104: /* STATEMENT_: COMPOUND_STATEMENT_  */
-#line 832 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 832 "/home/z838/bianyi/build/../src/yacc.y"
                                  {//正常
 						
 						//printf("STATEMENT_:COMPOUND_STATEMENT_\n");
@@ -2816,11 +2816,11 @@ yyreduce:
 						yyval->children.push_back(yyvsp[0]);
 						reduceNode.Clear();
             }
-#line 2820 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 2820 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 105: /* STATEMENT_: IF EXPRESSION_ THEN STATEMENT_ ELSE_PART_  */
-#line 839 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 839 "/home/z838/bianyi/build/../src/yacc.y"
                                                        {//正常
 						
 						//printf("STATEMENT_:IF EXPRESSION_ THEN STATEMENT_ ELSE_PART_\n");
@@ -2831,11 +2831,11 @@ yyreduce:
 						yyval->children.push_back(yyvsp[0]);
 						reduceNode.Clear();
             }
-#line 2835 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 2835 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 106: /* STATEMENT_: CASE EXPRESSION_ OF CASE_BODY_ END  */
-#line 848 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 848 "/home/z838/bianyi/build/../src/yacc.y"
                                                 {//正常
 						
 						//printf("STATEMENT_:CASE EXPRESSION_ OF CASE_BODY_ END\n");
@@ -2846,11 +2846,11 @@ yyreduce:
 						yyval->children.push_back(yyvsp[0]);
 						reduceNode.Clear();
             }
-#line 2850 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 2850 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 107: /* STATEMENT_: WHILE EXPRESSION_ DO STATEMENT_  */
-#line 857 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 857 "/home/z838/bianyi/build/../src/yacc.y"
                                              {//正常
 								
 						//printf("STATEMENT_: WHILE EXPRESSION_ DO STATEMENT_\n");
@@ -2860,11 +2860,11 @@ yyreduce:
                                  yyval->children.push_back(yyvsp[-1]);yyval->children.push_back(yyvsp[0]);
 								 reduceNode.Clear();
             }
-#line 2864 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 2864 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 108: /* STATEMENT_: REPEAT STATEMENT_LIST_ UNTIL EXPRESSION_  */
-#line 865 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 865 "/home/z838/bianyi/build/../src/yacc.y"
                                                       {//正常
                  
 						//printf("STATEMENT_:REPEAT STATEMENT_LIST_ UNTIL EXPRESSION_\n");
@@ -2874,11 +2874,11 @@ yyreduce:
                                  yyval->children.push_back(yyvsp[-1]);yyval->children.push_back(yyvsp[0]);
 								 reduceNode.Clear();
             }
-#line 2878 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 2878 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 109: /* STATEMENT_: _READ LEFT_PARENTHESES VARIABLE_LIST_ RIGHT_PARENTHESES  */
-#line 873 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 873 "/home/z838/bianyi/build/../src/yacc.y"
                                                                      {//正常
 						//printf("STATEMENT_:_READ LEFT_PARENTHESES VARIABLE_LIST_ RIGHT_PARENTHESES\n");
 				 				yyval=new ParseNode;
@@ -2887,11 +2887,11 @@ yyreduce:
                                  yyval->children.push_back(yyvsp[-1]);yyval->children.push_back(yyvsp[0]);
 								 reduceNode.Clear();
             }
-#line 2891 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 2891 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 110: /* STATEMENT_: _WRITE LEFT_PARENTHESES EXPRESSION_LIST_ RIGHT_PARENTHESES  */
-#line 880 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 880 "/home/z838/bianyi/build/../src/yacc.y"
                                                                         {//正常
                  
 						//printf("STATEMENT_:_WRITE LEFT_PARENTHESES VARIABLE_LIST_ RIGHT_PARENTHESES\n");
@@ -2901,44 +2901,44 @@ yyreduce:
                                  yyval->children.push_back(yyvsp[-1]);yyval->children.push_back(yyvsp[0]);
 								 reduceNode.Clear();
             }
-#line 2905 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 2905 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 111: /* STATEMENT_: IF EXPRESSION_ error STATEMENT_ ELSE_PART_  */
-#line 888 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 888 "/home/z838/bianyi/build/../src/yacc.y"
                                                         { //ERROR 缺少then关键字 checked
                                 yyval=new ParseNode;
                                 yyval->token=Token::STATEMENT_;
                                 yyerror("missing keyword \"then\"", (yylsp[-3]).last_line, (yylsp[-3]).last_column+1);
 								reduceNode.Delete();
                         }
-#line 2916 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 2916 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 112: /* STATEMENT_: WHILE EXPRESSION_ error STATEMENT_  */
-#line 893 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 893 "/home/z838/bianyi/build/../src/yacc.y"
                                                             { //ERROR 缺少关键字do checked
                                 yyval=new ParseNode;
                                 yyval->token=Token::STATEMENT_;
                                 yyerror("missing keywrod \"do\"", (yylsp[-2]).last_line, (yylsp[-2]).last_column+1);
 								reduceNode.Delete();
                         }
-#line 2927 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 2927 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 113: /* STATEMENT_: REPEAT STATEMENT_LIST_ error EXPRESSION_  */
-#line 898 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 898 "/home/z838/bianyi/build/../src/yacc.y"
                                                                   { //ERROR 缺少关键字until checked
                                 yyval=new ParseNode;
                                 yyval->token=Token::STATEMENT_;
                                 yyerror("missing keywrod \"until\"", (yylsp[0]).first_line, (yylsp[0]).first_column);
 								reduceNode.Delete();
                         }
-#line 2938 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 2938 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 114: /* STATEMENT_: FOR ID ASSIGNOP EXPRESSION_ UPDOWN_ EXPRESSION_ DO STATEMENT_  */
-#line 903 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 903 "/home/z838/bianyi/build/../src/yacc.y"
                                                                                        {//正常
 								
 						//printf("STATEMENT_:FOR ID ASSIGNOP EXPRESSION_ UPDOWN_ EXPRESSION_ DO STATEMENT_\n");
@@ -2950,22 +2950,22 @@ yyreduce:
                                 yyval->children.push_back(yyvsp[-1]);yyval->children.push_back(yyvsp[0]);
 								reduceNode.Clear();
                         }
-#line 2954 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 2954 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 115: /* STATEMENT_: %empty  */
-#line 913 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 913 "/home/z838/bianyi/build/../src/yacc.y"
                           {  
 								//printf("STATEMENT_:_NULL\n");
 								yyval=new ParseNode;
                                 yyval->token=Token::STATEMENT_;
 								reduceNode.Clear();
                         }
-#line 2965 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 2965 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 116: /* VARIABLE_LIST_: VARIABLE_  */
-#line 919 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 919 "/home/z838/bianyi/build/../src/yacc.y"
                           {//正常
 					//printf("VARIABLE_LIST_:  VARIABLE_\n");
 					yyval=new ParseNode;
@@ -2973,11 +2973,11 @@ yyreduce:
 					yyval->children.push_back(yyvsp[0]);
 					reduceNode.Clear();
            }
-#line 2977 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 2977 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 117: /* VARIABLE_LIST_: VARIABLE_LIST_ COMMA VARIABLE_  */
-#line 925 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 925 "/home/z838/bianyi/build/../src/yacc.y"
                                            {   
 						//printf("VARIABLE_LIST_:VARIABLE_LIST_ COMMA VARIABLE_\n");
 								yyval=new ParseNode;
@@ -2987,11 +2987,11 @@ yyreduce:
 								yyval->children.push_back(yyvsp[0]);
 								reduceNode.Clear();
                         }
-#line 2991 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 2991 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 118: /* VARIABLE_: ID ID_VARPARTS_  */
-#line 934 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 934 "/home/z838/bianyi/build/../src/yacc.y"
                            {//正常
 					
 						//printf("VARIABLE_:  ID ID_VARPARTS_\n");
@@ -3000,11 +3000,11 @@ yyreduce:
 					yyval->children.push_back(yyvsp[-1]);yyval->children.push_back(yyvsp[0]);
 					reduceNode.Clear();
            }
-#line 3004 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 3004 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 119: /* ID_VARPARTS_: ID_VARPARTS_ ID_VARPART_  */
-#line 942 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 942 "/home/z838/bianyi/build/../src/yacc.y"
                                        {//正常
 					
 						//printf("ID_VARPARTS_:  ID_VARPARTS_ ID_VARPART_\n");
@@ -3013,11 +3013,11 @@ yyreduce:
 					yyval->children.push_back(yyvsp[-1]);yyval->children.push_back(yyvsp[0]);
 					reduceNode.Clear();
                }
-#line 3017 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 3017 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 120: /* ID_VARPARTS_: %empty  */
-#line 949 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 949 "/home/z838/bianyi/build/../src/yacc.y"
                  {
 					
 						//printf("ID_VARPARTS_:_NULL\n");
@@ -3025,11 +3025,11 @@ yyreduce:
 					yyval->token=Token::ID_VARPARTS_;
 					reduceNode.Clear();
                 }
-#line 3029 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 3029 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 121: /* ID_VARPART_: LEFT_MEDIUM_PARENTHESES EXPRESSION_LIST_ RIGHT_MEDIUM_PARENTHESES  */
-#line 956 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 956 "/home/z838/bianyi/build/../src/yacc.y"
                                                                                {
 					
 						//printf("ID_VARPART_:  LEFT_MEDIUM_PARENTHESES EXPRESSION_LIST_ RIGHT_MEDIUM_PARENTHESES\n");
@@ -3039,11 +3039,11 @@ yyreduce:
 					yyval->children.push_back(yyvsp[0]);
 					reduceNode.Clear();
                }
-#line 3043 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 3043 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 122: /* ID_VARPART_: DOT ID  */
-#line 964 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 964 "/home/z838/bianyi/build/../src/yacc.y"
                        {
 					
 						//printf("ID_VARPART_: DOT ID\n");
@@ -3052,33 +3052,33 @@ yyreduce:
 					yyval->children.push_back(yyvsp[-1]);yyval->children.push_back(yyvsp[0]);
 					reduceNode.Clear();
                }
-#line 3056 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 3056 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 123: /* ID_VARPART_: LEFT_MEDIUM_PARENTHESES error  */
-#line 971 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 971 "/home/z838/bianyi/build/../src/yacc.y"
                                               { //ERROR 不完整的数组下标列表 checked
                                  yyval=new ParseNode;
                                  yyval->token=Token::ID_VARPART_;
                                  yyerror("incomplete EXPRESSION_ list of array subindex", &(yyloc));
 								 reduceNode.Delete();
                            }
-#line 3067 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 3067 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 124: /* ID_VARPART_: LEFT_MEDIUM_PARENTHESES EXPRESSION_LIST_ error  */
-#line 976 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 976 "/home/z838/bianyi/build/../src/yacc.y"
                                                                            { //ERROR 缺失右中括号 checked
                                  yyval=new ParseNode;
                                  yyval->token=Token::ID_VARPART_;
                                  yyerror("missing a right square bracket here", (yylsp[-1]).last_line, (yylsp[-1]).last_column+1);
 								 reduceNode.Delete();
                            }
-#line 3078 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 3078 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 125: /* ELSE_PART_: ELSE STATEMENT_  */
-#line 982 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 982 "/home/z838/bianyi/build/../src/yacc.y"
                             {//正常
 				
 						//printf("ELSE_PART_:  ELSE STATEMENT_\n");
@@ -3087,11 +3087,11 @@ yyreduce:
 				yyval->children.push_back(yyvsp[-1]);yyval->children.push_back(yyvsp[0]);
 				reduceNode.Clear();
             }
-#line 3091 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 3091 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 126: /* ELSE_PART_: %empty  */
-#line 989 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 989 "/home/z838/bianyi/build/../src/yacc.y"
               {//正常
 				
 						//printf("ELSE_PART_: _NULL\n");
@@ -3099,11 +3099,11 @@ yyreduce:
 				yyval->token=Token::ELSE_PART_;
 				reduceNode.Clear();
             }
-#line 3103 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 3103 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 127: /* CASE_BODY_: BRANCH_LIST_  */
-#line 996 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 996 "/home/z838/bianyi/build/../src/yacc.y"
                          {
 				
 						//printf("CASE_BODY_:  BRANCH_LIST_\n");
@@ -3112,11 +3112,11 @@ yyreduce:
 				yyval->children.push_back(yyvsp[0]);
 				reduceNode.Clear();
             }
-#line 3116 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 3116 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 128: /* CASE_BODY_: %empty  */
-#line 1003 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 1003 "/home/z838/bianyi/build/../src/yacc.y"
               {
 				
 				//printf("CASE_BODY_:  _NULL\n");
@@ -3124,11 +3124,11 @@ yyreduce:
 				yyval->token=Token::CASE_BODY_;
 				reduceNode.Clear();
             }
-#line 3128 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 3128 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 129: /* BRANCH_LIST_: BRANCH_LIST_ SEMICOLON BRANCH_  */
-#line 1010 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 1010 "/home/z838/bianyi/build/../src/yacc.y"
                                              {
 					
 						//printf("BRANCH_LIST_:  BRANCH_LIST_ SEMICOLON BRANCH_\n");
@@ -3138,11 +3138,11 @@ yyreduce:
 					yyval->children.push_back(yyvsp[0]);
 					reduceNode.Clear();
                 }
-#line 3142 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 3142 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 130: /* BRANCH_LIST_: BRANCH_  */
-#line 1018 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 1018 "/home/z838/bianyi/build/../src/yacc.y"
                          {
 					
 						//printf("BRANCH_LIST_: BRANCH_\n");
@@ -3151,11 +3151,11 @@ yyreduce:
 					yyval->children.push_back(yyvsp[0]);
 					reduceNode.Clear();
                 }
-#line 3155 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 3155 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 131: /* BRANCH_: CONST_LIST_ COLON STATEMENT_  */
-#line 1026 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 1026 "/home/z838/bianyi/build/../src/yacc.y"
                                       {//正常
 					
 						//printf("BRANCH_:  CONST_LIST_ COLON STATEMENT_\n");
@@ -3165,11 +3165,11 @@ yyreduce:
 					yyval->children.push_back(yyvsp[0]);
 					reduceNode.Clear();
 }
-#line 3169 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 3169 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 132: /* CONST_LIST_: CONST_LIST_ COMMA CONST_VARIABLE_  */
-#line 1035 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 1035 "/home/z838/bianyi/build/../src/yacc.y"
                                                {
 					
 						//printf("CONST_LIST_:  CONST_LIST_ COMMA CONST_VARIABLE_\n");
@@ -3179,11 +3179,11 @@ yyreduce:
 					yyval->children.push_back(yyvsp[0]);
 					reduceNode.Clear();
             }
-#line 3183 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 3183 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 133: /* CONST_LIST_: CONST_VARIABLE_  */
-#line 1043 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 1043 "/home/z838/bianyi/build/../src/yacc.y"
                              {
 					
 						//printf("CONST_LIST_:  CONST_VARIABLE_\n");
@@ -3192,11 +3192,11 @@ yyreduce:
 					yyval->children.push_back(yyvsp[0]);
 					reduceNode.Clear();
             }
-#line 3196 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 3196 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 134: /* UPDOWN_: TO  */
-#line 1051 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 1051 "/home/z838/bianyi/build/../src/yacc.y"
            {
 			
 						//printf("UPDOWN_: TO\n");
@@ -3205,11 +3205,11 @@ yyreduce:
 			yyval->children.push_back(yyvsp[0]);
 			reduceNode.Clear();
         }
-#line 3209 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 3209 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 135: /* UPDOWN_: DOWNTO  */
-#line 1058 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 1058 "/home/z838/bianyi/build/../src/yacc.y"
                 {
 			
 						//printf("UPDOWN_: DOWNTO\n");
@@ -3218,11 +3218,11 @@ yyreduce:
 			yyval->children.push_back(yyvsp[0]);
 			reduceNode.Clear();
         }
-#line 3222 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 3222 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 136: /* CALL_PROCEDURE_STATEMENT_: ID  */
-#line 1066 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 1066 "/home/z838/bianyi/build/../src/yacc.y"
                               {//正常
 								
 						//printf("CALL_PROCEDURE_STATEMENT_:  ID\n");
@@ -3231,11 +3231,11 @@ yyreduce:
 								yyval->children.push_back(yyvsp[0]);
 								reduceNode.Clear();
                             }
-#line 3235 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 3235 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 137: /* CALL_PROCEDURE_STATEMENT_: ID LEFT_PARENTHESES EXPRESSION_LIST_ RIGHT_PARENTHESES  */
-#line 1073 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 1073 "/home/z838/bianyi/build/../src/yacc.y"
                                                                                     {//正常
                                 
 						//printf("CALL_PROCEDURE_STATEMENT_:  ID LEFT_PARENTHESES EXPRESSION_LIST_ RIGHT_PARENTHESES\n");
@@ -3245,22 +3245,22 @@ yyreduce:
 								yyval->children.push_back(yyvsp[-1]);yyval->children.push_back(yyvsp[0]);
 								reduceNode.Clear();
                             }
-#line 3249 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 3249 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 138: /* CALL_PROCEDURE_STATEMENT_: ID LEFT_PARENTHESES EXPRESSION_LIST_ error  */
-#line 1081 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 1081 "/home/z838/bianyi/build/../src/yacc.y"
                                                                         { //ERROR 缺少右括号 checked
 								yyval=new ParseNode;
 								yyval->token=Token::CALL_PROCEDURE_STATEMENT_;
 								yyerror("missing a right bracket here", (yylsp[-1]).last_line, (yylsp[-1]).last_column+1);
 								reduceNode.Delete();
 							}
-#line 3260 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 3260 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 139: /* CALL_PROCEDURE_STATEMENT_: ID LEFT_PARENTHESES RIGHT_PARENTHESES  */
-#line 1086 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 1086 "/home/z838/bianyi/build/../src/yacc.y"
                                                                                                {//正常
                                 
 								yyval=new ParseNode;
@@ -3269,11 +3269,11 @@ yyreduce:
 								yyval->children.push_back(yyvsp[0]);
 								reduceNode.Clear();
                             }
-#line 3273 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 3273 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 140: /* EXPRESSION_LIST_: EXPRESSION_LIST_ COMMA EXPRESSION_  */
-#line 1094 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 1094 "/home/z838/bianyi/build/../src/yacc.y"
                                                      {
 	                  
 						//printf("EXPRESSION_LIST_:  EXPRESSION_LIST_ COMMA EXPRESSION_\n");
@@ -3283,11 +3283,11 @@ yyreduce:
 					  yyval->children.push_back(yyvsp[0]);
 					  reduceNode.Clear();
                     }
-#line 3287 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 3287 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 141: /* EXPRESSION_LIST_: EXPRESSION_  */
-#line 1102 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 1102 "/home/z838/bianyi/build/../src/yacc.y"
                                  {
 						
 						//printf("EXPRESSION_LIST_:  EXPRESSION_\n");
@@ -3296,22 +3296,22 @@ yyreduce:
 						yyval->children.push_back(yyvsp[0]);
 						reduceNode.Clear();
                     }
-#line 3300 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 3300 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 142: /* EXPRESSION_LIST_: EXPRESSION_LIST_ error EXPRESSION_  */
-#line 1109 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 1109 "/home/z838/bianyi/build/../src/yacc.y"
                                                         { //ERROR 缺少逗号 这里引发了一个移进规约冲突 checked
 						yyval=new ParseNode;
 						yyval->token=Token::EXPRESSION_LIST_;
 						yyerror("missing a comma here", (yylsp[-2]).last_line, (yylsp[-2]).last_column+1);
 						reduceNode.Delete();
 					}
-#line 3311 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 3311 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 143: /* EXPRESSION_: SIMPLE_EXPRESSION_ RELOP SIMPLE_EXPRESSION_  */
-#line 1115 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 1115 "/home/z838/bianyi/build/../src/yacc.y"
                                                          {
 	             
 						//printf("EXPRESSION_:  SIMPLE_EXPRESSION_ RELOP SIMPLE_EXPRESSION_\n");
@@ -3321,11 +3321,11 @@ yyreduce:
 				 yyval->children.push_back(yyvsp[0]);
 				 reduceNode.Clear();
                }
-#line 3325 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 3325 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 144: /* EXPRESSION_: SIMPLE_EXPRESSION_  */
-#line 1123 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 1123 "/home/z838/bianyi/build/../src/yacc.y"
                                    {
 				   
 						//printf("EXPRESSION_:  SIMPLE_EXPRESSION_\n");
@@ -3334,11 +3334,11 @@ yyreduce:
 				   yyval->children.push_back(yyvsp[0]);
 				   reduceNode.Clear();
                }
-#line 3338 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 3338 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 145: /* SIMPLE_EXPRESSION_: TERM_  */
-#line 1131 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 1131 "/home/z838/bianyi/build/../src/yacc.y"
                           {
 	                   
 						//printf("SIMPLE_EXPRESSION_:  TERM_\n");
@@ -3347,11 +3347,11 @@ yyreduce:
 					   yyval->children.push_back(yyvsp[0]);
 					   reduceNode.Clear();
                     }
-#line 3351 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 3351 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 146: /* SIMPLE_EXPRESSION_: SIMPLE_EXPRESSION_ ADDOP TERM_  */
-#line 1138 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 1138 "/home/z838/bianyi/build/../src/yacc.y"
                                                     {
 						
 						//printf("SIMPLE_EXPRESSION_:  SIMPLE_EXPRESSION_ ADDOP TERM_\n");
@@ -3361,22 +3361,22 @@ yyreduce:
 						yyval->children.push_back(yyvsp[0]);
 						reduceNode.Clear();
                     }
-#line 3365 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 3365 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 147: /* SIMPLE_EXPRESSION_: SIMPLE_EXPRESSION_ ADDOP error TERM_  */
-#line 1146 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 1146 "/home/z838/bianyi/build/../src/yacc.y"
                                                                       {//error，缺少操作数
 						yyval=new ParseNode;
 						yyval->token=Token::SIMPLE_EXPRESSION_;
 						yyerror("missing operand",(yylsp[-2]).last_line, (yylsp[-2]).last_column+1);
 						reduceNode.Delete();
 					}
-#line 3376 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 3376 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 148: /* TERM_: TERM_ MULOP FACTOR_  */
-#line 1152 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 1152 "/home/z838/bianyi/build/../src/yacc.y"
                            {
 	      
 						//printf("TERM_:  TERM_ MULOP FACTOR_\n");
@@ -3386,11 +3386,11 @@ yyreduce:
 		  yyval->children.push_back(yyvsp[0]);
 		  reduceNode.Clear();
         }
-#line 3390 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 3390 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 149: /* TERM_: FACTOR_  */
-#line 1160 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 1160 "/home/z838/bianyi/build/../src/yacc.y"
                  {
 		  
 						//printf("TERM_:  FACTOR_\n");
@@ -3399,22 +3399,22 @@ yyreduce:
 		  yyval->children.push_back(yyvsp[0]);
 		  reduceNode.Clear();
         }
-#line 3403 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 3403 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 150: /* TERM_: TERM_ MULOP error FACTOR_  */
-#line 1167 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 1167 "/home/z838/bianyi/build/../src/yacc.y"
                                                { //error,缺少操作数
 			yyval=new ParseNode;
 			yyval->token=Token::TERM_;
 			yyerror("missing operand",(yylsp[-2]).last_line, (yylsp[-2]).last_column+1);
 			reduceNode.Delete();
 		}
-#line 3414 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 3414 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 151: /* FACTOR_: UNSIGN_CONST_VARIABLE_  */
-#line 1173 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 1173 "/home/z838/bianyi/build/../src/yacc.y"
                                 {
 	         
 						//printf("FACTOR_:  UNSIGN_CONST_VARIABLE_\n");
@@ -3423,11 +3423,11 @@ yyreduce:
 			 yyval->children.push_back(yyvsp[0]);
 			 reduceNode.Clear();
           }
-#line 3427 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 3427 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 152: /* FACTOR_: ADDOP FACTOR_  */
-#line 1180 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 1180 "/home/z838/bianyi/build/../src/yacc.y"
                          {
 				if(yyval->val != "+" && yyval->val != "-"){
 					yyval=new ParseNode;
@@ -3443,11 +3443,11 @@ yyreduce:
 					reduceNode.Clear();
 				}
                     }
-#line 3447 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 3447 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 153: /* FACTOR_: VARIABLE_  */
-#line 1194 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 1194 "/home/z838/bianyi/build/../src/yacc.y"
                                {
 			 
 						//printf("FACTOR_:  VARIABLE_\n");
@@ -3456,11 +3456,11 @@ yyreduce:
 			 yyval->children.push_back(yyvsp[0]);
 			 reduceNode.Clear();
           }
-#line 3460 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 3460 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 154: /* FACTOR_: ID LEFT_PARENTHESES EXPRESSION_LIST_ RIGHT_PARENTHESES  */
-#line 1201 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 1201 "/home/z838/bianyi/build/../src/yacc.y"
                                                                   {
 			 
 						//printf("FACTOR_:  ID LEFT_PARENTHESES EXPRESSION_LIST_ RIGHT_PARENTHESES\n");
@@ -3470,11 +3470,11 @@ yyreduce:
 			 yyval->children.push_back(yyvsp[-1]);yyval->children.push_back(yyvsp[0]);
 			 reduceNode.Clear();
           }
-#line 3474 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 3474 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 155: /* FACTOR_: ID LEFT_PARENTHESES RIGHT_PARENTHESES  */
-#line 1209 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 1209 "/home/z838/bianyi/build/../src/yacc.y"
                                                  {
 			 
 			 yyval=new ParseNode;
@@ -3483,11 +3483,11 @@ yyreduce:
 			 yyval->children.push_back(yyvsp[0]);
 			 reduceNode.Clear();
           }
-#line 3487 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 3487 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 156: /* FACTOR_: LEFT_PARENTHESES EXPRESSION_ RIGHT_PARENTHESES  */
-#line 1216 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 1216 "/home/z838/bianyi/build/../src/yacc.y"
                                                           {
 			 
 						//printf("FACTOR_:  LEFT_PARENTHESES EXPRESSION_ RIGHT_PARENTHESES\n");
@@ -3497,11 +3497,11 @@ yyreduce:
 			 yyval->children.push_back(yyvsp[0]);
 			 reduceNode.Clear();
           }
-#line 3501 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 3501 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 157: /* FACTOR_: NOT FACTOR_  */
-#line 1224 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 1224 "/home/z838/bianyi/build/../src/yacc.y"
                        {
 			 
 						//printf("FACTOR_:  NOT FACTOR_\n");
@@ -3510,44 +3510,44 @@ yyreduce:
 			 yyval->children.push_back(yyvsp[-1]);yyval->children.push_back(yyvsp[0]);
 			 reduceNode.Clear();
           }
-#line 3514 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 3514 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 158: /* FACTOR_: ID LEFT_PARENTHESES EXPRESSION_LIST_ error  */
-#line 1231 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 1231 "/home/z838/bianyi/build/../src/yacc.y"
                                                       { //ERROR 缺少右括号 这里引发了一个移进规约冲突
 			yyval=new ParseNode;
 			yyval->token=Token::FACTOR_;
 			yyerror("missing a right bracket here", (yylsp[-1]).last_line, (yylsp[-1]).last_column+1);
 			reduceNode.Delete();
 		  }
-#line 3525 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 3525 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 159: /* FACTOR_: ID LEFT_PARENTHESES error  */
-#line 1236 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 1236 "/home/z838/bianyi/build/../src/yacc.y"
                                              { //ERROR 函数调用的表达式列表缺失
 			yyval=new ParseNode;
 			yyval->token=Token::FACTOR_;
 			yyerror("missing actual parameter list of function call", (yylsp[-1]).last_line, (yylsp[-1]).last_column+1);
 			reduceNode.Delete();
 		  }
-#line 3536 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 3536 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 160: /* FACTOR_: LEFT_PARENTHESES EXPRESSION_ error  */
-#line 1241 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 1241 "/home/z838/bianyi/build/../src/yacc.y"
                                                       { //ERROR 缺少右括号
 			yyval=new ParseNode;
 			yyval->token=Token::FACTOR_;
 			yyerror("missing a right bracket here", (yylsp[-1]).last_line, (yylsp[-1]).last_column+1);
 			reduceNode.Delete();
 		  }
-#line 3547 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 3547 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 161: /* UNSIGN_CONST_VARIABLE_: NUM  */
-#line 1247 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 1247 "/home/z838/bianyi/build/../src/yacc.y"
                             {
 	                         
 						//printf("UNSIGN_CONST_VARIABLE_:  NUM\n");
@@ -3556,11 +3556,11 @@ yyreduce:
 							 yyval->children.push_back(yyvsp[0]);
 							 reduceNode.Clear();
                          }
-#line 3560 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 3560 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
   case 162: /* UNSIGN_CONST_VARIABLE_: LETTER  */
-#line 1254 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 1254 "/home/z838/bianyi/build/../src/yacc.y"
                                  {
 							 
 						//printf("UNSIGN_CONST_VARIABLE_:  LETTER\n");
@@ -3569,11 +3569,11 @@ yyreduce:
 							 yyval->children.push_back(yyvsp[0]);
 							 reduceNode.Clear();
                          }
-#line 3573 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 3573 "/home/z838/bianyi/build/../src/yacc.tab.cc"
     break;
 
 
-#line 3577 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.tab.cc"
+#line 3577 "/home/z838/bianyi/build/../src/yacc.tab.cc"
 
       default: break;
     }
@@ -3771,7 +3771,7 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 1264 "/home/cq/4.29/Pascal-S-Compiler/build/../src/yacc.y"
+#line 1264 "/home/z838/bianyi/build/../src/yacc.y"
 
 // 函数定义
 
@@ -3783,7 +3783,7 @@ void yyerror(const char *s){
     errorInformation += string(s);//添加错误信息
     errorInformation += ", location: " + itos(yylineno) + "." + itos(yycolumn-yyleng);//添加错误位置
     syntaxErrorInformation.push_back(errorInformation);//存放错误信息
-    cout << errorInformation << endl;
+    // cout << errorInformation << endl;
 }
 
 void yyerror(const char *s, YYLTYPE *loc){//处理单个字符的错误
@@ -3792,7 +3792,7 @@ void yyerror(const char *s, YYLTYPE *loc){//处理单个字符的错误
     string errorInformation;
     errorInformation = "SYNTAX error, " + string(s) + ", location: " + itos(loc->first_line) + "." + itos(loc->first_column) + "-" + itos(loc->last_line) + "." + itos(loc->last_column);
     syntaxErrorInformation.push_back(errorInformation);
-    cout << errorInformation << endl;
+    // cout << errorInformation << endl;
 }
 
 void yyerror(const char *s, int line, int col){//处理一行以内的错误
@@ -3802,7 +3802,7 @@ void yyerror(const char *s, int line, int col){//处理一行以内的错误
 	
     errorInformation = "SYNTAX error, " + string(s) + ", location: " + itos(line) + "." + itos(col);
     syntaxErrorInformation.push_back(errorInformation);
-    cout << errorInformation << endl;
+    // cout << errorInformation << endl;
 }
 
 void yyerror(const char *s, int startLine, int startCol, int endLine, int endCol){//处理涉及多行的错误
@@ -3812,5 +3812,5 @@ void yyerror(const char *s, int startLine, int startCol, int endLine, int endCol
     errorInformation = "SYNTAX error, " + string(s) + ", location: " + itos(startLine) + "." + itos(startCol) + "-" + itos(endLine) + "." + itos(endCol);
     
     syntaxErrorInformation.push_back(errorInformation);
-    cout << errorInformation << endl;
+    // cout << errorInformation << endl;
 }
