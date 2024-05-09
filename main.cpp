@@ -48,7 +48,6 @@ int main(int argc, char *argv[])
             string errorFile = inFile;
             errorFile.replace(errorFile.end() - 4, errorFile.end(), "_error.txt");
             complierError.setOutputMode(parameters.hasDtOption, parameters.hasDfOption, errorFile);
-            cout << i << endl;
             Complier(inFile, outFile);
         }
     } else {
