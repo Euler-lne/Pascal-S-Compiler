@@ -245,7 +245,7 @@ namespace AST
                 end_type = GetConstTypeFromParseTree(end_const_, end_value);
                 if (start_type != Token::INTEGER || end_type != Token::INTEGER) {
                     // 报错，必须是整数类型的常量
-                    CompilerError::reportError(period_->children[0]->lineNumber, CompilerError::ErrorType::ARRAY_INDEX_NOT_INTEGER);
+                    complierError.reportError(period_->children[0]->lineNumber, CompilerError::ErrorType::ARRAY_INDEX_NOT_INTEGER);
                     return;
                 } else {
                     // 将字符串转换为数字，然后保存；
@@ -255,7 +255,7 @@ namespace AST
                         dimension.emplace_back(pair<int, int>(start, end - start + 1));
                     } else {
                         // 起始下标一定要小于等于结束下标
-                        CompilerError::reportError(period_->children[0]->lineNumber, CompilerError::ErrorType::ARRAY_INDEX_OUT_OF_RANGE);
+                        complierError.reportError(period_->children[0]->lineNumber, CompilerError::ErrorType::ARRAY_INDEX_OUT_OF_RANGE);
                         return;
                     }
                 }
@@ -500,12 +500,12 @@ namespace AST
                         if (operand1->type == Token::INTEGER || operand1->type == Token::REAL) {
                             if (!(operand2->type == Token::INTEGER || operand2->type == Token::REAL)) {
                                 // 报错处理，这里必须是整数或者实数
-                                CompilerError::reportError(expression_->children[1]->lineNumber, CompilerError::ErrorType::OPERAND_TYPE_MISMATCH, "INTEGER or REAL");
+                                complierError.reportError(expression_->children[1]->lineNumber, CompilerError::ErrorType::OPERAND_TYPE_MISMATCH, "INTEGER or REAL");
                                 return;
                             }
                         } else {
                             // 报错处理，这里必须是整数或者实数
-                            CompilerError::reportError(expression_->children[1]->lineNumber, CompilerError::ErrorType::ASSIGNMENT_TYPE_MISMATCH, "left value type and right value type mismatch");
+                            complierError.reportError(expression_->children[1]->lineNumber, CompilerError::ErrorType::ASSIGNMENT_TYPE_MISMATCH, "left value type and right value type mismatch");
                             return;
                         }
                     }
@@ -513,7 +513,7 @@ namespace AST
                     if (!((operand1->type == Token::INTEGER || operand1->type == Token::REAL) &&
                           (operand2->type == Token::INTEGER || operand2->type == Token::REAL))) {
                         // 报错处理，这里必须是整数或者实数
-                        CompilerError::reportError(expression_->children[1]->lineNumber, CompilerError::ErrorType::OPERAND_TYPE_MISMATCH, "INTEGER or REAL");
+                        complierError.reportError(expression_->children[1]->lineNumber, CompilerError::ErrorType::OPERAND_TYPE_MISMATCH, "INTEGER or REAL");
                         return;
                     }
                 }
@@ -544,7 +544,7 @@ namespace AST
                         type = Token::INTEGER;
                     } else {
                         // FIXME:报错处理，两边类型必须相同，都是boolean或者两边都是int，否则报错
-                        CompilerError::reportError(expression_->children[1]->lineNumber, CompilerError::ErrorType::INCOMPATIBLE_OPERAND_TYPES, "BOOLEAN or INTEGER");
+                        complierError.reportError(expression_->children[1]->lineNumber, CompilerError::ErrorType::INCOMPATIBLE_OPERAND_TYPES, "BOOLEAN or INTEGER");
 
                         return;
                     }
@@ -552,7 +552,7 @@ namespace AST
                     if (!((operand1->type == Token::INTEGER || operand1->type == Token::REAL) &&
                           (operand2->type == Token::INTEGER || operand2->type == Token::REAL))) {
                         // 报错处理，这里必须是整数或者实数
-                        CompilerError::reportError(expression_->children[1]->lineNumber, CompilerError::ErrorType::OPERAND_TYPE_MISMATCH, "INTEGER or REAL");
+                        complierError.reportError(expression_->children[1]->lineNumber, CompilerError::ErrorType::OPERAND_TYPE_MISMATCH, "INTEGER or REAL");
                         return;
                     } else {
                         if (operand1->type == Token::REAL || operand2->type == Token::REAL) {
@@ -577,13 +577,13 @@ namespace AST
                         type = Token::INTEGER;
                     } else {
                         // FIXME:报错处理，这里必须两边都是布尔或者两边都是int
-                        CompilerError::reportError(expression_->children[1]->lineNumber, CompilerError::ErrorType::INCOMPATIBLE_OPERAND_TYPES, "BOOLEAN or INTEGER");
+                        complierError.reportError(expression_->children[1]->lineNumber, CompilerError::ErrorType::INCOMPATIBLE_OPERAND_TYPES, "BOOLEAN or INTEGER");
                         return;
                     }
                 } else if (opration == "div" || opration == "mod") {
                     if (!(operand1->type == Token::INTEGER) && (operand2->type == Token::INTEGER)) {
                         // 报错处理，这里必须是整数类型
-                        CompilerError::reportError(expression_->children[1]->lineNumber, CompilerError::ErrorType::OPERAND_TYPE_MISMATCH, "INTEGER");
+                        complierError.reportError(expression_->children[1]->lineNumber, CompilerError::ErrorType::OPERAND_TYPE_MISMATCH, "INTEGER");
                         return;
                     } else {
                         type = Token::INTEGER;
@@ -592,7 +592,7 @@ namespace AST
                     if (!((operand1->type == Token::INTEGER || operand1->type == Token::REAL) &&
                           (operand2->type == Token::INTEGER || operand2->type == Token::REAL))) {
                         // 报错处理，这里必须是整数或者实数
-                        CompilerError::reportError(expression_->children[1]->lineNumber, CompilerError::ErrorType::OPERAND_TYPE_MISMATCH, "INTEGER or REAL");
+                        complierError.reportError(expression_->children[1]->lineNumber, CompilerError::ErrorType::OPERAND_TYPE_MISMATCH, "INTEGER or REAL");
                         return;
                     } else if (operand1->type == Token::REAL || operand2->type == Token::REAL) {
                         type = Token::REAL; // 其中一个是实数就是实数
@@ -626,7 +626,7 @@ namespace AST
                     if (value.length() > 1) {
                         if (StatementisWrite == 0) {
                             // 报错，字符长度不对
-                            CompilerError::reportError(expression_->children[0]->lineNumber, CompilerError::ErrorType::CHAR_LENGTH_ERROR);
+                            complierError.reportError(expression_->children[0]->lineNumber, CompilerError::ErrorType::CHAR_LENGTH_ERROR);
                             return;
                         }
                         type = Token::LETTER;
@@ -647,7 +647,7 @@ namespace AST
                 type = subProgramCall->GetReturnType();
                 if (type == Token::NULL_) {
                     // 报错不能没有返回值
-                    CompilerError::reportError(expression_->children[0]->lineNumber, CompilerError::ErrorType::FUNCTION_NOT_FOUND, subProgramCall->subProgramId.first + "has no return value");
+                    complierError.reportError(expression_->children[0]->lineNumber, CompilerError::ErrorType::FUNCTION_NOT_FOUND, subProgramCall->subProgramId.first + "has no return value");
                     return;
                 }
                 valueType = 3;
@@ -662,7 +662,7 @@ namespace AST
                 type = operand2->type;
                 if (type != Token::INTEGER && type != Token::BOLLEAN) {
                     // FIXME:报错处理，not 后面不能是字符或者字符串类型
-                    CompilerError::reportError(expression_->children[0]->lineNumber, CompilerError::ErrorType::OPERAND_TYPE_MISMATCH, "INTEGER or BOOLEAN");
+                    complierError.reportError(expression_->children[0]->lineNumber, CompilerError::ErrorType::OPERAND_TYPE_MISMATCH, "INTEGER or BOOLEAN");
                     return;
                 }
             } else if (factorType == Token::ADDOP) {
@@ -672,7 +672,7 @@ namespace AST
                 operand2 = new Expression(expression_->children[1]);
                 if (!(operand2->type == Token::INTEGER || operand2->type == Token::REAL)) {
                     // 报错处理，这里必须是整数或者实数
-                    CompilerError::reportError(expression_->children[0]->lineNumber, CompilerError::ErrorType::OPERAND_TYPE_MISMATCH, "INTEGER or REAL");
+                    complierError.reportError(expression_->children[0]->lineNumber, CompilerError::ErrorType::OPERAND_TYPE_MISMATCH, "INTEGER or REAL");
                     return;
                 } else {
                     type = operand2->type;
@@ -723,7 +723,7 @@ namespace AST
             cur = FindDeclaration(idName, lineNum);
             if (cur == nullptr) {
                 // 报错 使用了没有声明的变量，并返回，不执行下面的语句
-                CompilerError::reportError(lineNum, CompilerError::ErrorType::UNDEFINED_VARIABLE, idName);
+                complierError.reportError(lineNum, CompilerError::ErrorType::UNDEFINED_VARIABLE, idName);
                 return;
             }
             // 寻找idName，判断其类型，最开始的id
@@ -742,7 +742,7 @@ namespace AST
                 // TODO: 是否开启赋初值的检测
                 // } else if (varDeclare->IsAssignment() == 0) {
                 //     // :报错，使用了一个没有赋值的变量
-                //     CompilerError::reportError(lineNum, CompilerError::ErrorType::UNASSIGNED_VARIABLE, idName);
+                //     complierError.reportError(lineNum, CompilerError::ErrorType::UNASSIGNED_VARIABLE, idName);
                 //     return;
                 // }
                 idType = varDeclare->GetVarDeclareType();
@@ -753,7 +753,7 @@ namespace AST
             case Token::CONST:
                 if (isLeft) {
                     // 报错，左值不可以是常量，常量不可以修改
-                    CompilerError::reportError(lineNum, CompilerError::ErrorType::CONST_CANNOT_BE_ASSIGNED, idName);
+                    complierError.reportError(lineNum, CompilerError::ErrorType::CONST_CANNOT_BE_ASSIGNED, idName);
                     return;
                 } else {
                     ConstDeclare *constDeclare = cur->declaration->constList.find(idName)->second;
@@ -767,12 +767,12 @@ namespace AST
                 idType = cur->declaration->subProgramList.find(idName)->second->GetReturnType();
                 if (isLeft && cur != curProgramBody->parent) {
                     // 报错 当前作用域下的Function才可以作为一个左赋值语句，这里对应的是函数返回语句
-                    CompilerError::reportError(lineNum, CompilerError::ErrorType::FUNCTION_NOT_FOUND, idName);
+                    complierError.reportError(lineNum, CompilerError::ErrorType::FUNCTION_NOT_FOUND, idName);
                     return;
                 }
                 if (isLeft == 0 && cur->declaration->subProgramList.find(idName)->second->formalParameterList.size() != 0) {
                     // 报错 一个为右值的函数变量不能有为需要接受参数的函数
-                    CompilerError::reportError(lineNum, CompilerError::ErrorType::FUNCTION_PARAMETER_MISMATCH, idName);
+                    complierError.reportError(lineNum, CompilerError::ErrorType::FUNCTION_PARAMETER_MISMATCH, idName);
                     return;
                 }
                 break;
@@ -796,13 +796,13 @@ namespace AST
         if (finalType == Token::RECORD || finalType == Token::ARRAY) {
             if (id_varpart_ == nullptr) {
                 // 报错，不可以直接对记录 或者 数组赋值
-                CompilerError::reportError(lineNum, CompilerError::ErrorType::RECORD_OR_ARRAY_CANNOT_BE_ASSIGNED, idName);
+                complierError.reportError(lineNum, CompilerError::ErrorType::RECORD_OR_ARRAY_CANNOT_BE_ASSIGNED, idName);
                 return;
             }
         } else {
             if (id_varpart_ != nullptr) {
                 // 报错，只有记录和数组才可能有id_varpart
-                CompilerError::reportError(lineNum, CompilerError::ErrorType::RECORD_FIELD_NOT_FOUND, idName);
+                complierError.reportError(lineNum, CompilerError::ErrorType::RECORD_FIELD_NOT_FOUND, idName);
                 return;
             }
         }
@@ -811,7 +811,7 @@ namespace AST
                 if (finalType == Token::RECORD) {
                     if (id_varpart_->children[0]->token != Token::DOT) {
                         // 报错
-                        CompilerError::reportError(lineNum, CompilerError::ErrorType::RECORD_FIELD_NOT_FOUND, idName);
+                        complierError.reportError(lineNum, CompilerError::ErrorType::RECORD_FIELD_NOT_FOUND, idName);
                         return;
                     } else {
                         idName = id_varpart_->children[1]->val;
@@ -826,14 +826,14 @@ namespace AST
                 } else if (finalType == Token::ARRAY) {
                     if (id_varpart_->children[0]->token != Token::LEFT_MEDIUM_PARENTHESES) {
                         // 报错
-                        CompilerError::reportError(lineNum, CompilerError::ErrorType::ARRAY_INDEX_MISMATCH, "missing LEFT_MEDIUM_PARENTHESES ");
+                        complierError.reportError(lineNum, CompilerError::ErrorType::ARRAY_INDEX_MISMATCH, "missing LEFT_MEDIUM_PARENTHESES ");
                         return;
                     } else {
                         ParseNode *expression_list_ = id_varpart_->children[1];
                         Stack expressionListStack(expression_list_, 0, 2, 1, 0, Token::EXPRESSION_);
                         if (expressionListStack.GetStackLen() != varDeclare->GetArrayDimension()) {
                             // expression的数目和数组维度不匹配
-                            CompilerError::reportError(lineNum, CompilerError::ErrorType::ARRAY_INDEX_MISMATCH), "dimension mismatch";
+                            complierError.reportError(lineNum, CompilerError::ErrorType::ARRAY_INDEX_MISMATCH), "dimension mismatch";
                             return;
                         } else {
                             ParseNode *expression_ = expressionListStack.Pop();
@@ -841,7 +841,7 @@ namespace AST
                                 Expression *expression = new Expression(expression_);
                                 if (expression->GetValueToken() != Token::INTEGER) {
                                     // 报错，需要为INTEGER
-                                    CompilerError::reportError(lineNum, CompilerError::ErrorType::ARRAY_INDEX_NOT_INTEGER);
+                                    complierError.reportError(lineNum, CompilerError::ErrorType::ARRAY_INDEX_NOT_INTEGER);
                                     return;
                                 }
                                 arrayPart.emplace_back(expression);
@@ -855,11 +855,11 @@ namespace AST
                            finalType == Token::REAL ||
                            finalType == Token::CHAR) {
                     // 报错，接下来的变量不能有id_varpart
-                    CompilerError::reportError(lineNum, CompilerError::ErrorType::VARIABLE_NOT_ALLOWED, idName);
+                    complierError.reportError(lineNum, CompilerError::ErrorType::VARIABLE_NOT_ALLOWED, idName);
                     return;
                 } else if (finalType == Token::NULL_) {
                     // 报错，没有在记录中找到这个id名字
-                    CompilerError::reportError(lineNum, CompilerError::ErrorType::RECORD_FIELD_NOT_FOUND, idName);
+                    complierError.reportError(lineNum, CompilerError::ErrorType::RECORD_FIELD_NOT_FOUND, idName);
                     return;
                 }
                 id_varpart_ = idVarpartsStack.Pop();
@@ -867,14 +867,14 @@ namespace AST
         } else if (finalType == Token::ARRAY) {
             if (id_varpart_->children[0]->token != Token::LEFT_MEDIUM_PARENTHESES) {
                 // 报错，已经是数组类型了不可能是其他
-                CompilerError::reportError(lineNum, CompilerError::ErrorType::ARRAY_INDEX_MISMATCH, "missing LEFT_MEDIUM_PARENTHESES ");
+                complierError.reportError(lineNum, CompilerError::ErrorType::ARRAY_INDEX_MISMATCH, "missing LEFT_MEDIUM_PARENTHESES ");
                 return;
             } else {
                 ParseNode *expression_list_ = id_varpart_->children[1];
                 Stack expressionListStack(expression_list_, 0, 2, 1, 0, Token::EXPRESSION_);
                 if (expressionListStack.GetStackLen() != varDeclare->GetArrayDimension()) {
                     // expression的数目和数组维度不匹配
-                    CompilerError::reportError(lineNum, CompilerError::ErrorType::ARRAY_INDEX_MISMATCH, "dimension mismatch");
+                    complierError.reportError(lineNum, CompilerError::ErrorType::ARRAY_INDEX_MISMATCH, "dimension mismatch");
                     return;
                 } else {
                     ParseNode *expression_ = expressionListStack.Pop();
@@ -882,7 +882,7 @@ namespace AST
                         Expression *expression = new Expression(expression_);
                         if (expression->GetValueToken() != Token::INTEGER) {
                             // 报错，需要为INTEGER
-                            CompilerError::reportError(lineNum, CompilerError::ErrorType::ARRAY_INDEX_NOT_INTEGER);
+                            complierError.reportError(lineNum, CompilerError::ErrorType::ARRAY_INDEX_NOT_INTEGER);
                             return;
                         }
                         arrayPart.emplace_back(expression);
@@ -946,13 +946,13 @@ namespace AST
             prefix = cur->prefix;
             if (idType != Token::VAR) {
                 // 报错，只能是变量
-                CompilerError::reportError(lineNum, CompilerError::ErrorType::VARIABLE_NOT_ALLOWED, idName + " is not a variable");
+                complierError.reportError(lineNum, CompilerError::ErrorType::VARIABLE_NOT_ALLOWED, idName + " is not a variable");
                 return;
             }
             VarDeclare *varDeclare = cur->declaration->varList.find(idName)->second.second;
             if (varDeclare->IsArray() || varDeclare->GetVarDeclareType() == Token::RECORD) {
                 // 报错，只能是普通类型
-                CompilerError::reportError(lineNum, CompilerError::ErrorType::VARIABLE_NOT_ALLOWED, idName + " shouldn't be an array or record");
+                complierError.reportError(lineNum, CompilerError::ErrorType::VARIABLE_NOT_ALLOWED, idName + " shouldn't be an array or record");
                 return;
             }
             idType = varDeclare->GetVarDeclareType();
@@ -983,7 +983,7 @@ namespace AST
         map<string, SubProgram *> subList = cur->declaration->subProgramList;
         if (subList.find(name) == subList.end()) {
             // 报错找到了这个变量但是不是函数名
-            CompilerError::reportError(line, CompilerError::ErrorType::FUNCTION_NOT_FOUND, name + "should be a function name");
+            complierError.reportError(line, CompilerError::ErrorType::FUNCTION_NOT_FOUND, name + "should be a function name");
             return;
         }
         subprogram = subList.find(name)->second;
@@ -995,7 +995,7 @@ namespace AST
         Stack expressionListStack(expression_list_, 0, 2, 1, 0, Token::EXPRESSION_);
         if (expressionListStack.GetStackLen() != GetParameterNums(subprogram->formalParameterList)) {
             // expression的数目和参数长度不匹配
-            CompilerError::reportError(line, CompilerError::ErrorType::PARAMETER_NUMBER_MISMATCH, name + "parameter number mismatch");
+            complierError.reportError(line, CompilerError::ErrorType::PARAMETER_NUMBER_MISMATCH, name + "parameter number mismatch");
             return;
         } else {
             ParseNode *expression_ = expressionListStack.Pop();
@@ -1005,14 +1005,14 @@ namespace AST
                 if (expression->GetValueToken() != subprogram->GetParameterType(i)) {
                     if (!(expression->GetValueToken() == Token::INTEGER && subprogram->GetParameterType(i) == Token::REAL)) {
                         // 报错，参数类不匹配
-                        CompilerError::reportError(line, CompilerError::ErrorType::PARAMETER_TYPE_MISMATCH, name + "parameter type mismatch");
+                        complierError.reportError(line, CompilerError::ErrorType::PARAMETER_TYPE_MISMATCH, name + "parameter type mismatch");
                         return;
                     }
                 }
                 if (subprogram->IsVarParameterAtIndex(i) && expression->isId == 0) {
                     // 是引用传参且表达式的值不是单独的ID，那么就要报错
                     // 报错，引用传参的函数调用必须是一个id类型，不能是表达式
-                    CompilerError::reportError(line, CompilerError::ErrorType::VAR_PARAMETER_NOT_ID, name + "var parameter must be an id");
+                    complierError.reportError(line, CompilerError::ErrorType::VAR_PARAMETER_NOT_ID, name + "var parameter must be an id");
                     return;
                 }
                 paraList.emplace_back(expression);
@@ -1040,7 +1040,7 @@ namespace AST
             condition = new Expression(while_statement_->children[1]);
             if (condition->GetValueToken() != Token::BOLLEAN) {
                 // 不为布尔类型报错
-                CompilerError::reportError(while_statement_->children[1]->lineNumber, CompilerError::ErrorType::CONDITION_NOT_BOOLEAN, "while condition must be boolean");
+                complierError.reportError(while_statement_->children[1]->lineNumber, CompilerError::ErrorType::CONDITION_NOT_BOOLEAN, "while condition must be boolean");
                 return;
             }
             statement_ = new Statement(while_statement_->children[3]);
@@ -1053,7 +1053,7 @@ namespace AST
             condition = new Expression(while_statement_->children[3]);
             if (condition->GetValueToken() != Token::BOLLEAN) {
                 // 不为布尔类型报错
-                CompilerError::reportError(while_statement_->children[3]->lineNumber, CompilerError::ErrorType::CONDITION_NOT_BOOLEAN, "repeat condition must be boolean");
+                complierError.reportError(while_statement_->children[3]->lineNumber, CompilerError::ErrorType::CONDITION_NOT_BOOLEAN, "repeat condition must be boolean");
                 return;
             }
             ParseNode *statement_list_ = while_statement_->children[1]; // 得到语句列表
@@ -1070,7 +1070,7 @@ namespace AST
             initAssign = new AssignStatement(idNode, expression1_);
             if (initAssign->leftVal->GetFinalType() != Token::INTEGER) {
                 // 报错，必须是整数
-                CompilerError::reportError(while_statement_->children[1]->lineNumber, CompilerError::ErrorType::FOR_LOOP_VAR_NOT_INTEGER);
+                complierError.reportError(while_statement_->children[1]->lineNumber, CompilerError::ErrorType::FOR_LOOP_VAR_NOT_INTEGER);
                 return;
             }
             ParseNode *updown_ = while_statement_->children[4];
@@ -1081,7 +1081,7 @@ namespace AST
             condition = new Expression(while_statement_->children[5]);
             if (condition->GetValueToken() != Token::INTEGER) {
                 // 不为整数类型报错
-                CompilerError::reportError(while_statement_->children[5]->lineNumber, CompilerError::ErrorType::FOR_LOOP_CONDITION_NOT_INTEGER);
+                complierError.reportError(while_statement_->children[5]->lineNumber, CompilerError::ErrorType::FOR_LOOP_CONDITION_NOT_INTEGER);
                 return;
             }
             statement_ = new Statement(while_statement_->children[7]);
@@ -1114,7 +1114,7 @@ namespace AST
         condition = new Expression(expression_);
         if (condition->GetValueToken() != Token::BOLLEAN) {
             // 不为布尔类型报错
-            CompilerError::reportError(if_statement_->children[0]->lineNumber, CompilerError::ErrorType::CONDITION_NOT_BOOLEAN, "if condition must be boolean");
+            complierError.reportError(if_statement_->children[0]->lineNumber, CompilerError::ErrorType::CONDITION_NOT_BOOLEAN, "if condition must be boolean");
             return;
         }
         thenStatement = new Statement(statement_);
@@ -1149,7 +1149,7 @@ namespace AST
             if (!((leftVal->GetFinalType() == Token::REAL) &&
                   rightVal->GetValueToken() == Token::INTEGER)) { // int 可以 赋值给 real
                 // 类型不同报错处理，这里需要修改
-                CompilerError::reportError(assign_statement_->children[1]->lineNumber, CompilerError::ErrorType::ASSIGNMENT_TYPE_MISMATCH, "left value type and right value type mismatch");
+                complierError.reportError(assign_statement_->children[1]->lineNumber, CompilerError::ErrorType::ASSIGNMENT_TYPE_MISMATCH, "left value type and right value type mismatch");
                 return;
             }
         }
@@ -1272,7 +1272,7 @@ namespace AST
                     if (declarationList.find(idNode->val) != declarationList.end()) {
                         // 之前有声明过这个变量，这里要报错
                         // 报错变量重定义
-                        CompilerError::reportError(idNode->lineNumber, CompilerError::ErrorType::REDEFINED_VARIABLE, idNode->val);
+                        complierError.reportError(idNode->lineNumber, CompilerError::ErrorType::REDEFINED_VARIABLE, idNode->val);
                         return;
                     }
                     VarDeclare *varDeclare = new VarDeclare(type_, idNode->val);
@@ -1299,7 +1299,7 @@ namespace AST
                 if (declarationList.find(idNode->val) != declarationList.end()) {
                     // 之前有声明过这个变量，这里要报错
                     // 报错常量重定义
-                    CompilerError::reportError(idNode->lineNumber, CompilerError::ErrorType::REDEFINED_VARIABLE, idNode->val);
+                    complierError.reportError(idNode->lineNumber, CompilerError::ErrorType::REDEFINED_VARIABLE, idNode->val);
                     return;
                 }
                 ConstDeclare *constDeclare = new ConstDeclare(const_variable, idNode->val);
@@ -1324,7 +1324,7 @@ namespace AST
                 if (declarationList.find(name) != declarationList.end()) {
                     // 之前有声明过这个变量，这里要报错
                     // 报错函数重定义
-                    CompilerError::reportError(subprogram_head->children[1]->lineNumber, CompilerError::ErrorType::REDEFINED_VARIABLE, name);
+                    complierError.reportError(subprogram_head->children[1]->lineNumber, CompilerError::ErrorType::REDEFINED_VARIABLE, name);
                     return;
                 }
                 SubProgram *subProgram = new SubProgram(subprogram_declaration_);
@@ -1392,7 +1392,7 @@ namespace AST
                     return constId->GetConstDeclareType();
                 } else {
                     // 报错找到了这个变量但是不是常量
-                    CompilerError::reportError(item->lineNumber, CompilerError::ErrorType::CONST_NOT_FOUND, idName + " is not a const variable");
+                    complierError.reportError(item->lineNumber, CompilerError::ErrorType::CONST_NOT_FOUND, idName + " is not a const variable");
                     return Token::NULL_;
                 }
             }
@@ -1416,7 +1416,7 @@ namespace AST
             cur = cur->parent;
         }
         // 没有找到就要报错，因为const variable必须是一个const类型的变量
-        CompilerError::reportError(lineNum, CompilerError::ErrorType::CONST_NOT_FOUND, idName + " is not found in the declaration list");
+        complierError.reportError(lineNum, CompilerError::ErrorType::CONST_NOT_FOUND, idName + " is not found in the declaration list");
         return nullptr;
     }
     /// @brief 在当前的作用域的参数列表中查找这个id名字

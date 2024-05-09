@@ -17,6 +17,7 @@
 #include "ASTError.h"
 #include "TokenTypeEnum.h"
 #include "main.h"
+extern CompilerError complierError;
 using namespace std;
 namespace AST
 {

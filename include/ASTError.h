@@ -6,6 +6,10 @@
 extern int ERROR_NUM;
 class CompilerError
 {
+private:
+    int output_to_terminal_ = 0;       // 是否输出到终端
+    int output_to_file_ = 0;           // 是否输出到文件
+    std::ofstream output_file_stream_; // 文件流
 public:
     enum class ErrorType {
         ARRAY_INDEX_NOT_INTEGER,
@@ -34,8 +38,27 @@ public:
         FUNCTION_PARAMETER_MISMATCH,
         INCOMPATIBLE_OPERAND_TYPES
     };
+    // 构造函数
+    CompilerError() {}
 
-    static void reportError(int lineNum, ErrorType errorType, const std::string &additionalInfo = "")
+    // 设置输出方式
+    void setOutputMode(int output_to_terminal, int output_to_file, string filename)
+    {
+        output_to_terminal_ = output_to_terminal;
+        output_to_file_ = output_to_file;
+
+        if (output_to_file_) {
+            // 打开输出文件
+            output_file_stream_.open(filename);
+            if (!output_file_stream_.is_open()) {
+                std::cerr << "Error: Unable to open output file." << std::endl;
+                output_to_file_ = false; // 如果无法打开文件，则将输出方式设置为终端
+                return;
+            }
+        }
+    }
+
+    void reportError(int lineNum, ErrorType errorType, const std::string &additionalInfo = "")
     {
         std::string errorMessage;
         switch (errorType) {
@@ -119,7 +142,13 @@ public:
             break;
         }
 
-        std::cerr << "SEMANRICS Error at line " << lineNum << ": " << errorMessage << std::endl;
+        // 根据设置选择输出目标
+        if (output_to_terminal_) {
+            std::cerr << "SEMANRICS Error at line " << lineNum << ": " << errorMessage << std::endl;
+        }
+        if (output_to_file_) {
+            output_file_stream_ << "SEMANRICS Error at line " << lineNum << ": " << errorMessage << std::endl;
+        }
         ERROR_NUM++;
     }
 };
