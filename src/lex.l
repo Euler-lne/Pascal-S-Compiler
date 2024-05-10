@@ -11,7 +11,7 @@
 
 
 //处理位置信息
-int yycolumn = 1;
+extern int yycolumn;
 extern YYLTYPE yylloc;
 #define YY_USER_ACTION yylloc.first_line = yylloc.last_line = yylineno ; \
     yylloc.first_column = yycolumn; yylloc.last_column = yycolumn+yyleng-1; \

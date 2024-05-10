@@ -32,12 +32,10 @@ extern char* yytext;
 extern char lineBuffer[500];
 extern int yyleng;
 extern int yycolumn;
+extern ParseNode* ParseTreeHead;
 extern string itos(int num);
-
-bool haveSemanticError=false;
+extern bool haveSemanticError;
 int rec_line,rec_pos;
-
-ParseNode* ParseTreeHead=NULL;
 
 vector<string> syntaxErrorInformation; //存放语法错误信息
 

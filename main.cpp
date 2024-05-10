@@ -12,9 +12,12 @@ namespace fs = std::filesystem;
 
 CompilerError complierError;
 int ERROR_NUM = 0;
+int yycolumn = 1;
+bool haveSemanticError = false;
 ReduceParseNode reduceNode;
-extern ParseNode *ParseTreeHead;
+ParseNode *ParseTreeHead = nullptr;
 extern FILE *yyin;
+
 extern int yyparse();
 
 struct Parameters {
@@ -154,7 +157,9 @@ int Complier(string inputFile, string outputFile)
         return -1;
     }
     yyin = fp;
-
+    yycolumn = 1;
+    ERROR_NUM = 0;
+    haveSemanticError = false;
     yyparse(); // 调用语法分析程序
 
     fclose(fp);
@@ -174,6 +179,7 @@ int Complier(string inputFile, string outputFile)
         reduceNode.Clear();
         delete ParseTreeHead;
     }
+    ParseTreeHead = nullptr;
     if (ERROR_NUM == 0)
         return 1;
     else
