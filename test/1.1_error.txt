@@ -1,1 +1,0 @@
-SEMANRICS Error at line 6: Assignment type mismatch

@@ -8,7 +8,7 @@
 #include "ASTNode.h"
 #include "CodeGeneration.h"
 #include <filesystem>
-namespace fs = std::filesystem;
+namespace fs = filesystem;
 
 CompilerError complierError;
 int ERROR_NUM = 0;
@@ -36,6 +36,7 @@ string itos(int num)
 }
 
 Parameters parseArguments(int argc, char *argv[]);
+string getFileNameFromPath(const string &filePath);
 vector<string> getAllFilePaths(const string &path);
 int Complier(string inputFile, string outputFile);
 
@@ -46,10 +47,11 @@ int main(int argc, char *argv[])
         vector<string> files = getAllFilePaths(parameters.inputPath);
         for (int i = 0; i < files.size(); i++) {
             string inFile = files[i];
-            string outFile = inFile;
+            string filename = getFileNameFromPath(inFile);
+            string outFile = (fs::path(parameters.outputPath) / filename).string();
             outFile.replace(outFile.end() - 4, outFile.end(), ".c");
-            string errorFile = inFile;
-            errorFile.replace(errorFile.end() - 4, errorFile.end(), "_error.txt");
+            string errorFile = outFile;
+            errorFile.replace(errorFile.end() - 2, errorFile.end(), "_error.txt");
             complierError.setOutputMode(parameters.hasDtOption, parameters.hasDfOption, errorFile);
             Complier(inFile, outFile);
         }
@@ -145,6 +147,15 @@ vector<string> getAllFilePaths(const string &path)
     }
 
     return files;
+}
+string getFileNameFromPath(const string &filePath)
+{
+    size_t found = filePath.find_last_of("/\\");
+    if (found != string::npos) {
+        return filePath.substr(found + 1);
+    } else {
+        return filePath; // If no path separator found, return the whole path as filename
+    }
 }
 
 /// @brief 编译函数
