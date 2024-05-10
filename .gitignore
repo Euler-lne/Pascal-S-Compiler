@@ -3,6 +3,7 @@
 GenTest
 build
 Ccode
+dist
 
 lex.yy.cc
 yacc.tab.cc

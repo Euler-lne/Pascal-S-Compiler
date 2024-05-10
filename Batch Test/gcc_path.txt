@@ -1,0 +1,1 @@
+D:\Application\mingw64\bin\gcc.exe
