@@ -1,0 +1,29 @@
+@startuml
+
+actor User
+
+User -> Script: 输入C代码文件夹路径
+User -> Script: 输入Pascal代码文件夹路径
+User -> Script: 输入输入文件夹路径
+
+Script -> Script: 获取当前脚本路径
+Script -> Script: 获取编译器路径
+
+Script -> Script: 处理C代码文件
+    Script -> C_Compiler: 编译C代码文件
+    C_Compiler -> C_Executable: 生成C可执行文件
+    Script -> C_Executable: 执行C可执行文件,读取输入文件,输出结果到输出文件
+
+Script -> Script: 处理Pascal代码文件
+    Script -> Pascal_Compiler: 编译Pascal代码文件
+    Pascal_Compiler -> Pascal_Executable: 生成Pascal可执行文件
+    Script -> Pascal_Executable: 执行Pascal可执行文件,读取输入文件,输出结果到输出文件
+
+Script -> Script: 比较C和Pascal的输出结果
+    Script -> File_Comparison: 比较同名输出文件内容是否相同
+
+Script -> Script: 删除Pascal生成的中间文件
+
+User <-- Script: 显示对比结果,等待继续
+
+@enduml
