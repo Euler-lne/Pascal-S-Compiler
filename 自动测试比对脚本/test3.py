@@ -98,3 +98,9 @@ for filename in os.listdir(c_output_folder):
             print(filename, "contents are the same")
         else:
             print(filename, "contents are different")
+
+# 删除Pascal代码生成的.o和.exe文件
+for filename in os.listdir(pascal_code_folder):
+    if filename.endswith('.o') or filename.endswith('.exe'):
+        file_path = os.path.join(pascal_code_folder, filename)
+        os.remove(file_path)
