@@ -30,7 +30,7 @@ if(WIN32)
 # Linux 下的编译指令
 elseif(UNIX)
   message(STATUS "Linux")
-  # set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -D__linux__ -Wno-error=register")
+  set(CMAKE_CXX_FLAGS "-Wno-error=register")
 endif()
 
 file(GLOB_RECURSE include "include/*.h")
